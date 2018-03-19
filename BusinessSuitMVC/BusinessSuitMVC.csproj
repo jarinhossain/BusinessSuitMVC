@@ -64,6 +64,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\..\salahuddinahmed\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -96,8 +99,64 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-reset.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bucket-ico-fonts.css" />
+    <Content Include="Content\bucket-ico-fonts\bucket-ico-font.svg" />
+    <Content Include="Content\clndr.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfontba72.svg" />
+    <Content Include="Content\invoice-print.css" />
+    <Content Include="Content\jquery-jvectormap-1.2.2.css" />
+    <Content Include="Content\jquery-ui-1.10.1.custom.min.css" />
+    <Content Include="Content\jquery.stepsc4ca.css" />
+    <Content Include="Content\style-responsive.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\style3860.css" />
+    <Content Include="Content\stylec4ca.css" />
+    <Content Include="Content\table-responsive.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\404.png" />
+    <Content Include="Images\500.png" />
+    <Content Include="Images\acc-expand.png" />
+    <Content Include="Images\avatar-mini-2.jpg" />
+    <Content Include="Images\avatar-mini-3.jpg" />
+    <Content Include="Images\avatar-mini-4.jpg" />
+    <Content Include="Images\avatar-mini.jpg" />
+    <Content Include="Images\avatar1.jpg" />
+    <Content Include="Images\avatar1_small.jpg" />
+    <Content Include="Images\bucket-logo.png" />
+    <Content Include="Images\chat-avatar2.jpg" />
+    <Content Include="Images\chat-user-thumb-f.png" />
+    <Content Include="Images\chat-user-thumb.png" />
+    <Content Include="Images\crazy-price.jpg" />
+    <Content Include="Images\customSelect-arrow.gif" />
+    <Content Include="Images\details_close.png" />
+    <Content Include="Images\details_open.png" />
+    <Content Include="Images\favicon.html" />
+    <Content Include="Images\lock-screen.jpg" />
+    <Content Include="Images\lock_thumb.jpg" />
+    <Content Include="Images\logo.png" />
+    <Content Include="Images\nav-expand.png" />
+    <Content Include="Images\product_img.png" />
+    <Content Include="Images\search-icon.png" />
+    <Content Include="Images\sm-img-1.jpg" />
+    <Content Include="Images\sm-img-2.jpg" />
+    <Content Include="Images\sm-img-3.jpg" />
+    <Content Include="Images\top-arrow.png" />
+    <Content Include="Images\twitter_corner_black.png" />
+    <Content Include="Images\twitter_corner_blue.png" />
+    <Content Include="Images\weather_image.jpg" />
+    <Content Include="Script\clndr.js" />
+    <Content Include="Script\dashboard.js" />
+    <Content Include="Script\evnt.calendar.init.js" />
+    <Content Include="Script\gauge.js" />
+    <Content Include="Script\jquery-jvectormap-1.2.2.min.js" />
+    <Content Include="Script\jquery-jvectormap-us-lcc-en.js" />
+    <Content Include="Script\jquery.easing.min.js" />
+    <Content Include="Script\jquery.nicescroll.js" />
+    <Content Include="Script\jquery.scrollTo.js" />
+    <Content Include="Script\jquery.slimscroll.js" />
     <Content Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
@@ -109,10 +168,60 @@
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
     <Content Include="Script\bootstrap.min.js" />
+    <Content Include="Script\jquery-1.10.2.js" />
+    <Content Include="Script\jquery-1.10.2.min.js" />
+    <Content Include="Script\jquery-ui-1.10.1.custom.min.js" />
+    <Content Include="Script\jquery.dcjqaccordion.2.7.js" />
     <Content Include="Script\jquery.min.js" />
+    <Content Include="Script\jquery.scrollTo.min.js" />
+    <Content Include="Script\moment-2.2.1.js" />
+    <Content Include="Script\scripts.js" />
+    <Content Include="Script\skycons.js" />
+    <Content Include="Script\underscore-min.js" />
+    <Content Include="Views\layoutTemplate\css\bootstrap-reset.css" />
+    <Content Include="Views\layoutTemplate\css\bootstrap-switch.css" />
+    <Content Include="Views\layoutTemplate\css\bootstrap.min.html" />
+    <Content Include="Views\layoutTemplate\css\bucket-ico-fonts.css" />
+    <Content Include="Views\layoutTemplate\css\clndr.css" />
+    <Content Include="Views\layoutTemplate\css\invoice-print.css" />
+    <Content Include="Views\layoutTemplate\css\jquery.stepsc4ca.css" />
+    <Content Include="Views\layoutTemplate\css\style-responsive.css" />
+    <Content Include="Views\layoutTemplate\css\style.css" />
+    <Content Include="Views\layoutTemplate\css\style3860.css" />
+    <Content Include="Views\layoutTemplate\css\stylec4ca.css" />
+    <Content Include="Views\layoutTemplate\css\table-responsive.css" />
+    <Content Include="Views\layoutTemplate\font-awesome\css\font-awesome.css" />
+    <Content Include="Views\layoutTemplate\font-awesome\fonts\fontawesome-webfontba72.svg" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\images\animated-overlay.gif" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\images\ui-icons_222222_256x240.png" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\jquery-ui-1.10.1.custom.min.css" />
+    <Content Include="Views\layoutTemplate\js\jquery-ui\jquery-ui-1.10.1.custom.min.js" />
+    <Content Include="Views\layoutTemplate\js\jvector-map\jquery-jvectormap-1.2.2.css" />
+    <Content Include="Views\layoutTemplate\js\jvector-map\jquery-jvectormap-1.2.2.min.js" />
+    <Content Include="Views\layoutTemplate\js\jvector-map\jquery-jvectormap-us-lcc-en.js" />
+    <Content Include="Views\layoutTemplate\js\jvector-map\jqvmap\data\jquery.vmap.sampledata.js" />
+    <Content Include="Views\layoutTemplate\js\jvector-map\jqvmap\jquery.vmap.js" />
+    <Content Include="Views\layoutTemplate\js\jvector-map\jqvmap\maps\continents\jquery.vmap.asia.js" />
+    <Content Include="Views\layoutTemplate\js\jvector-map\jqvmap\maps\continents\jquery.vmap.australia.js" />
+    <Content Include="Views\layoutTemplate\js\jvector-map\jqvmap\maps\continents\jquery.vmap.europe.js" />
+    <Content Include="Views\layoutTemplate\js\jvector-map\jqvmap\maps\jquery.vmap.world.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -164,6 +273,27 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout_home.cshtml" />
+    <Content Include="Views\Shared\_Layout_new.cshtml" />
+    <Content Include="Views\Shared\_Layout_Portal.cshtml" />
+    <Content Include="Views\Shared\_Layout_Report.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\layoutTemplate\font-awesome\fonts\fontawesome-webfontba72.eot" />
+    <Content Include="Views\layoutTemplate\font-awesome\fonts\fontawesome-webfontba72.ttf" />
+    <Content Include="Views\layoutTemplate\font-awesome\fonts\fontawesome-webfontba72.woff" />
+    <Content Include="Views\layoutTemplate\font-awesome\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfontba72.eot" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfontba72.ttf" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfontba72.woff" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="Content\bucket-ico-fonts\bucket-ico-font.eot" />
+    <Content Include="Content\bucket-ico-fonts\bucket-ico-font.ttf" />
+    <Content Include="Content\bucket-ico-fonts\bucket-ico-font.woff" />
+    <Content Include="Content\bucket-ico-fonts\bucket-ico-fontd41d.eot" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

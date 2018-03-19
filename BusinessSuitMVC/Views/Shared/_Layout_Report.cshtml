@@ -1,0 +1,382 @@
+﻿@{if (Session["userId"] == null)
+{
+    //Response.Redirect("~/Login/Login");
+    Response.Redirect("~/Account/Login");
+}
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - PDS
+    </title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/bootstrap")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/angular")*@
+    @*</head>
+            <body>
+                <header>
+                    <div class="content-wrapper">
+                        <div class="float-left">
+                            <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
+                        </div>
+                        <div class="float-right">
+                            <section id="loginn">
+                                @Html.Partial("_LoginPartial")
+                            </section>
+                        </div>
+                        <div class="col-xs-12">
+                            <nav class="navbar navbar-inverse">
+                                <div class="container-fluid">
+                                    <ul id="menu">
+                                        @{if (Session["userId"] != null)
+                                        {
+
+                                            List<MvcAppCSharp.Models.USER_ROLE> menues = Session["menu"] as List<MvcAppCSharp.Models.USER_ROLE>;
+                                            if (menues != null)
+                                            {
+                                                foreach (var menu in menues)
+                                                {
+
+                                                    <li>@Html.ActionLink(menu.MENU.MENU_NAME, menu.MENU.ACTION, menu.MENU.CONTROLAR)</li>
+                                                }
+
+                                            }
+                                        }
+                                        }
+                                    </ul>
+                                    </div>
+        </nav>
+                        </div>
+                    </div>
+                </header>
+                @*<div id="body">
+                    @RenderSection("featured", required: false)
+                    <section class="content-wrapper main-content clear-fix">
+                        @RenderBody()
+                    </section>
+                </div>*@
+    @*<div class="container" style="margin-left: 25px;">
+
+            <!--stat right body--->
+            <div class="col-xs-12 rightBG">
+
+                @RenderSection("featured", required: false)
+                <section class="content-wrapper main-content clear-fix">
+
+                    @RenderBody()
+                </section>
+            </div>
+            <!--end right body-->
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    @*<p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>*@
+    @*</div>
+            </div>
+        </footer>*@
+
+</head>
+<body >
+    <div class="cbp-spmenu-push" id="cbp-spmenu-push">
+        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+            <img class="menuBtn" id="showLeft" src="../images/new_images/menu-btn.jpg">
+            <div id="menu_box">
+                <ul class="menu">
+                    @{
+                        List<PDSDemo.Models.ROLE_ACTION_MAP> menues = Session["menu"] as List<PDSDemo.Models.ROLE_ACTION_MAP>;
+                        if (menues != null)
+                        {
+                            foreach (var menu in menues)
+                            {
+                                <li>
+                                    <a href="/@menu.ACTION.CONTROLLER.CONTROLLER1/@menu.ACTION.ACTION1"><i class="fa fa-cubes"></i>&nbsp;@menu.ACTION.NAME</a>
+                                    @if (menu.ACTION.ACTION1.Equals("ManagePDS"))
+                                    {
+                                        <ul>
+                                            <li><a href="/ManagePDS/GeneralInfo">সাধারণ তথ্য</a></li>
+                                            <li><a href="/ManagePDS/Address">ঠিকানা</a></li>
+                                            <li><a href="/ManagePDS/ChildInfo">সন্তানের তথ্য</a></li>
+                                            <li><a href="/ManagePDS/JobInfo">বিদেশি ভাষা জ্ঞান</a></li>
+                                            <li><a href="/ManagePDS/TransferPosting">বদলী/পদায়নের বিবরণ</a></li>
+                                            <li><a href="/ManagePDS/DepartmentalExam">বিভাগীয় পরীক্ষা</a></li>
+                                            <li><a href="/ManagePDS/FundamentalTrainning">বুনিয়াদি প্রশিক্ষণ</a></li>
+                                            <li><a href="/ManagePDS/SeniorScale">সিনিয়র স্কেল পদোন্নতি পরীক্ষা</a></li>
+                                            <li><a href="/ManagePDS/AcademicInfo">শিক্ষাগত যোগ্যতা</a></li>
+                                            <li><a href="/ManagePDS/SelectionGrade">সিলেকশন গ্রেড/টাইম স্কেল</a></li>
+                                            <li><a href="/ManagePDS/Promotion">পদোন্নতি</a></li>
+                                            <li><a href="/ManagePDS/Tranning">প্রশিক্ষণ</a></li>
+                                            <li><a href="/ManagePDS/Leave">ছুটির তথ্য</a></li>
+                                            <li><a href="/ManagePDS/Complain">বিভাগীয় মামলা</a></li>
+                                            <li><a href="/ManagePDS/PersonalTravel">ভ্রমণ</a></li>
+                                            <li><a href="/ManagePDS/Dignity">পদক</a></li>
+                                            <li><a href="/ManagePDS/Tranning">প্রশিক্ষণ</a></li>
+                                            <li><a href="/ManagePDS/Publication">প্রকাশনার তথ্য</a></li>
+                                        </ul>
+                                    }
+                                </li>
+                            }
+                        }
+                    }
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container" style="width:80%;" id="loginPartial">
+        @*<div class="row">
+                <div class="col-sm-3">
+                    <div class="logo-2 float-left">
+                        <a href="http://www.dshe.gov.bd/"><img style="width:100px; height:100px;" src="~/Images/banner3.jpg"></a>
+                    </div>
+                </div>
+            @*<div class="logo-2">
+                Government of the People's  Republic of Bangladesh	<br />
+                Directorate of Secondary And Higher Education<br />
+                EDUCATION MANAGEMENT INFORMATION SYSTEM (EMIS)
+            </div>*@
+        @*<div class="col-sm-6">
+                    <div class="header-text" align="center"><h3>Online PDS Management System</h3></div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="float-right">
+                        <div class="logo-right">
+                            <a href="/Home/Home"><img style="width:100px; height:100px;" src="~/Images/banner2.gif"></a>
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        <div style="height:134px;width:940px">
+            <img style="height:100%;width:100%" class="img-responsive" src="~/Images/new_images/pads_banner.jpg">
+            @Html.Partial("_LoginPartial")
+        </div>
+
+
+    </div>
+    
+
+    <div class="container" style="width:80%;" id="menuBar">
+        
+        <nav class="navbar navbar-inverse">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+            
+            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+                <ul class="nav navbar-nav" style="float:left">
+                    <li>
+                        <a href="/Home/Home">Home</a>
+                    </li>
+                    <li>
+                        <a href="~/Home/Controlpanel">Control Panel</a>
+                    </li>
+                    @{
+                        if (Session["url"] != null) {
+                            @Html.Raw(Session["url"].ToString())
+                        }
+                        string[] roles = Session["role"] as string[];
+                        //if(Session["username"].ToString() == "Admin")
+                        if (roles.Any("Admin".Contains))
+                        {
+
+                            @:<li>
+                                @Html.ActionLink("User", "Index", "ManageUser");
+                            @:<li/><li>
+                                @Html.ActionLink("Role", "Index", "Role");
+                           @:</li> 
+                        }
+                     }
+
+                    
+                </ul>
+
+          
+            </div><!--/.nav-collapse -->
+
+            <div class="clr"></div>
+        </nav>
+
+    </div>
+
+    <div class="container rightBG">
+
+        <!--stat right body--->
+        @*<div class="col-xs-12 rightBG">*@
+
+        @RenderSection("featured", required: false)
+        <section class="main-content clear-fix">
+            @{ Html.RenderPartial("_Alerts");} 
+            @RenderBody()
+        </section>
+    </div>
+    <!--end right body-->
+    @*</div>*@
+    <div class="col-xs-12" style="height:50px;"></div>
+
+    <div id="btn_confirmation_window" style="display:none">
+        <h3>Are you sure?</h3>
+    </div>
+    <footer>
+
+
+
+        <div class="container footer">
+            <span>Powered By:</span> <a href="http://www.synesisit.com.bd/" target="_blank" class="text-muted aNotUnderScore"><img src="~/Images/synesis.png"/>  </a>
+        </div>
+    </footer>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+<script>
+    $('.delete-btn').on('click', function () {
+        var url = $(this).attr('href');
+        $("#btn_confirmation_window").dialog({
+            title: 'Delete Confirmation',
+
+            autoOpen: false,
+            resizable: false,
+            height: 220,
+            width: 350,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            buttons: {
+                "Confirm": function () {
+                    window.location.href = url;
+                },
+                "Cancle": function () {
+                    $(this).dialog("close");
+
+                }
+            },
+            //buttons: {
+            //    "Cancle": function () {
+            //        $(this).dialog("close");
+
+            //    }
+            //},
+            close: function (event, ui) {
+                $(this).dialog('close');
+            }
+        });
+        //$('#btn_confirmation_window button').on('click', function () {
+        //    var confirm = $(this).attr('value');
+        //    if (confirm == 'true') {
+        //        window.location.href = url;
+        //    } else if (confirm == 'false') {
+        //        //Code if false
+        //    }
+        //});
+        $("#btn_confirmation_window").dialog('open');
+        return false;
+    });
+
+    var menuLeft = document.getElementById('cbp-spmenu-s1'),
+
+				showLeft = document.getElementById('showLeft'),
+
+				body = document.body;
+
+    showLeft.onmouseover = function () {
+        classie.toggle(this, 'active');
+        classie.toggle(menuLeft, 'cbp-spmenu-open');
+        disableOther('showLeft');
+    };
+
+    showLeftPush.onmouseover = function () {
+        classie.toggle(this, 'active');
+        classie.toggle(body, 'cbp-spmenu-push-toright');
+        classie.toggle(menuLeft, 'cbp-spmenu-open');
+        disableOther('showLeftPush');
+    };
+
+
+    function disableOther(button) {
+        if (button !== 'showLeft') {
+            classie.toggle(showLeft, 'disabled');
+        }
+
+    }
+</script>
+<style>
+    .nav > li > a {
+        color: white !important;
+    }
+
+        .nav > li > a.hover {
+            color: yellow !important;
+        }
+
+    .float-left {
+        float: left;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .logo-2.float-left img {
+        width: 130px;
+    }
+
+    .logo-right {
+        text-align: right;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+        .logo-right img {
+            width: 150px;
+        }
+
+    section#loginn {
+        padding-bottom: 10px;
+    }
+
+    .header-text {
+        padding-top: 35px;
+    }
+
+    .logo-2 a:hover, .logo-right a:hover {
+        background-color: inherit;
+    }
+
+    footer {
+        height: auto;
+    }
+
+    .container.footer {
+        text-align: center;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+        .container.footer a:hover {
+            background-color: inherit;
+        }
+
+        .container.footer a img {
+            width: 200px;
+        }
+
+        .container.footer span {
+            font-size: 16px;
+            overflow: hidden;
+            display: inline-block;
+            margin-bottom: -9px;
+            font-weight: bold;
+        }
+</style>
