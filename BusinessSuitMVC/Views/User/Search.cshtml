@@ -9,28 +9,38 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <script src="~/Script/jquery.min.js"></script>
+    <script src="~/Script/jquery.min.js"></script>
 </head>
 <body>
-    <div> 
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Mobile</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Phone</th>
-            </tr>
-              @foreach (BusinessSuitMVC.Models.User_Profile userlist in (IEnumerable<BusinessSuitMVC.Models.User_Profile>)Model)
-              {
-            <tr>
-                <td>@userlist.Name</td>
-                <td>@userlist.Mobile</td>
-                <td>@userlist.Email</td>
-                <td>@userlist.Address</td>
-                <td>@userlist.Phone</td>
-            </tr>
-              }
-        </table>
+    <div class="container">
+
+        <h1 style="margin-left:450px;margin-bottom:20px">User List</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Phone</th>
+                </tr>
+            <thead>
+            <tbody>
+                @foreach (BusinessSuitMVC.Models.User_Profile userlist in (IEnumerable<BusinessSuitMVC.Models.User_Profile>)Model)
+                {
+                    <tr>
+                        <td>@userlist.Name</td>
+                        <td>@userlist.Mobile</td>
+                        <td>@userlist.Email</td>
+                        <td>@userlist.Address</td>
+                        <td>@userlist.Phone</td>
+                    </tr>
+                }
+            <tbody>
+</table>
     </div>
 </body>
 </html>
