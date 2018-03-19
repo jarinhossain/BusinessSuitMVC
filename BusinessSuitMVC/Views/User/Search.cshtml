@@ -1,0 +1,36 @@
+﻿@model List<BusinessSuitMVC.Models.User_Profile>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search</title>
+</head>
+<body>
+    <div> 
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Phone</th>
+            </tr>
+              @foreach (BusinessSuitMVC.Models.User_Profile userlist in (IEnumerable<BusinessSuitMVC.Models.User_Profile>)Model)
+              {
+            <tr>
+                <td>@userlist.Name</td>
+                <td>@userlist.Mobile</td>
+                <td>@userlist.Email</td>
+                <td>@userlist.Address</td>
+                <td>@userlist.Phone</td>
+            </tr>
+              }
+        </table>
+    </div>
+</body>
+</html>

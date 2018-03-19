@@ -1,0 +1,39 @@
+﻿@model List<BusinessSuitMVC.Models.Client_List>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search</title>
+</head>
+<body>
+    <div> 
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Mobile1</th>
+                <th>Mobile2</th>
+                <th>Email</th>
+                <th>Word</th>
+                <th>District</th>
+                <th>Address</th>
+                <th>Remarks</th>
+            </tr>
+            @foreach (BusinessSuitMVC.Models.Client_List client in (IEnumerable<BusinessSuitMVC.Models.Client_List>)Model)
+            {
+                <tr>
+                    <td>@client.Counsilor_Name</td>
+                    <td>@client.Mobile1</td>
+                    <td>@client.Mobile2</td>
+                    <td>@client.Email</td>
+                    <td>@client.word</td>
+                    <td>@client.District</td>
+                    <td>@client.Address</td>
+                    <td>@client.Remarks</td>
+                </tr>
+            }
+            
+        </table>
+    </div>
+</body>
+</html>

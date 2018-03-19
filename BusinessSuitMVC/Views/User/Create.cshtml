@@ -1,0 +1,98 @@
+﻿@model BusinessSuitMVC.Models.User_Profile
+
+<!DOCTYPE html>
+
+@{ 
+    List<SelectListItem> role = new List<SelectListItem>();
+    role.Add(new SelectListItem() { Value = "1", Text = "Super Admin" });
+    role.Add(new SelectListItem() { Value = "2", Text = "Admin" });
+    role.Add(new SelectListItem() { Value = "3", Text = "Moderator" });
+    role.Add(new SelectListItem() { Value = "4", Text = "User" });
+    role.Add(new SelectListItem() { Value = "5", Text = "Guest" });
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <script src="~/Script/jquery.min.js"></script>
+    <script src="~/Script/jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Create", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            <h2 style="margin-left:20px">User Profile</h2>
+            <div class="form-group">
+                @Html.Label("Name", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Name, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("User Name", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.TextBox("Username", null, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Password", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.TextBox("Password",null,new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Confirm Password", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.TextBox("ConfirmPassword", null, new {@class="form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Role", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.DropDownList("Role", @role, "Select Role", new { @class = "form-control editor-field" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Mobile", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Mobile, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Email", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Email, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Address", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Address, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Phone", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Phone, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-1"></div>
+                <input type="submit" value="Save"  style="margin-left:15px" class="btn btn-info" />
+                <input type="submit" value="Delete" class="btn btn-info" />
+            </div>
+            <div class="form-group">
+                <div class="col-md-1"></div>
+                <label>@ViewData["msg"]</label>
+            </div>
+
+        }
+            </div>
+            </body>
+</html>

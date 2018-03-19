@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Business_SuitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client_List">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Counsilor_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Mobile1" Type="varchar" MaxLength="50" />
+          <Property Name="Mobile2" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="word" Type="int" />
+          <Property Name="District" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="Remarks" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User_Login">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Role" Type="int" />
+          <Property Name="User_Profile_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="User_Profile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Mobile" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_User_Login_User_Profile">
+          <End Role="User_Profile" Type="Self.User_Profile" Multiplicity="0..1" />
+          <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Profile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Login">
+              <PropertyRef Name="User_Profile_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Business_SuitModelStoreContainer">
+          <EntitySet Name="Client_List" EntityType="Self.Client_List" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Login" EntityType="Self.User_Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Profile" EntityType="Self.User_Profile" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_User_Login_User_Profile" Association="Self.FK_User_Login_User_Profile">
+            <End Role="User_Profile" EntitySet="User_Profile" />
+            <End Role="User_Login" EntitySet="User_Login" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Business_SuitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client_List">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Counsilor_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="word" Type="Int32" />
+          <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="User_Login">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="Int32" />
+          <Property Name="User_Profile_Id" Type="Int32" />
+          <NavigationProperty Name="User_Profile" Relationship="Self.FK_User_Login_User_Profile" FromRole="User_Login" ToRole="User_Profile" />
+        </EntityType>
+        <EntityType Name="User_Profile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User_Login" Relationship="Self.FK_User_Login_User_Profile" FromRole="User_Profile" ToRole="User_Login" />
+        </EntityType>
+        <Association Name="FK_User_Login_User_Profile">
+          <End Role="User_Profile" Type="Self.User_Profile" Multiplicity="0..1" />
+          <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Profile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Login">
+              <PropertyRef Name="User_Profile_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Client_List" EntityType="Self.Client_List" />
+          <EntitySet Name="User_Login" EntityType="Self.User_Login" />
+          <EntitySet Name="User_Profile" EntityType="Self.User_Profile" />
+          <AssociationSet Name="FK_User_Login_User_Profile" Association="Self.FK_User_Login_User_Profile">
+            <End Role="User_Profile" EntitySet="User_Profile" />
+            <End Role="User_Login" EntitySet="User_Login" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Business_SuitModelStoreContainer" CdmEntityContainer="DBContext">
+          <EntitySetMapping Name="Client_List">
+            <EntityTypeMapping TypeName="Business_SuitModel.Client_List">
+              <MappingFragment StoreEntitySet="Client_List">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Counsilor_Name" ColumnName="Counsilor_Name" />
+                <ScalarProperty Name="Mobile1" ColumnName="Mobile1" />
+                <ScalarProperty Name="Mobile2" ColumnName="Mobile2" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="word" ColumnName="word" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Login">
+            <EntityTypeMapping TypeName="Business_SuitModel.User_Login">
+              <MappingFragment StoreEntitySet="User_Login">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="User_Profile_Id" ColumnName="User_Profile_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Profile">
+            <EntityTypeMapping TypeName="Business_SuitModel.User_Profile">
+              <MappingFragment StoreEntitySet="User_Profile">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

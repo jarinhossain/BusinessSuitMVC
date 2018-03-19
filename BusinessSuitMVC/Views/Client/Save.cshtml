@@ -1,0 +1,104 @@
+﻿@model BusinessSuitMVC.Models.Client_List
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Save</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <script src="~/Script/jquery.min.js"></script>
+    <script src="~/Script/jquery.min.js"></script>
+
+</head>
+<body>
+  
+        <div>
+            @using (Html.BeginForm("Save", "Client", FormMethod.Post, new {@class="form-horizontal" }))
+            {
+                <h2 style="margin-left:20px">Client_Details</h2>
+                <div class="form-group">
+                    @Html.Label("Counsilor Name", new { @class = "control-label col-md-1" })
+
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Counsilor_Name, new { @Class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Mobile1", new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Mobile1, new { @Class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    @Html.Label("Mobile2", new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Mobile2, new { @Class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    @Html.Label("Email", new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Email, new { @Class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    @Html.Label("Word", new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.word, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    @Html.Label("District", new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.District, new { @Class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                    @Html.Label("Address", new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Address, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    @Html.Label("Remarks", new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Remarks, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-1"></div>
+                    
+                        <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info"/>
+                        <input type="submit" value="Delete"  class="btn btn-info" />
+                        
+                    </div>
+
+                <div class="form-group">
+                    <div class="col-md-1"></div>
+                    <label>@ViewData["msg"]</label>
+                </div>
+
+
+
+
+            }
+        </div>
+ 
+</body>
+</html>
