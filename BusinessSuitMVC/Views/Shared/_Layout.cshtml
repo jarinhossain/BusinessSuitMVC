@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Business Suit</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/jquery-ui-1.10.1.custom.min.css" rel="stylesheet" />
 
@@ -246,12 +246,14 @@
                 <!-- sidebar menu start-->
                 <div class="leftside-navigation">
                     <ul class="sidebar-menu" id="nav-accordion">
+
                         <li>
                             <a class="active" href="#">
                                 <i class="fa fa-dashboard"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
+
                         <li class="sub-menu">
                             <a href="javascript:;">
                                 <i class="fa fa-laptop"></i>
@@ -260,6 +262,17 @@
                             <ul class="sub">
                                 <li><a href="~/User/Create">Create</a></li>
                                 <li><a href="~/User/Search">List</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-leaf"></i>
+                                <span>User</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="~/Client/Save">Create</a></li>
+                                <li><a href="~/Client/Search">List</a></li>
                             </ul>
                         </li>
                         

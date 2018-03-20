@@ -1,45 +1,40 @@
 ﻿@model BusinessSuitMVC.Models.User_Login
 
-<!DOCTYPE html>
+<div class="row">
+    <div class="col-lg-12">
+        <section class="panel">
+            <header class="panel-heading">
+                Login
+            </header>
+            <div class="panel-body">
+                <div class="position-center">
+                    @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        <div class="form-group">
+                            @Html.Label("UserName", new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.UserName, new { @Class = "form-control" })
+                            </div>
+                        </div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
-    <script src="~/Script/jquery.min.js"></script>
-    <script src="~/Script/jquery.min.js"></script>
-</head>
-<body>
-    <div>
-        @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-horizontal" }))
-        {
-            <h2 style="margin-left:20px">Login</h2>
-            <div class="form-group">
-                @Html.Label("UserName", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.UserName, new { @Class = "form-control" })
-                    </div>
+                        <div class="form-group">
+                            @Html.Label("Password", new { @class = "control-label col-md-3" })
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(m => m.Password, new { @Class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-1"></div>
+                            <input type="submit" value="Log in" style="margin-left:15px" class="btn btn-info" />
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-1"></div>
+                            <label>@ViewData["msg"]</label>
+                        </div>
+                        
+                    }
                 </div>
-
-                <div class="form-group">
-                    @Html.Label("Password", new { @class = "control-label col-md-1" })
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.Password, new { @Class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-1"></div>
-                        <input type="submit" value="Log in"  style="margin-left:15px" class="btn btn-info" />
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-1"></div>
-                        <label>@ViewData["msg"]</label>
-                        </div>
-
-
-                        }
-                    </div>
-</body>
-</html>
+            </div>
+        </section>
+    </div>
+</div>
