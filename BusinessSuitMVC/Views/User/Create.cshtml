@@ -9,6 +9,23 @@
     role.Add(new SelectListItem() { Value = "3", Text = "Moderator" });
     role.Add(new SelectListItem() { Value = "4", Text = "User" });
     role.Add(new SelectListItem() { Value = "5", Text = "Guest" });
+
+    List<SelectListItem> Gender = new List<SelectListItem>();
+    Gender.Add(new SelectListItem() { Value = "1", Text = "Male" });
+    Gender.Add(new SelectListItem() { Value = "2", Text = "Female" });
+
+
+
+    List<SelectListItem> Usertype = new List<SelectListItem>();
+    Usertype.Add(new SelectListItem() { Value = "1", Text = "Internal user" });
+    Usertype.Add(new SelectListItem() { Value = "2", Text = "Uddokta" });
+    Usertype.Add(new SelectListItem() { Value = "2", Text = "Client" });
+
+    List<SelectListItem> City = new List<SelectListItem>();
+    City.Add(new SelectListItem() { Value = "1", Text = "Dhaka" });
+    City.Add(new SelectListItem() { Value = "2", Text = "Gajipur" });
+
+
 }
 
 <html>
@@ -32,9 +49,48 @@
                 </div>
             </div>
             <div class="form-group">
+                @Html.Label("Bangla Name", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Bangla_Name, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Gender", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.DropDownList("Gender", @Gender, "Select Gender", new { @class = "form-control editor-field" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Ward", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Ward, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("User Type", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.DropDownList("User_Type", @Usertype, "Select Usertype", new { @class = "form-control editor-field" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("City", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.DropDownList("City", @City, "Select City", new { @class = "form-control editor-field" })
+                </div>
+            </div>
+
+            <div class="form-group">
                 @Html.Label("User Name", new { @class = "control-label col-md-1" })
                 <div class="col-md-2">
                     @Html.TextBox("Username", null, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Area", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Area, new { @Class = "form-control" })
                 </div>
             </div>
 

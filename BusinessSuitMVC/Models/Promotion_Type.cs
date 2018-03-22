@@ -12,19 +12,17 @@ namespace BusinessSuitMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Client_List
+    public partial class Promotion_Type
     {
+        public Promotion_Type()
+        {
+            this.Online_Order_Detalis = new HashSet<Online_Order_Detalis>();
+        }
+    
         public int Id { get; set; }
-        public string Counsilor_Name { get; set; }
-        public string Bangla_Name { get; set; }
-        public string Mobile1 { get; set; }
-        public string Mobile2 { get; set; }
-        public string Email { get; set; }
-        public Nullable<int> ward { get; set; }
-        public string District { get; set; }
-        public string Address { get; set; }
-        public string Remarks { get; set; }
-        public Nullable<bool> Is_Elected { get; set; }
-        public Nullable<int> Client_Type { get; set; }
+        public string Name { get; set; }
+        public string Dispaly_Name { get; set; }
+    
+        public virtual ICollection<Online_Order_Detalis> Online_Order_Detalis { get; set; }
     }
 }

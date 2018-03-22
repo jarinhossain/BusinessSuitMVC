@@ -34,6 +34,32 @@ namespace BusinessSuitMVC.Controllers
             {
                 ViewData["msg"] = "please enter your valid Name";
             }
+           else if (User.Bangla_Name == null)
+            {
+                ViewData["msg"] = "please enter your valid Bangla_Name";
+            }
+            else if (User.Gender == null)
+            {
+                ViewData["msg"] = "please enter your valid Gender";
+            }
+            else if (User.Ward == null)
+            {
+                ViewData["msg"] = "please enter your valid Ward";
+            }
+            else if (User.User_Type == null)
+            {
+                ViewData["msg"] = "please enter your valid User_Type";
+            }
+            else if (User.City == null)
+            {
+                ViewData["msg"] = "please enter your valid City";
+            }
+            else if (User.Area == null)
+            {
+                ViewData["msg"] = "please enter your valid Area";
+            }
+           
+
             else if (UserName == "")
             {
                 ViewData["msg"] = "please enter your valid UserName";
@@ -50,7 +76,10 @@ namespace BusinessSuitMVC.Controllers
             {
                 ViewData["msg"] = "please enter your valid Role";
             }
-
+            else if (User.Address == null)
+            {
+                ViewData["msg"] = "please enter your valid Address";
+            }
             else if (User.Mobile == null)
             {
                 ViewData["msg"] = "please enter your valid Mobile";
@@ -59,10 +88,7 @@ namespace BusinessSuitMVC.Controllers
             {
                 ViewData["msg"] = "please enter your valid Email";
             }
-            else if (User.Address == null)
-            {
-                ViewData["msg"] = "please enter your valid Address";
-            }
+          
             else if (User.Phone == null)
             {
                 ViewData["msg"] = "please enter your valid Phone";

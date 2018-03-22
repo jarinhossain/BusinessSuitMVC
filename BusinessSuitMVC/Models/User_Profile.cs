@@ -21,10 +21,17 @@ namespace BusinessSuitMVC.Models
     
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Bangla_Name { get; set; }
+        public Nullable<int> Gender { get; set; }
+        public Nullable<int> Ward { get; set; }
+        public Nullable<int> User_Type { get; set; }
+        public string City { get; set; }
+        public string Area { get; set; }
+        public string Address { get; set; }
         public string Mobile { get; set; }
         public string Email { get; set; }
-        public string Address { get; set; }
         public string Phone { get; set; }
+        public Nullable<bool> Image { get; set; }
     
         public virtual ICollection<User_Login> User_Login { get; set; }
     }
