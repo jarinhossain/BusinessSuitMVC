@@ -1,9 +1,11 @@
 ﻿@model BusinessSuitMVC.Models.User_Profile
 
 <!DOCTYPE html>
-
 @{ 
-    List<SelectListItem> role = new List<SelectListItem>();
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{ 
+     List <SelectListItem> role = new List<SelectListItem>();
     role.Add(new SelectListItem() { Value = "1", Text = "Super Admin" });
     role.Add(new SelectListItem() { Value = "2", Text = "Admin" });
     role.Add(new SelectListItem() { Value = "3", Text = "Moderator" });

@@ -198,6 +198,16 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <Content Include="Views\OfflineOrder\Create.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Shared\_Layout_home.cshtml" />
+    <Content Include="Views\Shared\_Layout_new.cshtml" />
+    <Content Include="Views\Shared\_Layout_Portal.cshtml" />
+    <Content Include="Views\Shared\_Layout_Report.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\User\LayoutTest.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
