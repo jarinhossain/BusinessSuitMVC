@@ -4,7 +4,20 @@
 }
 
 <!DOCTYPE html>
+@{ 
+    List<SelectListItem> District = new List<SelectListItem>();
+    District.Add(new SelectListItem() { Value = "1", Text = "Comilla" });
+    District.Add(new SelectListItem() { Value = "2", Text = "Brahmanbaria" });
+    District.Add(new SelectListItem() { Value = "3", Text = "Dhaka" });
 
+    List<SelectListItem> Clienttype = new List<SelectListItem>();
+    Clienttype.Add(new SelectListItem() { Value = "1", Text = "Male" });
+    Clienttype.Add(new SelectListItem() { Value = "2", Text = "Female" });
+
+    List<SelectListItem> Elected = new List<SelectListItem>();
+    Elected.Add(new SelectListItem() { Value = "1", Text = "Yes" });
+    Elected.Add(new SelectListItem() { Value = "0", Text = "No" });
+}
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -26,6 +39,12 @@
 
                     <div class="col-md-2">
                         @Html.TextBoxFor(m => m.Counsilor_Name, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Bangla Name", new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Bangla_Name, new { @Class = "form-control" })
                     </div>
                 </div>
 
@@ -53,17 +72,17 @@
                 </div>
 
                 <div class="form-group">
-
-                    @Html.Label("Word", new { @class = "control-label col-md-1" })
+                    @Html.Label("Ward", new { @class = "control-label col-md-1" })
                     <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.word, new { @Class = "form-control" })
+                        @Html.TextBoxFor(m => m.ward, new { @Class = "form-control" })
                     </div>
                 </div>
-                <div class="form-group">
 
+
+                <div class="form-group">
                     @Html.Label("District", new { @class = "control-label col-md-1" })
                     <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.District, new { @Class = "form-control" })
+                        @Html.DropDownList("District", @District, "Select District", new { @class = "form-control editor-field" })
                     </div>
                 </div>
 
@@ -79,6 +98,18 @@
                     @Html.Label("Remarks", new { @class = "control-label col-md-1" })
                     <div class="col-md-2">
                         @Html.TextBoxFor(m => m.Remarks, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Is_Elected", new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.DropDownList("Is_Elected", @Elected, "Select Is_Elected", new { @class = "form-control editor-field" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Client_Type", new { @class = "control-label col-md-1" })
+                    <div class="col-md-2">
+                        @Html.DropDownList("Client_Type", @Clienttype, "Select Gender", new { @class = "form-control editor-field" })
                     </div>
                 </div>
                 <div class="form-group">

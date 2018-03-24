@@ -29,6 +29,10 @@ namespace BusinessSuitMVC.Controllers
             {
                 ViewData["msg"] = "Please enter your valid Counsilor_Name";
             }
+          else  if (client.Bangla_Name == null)
+            {
+                ViewData["msg"] = "Please enter your valid Bangla_Name";
+            }
 
             else if (client.Mobile1 == null)
             {
@@ -43,7 +47,7 @@ namespace BusinessSuitMVC.Controllers
             {
                 ViewData["msg"] = "Please enter your valid Email";
             }
-            else if (client.word == null)
+            else if (client.ward == null)
             {
                 ViewData["msg"] = "Please enter your valid Word";
             }
@@ -58,6 +62,14 @@ namespace BusinessSuitMVC.Controllers
             else if (client.Remarks == null)
             {
                 ViewData["msg"] = "Please enter your valid Remarks";
+            }
+            else if (client.Is_Elected == null)
+            {
+                ViewData["msg"] = "Please enter your valid Is_Elected";
+            }
+            else if (client.Client_Type == null)
+            {
+                ViewData["msg"] = "Please enter your valid Client_Type";
             }
             else
             {
@@ -110,7 +122,7 @@ namespace BusinessSuitMVC.Controllers
             {
                 ViewData["msg"] = "Please enter your valid Email";
             }
-            else if (client.word == null)
+            else if (client.ward == null)
             {
                 ViewData["msg"] = "Please enter your valid word";
             }
@@ -134,13 +146,16 @@ namespace BusinessSuitMVC.Controllers
                                        select user).FirstOrDefault();
 
                 Client.Counsilor_Name = client.Counsilor_Name;
+                Client.Bangla_Name = client.Bangla_Name;
                 Client.Mobile1 = client.Mobile1;
                 Client.Mobile2 = client.Mobile2;
                 Client.Email = client.Email;
-                Client.word = client.word;
+                Client.ward = client.ward;
                 Client.District = client.District;
                 Client.Address = client.Address;
                 Client.Remarks = client.Remarks;
+                Client.Is_Elected = client.Is_Elected;
+                Client.Client_Type = client.Client_Type;
 
                 DB.SaveChanges();
                 ViewData["msg"] = "Successfully Updated";

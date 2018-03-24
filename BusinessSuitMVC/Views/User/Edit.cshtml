@@ -20,11 +20,10 @@
     <script src="~/Script/jquery.min.js"></script>
 </head>
 <body>
-    <div> 
-        @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+    <div>
+        @using (Html.BeginForm("Create", "User", FormMethod.Post, new { @class = "form-horizontal" }))
         {
             <h2 style="margin-left:20px">User Profile</h2>
-            @Html.HiddenFor(m => m.Id)
             <div class="form-group">
                 @Html.Label("Name", new { @class = "control-label col-md-1" })
                 <div class="col-md-2">
@@ -32,12 +31,65 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.Label("User Name", new { @class = "control-label col-md-1" })
+                @Html.Label("Bangla Name", new { @class = "control-label col-md-1" })
                 <div class="col-md-2">
-                    @Html.TextBox("Username", @ViewData["user_name"], new { @class = "form-control" })
+                    @Html.TextBoxFor(m => m.Bangla_Name, new { @Class = "form-control" })
                 </div>
             </div>
-            
+            <div class="form-group">
+                @Html.Label("Gender", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.DropDownList("Gender", @Gender, "Select Gender", new { @class = "form-control editor-field" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Ward", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Ward, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("User Type", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.DropDownList("User_Type", @Usertype, "Select Usertype", new { @class = "form-control editor-field" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("City", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.DropDownList("City", @City, "Select City", new { @class = "form-control editor-field" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("User Name", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.TextBox("Username", null, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Area", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Area, new { @Class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Password", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.TextBox("Password", null, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Confirm Password", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.TextBox("ConfirmPassword", null, new { @class = "form-control" })
+                </div>
+            </div>
+
             <div class="form-group">
                 @Html.Label("Role", new { @class = "control-label col-md-1" })
                 <div class="col-md-2">
@@ -70,8 +122,8 @@
             </div>
             <div class="form-group">
                 <div class="col-md-1"></div>
-                <input type="submit" value="Update" style="margin-left:15px" class="btn btn-info" />
-                @*<input type="submit" value="Delete" class="btn btn-info" />*@
+                <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
+                <input type="submit" value="Delete" class="btn btn-info" />
             </div>
             <div class="form-group">
                 <div class="col-md-1"></div>

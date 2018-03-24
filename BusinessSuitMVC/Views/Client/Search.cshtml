@@ -5,35 +5,44 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <script src="~/Script/jquery.min.js"></script>
+    <script src="~/Script/jquery.min.js"></script>
 </head>
 <body>
-    <div> 
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Mobile1</th>
-                <th>Mobile2</th>
-                <th>Email</th>
-                <th>Word</th>
-                <th>District</th>
-                <th>Address</th>
-                <th>Remarks</th>
-            </tr>
-            @foreach (BusinessSuitMVC.Models.Client_List client in (IEnumerable<BusinessSuitMVC.Models.Client_List>)Model)
+    <div class="container">
+        
+        <h1 style="margin-left:450px;margin-bottom:20px">Client List</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Mobile1</th>
+                        <th>Mobile2</th>
+                        <th>Email</th>
+                        <th>Word</th>
+                        <th>District</th>
+                        <th>Address</th>
+                        <th>Remarks</th>
+                    </tr>
+                <thead>
+                <tbody>
+                    @foreach (BusinessSuitMVC.Models.Client_List client in (IEnumerable<BusinessSuitMVC.Models.Client_List>)Model)
             {
-                <tr>
-                    <td>@client.Counsilor_Name</td>
-                    <td>@client.Mobile1</td>
-                    <td>@client.Mobile2</td>
-                    <td>@client.Email</td>
-                    <td>@client.word</td>
-                    <td>@client.District</td>
-                    <td>@client.Address</td>
-                    <td>@client.Remarks</td>
-                </tr>
-            }
-            
-        </table>
-    </div>
+                        <tr>
+                            <td>@client.Counsilor_Name</td>
+                            <td>@client.Mobile1</td>
+                            <td>@client.Mobile2</td>
+                            <td>@client.Email</td>
+                            <td>@client.word</td>
+                            <td>@client.District</td>
+                            <td>@client.Address</td>
+                            <td>@client.Remarks</td>
+                        </tr>
+                    }
+                <tbody>
+</table>
+        </div>
 </body>
 </html>
