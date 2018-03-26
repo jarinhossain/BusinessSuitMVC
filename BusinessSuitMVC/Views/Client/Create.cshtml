@@ -24,14 +24,15 @@
     <title>Save</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+
     <script src="~/Script/jquery.min.js"></script>
-    <script src="~/Script/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 <body>
   
         <div>
-            @using (Html.BeginForm("Save", "Client", FormMethod.Post, new {@class="form-horizontal" }))
+            @using (Html.BeginForm("Create", "Client", FormMethod.Post, new {@class="form-horizontal", @id = "clientCreate", @name = "clientCreate" }))
             {
                 <h2 style="margin-left:20px">Client_Details</h2>
                 <div class="form-group">
@@ -109,14 +110,15 @@
                 <div class="form-group">
                     @Html.Label("Client_Type", new { @class = "control-label col-md-1" })
                     <div class="col-md-2">
-                        @Html.DropDownList("Client_Type", @Clienttype, "Select Gender", new { @class = "form-control editor-field" })
+                        @Html.DropDownList("Client_Type", @Clienttype, "Select Gender", new { @class = "form-control editor-field"})
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-md-1"></div>
                     
-                        <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info"/>
-                        <input type="submit" value="Delete"  class="btn btn-info" />
+                        <input type="submit" value="Save"  style="margin-left:15px" class="btn btn-info"/>
+                        <input type="button" value="Reset" id="reset" class="btn btn-info" />
                         
                     </div>
 
@@ -132,4 +134,58 @@
         </div>
  
 </body>
+<script>
+    $("form").submit(function (event)
+    {
+        if($("#Counsilor_Name").val() == "")
+        {
+            event.preventDefault();
+            //alert("Counsilor_Name is required");
+            swal("Failed", "Counsilor_Name is required", "error").then(function(){
+                $("#Counsilor_Name").focus();
+            });
+            
+        }
+        else if ($("#Mobile1").val() == "") {
+            event.preventDefault();
+            $("#Mobile1").focus();
+            alert("Mobile1 is required");
+        }
+        else if ($("#Ward").val() == "")
+        {
+            event.preventDefault();
+            $("#Ward").focus();
+            alert("Ward is required");
+        }
+        else if ($("#District").val() == "") {
+            event.preventDefault();
+            $("#District").focus();
+            alert("District is required");
+        }
+    else if ($("#Client_Type").val() == "") {
+        event.preventDefault();
+        $("#Client_Type").focus();
+        alert("Client_Type is required");
+    }
+
+    });
+    $(document).ready(function () {
+       $("#reset").click(function () {
+           $("#Counsilor_Name").val("");
+           $('#District option:first').prop('selected', true); //clear
+           $("#Bangla_Name").val("");
+           $("#Mobile1").val("");
+           $("#Mobile2").val("");
+           $("#Email").val("");
+           $("#Ward").val("");
+           //$("#District").val("");
+           $("#Address").val(""); 
+           $("#Remarks").val("");
+           $("#Is_Elected").val("");
+           $("#Client_Type").val("");
+          
+        });
+
+    });
+</script>
 </html>

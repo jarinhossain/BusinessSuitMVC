@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <script src="~/Script/jquery.min.js"></script>
-    <script src="~/Script/jquery.min.js"></script>
+   
 </head>
 <body>
     <div>
@@ -111,6 +111,7 @@
                     <div class="col-md-1"></div>
 
                     <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
+                    <input type="submit" value="Reset" id="reset" style="margin-left:15px" class="btn btn-info" />
 
 
                 </div>
@@ -123,4 +124,25 @@
         }
             </div>
 </body>
+<Script>
+    $(document).ready(function () {
+        $("#reset").click(function () {
+
+            $("#Price_Per_Piece").val("");
+            $("#Estimated_Voters").val("");
+            $("#Format_No").val("");
+            $("#Free_Blank_Slip").val("");
+            $("#Paid_Blank_Slip").val("");
+            $("#Slip_Content").val("");
+            $("#Voter_List_Print").val("");
+            $("#Voter_List_Print_Comment").val("");
+            $("#Discount").val("");
+            $("#Status").val("");
+            $("#Remarks").val("");
+            $("#Marka").val("");
+
+        });
+
+    });
+</Script>
 </html>

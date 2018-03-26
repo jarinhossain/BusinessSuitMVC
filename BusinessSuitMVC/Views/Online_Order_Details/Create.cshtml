@@ -1,0 +1,129 @@
+﻿@model BusinessSuitMVC.Models.Online_Order_Detalis
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <script src="~/Script/jquery.min.js"></script>
+    <script src="~/Script/jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Create", "Online_Order_Details", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+
+            <h2 style="margin-left:20px">Online_Order_Details</h2>
+            <div class="form-group">
+                @Html.Label("Advertisement_Area", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Advertisement_Area, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Estimated_Reach_Ordered", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Estimated_Reach_Ordered, new { @Class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Estimated_Budget", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Estimated_Budget, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Price_Per_Piece", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Price_Per_Piece, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Age_Group", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Age_Group, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Duration", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Duration, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Obd_Voice_Provided", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Obd_Voice_Provided, new { @Class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Obd_Vioce_Content", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Obd_Vioce_Content, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Sms_Content", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Sms_Content, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Status", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Status, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Discount", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Discount, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-1"></div>
+
+                <input type="submit" value="Save" onclick="validate()" style="margin-left:135px" class="btn btn-info" />
+                <input type="submit" value="Reset"  id="reset" style="margin-left:15px" class="btn btn-info" />
+
+
+            </div>
+                <div class="form-group">
+                    <div class="col-md-1"></div>
+                    <label>@ViewData["msg"]</label>
+                </div>
+        }
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+        function validate() {
+        }
+
+        $("#reset").click(function () {
+
+           $("#Advertisement_Area").val("");
+           $("#Estimated_Reach_Ordered").val("");
+           $("#Estimated_Budget").val("");
+           $("#Price_Per_Piece").val("");
+           $("#Age_Group").val("");
+           $("#Duration").val("");
+           $("#Obd_Voice_Provided").val("");
+           $("#Obd_Vioce_Content").val("");
+           $("#Sms_Content").val("");
+           $("#Status").val("");
+           $("#Discount").val("");
+          
+        });
+
+    });
+</script>
+</html>

@@ -16,36 +16,22 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult Save()
+        public ActionResult Create()
         {
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult Save(Client_List client)
+        public ActionResult Create(Client_List client)
         {
             if (client.Counsilor_Name == null)
             {
                 ViewData["msg"] = "Please enter your valid Counsilor_Name";
             }
-          else  if (client.Bangla_Name == null)
-            {
-                ViewData["msg"] = "Please enter your valid Bangla_Name";
-            }
-
             else if (client.Mobile1 == null)
             {
                 ViewData["msg"] = "Please enter your valid Mobile1 Number";
-            }
-
-            else if (client.Mobile2 == null)
-            {
-                ViewData["msg"] = "Please enter your valid Mobile2 Number";
-            }
-            else if (client.Email == null)
-            {
-                ViewData["msg"] = "Please enter your valid Email";
             }
             else if (client.ward == null)
             {
@@ -54,18 +40,6 @@ namespace BusinessSuitMVC.Controllers
             else if (client.District == null)
             {
                 ViewData["msg"] = "Please enter your valid District";
-            }
-            else if (client.Address == null)
-            {
-                ViewData["msg"] = "Please enter your valid Address";
-            }
-            else if (client.Remarks == null)
-            {
-                ViewData["msg"] = "Please enter your valid Remarks";
-            }
-            else if (client.Is_Elected == null)
-            {
-                ViewData["msg"] = "Please enter your valid Is_Elected";
             }
             else if (client.Client_Type == null)
             {

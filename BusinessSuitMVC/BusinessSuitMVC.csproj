@@ -117,6 +117,7 @@
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OfflineOrderController.cs" />
+    <Compile Include="Controllers\Online_Order_DetailsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -178,7 +179,7 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\Client\Edit.cshtml" />
-    <Content Include="Views\Client\Save.cshtml" />
+    <Content Include="Views\Client\Create.cshtml" />
     <Content Include="Views\Client\Search.cshtml" />
     <Content Include="Views\Login\ChangePassword.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
@@ -193,6 +194,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <Content Include="Views\OfflineOrder\Create.cshtml" />
+    <Content Include="Views\Online_Order_Details\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

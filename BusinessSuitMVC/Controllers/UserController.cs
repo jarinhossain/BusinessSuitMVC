@@ -34,10 +34,6 @@ namespace BusinessSuitMVC.Controllers
             {
                 ViewData["msg"] = "please enter your valid Name";
             }
-           else if (User.Bangla_Name == null)
-            {
-                ViewData["msg"] = "please enter your valid Bangla_Name";
-            }
             else if (User.Gender == null)
             {
                 ViewData["msg"] = "please enter your valid Gender";
@@ -54,12 +50,6 @@ namespace BusinessSuitMVC.Controllers
             {
                 ViewData["msg"] = "please enter your valid City";
             }
-            else if (User.Area == null)
-            {
-                ViewData["msg"] = "please enter your valid Area";
-            }
-           
-
             else if (UserName == "")
             {
                 ViewData["msg"] = "please enter your valid UserName";
@@ -72,6 +62,10 @@ namespace BusinessSuitMVC.Controllers
             {
                 ViewData["msg"] = "please enter your valid Confirm Password";
             }
+            else if (User.Mobile == null)
+            {
+                ViewData["msg"] = "please enter your valid Mobile";
+            }
             else if (Role == null)
             {
                 ViewData["msg"] = "please enter your valid Role";
@@ -80,19 +74,12 @@ namespace BusinessSuitMVC.Controllers
             {
                 ViewData["msg"] = "please enter your valid Address";
             }
-            else if (User.Mobile == null)
-            {
-                ViewData["msg"] = "please enter your valid Mobile";
-            }
-            else if (User.Email == null)
-            {
-                ViewData["msg"] = "please enter your valid Email";
-            }
+           
+            //else if (User.Email == null)
+            //{
+            //    ViewData["msg"] = "please enter your valid Email";
+            //}
           
-            else if (User.Phone == null)
-            {
-                ViewData["msg"] = "please enter your valid Phone";
-            }
             else
             {
                 DBContext DB = new DBContext();
@@ -107,8 +94,8 @@ namespace BusinessSuitMVC.Controllers
 
                 DB.User_Login.Add(login);
                 DB.SaveChanges();
-
-                return RedirectToAction("Create");
+                ViewData["msg"] = "Successfully Saved";
+               
             }
             //List<SelectListItem> role = new List<SelectListItem>();
             //role.Add(new SelectListItem() { Value = "1", Text = "Super Admin" });

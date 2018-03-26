@@ -35,11 +35,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <script src="~/Script/jquery.min.js"></script>
-    <script src="~/Script/jquery.min.js"></script>
 </head>
 <body>
     <div>
-        @using (Html.BeginForm("Create", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+        @using (Html.BeginForm("Create", "User", FormMethod.Post, new { @class = "form-horizontal", @id = "userCreate", @name = "userCreate" }))
         {
             <h2 style="margin-left:20px">User Profile</h2>
             <div class="form-group">
@@ -109,23 +108,25 @@
             </div>
 
             <div class="form-group">
-                @Html.Label("Role", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.DropDownList("Role", @role, "Select Role", new { @class = "form-control editor-field" })
-                </div>
-            </div>
-            <div class="form-group">
                 @Html.Label("Mobile", new { @class = "control-label col-md-1" })
                 <div class="col-md-2">
                     @Html.TextBoxFor(m => m.Mobile, new { @Class = "form-control" })
                 </div>
             </div>
             <div class="form-group">
+                @Html.Label("Role", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.DropDownList("Role", @role, "Select Role", new { @class = "form-control editor-field" })
+                </div>
+            </div>
+
+            <div class="form-group">
                 @Html.Label("Email", new { @class = "control-label col-md-1" })
                 <div class="col-md-2">
                     @Html.TextBoxFor(m => m.Email, new { @Class = "form-control" })
                 </div>
             </div>
+
             <div class="form-group">
                 @Html.Label("Address", new { @class = "control-label col-md-1" })
                 <div class="col-md-2">
@@ -140,8 +141,8 @@
             </div>
             <div class="form-group">
                 <div class="col-md-1"></div>
-                <input type="submit" value="Save"  style="margin-left:15px" class="btn btn-info" />
-                <input type="submit" value="Delete" class="btn btn-info" />
+                <input type="submit"  value="Save"  style="margin-left:15px" class="btn btn-info" />
+                <input type="button" value="Reset" id="reset" class="btn btn-info" />
             </div>
             <div class="form-group">
                 <div class="col-md-1"></div>
@@ -151,4 +152,102 @@
         }
             </div>
             </body>
+<Script>
+   
+
+    $("form").submit(function (event) {
+         //stop form submit
+
+        if ($("#Name").val() == "") {
+            event.preventDefault();
+            $("#Name").focus();
+            alert("Name is required");
+
+        }
+        else if($("#Gender").val() == "")
+        {
+            event.preventDefault();
+            $("#Gender").focus();
+            alert("Gender is required");
+        }
+        else if ($("#Ward").val() == "") {
+            event.preventDefault();
+            $("#Ward").focus();
+            alert("Ward is required");
+        }
+        else if ($("#User_Type").val() == "") {
+            event.preventDefault();
+            $("#User_Type").focus();
+            alert("User_Type is required");
+        }
+        else if ($("#City").val() == "") {
+            event.preventDefault();
+            $("#City").focus();
+            alert("City is required");
+        }
+        else if ($("#Username").val() == "") {
+            event.preventDefault();
+            $("#Username").focus();
+            alert("Username is required");
+        }
+        else if ($("#Password").val() == "") {
+            event.preventDefault();
+            $("#Password").focus();
+            alert("Password is required");
+        }
+        else if ($("#ConfirmPassword").val() != $("#Password").val()) {
+            event.preventDefault();
+            $("#ConfirmPassword").focus();
+            alert("ConfirmPassword is not matched with password");
+
+        }
+        else if ($("#Mobile").val() == "") {
+            event.preventDefault();
+            $("#Mobile").focus();
+            alert("Mobile is required");
+        }
+        else if ($("#Role").val() == "") {
+            event.preventDefault();
+            $("#Role").focus();
+            alert("Role is required");
+        }
+       
+        //else if ($("#Email").val() == "") {
+        //    event.preventDefault();
+        //    $("#Email").focus();
+        //    alert("Email is required");
+        //}
+        else if ($("#Address").val() == "") {
+            event.preventDefault();
+            $("#Address").focus();
+            alert("Address is required");
+
+        }
+    });
+
+    $(document).ready(function () {
+        
+
+        $("#reset").click(function () {
+
+            $("#Name").val("");
+            $("#Bangla_Name").val("");
+            $("#Gender").val("");
+            $("#Ward").val("");
+            $("#User_Type").val("");
+            $("#City").val("");
+            $("#Username").val("");
+            $("#Area").val("");
+            $("#Password").val("");
+            $("#ConfirmPassword").val("");
+            $("#Role").val("");
+            $("#Mobile").val("");
+            $("#Email").val("");
+            $("#Address").val("");
+            $("#Phone").val("");
+
+        });
+
+    });
+</Script>
 </html>
