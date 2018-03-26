@@ -26,7 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
-	<TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
+    <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -180,6 +180,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OfflineOrderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -272,6 +273,7 @@
     <Content Include="Content\font-awesome\fonts\fontawesome-webfontba72.ttf" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfontba72.woff" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -281,7 +283,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\adminTemplate\" />
+    <Folder Include="layouts\adminTemplate\" />
+    <Folder Include="layouts\bucketLayoutTemplate\" />
+    <Folder Include="layouts\homeLayout\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
