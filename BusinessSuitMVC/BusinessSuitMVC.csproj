@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -24,6 +25,8 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -64,6 +67,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -96,8 +103,49 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AdminLTE.min.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrap3-wysihtml5.min.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.css" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfontba72.svg" />
+    <Content Include="Content\ionicons.min.css" />
+    <Content Include="Content\jquery-jvectormap.css" />
+    <Content Include="Content\_all-skins.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\404.png" />
+    <Content Include="Images\500.png" />
+    <Content Include="Images\acc-expand.png" />
+    <Content Include="Images\avatar-mini-2.jpg" />
+    <Content Include="Images\avatar-mini-3.jpg" />
+    <Content Include="Images\avatar-mini-4.jpg" />
+    <Content Include="Images\avatar-mini.jpg" />
+    <Content Include="Images\avatar1.jpg" />
+    <Content Include="Images\avatar1_small.jpg" />
+    <Content Include="Images\bucket-logo.png" />
+    <Content Include="Images\chat-avatar2.jpg" />
+    <Content Include="Images\chat-user-thumb-f.png" />
+    <Content Include="Images\chat-user-thumb.png" />
+    <Content Include="Images\crazy-price.jpg" />
+    <Content Include="Images\customSelect-arrow.gif" />
+    <Content Include="Images\details_close.png" />
+    <Content Include="Images\details_open.png" />
+    <Content Include="Images\favicon.html" />
+    <Content Include="Images\lock-screen.jpg" />
+    <Content Include="Images\lock_thumb.jpg" />
+    <Content Include="Images\logo.png" />
+    <Content Include="Images\nav-expand.png" />
+    <Content Include="Images\product_img.png" />
+    <Content Include="Images\search-icon.png" />
+    <Content Include="Images\sm-img-1.jpg" />
+    <Content Include="Images\sm-img-2.jpg" />
+    <Content Include="Images\sm-img-3.jpg" />
+    <Content Include="Images\top-arrow.png" />
+    <Content Include="Images\twitter_corner_black.png" />
+    <Content Include="Images\twitter_corner_blue.png" />
+    <Content Include="Images\user2-160x160.jpg" />
+    <Content Include="Images\user3-128x128.jpg" />
+    <Content Include="Images\user4-128x128.jpg" />
+    <Content Include="Images\weather_image.jpg" />
     <Content Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
@@ -108,16 +156,33 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Content Include="Script\adminlte.min.js" />
+    <Content Include="Script\bootstrap-datepicker.min.js" />
     <Content Include="Script\bootstrap.min.js" />
+    <Content Include="Script\bootstrap3-wysihtml5.all.min.js" />
+    <Content Include="Script\dashboard.js" />
+    <Content Include="Script\daterangepicker.js" />
+    <Content Include="Script\demo.js" />
+    <Content Include="Script\fastclick.js" />
+    <Content Include="Script\jquery-jvectormap-1.2.2.min.js" />
+    <Content Include="Script\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="Script\jquery-ui.min.js" />
+    <Content Include="Script\jquery.knob.min.js" />
     <Content Include="Script\jquery.min.js" />
+    <Content Include="Script\jquery.slimscroll.min.js" />
+    <Content Include="Script\jquery.sparkline.min.js" />
+    <Content Include="Script\moment.min.js" />
+    <Content Include="Script\morris.min.js" />
+    <Content Include="Script\raphael.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OfflineOrderController.cs" />
-    <Compile Include="Controllers\Online_Order_DetailsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -179,7 +244,7 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\Client\Edit.cshtml" />
-    <Content Include="Views\Client\Create.cshtml" />
+    <Content Include="Views\Client\Save.cshtml" />
     <Content Include="Views\Client\Search.cshtml" />
     <Content Include="Views\Login\ChangePassword.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
@@ -194,7 +259,21 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <Content Include="Views\OfflineOrder\Create.cshtml" />
-    <Content Include="Views\Online_Order_Details\Create.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Shared\_Layout_home.cshtml" />
+    <Content Include="Views\Shared\_Layout_new.cshtml" />
+    <Content Include="Views\Shared\_Layout_Portal.cshtml" />
+    <Content Include="Views\Shared\_Layout_Report.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\User\LayoutTest.cshtml" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfontba72.eot" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfontba72.ttf" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfontba72.woff" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -204,8 +283,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="layouts\adminTemplate\" />
+    <Folder Include="layouts\bucketLayoutTemplate\" />
+    <Folder Include="layouts\homeLayout\" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
@@ -213,6 +296,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>

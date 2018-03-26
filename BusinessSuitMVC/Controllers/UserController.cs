@@ -9,6 +9,11 @@ namespace BusinessSuitMVC.Controllers
 {
     public class UserController : Controller
     {
+        public ActionResult LayoutTest()
+        {
+            return View();
+        }
+
         // GET: User
         public ActionResult Index()
         {
