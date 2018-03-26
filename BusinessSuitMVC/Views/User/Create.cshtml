@@ -168,3 +168,101 @@
         </div>
     </section>
 </section>
+
+<Script>
+
+    $("form").submit(function (event) {
+         //stop form submit
+
+        if ($("#Name").val() == "") {
+            event.preventDefault();
+            $("#Name").focus();
+            alert("Name is required");
+
+        }
+        else if($("#Gender").val() == "")
+        {
+            event.preventDefault();
+            $("#Gender").focus();
+            alert("Gender is required");
+        }
+        else if ($("#Ward").val() == "") {
+            event.preventDefault();
+            $("#Ward").focus();
+            alert("Ward is required");
+        }
+        else if ($("#User_Type").val() == "") {
+            event.preventDefault();
+            $("#User_Type").focus();
+            alert("User_Type is required");
+        }
+        else if ($("#City").val() == "") {
+            event.preventDefault();
+            $("#City").focus();
+            alert("City is required");
+        }
+        else if ($("#Username").val() == "") {
+            event.preventDefault();
+            $("#Username").focus();
+            alert("Username is required");
+        }
+        else if ($("#Password").val() == "") {
+            event.preventDefault();
+            $("#Password").focus();
+            alert("Password is required");
+        }
+        else if ($("#ConfirmPassword").val() != $("#Password").val()) {
+            event.preventDefault();
+            $("#ConfirmPassword").focus();
+            alert("ConfirmPassword is not matched with password");
+
+        }
+        else if ($("#Mobile").val() == "") {
+            event.preventDefault();
+            $("#Mobile").focus();
+            alert("Mobile is required");
+        }
+        else if ($("#Role").val() == "") {
+            event.preventDefault();
+            $("#Role").focus();
+            alert("Role is required");
+        }
+
+        //else if ($("#Email").val() == "") {
+        //    event.preventDefault();
+        //    $("#Email").focus();
+        //    alert("Email is required");
+        //}
+        else if ($("#Address").val() == "") {
+            event.preventDefault();
+            $("#Address").focus();
+            alert("Address is required");
+
+        }
+    });
+
+    $(document).ready(function () {
+
+
+        $("#reset").click(function () {
+
+            $("#Name").val("");
+            $("#Bangla_Name").val("");
+            $("#Gender").val("");
+            $("#Ward").val("");
+            $("#User_Type").val("");
+            $("#City").val("");
+            $("#Username").val("");
+            $("#Area").val("");
+            $("#Password").val("");
+            $("#ConfirmPassword").val("");
+            $("#Role").val("");
+            $("#Mobile").val("");
+            $("#Email").val("");
+            $("#Address").val("");
+            $("#Phone").val("");
+
+        });
+
+    });
+</Script>
