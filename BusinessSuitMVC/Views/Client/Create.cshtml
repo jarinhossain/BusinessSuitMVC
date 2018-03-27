@@ -1,10 +1,10 @@
 ﻿@model BusinessSuitMVC.Models.Client_List
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <!DOCTYPE html>
-@{ 
+@{
     List<SelectListItem> District = new List<SelectListItem>();
     District.Add(new SelectListItem() { Value = "1", Text = "Comilla" });
     District.Add(new SelectListItem() { Value = "2", Text = "Brahmanbaria" });
@@ -19,137 +19,144 @@
     Elected.Add(new SelectListItem() { Value = "1", Text = "Yes" });
     Elected.Add(new SelectListItem() { Value = "0", Text = "No" });
 }
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Save</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+<section class="content-wrapper">
 
-    <script src="~/Script/jquery.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-</head>
-<body>
-  
-        <div>
-            @using (Html.BeginForm("Create", "Client", FormMethod.Post, new {@class="form-horizontal", @id = "clientCreate", @name = "clientCreate" }))
-            {
-                <h2 style="margin-left:20px">Client_Details</h2>
-                <div class="form-group">
-                    @*@Html.Label("Counsilor Name", new { @class = "control-label col-md-1" })*@
-                    <label class="control-label col-md-1">Counsilor Name <span style="color:red;">*</span> </label>
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.Counsilor_Name, new { @Class = "form-control" })
+    <section class="content-header">
+        <h1>
+            Client
+        </h1>
+        @*<ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Forms</a></li>
+                <li class="active">General Elements</li>
+            </ol>*@
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Create</h3>
                     </div>
-                </div>
-                <div class="form-group">
-                    @Html.Label("Bangla Name", new { @class = "control-label col-md-1" })
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.Bangla_Name, new { @Class = "form-control" })
-                    </div>
-                </div>
+                    @using (Html.BeginForm("Create", "Client", FormMethod.Post, new { @class = "form-horizontal", @id = "clientCreate", @name = "clientCreate" }))
+                    {
+                        <div class="box-body">
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Counsilor Name <span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(m => m.Counsilor_Name, new { @Class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Bangla Name", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(m => m.Bangla_Name, new { @Class = "form-control" })
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    @*@Html.Label("Mobile1", new { @class = "control-label col-md-1" })*@
-                    <label class="control-label col-md-1">Mobile1<span style="color:red;">*</span> </label>
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.Mobile1, new { @Class = "form-control" })
-                    </div>
-                </div>
+                            <div class="form-group">
+                                @*@Html.Label("Mobile1", new { @class = "control-label col-md-1" })*@
+                                <label class="control-label col-md-1">Mobile1<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Mobile1, new { @Class = "form-control" })
+                                </div>
+                            </div>
 
-                <div class="form-group">
+                            <div class="form-group">
 
-                    @Html.Label("Mobile2", new { @class = "control-label col-md-1" })
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.Mobile2, new { @Class = "form-control" })
-                    </div>
-                </div>
+                                @Html.Label("Mobile2", new { @class = "control-label col-md-1" })
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Mobile2, new { @Class = "form-control" })
+                                </div>
+                            </div>
 
-                <div class="form-group">
+                            <div class="form-group">
 
-                    @Html.Label("Email", new { @class = "control-label col-md-1" })
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.Email, new { @Class = "form-control" })
-                    </div>
-                </div>
+                                @Html.Label("Email", new { @class = "control-label col-md-1" })
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Email, new { @Class = "form-control" })
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    @*@Html.Label("Ward", new { @class = "control-label col-md-1" })*@
-                    <label class="control-label col-md-1">Ward<span style="color:red;">*</span> </label>
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.ward, new { @Class = "form-control" })
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    @*@Html.Label("District", new { @class = "control-label col-md-1" })*@
-                    <label class="control-label col-md-1">District<span style="color:red;">*</span> </label>
-                    <div class="col-md-2">
-                        @Html.DropDownList("District", @District, "Select District", new { @class = "form-control editor-field" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-
-                    @Html.Label("Address", new { @class = "control-label col-md-1" })
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.Address, new { @Class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group">
-
-                    @Html.Label("Remarks", new { @class = "control-label col-md-1" })
-                    <div class="col-md-2">
-                        @Html.TextBoxFor(m => m.Remarks, new { @Class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.Label("Is_Elected", new { @class = "control-label col-md-1" })
-                    <div class="col-md-2">
-                        @Html.DropDownList("Is_Elected", @Elected, "Select Is_Elected", new { @class = "form-control editor-field" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @*@Html.Label("Client_Type", new { @class = "control-label col-md-1" })*@
-                    <label class="control-label col-md-1">Client Type <span style="color:red;">*</span> </label>
-                    <div class="col-md-2">
-                        @Html.DropDownList("Client_Type", @Clienttype, "Select Gender", new { @class = "form-control editor-field"})
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-1"></div>
-                    
-                        <input type="submit" value="Save"  style="margin-left:15px" class="btn btn-info"/>
-                        <input type="button" value="Reset" id="reset" class="btn btn-info" />
-                        
-                    </div>
-
-                <div class="form-group">
-                    <div class="col-md-1"></div>
-                    <label>@ViewData["msg"]</label>
-                </div>
+                            <div class="form-group">
+                                @*@Html.Label("Ward", new { @class = "control-label col-md-1" })*@
+                                <label class="control-label col-md-1">Ward<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.ward, new { @Class = "form-control" })
+                                </div>
+                            </div>
 
 
+                            <div class="form-group">
+                                @*@Html.Label("District", new { @class = "control-label col-md-1" })*@
+                                <label class="control-label col-md-1">District<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownList("District", @District, "Select District", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                @Html.Label("Address", new { @class = "control-label col-md-1" })
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Address, new { @Class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                @Html.Label("Remarks", new { @class = "control-label col-md-1" })
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Remarks, new { @Class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Is_Elected", new { @class = "control-label col-md-1" })
+                                <div class="col-md-2">
+                                    @Html.DropDownList("Is_Elected", @Elected, "Select Is_Elected", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @*@Html.Label("Client_Type", new { @class = "control-label col-md-1" })*@
+                                <label class="control-label col-md-1">Client Type <span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownList("Client_Type", @Clienttype, "Select Gender", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-1"></div>
+
+                                <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
+                                <input type="button" value="Reset" id="reset" class="btn btn-info" />
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-1"></div>
+                                <label>@ViewData["msg"]</label>
+                            </div>
+                            </div>
 
 
-            }
+
+
+                    }
+                        </div>
+            </div>
         </div>
- 
-</body>
+    </section>
+</section>
 <script>
-    $("form").submit(function (event)
-    {
-        if($("#Counsilor_Name").val() == "")
-        {
+    $("form").submit(function (event) {
+        if ($("#Counsilor_Name").val() == "") {
             event.preventDefault();
             //alert("Counsilor_Name is required");
-            swal("Failed", "Counsilor Name is required", "error").then(function(){
+            swal("Failed", "Counsilor Name is required", "error").then(function () {
                 $("#Counsilor_Name").focus();
             });
-            
+
         }
         else if ($("#Mobile1").val() == "") {
             event.preventDefault();
@@ -157,8 +164,7 @@
                 $("#Mobile1").focus();
             });
         }
-        else if ($("#Ward").val() == "")
-        {
+        else if ($("#Ward").val() == "") {
             event.preventDefault();
             swal("Failed", "Ward is required", "error").then(function () {
                 $("#Ward").focus();
@@ -170,31 +176,30 @@
                 $("#District").focus();
             });
         }
-    else if ($("#Client_Type").val() == "") {
-        event.preventDefault();
-        swal("Failed", "Client Type is required", "error").then(function () {
-            $("#Client_Type").focus();
-        });
-    }
+        else if ($("#Client_Type").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Client Type is required", "error").then(function () {
+                $("#Client_Type").focus();
+            });
+        }
 
     });
     $(document).ready(function () {
-       $("#reset").click(function () {
-           $("#Counsilor_Name").val("");
-           $('#District option:first').prop('selected', true); //clear
-           $("#Bangla_Name").val("");
-           $("#Mobile1").val("");
-           $("#Mobile2").val("");
-           $("#Email").val("");
-           $("#Ward").val("");
-           //$("#District").val("");
-           $("#Address").val(""); 
-           $("#Remarks").val("");
-           $("#Is_Elected").val("");
-           $("#Client_Type").val("");
-          
+        $("#reset").click(function () {
+            $("#Counsilor_Name").val("");
+            $('#District option:first').prop('selected', true); //clear
+            $("#Bangla_Name").val("");
+            $("#Mobile1").val("");
+            $("#Mobile2").val("");
+            $("#Email").val("");
+            $("#Ward").val("");
+            //$("#District").val("");
+            $("#Address").val("");
+            $("#Remarks").val("");
+            $("#Is_Elected").val("");
+            $("#Client_Type").val("");
+
         });
 
     });
 </script>
-</html>
