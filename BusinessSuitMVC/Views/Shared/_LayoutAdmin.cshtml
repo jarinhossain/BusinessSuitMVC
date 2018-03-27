@@ -33,7 +33,7 @@
     <script src="~/Script/bootstrap.min.js"></script>
     
 </head>
-<body  class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
         <header class="main-header">
@@ -378,9 +378,8 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        
-            <!-- Content Header (Page header) -->
-            @RenderBody()
+        <!-- Content Header (Page header) -->
+        @RenderBody()
 
 
         <!-- /.content-wrapper -->
@@ -562,7 +561,34 @@
         <div class="control-sidebar-bg"></div>
     </div>
 
+    @*<script>
+        $(document).ready(function () {
+            var sPath = window.location.pathname;
+            var sPage = sPath; //sPath.substring(sPath.indexOf('/') + 1);
+            $(".sidebar-menu").each(function () {
+                $(this).find("a[href='" + sPage + "']").parents(".treeview ").addClass("menu-open");
+                $(this).find("a[href='" + sPage + "']").parents(".treeview").find('.treeview-menu').css("display", "block");
+                $(this).find("a[href='" + sPage + "']").parents(".treeview").find('a.dropdown-toggle').addClass("active");
+                $(this).find("a[href='" + sPage + "']").addClass("active");
+            });
+        });
+        </script>*@
     
+    <script>
+        $(document).ready(function () {
+            var url = window.location;
+            // for sidebar menu but not for treeview submenu
+            $('ul.sidebar-menu a').filter(function () {
+                return this.href == url;
+            }).parent().siblings().removeClass('active').end().addClass('active');
+            // for treeview which is like a submenu
+            $('ul.treeview-menu a').filter(function () {
+                return this.href == url;
+            }).parentsUntil(".sidebar-menu > .treeview-menu").siblings().removeClass('active').end().addClass('active');
+        });
+        
+    </script>
+
     <!-- Morris.js charts -->
     <script src="~/Script/raphael.min.js"></script>
     @*<script src="~/Script/morris.min.js"></script>*@
@@ -585,13 +611,13 @@
     <!-- FastClick -->
     <script src="~/Script/fastclick.js"></script>
     <!-- AdminLTE App -->
-    <script src="~/Script/adminlte.min.js"></script>
+    <script src="~/Script/adminlte.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     @*<script src="~/Script/dashboard.js"></script>*@
     <!-- AdminLTE for demo purposes -->
     <script src="~/Script/demo.js"></script>
 
 
-        @RenderSection("scripts", required: false)
+    @RenderSection("scripts", required: false)
 </body>
 </html>

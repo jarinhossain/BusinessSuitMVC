@@ -180,6 +180,7 @@ namespace BusinessSuitMVC.Controllers
 
             return View();
         }
+
         [HttpGet]
         public ActionResult Search()
         {
@@ -191,5 +192,18 @@ namespace BusinessSuitMVC.Controllers
 
             return View(userlist);
         }
+
+        [HttpGet]
+        public ActionResult Details(int id)
+        {
+
+            DBContext DB = new DBContext();
+            User_Profile user = (from u in DB.User_Profile
+                                           where u.Id == id
+                                           select u).FirstOrDefault();
+      
+            return View(user);
+        }
+
     }
 }

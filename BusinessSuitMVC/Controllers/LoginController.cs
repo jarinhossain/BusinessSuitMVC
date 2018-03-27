@@ -20,7 +20,7 @@ namespace BusinessSuitMVC.Controllers
         {
             if (model.UserName == null)
             {
-                ViewData["msg"] = "please enter your valid UserName";
+                ViewData["msg"] = "please enter your valid Username";
             }
             else if (model.Password == null)
             {
@@ -48,7 +48,10 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult ChangePassword()
         {
-          
+            //User_Login userLogin  = (from login in DB.User_Login
+            //                     where login.Password == userLogin.Password
+            //                     && login.Id == userLogin.Id
+            //                     select login).FirstOrDefault();
             return View();
         }
         [HttpPost]

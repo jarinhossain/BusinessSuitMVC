@@ -4,24 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7de9816718cd4f009945112c5e79bb13" Name="Diagram1">
-        <EntityTypeShape EntityType="Business_SuitModel.Client_List" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Offline_Order_Detalis" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Online_Order_Detalis" Width="1.5" PointX="6" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Order" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Product" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Promotion_Type" Width="1.5" PointX="3.75" PointY="13.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Remark" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Role" Width="1.5" PointX="8.75" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Status_" Width="1.5" PointX="8.75" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.User_Login" Width="1.5" PointX="11" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.User_Profile" Width="1.5" PointX="8.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Voter_Slip_Image_Type" Width="1.5" PointX="10.75" PointY="4.875" IsExpanded="true" />
-        <AssociationConnector Association="Business_SuitModel.FK_Offline_Order_Detalis_Order" ManuallyRouted="false" />
-        <AssociationConnector Association="Business_SuitModel.FK_Online_Order_Detalis_Order" ManuallyRouted="false" />
-        <AssociationConnector Association="Business_SuitModel.FK_Online_Order_Detalis_Product" ManuallyRouted="false" />
-        <AssociationConnector Association="Business_SuitModel.FK_Online_Order_Detalis_Promotion_Type" ManuallyRouted="false" />
-        <AssociationConnector Association="Business_SuitModel.FK_User_Login_User_Profile" ManuallyRouted="false" />
+      <Diagram DiagramId="9936c43c26b246b6a69b41e4640a618b" Name="Diagram1">
+        <EntityTypeShape EntityType="POSNew12Model.Client_List" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="POSNew12Model.Offline_Order_Detalis" Width="1.5" PointX="5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="POSNew12Model.Order" Width="1.5" PointX="2.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="POSNew12Model.Product" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="POSNew12Model.Promotion_Type" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="POSNew12Model.Remark" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="POSNew12Model.Role" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="POSNew12Model.Status" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="POSNew12Model.Status_" Width="1.5" PointX="9.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="POSNew12Model.User_Login" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="POSNew12Model.User_Profile" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="POSNew12Model.Voter_Slip_Image_Type" Width="1.5" PointX="9.75" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="POSNew12Model.FK_Offline_Order_Detalis_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="POSNew12Model.FK_User_Login_User_Profile" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
