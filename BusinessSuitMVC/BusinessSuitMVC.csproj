@@ -244,7 +244,6 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\Client\Edit.cshtml" />
-    <Content Include="Views\Client\Save.cshtml" />
     <Content Include="Views\Client\Search.cshtml" />
     <Content Include="Views\Login\ChangePassword.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
@@ -274,6 +273,7 @@
     <Content Include="Content\font-awesome\fonts\fontawesome-webfontba72.woff" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfontd41d.eot" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Client\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
