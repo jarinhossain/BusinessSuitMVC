@@ -11,8 +11,9 @@
     District.Add(new SelectListItem() { Value = "3", Text = "Dhaka" });
 
     List<SelectListItem> Clienttype = new List<SelectListItem>();
-    Clienttype.Add(new SelectListItem() { Value = "1", Text = "Male" });
-    Clienttype.Add(new SelectListItem() { Value = "2", Text = "Female" });
+    Clienttype.Add(new SelectListItem() { Value = "1", Text = "Councillor" });
+    Clienttype.Add(new SelectListItem() { Value = "2", Text = "General_Councillor" });
+    Clienttype.Add(new SelectListItem() { Value = "3", Text = "Mayor" });
 
     List<SelectListItem> Elected = new List<SelectListItem>();
     Elected.Add(new SelectListItem() { Value = "1", Text = "Yes" });
@@ -36,8 +37,8 @@
             {
                 <h2 style="margin-left:20px">Client_Details</h2>
                 <div class="form-group">
-                    @Html.Label("Counsilor Name", new { @class = "control-label col-md-1" })
-
+                    @*@Html.Label("Counsilor Name", new { @class = "control-label col-md-1" })*@
+                    <label class="control-label col-md-1">Counsilor Name <span style="color:red;">*</span> </label>
                     <div class="col-md-2">
                         @Html.TextBoxFor(m => m.Counsilor_Name, new { @Class = "form-control" })
                     </div>
@@ -50,7 +51,8 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.Label("Mobile1", new { @class = "control-label col-md-1" })
+                    @*@Html.Label("Mobile1", new { @class = "control-label col-md-1" })*@
+                    <label class="control-label col-md-1">Mobile1<span style="color:red;">*</span> </label>
                     <div class="col-md-2">
                         @Html.TextBoxFor(m => m.Mobile1, new { @Class = "form-control" })
                     </div>
@@ -73,7 +75,8 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.Label("Ward", new { @class = "control-label col-md-1" })
+                    @*@Html.Label("Ward", new { @class = "control-label col-md-1" })*@
+                    <label class="control-label col-md-1">Ward<span style="color:red;">*</span> </label>
                     <div class="col-md-2">
                         @Html.TextBoxFor(m => m.ward, new { @Class = "form-control" })
                     </div>
@@ -81,7 +84,8 @@
 
 
                 <div class="form-group">
-                    @Html.Label("District", new { @class = "control-label col-md-1" })
+                    @*@Html.Label("District", new { @class = "control-label col-md-1" })*@
+                    <label class="control-label col-md-1">District<span style="color:red;">*</span> </label>
                     <div class="col-md-2">
                         @Html.DropDownList("District", @District, "Select District", new { @class = "form-control editor-field" })
                     </div>
@@ -108,7 +112,8 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.Label("Client_Type", new { @class = "control-label col-md-1" })
+                    @*@Html.Label("Client_Type", new { @class = "control-label col-md-1" })*@
+                    <label class="control-label col-md-1">Client Type <span style="color:red;">*</span> </label>
                     <div class="col-md-2">
                         @Html.DropDownList("Client_Type", @Clienttype, "Select Gender", new { @class = "form-control editor-field"})
                     </div>
@@ -141,31 +146,35 @@
         {
             event.preventDefault();
             //alert("Counsilor_Name is required");
-            swal("Failed", "Counsilor_Name is required", "error").then(function(){
+            swal("Failed", "Counsilor Name is required", "error").then(function(){
                 $("#Counsilor_Name").focus();
             });
             
         }
         else if ($("#Mobile1").val() == "") {
             event.preventDefault();
-            $("#Mobile1").focus();
-            alert("Mobile1 is required");
+            swal("Failed", "Mobile1 is required", "error").then(function () {
+                $("#Mobile1").focus();
+            });
         }
         else if ($("#Ward").val() == "")
         {
             event.preventDefault();
-            $("#Ward").focus();
-            alert("Ward is required");
+            swal("Failed", "Ward is required", "error").then(function () {
+                $("#Ward").focus();
+            });
         }
         else if ($("#District").val() == "") {
             event.preventDefault();
-            $("#District").focus();
-            alert("District is required");
+            swal("Failed", "District is required", "error").then(function () {
+                $("#District").focus();
+            });
         }
     else if ($("#Client_Type").val() == "") {
         event.preventDefault();
-        $("#Client_Type").focus();
-        alert("Client_Type is required");
+        swal("Failed", "Client Type is required", "error").then(function () {
+            $("#Client_Type").focus();
+        });
     }
 
     });
