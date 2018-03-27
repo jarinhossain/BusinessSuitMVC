@@ -166,5 +166,19 @@ namespace BusinessSuitMVC.Controllers
 
             return View(userlist);
         }
+
+        [HttpGet]
+        public ActionResult Show(int id)
+        {
+
+            DBContext DB = new DBContext();
+            User_Profile user = (from u in DB.User_Profile
+                                           where u.Id == id
+                                           select u).FirstOrDefault();
+
+
+            return View(user);
+        }
+
     }
 }

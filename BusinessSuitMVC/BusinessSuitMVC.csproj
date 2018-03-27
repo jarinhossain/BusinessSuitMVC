@@ -156,6 +156,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Content Include="Script\adminlte.js" />
     <Content Include="Script\adminlte.min.js" />
     <Content Include="Script\bootstrap-datepicker.min.js" />
     <Content Include="Script\bootstrap.min.js" />
@@ -274,6 +275,7 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="Views\User\Show.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
