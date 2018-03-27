@@ -31,18 +31,21 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
+    <title>Save</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+
     <script src="~/Script/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
     <div>
-        @using (Html.BeginForm("Create", "User", FormMethod.Post, new { @class = "form-horizontal", @id = "userCreate", @name = "userCreate" }))
+        @using (Html.BeginForm("Create", "User", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", @id = "userCreate", @name = "userCreate" }))
         {
             <h2 style="margin-left:20px">User Profile</h2>
             <div class="form-group">
-                @Html.Label("Name", new { @class = "control-label col-md-1" })
+                @*@Html.Label("Name", new { @class = "control-label col-md-1" })*@
+                <label class="control-label col-md-1">Name<span style="color:red;">*</span> </label>
                 <div class="col-md-2">
                     @Html.TextBoxFor(m => m.Name, new { @Class = "form-control" })
                 </div>
@@ -54,33 +57,38 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.Label("Gender", new { @class = "control-label col-md-1" })
+                @*@Html.Label("Gender", new { @class = "control-label col-md-1" })*@
+                <label class="control-label col-md-1">Gender<span style="color:red;">*</span> </label>
                 <div class="col-md-2">
                     @Html.DropDownList("Gender", @Gender, "Select Gender", new { @class = "form-control editor-field" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.Label("Ward", new { @class = "control-label col-md-1" })
+                @*@Html.Label("Ward", new { @class = "control-label col-md-1" })*@
+                <label class="control-label col-md-1">Ward<span style="color:red;">*</span> </label>
                 <div class="col-md-2">
                     @Html.TextBoxFor(m => m.Ward, new { @Class = "form-control" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.Label("User Type", new { @class = "control-label col-md-1" })
+                @*@Html.Label("User Type", new { @class = "control-label col-md-1" })*@
+                <label class="control-label col-md-1">User Type<span style="color:red;">*</span> </label>
                 <div class="col-md-2">
                     @Html.DropDownList("User_Type", @Usertype, "Select Usertype", new { @class = "form-control editor-field" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.Label("City", new { @class = "control-label col-md-1" })
+                @*@Html.Label("City", new { @class = "control-label col-md-1" })*@
+                <label class="control-label col-md-1">City<span style="color:red;">*</span> </label>
                 <div class="col-md-2">
                     @Html.DropDownList("City", @City, "Select City", new { @class = "form-control editor-field" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.Label("User Name", new { @class = "control-label col-md-1" })
+                @*@Html.Label("User Name", new { @class = "control-label col-md-1" })*@
+                <label class="control-label col-md-1">User Name<span style="color:red;">*</span> </label>
                 <div class="col-md-2">
                     @Html.TextBox("Username", null, new { @class = "form-control" })
                 </div>
@@ -94,27 +102,31 @@
             </div>
 
             <div class="form-group">
-                @Html.Label("Password", new { @class = "control-label col-md-1" })
+                @*@Html.Label("Password", new { @class = "control-label col-md-1" })*@
+                <label class="control-label col-md-1">Password<span style="color:red;">*</span> </label>
                 <div class="col-md-2">
                     @Html.TextBox("Password",null,new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.Label("Confirm Password", new { @class = "control-label col-md-1" })
+                @*@Html.Label("Confirm Password", new { @class = "control-label col-md-1" })*@
+                <label class="control-label col-md-1">Confirm Password<span style="color:red;">*</span> </label>
                 <div class="col-md-2">
                     @Html.TextBox("ConfirmPassword", null, new {@class="form-control" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.Label("Mobile", new { @class = "control-label col-md-1" })
+                @*@Html.Label("Mobile", new { @class = "control-label col-md-1" })*@
+                <label class="control-label col-md-1">Mobile<span style="color:red;">*</span> </label>
                 <div class="col-md-2">
                     @Html.TextBoxFor(m => m.Mobile, new { @Class = "form-control" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.Label("Role", new { @class = "control-label col-md-1" })
+                @*@Html.Label("Role", new { @class = "control-label col-md-1" })*@
+                <label class="control-label col-md-1">Role<span style="color:red;">*</span> </label>
                 <div class="col-md-2">
                     @Html.DropDownList("Role", @role, "Select Role", new { @class = "form-control editor-field" })
                 </div>
@@ -128,22 +140,33 @@
             </div>
 
             <div class="form-group">
-                @Html.Label("Address", new { @class = "control-label col-md-1" })
+                @*@Html.Label("Address", new { @class = "control-label col-md-1" })*@
+                <label class="control-label col-md-1">Address<span style="color:red;">*</span> </label>
                 <div class="col-md-2">
                     @Html.TextBoxFor(m => m.Address, new { @Class = "form-control" })
                 </div>
             </div>
+
             <div class="form-group">
                 @Html.Label("Phone", new { @class = "control-label col-md-1" })
                 <div class="col-md-2">
                     @Html.TextBoxFor(m => m.Phone, new { @Class = "form-control" })
                 </div>
             </div>
+
+            <div class="form-group">
+                @Html.Label("Profile Image", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    <input type="file" id="image" name="image"/>
+                </div>
+            </div>
+
             <div class="form-group">
                 <div class="col-md-1"></div>
                 <input type="submit"  value="Save"  style="margin-left:15px" class="btn btn-info" />
                 <input type="button" value="Reset" id="reset" class="btn btn-info" />
             </div>
+
             <div class="form-group">
                 <div class="col-md-1"></div>
                 <label>@ViewData["msg"]</label>
@@ -160,56 +183,64 @@
 
         if ($("#Name").val() == "") {
             event.preventDefault();
-            $("#Name").focus();
-            alert("Name is required");
-
+            swal("Failed", "Name is required", "error").then(function () {
+                $("#Name").focus();
+            });
         }
         else if($("#Gender").val() == "")
         {
             event.preventDefault();
-            $("#Gender").focus();
-            alert("Gender is required");
+            swal("Failed", "Gender is required", "error").then(function () {
+                $("#Gender").focus();
+            });
         }
         else if ($("#Ward").val() == "") {
             event.preventDefault();
-            $("#Ward").focus();
-            alert("Ward is required");
+            swal("Failed", "Ward is required", "error").then(function () {
+                $("#Ward").focus();
+            });
         }
         else if ($("#User_Type").val() == "") {
             event.preventDefault();
-            $("#User_Type").focus();
-            alert("User_Type is required");
+            swal("Failed", "User Type is required", "error").then(function () {
+                $("#User_Type").focus();
+            });
         }
         else if ($("#City").val() == "") {
             event.preventDefault();
-            $("#City").focus();
-            alert("City is required");
+            swal("Failed", "City is required", "error").then(function () {
+                $("#City").focus();
+            });
         }
         else if ($("#Username").val() == "") {
             event.preventDefault();
-            $("#Username").focus();
-            alert("Username is required");
+            swal("Failed", "Username is required", "error").then(function () {
+                $("#Username").focus();
+            });
         }
         else if ($("#Password").val() == "") {
             event.preventDefault();
-            $("#Password").focus();
-            alert("Password is required");
+            swal("Failed", "Password is required", "error").then(function () {
+                $("#Password").focus();
+            });
         }
         else if ($("#ConfirmPassword").val() != $("#Password").val()) {
             event.preventDefault();
-            $("#ConfirmPassword").focus();
-            alert("ConfirmPassword is not matched with password");
-
+            swal("Failed", "ConfirmPassword is required", "error").then(function () {
+                $("#ConfirmPassword").focus();
+            });
         }
         else if ($("#Mobile").val() == "") {
             event.preventDefault();
-            $("#Mobile").focus();
-            alert("Mobile is required");
+            swal("Failed", "Mobile is required", "error").then(function () {
+                $("#Mobile").focus();
+            });
         }
         else if ($("#Role").val() == "") {
             event.preventDefault();
-            $("#Role").focus();
-            alert("Role is required");
+            swal("Failed", "Role is required", "error").then(function () {
+                $("#Role").focus();
+            });
         }
        
         //else if ($("#Email").val() == "") {
@@ -219,9 +250,9 @@
         //}
         else if ($("#Address").val() == "") {
             event.preventDefault();
-            $("#Address").focus();
-            alert("Address is required");
-
+            swal("Failed", "Address is required", "error").then(function () {
+                $("#Address").focus();
+            });
         }
     });
 

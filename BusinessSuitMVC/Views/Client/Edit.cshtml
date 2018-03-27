@@ -27,9 +27,10 @@
 </head>
 <body>
     <div>
-        @using (Html.BeginForm("Save", "Client", FormMethod.Post, new { @class = "form-horizontal" }))
+        @using (Html.BeginForm("Edit", "Client", FormMethod.Post, new { @class = "form-horizontal" }))
         {
             <h2 style="margin-left:20px">Client_Details</h2>
+            @Html.HiddenFor(m => m.Id)
                 <div class="form-group">
                     @Html.Label("Counsilor Name", new { @class = "control-label col-md-1" })
 

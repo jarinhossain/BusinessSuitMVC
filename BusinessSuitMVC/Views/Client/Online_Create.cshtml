@@ -8,15 +8,16 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
+    <title>Online Create</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+
     <script src="~/Script/jquery.min.js"></script>
-    <script src="~/Script/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
     <div>
-        @using (Html.BeginForm("Create", "Online_Order_Details", FormMethod.Post, new { @class = "form-horizontal" }))
+        @using (Html.BeginForm("Online_Create", "Client", FormMethod.Post, new { @class = "form-horizontal", @id = "onlineCreate", @name = "onlineCreate" }))
         {
 
             <h2 style="margin-left:20px">Online_Order_Details</h2>
@@ -40,13 +41,13 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.Label("Price_Per_Piece", new { @class = "control-label col-md-2" })
+                @Html.Label("Price Per Piece", new { @class = "control-label col-md-2" })
                 <div class="col-md-2">
                     @Html.TextBoxFor(m => m.Price_Per_Piece, new { @Class = "form-control" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.Label("Age_Group", new { @class = "control-label col-md-2" })
+                @Html.Label("Age Group", new { @class = "control-label col-md-2" })
                 <div class="col-md-2">
                     @Html.TextBoxFor(m => m.Age_Group, new { @Class = "form-control" })
                 </div>
@@ -58,7 +59,7 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.Label("Obd_Voice_Provided", new { @class = "control-label col-md-2" })
+                @Html.Label("Obd Voice Provided", new { @class = "control-label col-md-2" })
                 <div class="col-md-2">
                     @Html.TextBoxFor(m => m.Obd_Voice_Provided, new { @Class = "form-control" })
                 </div>
@@ -91,19 +92,90 @@
             <div class="form-group">
                 <div class="col-md-1"></div>
 
-                <input type="submit" value="Save" onclick="validate()" style="margin-left:135px" class="btn btn-info" />
-                <input type="submit" value="Reset"  id="reset" style="margin-left:15px" class="btn btn-info" />
+                <input type="submit" value="Save"  style="margin-left:135px" class="btn btn-info" />
+                <input type="button" value="Reset" id="reset" style="margin-left:15px" class="btn btn-info" />
 
 
             </div>
-                <div class="form-group">
-                    <div class="col-md-1"></div>
-                    <label>@ViewData["msg"]</label>
-                </div>
+            <div class="form-group">
+                <div class="col-md-1"></div>
+                <label>@ViewData["msg"]</label>
+            </div>
         }
     </div>
 </body>
 <script>
+    $("form").submit(function (event) {
+
+        if($("#Advertisement_Area").val() == "")
+        {
+            event.preventDefault();
+            swal("Failed", "Advertisement Area is required", "error").then(function () {
+                $("#Advertisement_Area").focus();
+            });
+        }
+        else if ($("#Estimated_Reach_Ordered").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Estimated Reach Ordered  is required", "error").then(function () {
+                $("#Estimated_Reach_Ordered").focus();
+            });
+        }
+        else if ($("#Estimated_Budget").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Estimated Budget  is required", "error").then(function () {
+                $("#Estimated_Budget").focus();
+            });
+        }
+        else if ($("#Price_Per_Piece").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Price Per Piece  is required", "error").then(function () {
+                $("#Price_Per_Piece").focus();
+            });
+        }
+        else if ($("#Age_Group").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Age_Group  is required", "error").then(function () {
+                $("#Age_Group").focus();
+            });
+        }
+        else if ($("#Duration").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Duration  is required", "error").then(function () {
+                $("#Duration").focus();
+            });
+        }
+        else if ($("#Obd_Voice_Provided").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Obd Voice Provided  is required", "error").then(function () {
+                $("#Obd_Voice_Provided").focus();
+            });
+        }
+        else if ($("#Obd_Vioce_Content").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Obd Vioce Content  is required", "error").then(function () {
+                $("#Obd_Vioce_Content").focus();
+            });
+        }
+        else if ($("#Sms_Content").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Sms Content  is required", "error").then(function () {
+                $("#Sms_Content").focus();
+            });
+        }
+        else if ($("#Status").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Status  is required", "error").then(function () {
+                $("#Status").focus();
+            });
+        }
+        else if ($("#Discount").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Discount  is required", "error").then(function () {
+                $("#Discount").focus();
+            });
+        }
+    });
+
     $(document).ready(function () {
         function validate() {
         }
@@ -121,7 +193,7 @@
            $("#Sms_Content").val("");
            $("#Status").val("");
            $("#Discount").val("");
-          
+
         });
 
     });

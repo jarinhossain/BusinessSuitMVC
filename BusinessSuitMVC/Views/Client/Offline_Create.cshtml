@@ -1,0 +1,275 @@
+﻿@model BusinessSuitMVC.Models.Offline_Order_Detalis
+
+
+
+<!DOCTYPE html>
+@{
+    List<SelectListItem> cdprovided = new List<SelectListItem>();
+    cdprovided.Add(new SelectListItem() { Value = "1", Text = "Yes" });
+    cdprovided.Add(new SelectListItem() { Value = "2", Text = "No" });
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Offline Create</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+
+    <script src="~/Script/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("Offline_Create", "Client", FormMethod.Post, new { @class = "form-horizontal", @id = "offlineCreate", @name = "offlineCreate" }))
+        {
+            <h2 style="margin-left:20px">Offline_Order_Details</h2>
+            <div class="form-group">
+                @Html.Label("Price Per Piece", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Price_Per_Piece, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Estimated Voters", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Estimated_Voters, new { @Class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Format No", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Format_No, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Free Blank Slip", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Free_Blank_Slip, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Paid Blank Slip", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Paid_Blank_Slip, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Sample Slip Image", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Sample_Slip_Image, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Slip Content", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Slip_Content, new { @Class = "form-control" })
+                </div>
+            </div>
+            /*
+            <div class="form-group">
+                @Html.Label("Is_Cd_Provided", new { @class = "control-label col-md-1" })
+                <div class="col-md-2">
+                    @Html.CheckBoxFor(m =>m.Is_Cd_Provided,  new { @class = "form-control editor-field" })
+                </div>
+            </div>
+            */
+
+            <div class="form-group">
+                @Html.Label("Voter List Print", new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Voter_List_Print, new { @Class = "form-control" })
+                </div>
+            </div>
+
+                <div class="form-group">
+                    @Html.Label("Voter List Print Comment", new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Voter_List_Print_Comment, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Voter Slip Image Type", new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Voter_Slip_Image_Type, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Is Cd Provided", new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.DropDownList("Is_Cd_Provided", @cdprovided, "Select Is_Cd_Provided", new { @class = "form-control editor-field" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Kendro Name Image", new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Kendro_Name_Image, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Discount", new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Discount, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Status", new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Status, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Remarks", new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Remarks, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Marka", new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(m => m.Marka, new { @Class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-1"></div>
+
+                    <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
+                    <input type="button" value="Reset" id="reset" style="margin-left:15px" class="btn btn-info" />
+
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-1"></div>
+                    <label>@ViewData["msg"]</label>
+                </div>
+
+
+        }
+    </div>
+</body>
+<Script>
+    $("form").submit(function (event) {
+
+        if ($("#Price_Per_Piece").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Price Per Piece is required", "error").then(function () {
+                $("#Price_Per_Piece").focus();
+            });
+        }
+        else if ($("#Estimated_Voters").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Estimated Voters is required", "error").then(function () {
+                $("#Estimated_Voters").focus();
+            });
+        }
+        else if ($("#Format No").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Format_No  is required", "error").then(function () {
+                $("#Format_No").focus();
+            });
+        }
+        else if ($("#Free_Blank_Slip").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Free Blank Slip is required", "error").then(function () {
+                $("#Free_Blank_Slip").focus();
+            });
+        }
+        else if ($("#Paid_Blank_Slip").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Paid Blank Slip  is required", "error").then(function () {
+                $("#Paid_Blank_Slip").focus();
+            });
+        }
+        else if ($("#Sample_Slip_Image").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Sample Slip Image  is required", "error").then(function () {
+                $("#Sample_Slip_Image").focus();
+            });
+        }
+        else if ($("#Slip_Content").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Slip_Content  is required", "error").then(function () {
+                $("#Duration").focus();
+            });
+        }
+        else if ($("#Voter_List_Print").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Voter List Print is required", "error").then(function () {
+                $("#Voter_List_Print").focus();
+            });
+        }
+        else if ($("#Voter_List_Print_Comment").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Voter List Print Comment is required", "error").then(function () {
+                $("#Voter_List_Print_Comment").focus();
+            });
+        }
+        else if ($("#Voter_Slip_Image_Type").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Voter Slip Image Type is required", "error").then(function () {
+                $("#Voter_Slip_Image_Type").focus();
+            });
+        }
+        //else if ($("#Is_Cd_Provided").val() == "") {
+        //    event.preventDefault();
+        //    swal("Failed", "Is Cd Provided is required", "error").then(function () {
+        //        $("#Is_Cd_Provided").focus();
+        //    });
+        //}
+        else if ($("#Kendro_Name_Image").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Kendro Name Image is required", "error").then(function () {
+                $("#Kendro_Name_Image").focus();
+            });
+        }
+        else if ($("#Discount").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Discount  is required", "error").then(function () {
+                $("#Discount").focus();
+            });
+        }
+        else if ($("#Status").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Status  is required", "error").then(function () {
+                $("#Status").focus();
+            });
+        }
+       
+        else if ($("#Remarks").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Remarks  is required", "error").then(function () {
+                $("#Remarks").focus();
+            });
+        }
+        else if ($("#Marka").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Marka  is required", "error").then(function () {
+                $("#Marka").focus();
+            });
+        }
+    });
+    $(document).ready(function () {
+        $("#reset").click(function () {
+
+            $("#Price_Per_Piece").val("");
+            $("#Estimated_Voters").val("");
+            $("#Format_No").val("");
+            $("#Free_Blank_Slip").val("");
+            $("#Paid_Blank_Slip").val(""); 
+            $("#Sample_Slip_Image").val("");
+            $("#Slip_Content").val("");
+            $("#Voter_List_Print").val("");
+            $("#Voter_List_Print_Comment").val("");
+            $("#Discount").val("");
+            $("#Status").val("");
+            $("#Remarks").val("");
+            $("#Marka").val("");
+
+        });
+
+    });
+</Script>
+</html>
