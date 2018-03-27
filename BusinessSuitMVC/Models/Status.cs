@@ -12,10 +12,10 @@ namespace BusinessSuitMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Promotion_Type
+    public partial class Status
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Dispaly_Name { get; set; }
+        public string Description { get; set; }
     }
 }
