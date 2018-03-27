@@ -244,7 +244,7 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\Client\Edit.cshtml" />
-    <Content Include="Views\Client\Save.cshtml" />
+    <Content Include="Views\Client\Create.cshtml" />
     <Content Include="Views\Client\Search.cshtml" />
     <Content Include="Views\Login\ChangePassword.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
