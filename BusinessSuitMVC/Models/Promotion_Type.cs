@@ -14,8 +14,15 @@ namespace BusinessSuitMVC.Models
     
     public partial class Promotion_Type
     {
+        public Promotion_Type()
+        {
+            this.Online_Order_Detalis = new HashSet<Online_Order_Detalis>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public string Dispaly_Name { get; set; }
+    
+        public virtual ICollection<Online_Order_Detalis> Online_Order_Detalis { get; set; }
     }
 }
