@@ -188,6 +188,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ModelClasses\ParameterEncryption.cs" />
+    <Compile Include="ModelClasses\RoleValidate.cs" />
     <Compile Include="Models\Client_List.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
