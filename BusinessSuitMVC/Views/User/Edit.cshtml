@@ -1,13 +1,30 @@
 ﻿@model BusinessSuitMVC.Models.User_Profile
-
+@{ 
+    Layout = null;
+}
 <!DOCTYPE html>
 @{
+
+    List<SelectListItem> Gender = new List<SelectListItem>();
+    Gender.Add(new SelectListItem() { Value = "1", Text = "Male" });
+    Gender.Add(new SelectListItem() { Value = "2", Text = "Female" });
+
     List<SelectListItem> role = new List<SelectListItem>();
     role.Add(new SelectListItem() { Value = "1", Text = "Super Admin" });
     role.Add(new SelectListItem() { Value = "2", Text = "Admin" });
     role.Add(new SelectListItem() { Value = "3", Text = "Moderator" });
     role.Add(new SelectListItem() { Value = "4", Text = "User" });
     role.Add(new SelectListItem() { Value = "5", Text = "Guest" });
+
+    List<SelectListItem> Usertype = new List<SelectListItem>();
+    Usertype.Add(new SelectListItem() { Value = "1", Text = "Internal user" });
+    Usertype.Add(new SelectListItem() { Value = "2", Text = "Uddokta" });
+    Usertype.Add(new SelectListItem() { Value = "2", Text = "Client" });
+
+    List<SelectListItem> City = new List<SelectListItem>();
+    City.Add(new SelectListItem() { Value = "1", Text = "Dhaka" });
+    City.Add(new SelectListItem() { Value = "2", Text = "Gajipur" });
+
 }
 
 <html>
@@ -21,9 +38,10 @@
 </head>
 <body>
     <div>
-        @using (Html.BeginForm("Create", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+        @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal" }))
         {
             <h2 style="margin-left:20px">User Profile</h2>
+            @Html.HiddenFor(m => m.Id)
             <div class="form-group">
                 @Html.Label("Name", new { @class = "control-label col-md-1" })
                 <div class="col-md-2">

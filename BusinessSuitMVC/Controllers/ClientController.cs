@@ -85,11 +85,11 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Edit(Client_List client)
         {
-            if(client.Counsilor_Name == null)
+            if (client.Counsilor_Name == null)
             {
                 ViewData["msg"] = "Please enter your valid Counsilor_Name";
             }
-           else if (client.Mobile1 == null)
+            else if (client.Mobile1 == null)
             {
                 ViewData["msg"] = "Please enter your valid Mobile1";
             }
@@ -121,8 +121,8 @@ namespace BusinessSuitMVC.Controllers
             {
                 DBContext DB = new DBContext();
                 Client_List Client = (from user in DB.Client_List
-                                      where user.Id == user.Id
-                                       select user).FirstOrDefault();
+                                      where user.Id == client.Id
+                                      select user).FirstOrDefault();
 
                 Client.Counsilor_Name = client.Counsilor_Name;
                 Client.Bangla_Name = client.Bangla_Name;
@@ -140,6 +140,242 @@ namespace BusinessSuitMVC.Controllers
                 ViewData["msg"] = "Successfully Updated";
             }
             return View(client);
+        }
+
+        [HttpGet]
+        public ActionResult Online_Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Online_Create(Online_Order_Detalis online)
+        {
+
+            if (online.Advertisement_Area == null)
+            {
+                ViewData["msg"] = "Please enter your valid Advertisement Area";
+            }
+            else if (online.Estimated_Reach_Ordered == null)
+            {
+                ViewData["msg"] = "Please enter your valid Estimated Reach Ordered";
+            }
+            else if (online.Estimated_Budget == null)
+            {
+                ViewData["msg"] = "Please enter your valid Estimated Budget";
+            }
+            else if (online.Price_Per_Piece == null)
+            {
+                ViewData["msg"] = "Please enter your valid Price Per Piece";
+            }
+            else if (online.Age_Group == null)
+            {
+                ViewData["msg"] = "Please enter your valid Age Group";
+            }
+            else if (online.Duration == null)
+            {
+                ViewData["msg"] = "Please enter your valid Duration";
+            }
+            else if (online.Obd_Voice_Provided == null)
+            {
+                ViewData["msg"] = "Please enter your valid Obd Voice Provided";
+            }
+            else if (online.Obd_Vioce_Content == null)
+            {
+                ViewData["msg"] = "Please enter your valid Obd Vioce Content";
+            }
+            else if (online.Sms_Content == null)
+            {
+                ViewData["msg"] = "Please enter your valid Sms_Content";
+            }
+            else if (online.Status == null)
+            {
+                ViewData["msg"] = "Please enter your valid Status";
+            }
+            else if (online.Discount == null)
+            {
+                ViewData["msg"] = "Please enter your valid Discount";
+            }
+            else
+            {
+                DBContext DB = new DBContext();
+                DB.Online_Order_Detalis.Add(online);
+                DB.SaveChanges();
+                ViewData["msg"] = "Successfully Saved";
+            }
+
+            return View();
+        }
+        [HttpGet]
+        public ActionResult OnlineEdit(int userid)
+        {
+            DBContext DB = new DBContext();
+            Online_Order_Detalis online = (from user in DB.Online_Order_Detalis
+                                           where user.Id == userid
+                                  select user).FirstOrDefault();
+
+            return View(online);
+        }
+        [HttpPost]
+        public ActionResult OnlineEdit(Online_Order_Detalis online)
+        {
+            if (online.Advertisement_Area == null)
+            {
+                ViewData["msg"] = "Please enter your valid Advertisement Area";
+            }
+            else if (online.Estimated_Reach_Ordered == null)
+            {
+                ViewData["msg"] = "Please enter your valid Estimated Reach Ordered";
+            }
+            else if (online.Estimated_Budget == null)
+            {
+                ViewData["msg"] = "Please enter your valid Estimated Budget";
+            }
+            else if (online.Price_Per_Piece == null)
+            {
+                ViewData["msg"] = "Please enter your valid Price Per Piece";
+            }
+            else if (online.Age_Group == null)
+            {
+                ViewData["msg"] = "Please enter your valid Age Group";
+            }
+            else if (online.Duration == null)
+            {
+                ViewData["msg"] = "Please enter your valid Duration";
+            }
+            else if (online.Obd_Voice_Provided == null)
+            {
+                ViewData["msg"] = "Please enter your valid Obd Voice Provided";
+            }
+            else if (online.Obd_Vioce_Content == null)
+            {
+                ViewData["msg"] = "Please enter your valid Obd Vioce Content";
+            }
+            else if (online.Sms_Content == null)
+            {
+                ViewData["msg"] = "Please enter your valid Sms Content";
+            }
+            else if (online.Status == null)
+            {
+                ViewData["msg"] = "Please enter your valid Status";
+            }
+            else if (online.Discount == null)
+            {
+                ViewData["msg"] = "Please enter your valid Discount";
+            }
+            else
+            {
+                DBContext DB = new DBContext();
+                Online_Order_Detalis Online = (from user in DB.Online_Order_Detalis
+                                               where user.Id == user.Id
+                                               select user).FirstOrDefault();
+               
+
+
+
+                Online.Advertisement_Area = online.Advertisement_Area;
+                Online.Estimated_Reach_Ordered = online.Estimated_Reach_Ordered;
+                Online.Estimated_Budget = online.Estimated_Budget;
+                Online.Price_Per_Piece = online.Price_Per_Piece;
+                Online.Age_Group = online.Age_Group;
+                Online.Duration= online.Duration;
+                Online.Obd_Voice_Provided = online.Obd_Voice_Provided;
+                Online.Obd_Vioce_Content = online.Obd_Vioce_Content;
+                Online.Sms_Content= online.Sms_Content;
+                Online.Status = online.Status;
+                Online.Discount = online.Discount;
+                DB.SaveChanges();
+                ViewData["msg"] = "Successfully Updated";
+            }
+            return View(online);
+        }
+        [HttpGet]
+        public ActionResult Offline_Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Offline_Create(Offline_Order_Detalis offline)
+        {
+
+            if (offline.Price_Per_Piece == null)
+            {
+                ViewData["msg"] = "Please enter your valid Price Per Piece";
+            }
+            else if (offline.Estimated_Voters == null)
+            {
+                ViewData["msg"] = "Please enter your valid Estimated Voters";
+            }
+            else if (offline.Format_No == null)
+            {
+                ViewData["msg"] = "Please enter your valid Format No";
+            }
+            else if (offline.Free_Blank_Slip == null)
+            {
+                ViewData["msg"] = "Please enter your valid Free Blank Slip";
+            }
+            else if (offline.Paid_Blank_Slip == null)
+            {
+                ViewData["msg"] = "Please enter your valid Paid Blank Slip";
+            }
+            else if (offline.Sample_Slip_Image == null)
+            {
+                ViewData["msg"] = "Please enter your valid Sample Slip Image";
+            }
+          
+            else if (offline.Slip_Content == null)
+            {
+                ViewData["msg"] = "Please enter your valid Slip Content";
+            }
+            else if (offline.Voter_List_Print == null)
+            {
+                ViewData["msg"] = "Please enter your valid Voter List Print";
+            }
+            else if (offline.Voter_List_Print_Comment == null)
+            {
+                ViewData["msg"] = "Please enter your valid Voter List Print Comment";
+            }
+            else if (offline.Voter_Slip_Image_Type == null)
+            {
+                ViewData["msg"] = "Please enter your valid Voter Slip Image Type";
+            }
+            //else if (offline.Is_Cd_Provided == null)
+            //{
+            //    ViewData["msg"] = "Please enter your valid Is Cd Provided";
+            //}
+            else if (offline.Kendro_Name_Image == null)
+            {
+                ViewData["msg"] = "Please enter your valid Kendro Name Image";
+            }
+            //else if (offline.Kendro_Name_List == null)
+            //{
+            //    ViewData["msg"] = "Please enter your valid Voter List File";
+            //}
+           
+            else if (offline.Discount == null)
+            {
+                ViewData["msg"] = "Please enter your valid Discount";
+            }
+            else if (offline.Status == null)
+            {
+                ViewData["msg"] = "Please enter your valid Status";
+            }
+            else if (offline.Remarks == null)
+            {
+                ViewData["msg"] = "Please enter your valid Remarks";
+            }
+            else if (offline.Marka == null)
+            {
+                ViewData["msg"] = "Please enter your valid Marka";
+            }
+            else
+            {
+                DBContext DB = new DBContext();
+                DB.Offline_Order_Detalis.Add(offline);
+                DB.SaveChanges();
+                ViewData["msg"] = "Successfully Saved";
+            }
+
+            return View();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BusinessSuitMVC.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -34,6 +35,20 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Create(User_Profile User, string UserName, string Password, string ConfirmPassword, int? Role)
         {
+            User_Login login = new User_Login();
+
+            HttpPostedFileBase file = null;
+            try { file = Request.Files[0]; } catch { }
+
+            if (file.ContentLength > 0)
+            {
+                string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                if (extension != ".jpg")
+                {
+                    ViewData["msg"] = "Failed to Save User Information! Allowed image format is .jpg";
+                    return View();
+                }
+            }
 
             if (User.Name == null)
             {
@@ -79,29 +94,39 @@ namespace BusinessSuitMVC.Controllers
             {
                 ViewData["msg"] = "please enter your valid Address";
             }
-           
+            
             //else if (User.Email == null)
             //{
             //    ViewData["msg"] = "please enter your valid Email";
             //}
-          
+
             else
             {
                 DBContext DB = new DBContext();
 
+                User.Image = file.ContentLength > 0 ? true : false;
                 DB.User_Profile.Add(User);
                 DB.SaveChanges();
 
-                User_Login login = new User_Login();
                 login.UserName = UserName;
                 login.Password = Password;
                 login.Role = Role;
 
                 DB.User_Login.Add(login);
                 DB.SaveChanges();
+
+                if(file.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                    string path = Path.Combine(Server.MapPath("~/Images/User"), "U_" + User.Id + extension);
+                    file.SaveAs(path);/// file save
+                }
+
                 ViewData["msg"] = "Successfully Saved";
-               
+
             }
+
+            
             //List<SelectListItem> role = new List<SelectListItem>();
             //role.Add(new SelectListItem() { Value = "1", Text = "Super Admin" });
             //role.Add(new SelectListItem() { Value = "2", Text = "Admin" });
@@ -155,6 +180,7 @@ namespace BusinessSuitMVC.Controllers
 
             return View();
         }
+
         [HttpGet]
         public ActionResult Search()
         {
@@ -168,15 +194,14 @@ namespace BusinessSuitMVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult Show(int id)
+        public ActionResult Details(int id)
         {
 
             DBContext DB = new DBContext();
             User_Profile user = (from u in DB.User_Profile
                                            where u.Id == id
                                            select u).FirstOrDefault();
-
-
+      
             return View(user);
         }
 

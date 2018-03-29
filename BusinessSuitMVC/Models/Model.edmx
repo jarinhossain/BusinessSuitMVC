@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="POSNew12Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Business_SuitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client_List">
           <Key>
             <PropertyRef Name="Id" />
@@ -40,7 +40,7 @@
           <Property Name="Voter_Slip_Image_Type" Type="int" />
           <Property Name="Is_Cd_Provided" Type="bit" />
           <Property Name="Kendro_Name_Image" Type="int" />
-          <Property Name="C_Kendro_Name_List" Type="nvarchar" MaxLength="700" />
+          <Property Name=" Kendro_Name_List" Type="nvarchar" MaxLength="700" />
           <Property Name="Voter_List_Print" Type="int" />
           <Property Name="Voter_List_Print_Comment" Type="nvarchar" MaxLength="200" />
           <Property Name="Election_Date" Type="datetime" />
@@ -56,7 +56,37 @@
           <Property Name="Deleted_By" Type="int" />
           <Property Name="Deleted_On" Type="datetime" />
         </EntityType>
-        <EntityType Name="Orders">
+        <EntityType Name="Online_Order_Detalis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Id" Type="int" />
+          <Property Name="Promotion_Type_Id" Type="int" />
+          <Property Name="Order_Id" Type="int" />
+          <Property Name="Advertisement_Area" Type="nvarchar" MaxLength="300" />
+          <Property Name="Estimated_Reach_Ordered" Type="int" />
+          <Property Name="Estimated_Budget" Type="int" />
+          <Property Name="Price_Per_Piece" Type="float" />
+          <Property Name="Age_Group" Type="varchar" MaxLength="20" />
+          <Property Name="Delivery_Date" Type="datetime" />
+          <Property Name="Promotion_Date_From" Type="datetime" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="Is_Masked" Type="bit" />
+          <Property Name="Obd_Voice_Provided" Type="int" />
+          <Property Name="Obd_Vioce_Content" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Number_Db_Provided" Type="bit" />
+          <Property Name="Sms_Content" Type="nvarchar" MaxLength="500" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Discount" Type="float" />
+          <Property Name=" Created_On" Type="datetime" />
+          <Property Name="Updated_By" Type="int" />
+          <Property Name="Updated_On" Type="datetime" />
+          <Property Name="Is_Deleted" Type="int" />
+          <Property Name="Deleted_By" Type="int" />
+          <Property Name="Deleted_On" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Order">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -69,7 +99,7 @@
           <Property Name="Created_By" Type="int" />
           <Property Name="Updated_By" Type="int" />
         </EntityType>
-        <EntityType Name="Products">
+        <EntityType Name="Product">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -103,7 +133,7 @@
           <Property Name="Updated_By" Type="int" />
           <Property Name="updated_On" Type="datetime" />
         </EntityType>
-        <EntityType Name="Roles">
+        <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -111,15 +141,13 @@
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Permissions" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Status">
+        <EntityType Name="Sippeers">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Id" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Status_">
+        <EntityType Name="Status ">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -164,14 +192,50 @@
           <Property Name="Display_Name" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <Association Name="FK_Offline_Order_Detalis_Order">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
           <End Role="Offline_Order_Detalis" Type="Self.Offline_Order_Detalis" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Orders">
+            <Principal Role="Order">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Offline_Order_Detalis">
               <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Online_Order_Detalis_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="Online_Order_Detalis" Type="Self.Online_Order_Detalis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Online_Order_Detalis">
+              <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Online_Order_Detalis_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Online_Order_Detalis" Type="Self.Online_Order_Detalis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Online_Order_Detalis">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Online_Order_Detalis_Promotion_Type">
+          <End Role="Promotion_Type" Type="Self.Promotion_Type" Multiplicity="0..1" />
+          <End Role="Online_Order_Detalis" Type="Self.Online_Order_Detalis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promotion_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Online_Order_Detalis">
+              <PropertyRef Name="Promotion_Type_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -187,22 +251,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="POSNew12ModelStoreContainer">
+        <EntityContainer Name="Business_SuitModelStoreContainer">
           <EntitySet Name="Client_List" EntityType="Self.Client_List" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Offline_Order_Detalis" EntityType="Self.Offline_Order_Detalis" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Online_Order_Detalis" EntityType="Self.Online_Order_Detalis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Promotion_Type" EntityType="Self.Promotion_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Remarks" EntityType="Self.Remarks" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Status_" EntityType="Self.Status_" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sippeers" EntityType="Self.Sippeers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status " EntityType="Self.Status " Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Login" EntityType="Self.User_Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Profile" EntityType="Self.User_Profile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Voter_Slip_Image_Type" EntityType="Self.Voter_Slip_Image_Type" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Offline_Order_Detalis_Order" Association="Self.FK_Offline_Order_Detalis_Order">
-            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Order" EntitySet="Order" />
             <End Role="Offline_Order_Detalis" EntitySet="Offline_Order_Detalis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Online_Order_Detalis_Order" Association="Self.FK_Online_Order_Detalis_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Online_Order_Detalis" EntitySet="Online_Order_Detalis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Online_Order_Detalis_Product" Association="Self.FK_Online_Order_Detalis_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Online_Order_Detalis" EntitySet="Online_Order_Detalis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Online_Order_Detalis_Promotion_Type" Association="Self.FK_Online_Order_Detalis_Promotion_Type">
+            <End Role="Promotion_Type" EntitySet="Promotion_Type" />
+            <End Role="Online_Order_Detalis" EntitySet="Online_Order_Detalis" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Login_User_Profile" Association="Self.FK_User_Login_User_Profile">
             <End Role="User_Profile" EntitySet="User_Profile" />
@@ -213,7 +290,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="POSNew12Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Business_SuitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Client_List">
           <Key>
             <PropertyRef Name="Id" />
@@ -264,7 +341,40 @@
           <Property Name="Is_Deleted" Type="Int32" />
           <Property Name="Deleted_By" Type="Int32" />
           <Property Name="Deleted_On" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Offline_Order_Detalis_Order" FromRole="Offline_Order_Detalis" ToRole="Orders" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Offline_Order_Detalis_Order" FromRole="Offline_Order_Detalis" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Online_Order_Detalis">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Id" Type="Int32" />
+          <Property Name="Promotion_Type_Id" Type="Int32" />
+          <Property Name="Order_Id" Type="Int32" />
+          <Property Name="Advertisement_Area" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Estimated_Reach_Ordered" Type="Int32" />
+          <Property Name="Estimated_Budget" Type="Int32" />
+          <Property Name="Price_Per_Piece" Type="Double" />
+          <Property Name="Age_Group" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Delivery_Date" Type="DateTime" Precision="3" />
+          <Property Name="Promotion_Date_From" Type="DateTime" Precision="3" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Is_Masked" Type="Boolean" />
+          <Property Name="Obd_Voice_Provided" Type="Int32" />
+          <Property Name="Obd_Vioce_Content" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Number_Db_Provided" Type="Boolean" />
+          <Property Name="Sms_Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Discount" Type="Double" />
+          <Property Name="C_Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <Property Name="Is_Deleted" Type="Int32" />
+          <Property Name="Deleted_By" Type="Int32" />
+          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Online_Order_Detalis_Order" FromRole="Online_Order_Detalis" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Online_Order_Detalis_Product" FromRole="Online_Order_Detalis" ToRole="Product" />
+          <NavigationProperty Name="Promotion_Type" Relationship="Self.FK_Online_Order_Detalis_Promotion_Type" FromRole="Online_Order_Detalis" ToRole="Promotion_Type" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -278,7 +388,8 @@
           <Property Name="order_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Created_By" Type="Int32" />
           <Property Name="Updated_By" Type="Int32" />
-          <NavigationProperty Name="Offline_Order_Detalis" Relationship="Self.FK_Offline_Order_Detalis_Order" FromRole="Orders" ToRole="Offline_Order_Detalis" />
+          <NavigationProperty Name="Offline_Order_Detalis" Relationship="Self.FK_Offline_Order_Detalis_Order" FromRole="Order" ToRole="Offline_Order_Detalis" />
+          <NavigationProperty Name="Online_Order_Detalis" Relationship="Self.FK_Online_Order_Detalis_Order" FromRole="Order" ToRole="Online_Order_Detalis" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -294,6 +405,7 @@
           <Property Name="Is_Deleted" Type="Int32" />
           <Property Name="Deleted_By" Type="Int32" />
           <Property Name="Deleted_On" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Online_Order_Detalis" Relationship="Self.FK_Online_Order_Detalis_Product" FromRole="Product" ToRole="Online_Order_Detalis" />
         </EntityType>
         <EntityType Name="Promotion_Type">
           <Key>
@@ -302,6 +414,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Dispaly_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Online_Order_Detalis" Relationship="Self.FK_Online_Order_Detalis_Promotion_Type" FromRole="Promotion_Type" ToRole="Online_Order_Detalis" />
         </EntityType>
         <EntityType Name="Remark">
           <Key>
@@ -322,13 +435,11 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Permissions" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Status">
+        <EntityType Name="Sippeer">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Status_">
           <Key>
@@ -377,14 +488,50 @@
           <Property Name="Display_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Offline_Order_Detalis_Order">
-          <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
           <End Role="Offline_Order_Detalis" Type="Self.Offline_Order_Detalis" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Orders">
+            <Principal Role="Order">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Offline_Order_Detalis">
               <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Online_Order_Detalis_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="Online_Order_Detalis" Type="Self.Online_Order_Detalis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Online_Order_Detalis">
+              <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Online_Order_Detalis_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Online_Order_Detalis" Type="Self.Online_Order_Detalis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Online_Order_Detalis">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Online_Order_Detalis_Promotion_Type">
+          <End Role="Promotion_Type" Type="Self.Promotion_Type" Multiplicity="0..1" />
+          <End Role="Online_Order_Detalis" Type="Self.Online_Order_Detalis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promotion_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Online_Order_Detalis">
+              <PropertyRef Name="Promotion_Type_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -403,19 +550,32 @@
         <EntityContainer Name="DBContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Client_List" EntityType="Self.Client_List" />
           <EntitySet Name="Offline_Order_Detalis" EntityType="Self.Offline_Order_Detalis" />
+          <EntitySet Name="Online_Order_Detalis" EntityType="Self.Online_Order_Detalis" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Promotion_Type" EntityType="Self.Promotion_Type" />
           <EntitySet Name="Remarks" EntityType="Self.Remark" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
-          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="Sippeers" EntityType="Self.Sippeer" />
           <EntitySet Name="Status_" EntityType="Self.Status_" />
           <EntitySet Name="User_Login" EntityType="Self.User_Login" />
           <EntitySet Name="User_Profile" EntityType="Self.User_Profile" />
           <EntitySet Name="Voter_Slip_Image_Type" EntityType="Self.Voter_Slip_Image_Type" />
           <AssociationSet Name="FK_Offline_Order_Detalis_Order" Association="Self.FK_Offline_Order_Detalis_Order">
-            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Order" EntitySet="Orders" />
             <End Role="Offline_Order_Detalis" EntitySet="Offline_Order_Detalis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Online_Order_Detalis_Order" Association="Self.FK_Online_Order_Detalis_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Online_Order_Detalis" EntitySet="Online_Order_Detalis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Online_Order_Detalis_Product" Association="Self.FK_Online_Order_Detalis_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Online_Order_Detalis" EntitySet="Online_Order_Detalis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Online_Order_Detalis_Promotion_Type" Association="Self.FK_Online_Order_Detalis_Promotion_Type">
+            <End Role="Promotion_Type" EntitySet="Promotion_Type" />
+            <End Role="Online_Order_Detalis" EntitySet="Online_Order_Detalis" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Login_User_Profile" Association="Self.FK_User_Login_User_Profile">
             <End Role="User_Profile" EntitySet="User_Profile" />
@@ -427,9 +587,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="POSNew12ModelStoreContainer" CdmEntityContainer="DBContext">
+        <EntityContainerMapping StorageEntityContainer="Business_SuitModelStoreContainer" CdmEntityContainer="DBContext">
           <EntitySetMapping Name="Client_List">
-            <EntityTypeMapping TypeName="POSNew12Model.Client_List">
+            <EntityTypeMapping TypeName="Business_SuitModel.Client_List">
               <MappingFragment StoreEntitySet="Client_List">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Counsilor_Name" ColumnName="Counsilor_Name" />
@@ -447,7 +607,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Offline_Order_Detalis">
-            <EntityTypeMapping TypeName="POSNew12Model.Offline_Order_Detalis">
+            <EntityTypeMapping TypeName="Business_SuitModel.Offline_Order_Detalis">
               <MappingFragment StoreEntitySet="Offline_Order_Detalis">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
@@ -463,7 +623,7 @@
                 <ScalarProperty Name="Voter_Slip_Image_Type" ColumnName="Voter_Slip_Image_Type" />
                 <ScalarProperty Name="Is_Cd_Provided" ColumnName="Is_Cd_Provided" />
                 <ScalarProperty Name="Kendro_Name_Image" ColumnName="Kendro_Name_Image" />
-                <ScalarProperty Name="C_Kendro_Name_List" ColumnName="C_Kendro_Name_List" />
+                <ScalarProperty Name="C_Kendro_Name_List" ColumnName=" Kendro_Name_List" />
                 <ScalarProperty Name="Voter_List_Print" ColumnName="Voter_List_Print" />
                 <ScalarProperty Name="Voter_List_Print_Comment" ColumnName="Voter_List_Print_Comment" />
                 <ScalarProperty Name="Election_Date" ColumnName="Election_Date" />
@@ -481,9 +641,40 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Online_Order_Detalis">
+            <EntityTypeMapping TypeName="Business_SuitModel.Online_Order_Detalis">
+              <MappingFragment StoreEntitySet="Online_Order_Detalis">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+                <ScalarProperty Name="Promotion_Type_Id" ColumnName="Promotion_Type_Id" />
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+                <ScalarProperty Name="Advertisement_Area" ColumnName="Advertisement_Area" />
+                <ScalarProperty Name="Estimated_Reach_Ordered" ColumnName="Estimated_Reach_Ordered" />
+                <ScalarProperty Name="Estimated_Budget" ColumnName="Estimated_Budget" />
+                <ScalarProperty Name="Price_Per_Piece" ColumnName="Price_Per_Piece" />
+                <ScalarProperty Name="Age_Group" ColumnName="Age_Group" />
+                <ScalarProperty Name="Delivery_Date" ColumnName="Delivery_Date" />
+                <ScalarProperty Name="Promotion_Date_From" ColumnName="Promotion_Date_From" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Is_Masked" ColumnName="Is_Masked" />
+                <ScalarProperty Name="Obd_Voice_Provided" ColumnName="Obd_Voice_Provided" />
+                <ScalarProperty Name="Obd_Vioce_Content" ColumnName="Obd_Vioce_Content" />
+                <ScalarProperty Name="Number_Db_Provided" ColumnName="Number_Db_Provided" />
+                <ScalarProperty Name="Sms_Content" ColumnName="Sms_Content" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="C_Created_On" ColumnName=" Created_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
+                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="POSNew12Model.Order">
-              <MappingFragment StoreEntitySet="Orders">
+            <EntityTypeMapping TypeName="Business_SuitModel.Order">
+              <MappingFragment StoreEntitySet="Order">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Is_Package" ColumnName="Is_Package" />
@@ -496,8 +687,8 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="POSNew12Model.Product">
-              <MappingFragment StoreEntitySet="Products">
+            <EntityTypeMapping TypeName="Business_SuitModel.Product">
+              <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Is_Online" ColumnName="Is_Online" />
@@ -512,7 +703,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Promotion_Type">
-            <EntityTypeMapping TypeName="POSNew12Model.Promotion_Type">
+            <EntityTypeMapping TypeName="Business_SuitModel.Promotion_Type">
               <MappingFragment StoreEntitySet="Promotion_Type">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -521,7 +712,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Remarks">
-            <EntityTypeMapping TypeName="POSNew12Model.Remark">
+            <EntityTypeMapping TypeName="Business_SuitModel.Remark">
               <MappingFragment StoreEntitySet="Remarks">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
@@ -533,26 +724,24 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="POSNew12Model.Role">
-              <MappingFragment StoreEntitySet="Roles">
+            <EntityTypeMapping TypeName="Business_SuitModel.Role">
+              <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Permissions" ColumnName="Permissions" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Status">
-            <EntityTypeMapping TypeName="POSNew12Model.Status">
-              <MappingFragment StoreEntitySet="Status">
+          <EntitySetMapping Name="Sippeers">
+            <EntityTypeMapping TypeName="Business_SuitModel.Sippeer">
+              <MappingFragment StoreEntitySet="Sippeers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Status_">
-            <EntityTypeMapping TypeName="POSNew12Model.Status_">
-              <MappingFragment StoreEntitySet="Status_">
+            <EntityTypeMapping TypeName="Business_SuitModel.Status_">
+              <MappingFragment StoreEntitySet="Status ">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -560,7 +749,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User_Login">
-            <EntityTypeMapping TypeName="POSNew12Model.User_Login">
+            <EntityTypeMapping TypeName="Business_SuitModel.User_Login">
               <MappingFragment StoreEntitySet="User_Login">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -571,7 +760,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User_Profile">
-            <EntityTypeMapping TypeName="POSNew12Model.User_Profile">
+            <EntityTypeMapping TypeName="Business_SuitModel.User_Profile">
               <MappingFragment StoreEntitySet="User_Profile">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -590,7 +779,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Voter_Slip_Image_Type">
-            <EntityTypeMapping TypeName="POSNew12Model.Voter_Slip_Image_Type">
+            <EntityTypeMapping TypeName="Business_SuitModel.Voter_Slip_Image_Type">
               <MappingFragment StoreEntitySet="Voter_Slip_Image_Type">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
