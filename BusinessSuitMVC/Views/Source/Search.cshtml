@@ -1,0 +1,50 @@
+﻿@model List<BusinessSuitMVC.Models.Source>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <script src="~/Script/jquery.min.js"></script>
+    <script src="~/Script/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+
+        <h1 style="margin-left:450px;margin-bottom:20px">Source List</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Contact Name</th>
+                    <th>Company Name</th>
+                    <th>Source Type</th>
+                    <th>Mobile1</th>
+                    <th>Mobile2</th>
+                    <th>Division</th>
+                    <th>District</th>
+                    <th>Ward</th>
+                    <th>Address</th>
+                </tr>
+            <thead>
+            <tbody>
+                @foreach (BusinessSuitMVC.Models.Source source in (IEnumerable<BusinessSuitMVC.Models.Source>)Model)
+            {
+                    <tr>
+                        <td>@source.Contact_Name</td>
+                        <td>@source.Company_Name</td>
+                        <td>@source.Source_Type</td>
+                        <td>@source.Mobile1</td>
+                        <td>@source.Mobile2 </td>
+                        <td>@source.Division_Id</td>
+                        <td>@source.District_Id</td>
+                        <td>@source.Ward</td>
+                        <td>@source.Address</td>
+                    </tr>
+                }
+            <tbody>
+        </table>
+    </div>
+</body>
+</html>

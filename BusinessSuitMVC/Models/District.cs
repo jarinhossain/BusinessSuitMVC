@@ -12,8 +12,11 @@ namespace BusinessSuitMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Sippeer
+    public partial class District
     {
         public int Id { get; set; }
+        public string Name { get; set; }
+        public Nullable<int> Division_Id { get; set; }
+        public Nullable<bool> Is_Hidden { get; set; }
     }
 }

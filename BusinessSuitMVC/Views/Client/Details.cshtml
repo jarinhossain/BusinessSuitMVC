@@ -1,0 +1,99 @@
+﻿@model BusinessSuitMVC.Models.Client_List
+
+@{
+    ViewBag.Title = "Show";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Client
+        </h1>
+        @*<ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Forms</a></li>
+                <li class="active">General Elements</li>
+            </ol>*@
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h1 class="box-title">Details</h1>
+                    </div>
+
+                    <div class="table-responsive panel">
+                        <table class="table">
+                            <tbody>
+
+                                <tr>
+                                    <td class="text-primary text-right" width="30%"> Counsilor Name: </td>
+                                    <td style="font-weight:bold">@Model.Counsilor_Name</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right"> Bangla Name: </td>
+                                    <td style="font-weight:bold">@Model.Bangla_Name</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right"> Mobile1: </td>
+                                    <td style="font-weight:bold">@Model.Mobile1</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-primary text-right" width="30%"> Mobile2: </td>
+                                    <td style="font-weight:bold">@Model.Mobile2</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right"> Email: </td>
+                                    <td style="font-weight:bold">@Model.Email</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right"> ward: </td>
+                                    <td style="font-weight:bold">@Model.ward</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-primary text-right"> District: </td>
+                                    <td style="font-weight:bold">@Model.District</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right"> Address: </td>
+                                    <td style="font-weight:bold">@Model.Address</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-primary text-right" width="30%"> Remarks: </td>
+                                    <td style="font-weight:bold">@Model.Remarks</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right"> Is_Elected: </td>
+                                    <td style="font-weight:bold">@Model.Is_Elected</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right"> Client Type: </td>
+                                    <td style="font-weight:bold">@Model.Client_Type</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="form-group" style="text-align:center">
+
+                            <a href="~/Client/Edit?userid=@Model.Id" class="btn btn-success">Edit</a>
+                            <a href="~/Client/Search" class="btn btn-info">Back</a>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</section>

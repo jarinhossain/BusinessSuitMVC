@@ -372,5 +372,17 @@ namespace BusinessSuitMVC.Controllers
 
             return View();
         }
+        [HttpGet]
+        public ActionResult Details(int id)
+        {
+
+            DBContext DB = new DBContext();
+            Client_List client = (from u in DB.Client_List
+                                where u.Id == id
+                                 select u).FirstOrDefault();
+
+            return View(client);
+        }
+       
     }
 }

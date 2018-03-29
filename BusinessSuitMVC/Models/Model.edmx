@@ -22,6 +22,60 @@
           <Property Name="Is_Elected" Type="bit" />
           <Property Name="Client_Type" Type="int" />
         </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Division_Id" Type="int" />
+          <Property Name="Is_Hidden" Type="bit" />
+        </EntityType>
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Expense">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="int" />
+          <Property Name="Amount" Type="float" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="Spent_Date" Type="datetime" />
+          <Property Name="Created_By" Type="int" />
+          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Updated_By" Type="int" />
+          <Property Name="Updated_On" Type="datetime" />
+          <Property Name="Is_Deleted" Type="int" />
+          <Property Name="Deleted_By" Type="int" />
+          <Property Name="Deleted_On" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Numbers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="int" />
+          <Property Name="Operator_Id" Type="int" />
+          <Property Name="Sms_Tried" Type="int" />
+          <Property Name="Sms_Succeed" Type="int" />
+          <Property Name="Last_Succeeded_Sms_Date" Type="datetime" />
+          <Property Name="Obd_Tried" Type="int" />
+          <Property Name="Obd_Succeed" Type="int" />
+          <Property Name="Last_Succeeded_Obd_Date" Type="datetime" />
+          <Property Name="Address_Id" Type="int" />
+          <Property Name="Operators - Id" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Prefix" Type="varchar" MaxLength="20" />
+          <Property Name="Source_Number_Map - Id" Type="int" />
+          <Property Name="Number_Id" Type="int" />
+          <Property Name=" Source_Id" Type="int" />
+        </EntityType>
         <EntityType Name="Offline_Order_Detalis">
           <Key>
             <PropertyRef Name="Id" />
@@ -141,12 +195,6 @@
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Permissions" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Sippeers">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Status ">
           <Key>
             <PropertyRef Name="Id" />
@@ -253,6 +301,10 @@
         </Association>
         <EntityContainer Name="Business_SuitModelStoreContainer">
           <EntitySet Name="Client_List" EntityType="Self.Client_List" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Expense" EntityType="Self.Expense" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Numbers" EntityType="Self.Numbers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Offline_Order_Detalis" EntityType="Self.Offline_Order_Detalis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Online_Order_Detalis" EntityType="Self.Online_Order_Detalis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
@@ -260,7 +312,6 @@
           <EntitySet Name="Promotion_Type" EntityType="Self.Promotion_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Remarks" EntityType="Self.Remarks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Sippeers" EntityType="Self.Sippeers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status " EntityType="Self.Status " Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Login" EntityType="Self.User_Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Profile" EntityType="Self.User_Profile" Schema="dbo" store:Type="Tables" />
@@ -307,6 +358,60 @@
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Is_Elected" Type="Boolean" />
           <Property Name="Client_Type" Type="Int32" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Division_Id" Type="Int32" />
+          <Property Name="Is_Hidden" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Expense">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Spent_Date" Type="DateTime" Precision="3" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <Property Name="Is_Deleted" Type="Int32" />
+          <Property Name="Deleted_By" Type="Int32" />
+          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Number">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number1" Type="Int32" />
+          <Property Name="Operator_Id" Type="Int32" />
+          <Property Name="Sms_Tried" Type="Int32" />
+          <Property Name="Sms_Succeed" Type="Int32" />
+          <Property Name="Last_Succeeded_Sms_Date" Type="DateTime" Precision="3" />
+          <Property Name="Obd_Tried" Type="Int32" />
+          <Property Name="Obd_Succeed" Type="Int32" />
+          <Property Name="Last_Succeeded_Obd_Date" Type="DateTime" Precision="3" />
+          <Property Name="Address_Id" Type="Int32" />
+          <Property Name="Operators___Id" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Prefix" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Source_Number_Map___Id" Type="Int32" />
+          <Property Name="Number_Id" Type="Int32" />
+          <Property Name="C_Source_Id" Type="Int32" />
         </EntityType>
         <EntityType Name="Offline_Order_Detalis">
           <Key>
@@ -435,12 +540,6 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Permissions" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Sippeer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="Status_">
           <Key>
             <PropertyRef Name="Id" />
@@ -549,6 +648,10 @@
         </Association>
         <EntityContainer Name="DBContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Client_List" EntityType="Self.Client_List" />
+          <EntitySet Name="Districts" EntityType="Self.District" />
+          <EntitySet Name="Divisions" EntityType="Self.Division" />
+          <EntitySet Name="Expenses" EntityType="Self.Expense" />
+          <EntitySet Name="Numbers" EntityType="Self.Number" />
           <EntitySet Name="Offline_Order_Detalis" EntityType="Self.Offline_Order_Detalis" />
           <EntitySet Name="Online_Order_Detalis" EntityType="Self.Online_Order_Detalis" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
@@ -556,7 +659,6 @@
           <EntitySet Name="Promotion_Type" EntityType="Self.Promotion_Type" />
           <EntitySet Name="Remarks" EntityType="Self.Remark" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
-          <EntitySet Name="Sippeers" EntityType="Self.Sippeer" />
           <EntitySet Name="Status_" EntityType="Self.Status_" />
           <EntitySet Name="User_Login" EntityType="Self.User_Login" />
           <EntitySet Name="User_Profile" EntityType="Self.User_Profile" />
@@ -603,6 +705,64 @@
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="Is_Elected" ColumnName="Is_Elected" />
                 <ScalarProperty Name="Client_Type" ColumnName="Client_Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Districts">
+            <EntityTypeMapping TypeName="Business_SuitModel.District">
+              <MappingFragment StoreEntitySet="District">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Division_Id" ColumnName="Division_Id" />
+                <ScalarProperty Name="Is_Hidden" ColumnName="Is_Hidden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Divisions">
+            <EntityTypeMapping TypeName="Business_SuitModel.Division">
+              <MappingFragment StoreEntitySet="Division">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Expenses">
+            <EntityTypeMapping TypeName="Business_SuitModel.Expense">
+              <MappingFragment StoreEntitySet="Expense">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Spent_Date" ColumnName="Spent_Date" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
+                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Numbers">
+            <EntityTypeMapping TypeName="Business_SuitModel.Number">
+              <MappingFragment StoreEntitySet="Numbers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number1" ColumnName="Number" />
+                <ScalarProperty Name="Operator_Id" ColumnName="Operator_Id" />
+                <ScalarProperty Name="Sms_Tried" ColumnName="Sms_Tried" />
+                <ScalarProperty Name="Sms_Succeed" ColumnName="Sms_Succeed" />
+                <ScalarProperty Name="Last_Succeeded_Sms_Date" ColumnName="Last_Succeeded_Sms_Date" />
+                <ScalarProperty Name="Obd_Tried" ColumnName="Obd_Tried" />
+                <ScalarProperty Name="Obd_Succeed" ColumnName="Obd_Succeed" />
+                <ScalarProperty Name="Last_Succeeded_Obd_Date" ColumnName="Last_Succeeded_Obd_Date" />
+                <ScalarProperty Name="Address_Id" ColumnName="Address_Id" />
+                <ScalarProperty Name="Operators___Id" ColumnName="Operators - Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+                <ScalarProperty Name="Source_Number_Map___Id" ColumnName="Source_Number_Map - Id" />
+                <ScalarProperty Name="Number_Id" ColumnName="Number_Id" />
+                <ScalarProperty Name="C_Source_Id" ColumnName=" Source_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -729,13 +889,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Permissions" ColumnName="Permissions" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sippeers">
-            <EntityTypeMapping TypeName="Business_SuitModel.Sippeer">
-              <MappingFragment StoreEntitySet="Sippeers">
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

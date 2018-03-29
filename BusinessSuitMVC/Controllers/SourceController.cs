@@ -126,5 +126,56 @@ namespace BusinessSuitMVC.Controllers
             }
             return View();
         }
-    }
+        [HttpGet]
+        public ActionResult Details(int id)
+        {
+            Numeral_DBContext DB = new Numeral_DBContext();
+            Source source = (from u in DB.Sources
+                             where u.Id == id
+                             select u).FirstOrDefault();
+
+            return View(source);
+        }
+
+        [HttpGet]
+        public ActionResult Search()
+        {
+
+            Numeral_DBContext DB = new Numeral_DBContext();
+            List<Source> source = (from user in DB.Sources
+                                   select user).ToList();
+
+
+            return View(source);
+        }
+
+        [HttpGet]
+        public ActionResult SourceNumberCreate(int id)
+        {
+            Numeral_DBContext DB = new Numeral_DBContext();
+            Source source = (from user in DB.Sources
+                             where user.Id == id
+                             select user).FirstOrDefault();
+
+            return View(source);
+        }
+        [HttpPost]
+        public ActionResult SourceNumberCreate(Source source)
+        {
+            Numeral_DBContext DB = new Numeral_DBContext();
+            Source Source = (from user in DB.Sources
+                             where user.Id == source.Id
+                             select user).FirstOrDefault();
+
+            Source.Contact_Name = source.Contact_Name;
+            Source.Company_Name = source.Company_Name;
+            Source.Source_Type = source.Source_Type;
+           // Source.Mobile1 = source.Mobile1;
+           
+            DB.SaveChanges();
+            ViewData["msg"] = "Successfully Updated";
+            return View();
+        }
+       
+        }
 }
