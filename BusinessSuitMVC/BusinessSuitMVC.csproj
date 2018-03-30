@@ -109,6 +109,7 @@
     <Content Include="Content\jquery-jvectormap.css" />
     <Content Include="Content\_all-skins.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="layouts\" />
     <Content Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
@@ -324,6 +325,17 @@
     <Content Include="Views\SMS\BulkSMS.cshtml" />
     <Content Include="Views\Accounting\ExpenseCreate.cshtml" />
     <Content Include="Views\Accounting\Edit.cshtml" />
+    <Content Include="layouts\homeLayout\lib\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="layouts\homeLayout\lib\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="layouts\homeLayout\lib\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="layouts\homeLayout\lib\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="layouts\homeLayout\lib\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="layouts\homeLayout\lib\ionicons\fonts\ionicons.eot" />
+    <Content Include="layouts\homeLayout\lib\ionicons\fonts\ionicons.ttf" />
+    <Content Include="layouts\homeLayout\lib\ionicons\fonts\ionicons.woff" />
+    <Content Include="layouts\homeLayout\lib\lightbox\links.php" />
+    <Content Include="layouts\homeLayout\lib\owlcarousel\LICENSE" />
+    <Content Include="layouts\homeLayout\lib\waypoints\links.php" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
