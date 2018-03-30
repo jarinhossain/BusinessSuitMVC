@@ -1,5 +1,9 @@
 ﻿@model BusinessSuitMVC.Models.Source
 @{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<!DOCTYPE html>
+@{
     List<SelectListItem> source = new List<SelectListItem>();
     source.Add(new SelectListItem() { Value = "1", Text = "Shop" });
     source.Add(new SelectListItem() { Value = "2", Text = "Councillor" });
@@ -16,180 +20,188 @@
     District.Add(new SelectListItem() { Value = "1", Text = "Dhaka" });
     District.Add(new SelectListItem() { Value = "2", Text = "Gazipur" });
     District.Add(new SelectListItem() { Value = "3", Text = "Sylhet" });
-
-
 }
 
 
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Source Edit</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+<section class="content-wrapper">
 
-    <script src="~/Script/jquery.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-</head>
-<body>
-    <div>
-        @using (Html.BeginForm("Edit", "Source", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", @id = "userCreate", @name = "userCreate" }))
-        {
-            <h2 style="margin-left:20px">Source</h2>
-           @Html.HiddenFor(m =>m.Id)
-            <div class="form-group">
-                <label class="control-label col-md-1">Contact Name<span style="color:red;">*</span> </label>
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Contact_Name, new { @Class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-1">Company Name<span style="color:red;">*</span> </label>
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Company_Name, new { @Class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-1">Source Type<span style="color:red;">*</span> </label>
-                <div class="col-md-2">
-                    @Html.DropDownList("Source_Type", @source, "Select Source Type", new { @class = "form-control editor-field" })
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-1">Mobile1<span style="color:red;">*</span> </label>
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Mobile1, new { @Class = "form-control" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.Label("Mobile2", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Mobile2, new { @Class = "form-control" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                    <label class="control-label col-md-1">Division<span style="color:red;">*</span> </label>
-                    <div class="col-md-2">
-                        @Html.DropDownList("Division_Id", @Division, "Select Division", new { @class = "form-control editor-field" })
+    <section class="content-header">
+        <h1>
+            Source
+        </h1>
+        @*<ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Forms</a></li>
+                <li class="active">General Elements</li>
+            </ol>*@
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Edit</h3>
                     </div>
-                </div>
-            <div class="form-group">
-                       <label class="control-label col-md-1">District<span style="color:red;">*</span> </label>
-                       <div class="col-md-2">
-                        @Html.DropDownList("District_Id", @District, "Select District", new { @class = "form-control editor-field" })
-                      </div>
-                </div>
+                    @using (Html.BeginForm("Edit", "Source", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        <div class="box-body">
+                            @Html.HiddenFor(m => m.Id)
+                            <div class="form-group">
+                                <label class="control-label col-md-1">Contact Name<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Contact_Name, new { @Class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1">Company Name<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Company_Name, new { @Class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1">Source Type<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownList("Source_Type", @source, "Select Source Type", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1">Mobile1<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Mobile1, new { @Class = "form-control" })
+                                </div>
+                            </div>
 
-            <div class="form-group">
-                <label class="control-label col-md-1">Ward<span style="color:red;">*</span> </label>
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Ward, new { @Class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-1">Address<span style="color:red;">*</span> </label>
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Address, new { @Class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.Label("Remark", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Remarks, new { @Class = "form-control" })
-                </div>
-            </div>
+                            <div class="form-group">
+                                @Html.Label("Mobile2", new { @class = "control-label col-md-1" })
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Mobile2, new { @Class = "form-control" })
+                                </div>
+                            </div>
 
-            <div class="form-group">
-                <div class="col-md-1"></div>
-                <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
-                <input type="button" value="Reset" id="reset" class="btn btn-info" />
-            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1">Division<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownList("Division_Id", @Division, "Select Division", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1">District<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownList("District_Id", @District, "Select District", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>
 
-            <div class="form-group">
-                <div class="col-md-1"></div>
-                <label>@ViewData["msg"]</label>
-            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1">Ward<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Ward, new { @Class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1">Address<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Address, new { @Class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Remark", new { @class = "control-label col-md-1" })
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Remarks, new { @Class = "form-control" })
+                                </div>
+                            </div>
 
-        }
-    </div>
-</body>
+                            <div class="form-group">
+                                <div class="col-md-1"></div>
+                                <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
+                                <input type="button" value="Reset" id="reset" class="btn btn-info" />
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-1"></div>
+                                <label>@ViewData["msg"]</label>
+                            </div>
+                        </div>
+                    }
+                        </div>
+            </div>
+        </div>
+    </section>
+</section>
 <script>
 
 
-    $("form").submit(function (event) {
-         //stop form submit
+        $("form").submit(function (event) {
+            //stop form submit
 
-        if ($("#Contact_Name").val() == "") {
-            event.preventDefault();
-            swal("Failed", "Contact Name is required", "error").then(function () {
-                $("#Contact_Name").focus();
-            });
-        }
-        else if ($("#Company_Name").val() == "")
-        {
-            event.preventDefault();
-            swal("Failed", "Company Name is required", "error").then(function () {
-                $("#Company_Name").focus();
-            });
-        }
-        else if ($("#Source_Type").val() == "") {
-            event.preventDefault();
-            swal("Failed", "Source Type is required", "error").then(function () {
-                $("#Source_Type").focus();
-            });
-        }
-        else if ($("#Mobile1").val() == "") {
-            event.preventDefault();
-            swal("Failed", "Mobile1 is required", "error").then(function () {
-                $("#Mobile1").focus();
-            });
-        }
-        else if ($("#Division").val() == "") {
-            event.preventDefault();
-            swal("Failed", "Division is required", "error").then(function () {
-                $("#Division").focus();
-            });
-        }
-        else if ($("#District").val() == "") {
-            event.preventDefault();
-            swal("Failed", "District is required", "error").then(function () {
-                $("#District").focus();
-            });
-        }
-        else if ($("#Ward").val() == "") {
-            event.preventDefault();
-            swal("Failed", "Ward is required", "error").then(function () {
-                $("#Ward").focus();
-            });
-        }
-        else if ($("#Address").val() == "") {
-            event.preventDefault();
-            swal("Failed", "Address is required", "error").then(function () {
-                $("#Address").focus();
-            });
-        }
-
-    });
-
-    $(document).ready(function () {
-
-
-        $("#reset").click(function () {
-
-            $("#Contact_Name").val("");
-            $("#Company_Name").val("");
-            $("#Source_Type").val("");
-            $("#Mobile1").val("");
-           // $("#Division").val("");
-           // $("#District").val("");
-            $("#Ward").val("");
-            $("#Address").val("");
+            if ($("#Contact_Name").val() == "") {
+                event.preventDefault();
+                swal("Failed", "Contact Name is required", "error").then(function () {
+                    $("#Contact_Name").focus();
+                });
+            }
+            else if ($("#Company_Name").val() == "") {
+                event.preventDefault();
+                swal("Failed", "Company Name is required", "error").then(function () {
+                    $("#Company_Name").focus();
+                });
+            }
+            else if ($("#Source_Type").val() == "") {
+                event.preventDefault();
+                swal("Failed", "Source Type is required", "error").then(function () {
+                    $("#Source_Type").focus();
+                });
+            }
+            else if ($("#Mobile1").val() == "") {
+                event.preventDefault();
+                swal("Failed", "Mobile1 is required", "error").then(function () {
+                    $("#Mobile1").focus();
+                });
+            }
+            else if ($("#Division_Id").val() == "") {
+                event.preventDefault();
+                swal("Failed", "Division is required", "error").then(function () {
+                    $("#Division_Id").focus();
+                });
+            }
+            else if ($("#District_Id").val() == "") {
+                event.preventDefault();
+                swal("Failed", "District is required", "error").then(function () {
+                    $("#District_Id").focus();
+                });
+            }
+            else if ($("#Ward").val() == "") {
+                event.preventDefault();
+                swal("Failed", "Ward is required", "error").then(function () {
+                    $("#Ward").focus();
+                });
+            }
+            else if ($("#Address").val() == "") {
+                event.preventDefault();
+                swal("Failed", "Address is required", "error").then(function () {
+                    $("#Address").focus();
+                });
+            }
 
         });
 
-    });
+        $(document).ready(function () {
+
+
+            $("#reset").click(function () {
+
+                $("#Contact_Name").val("");
+                $("#Company_Name").val("");
+                $("#Source_Type").val("");
+                $("#Mobile1").val("");
+                $("#Division_Id").val("");
+                $("#District_Id").val("");
+                $("#Ward").val("");
+                $("#Address").val("");
+
+            });
+
+        });
 </script>
-</html>
+

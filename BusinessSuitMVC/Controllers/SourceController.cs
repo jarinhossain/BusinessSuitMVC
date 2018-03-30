@@ -160,16 +160,13 @@ namespace BusinessSuitMVC.Controllers
             return View(source);
         }
         [HttpPost]
-        public ActionResult SourceNumberCreate(Source source)
+        public ActionResult SourceNumberCreate(Source source, int MobileNumber)
         {
             Numeral_DBContext DB = new Numeral_DBContext();
-            Source Source = (from user in DB.Sources
-                             where user.Id == source.Id
-                             select user).FirstOrDefault();
-
-            Source.Contact_Name = source.Contact_Name;
-            Source.Company_Name = source.Company_Name;
-            Source.Source_Type = source.Source_Type;
+            Number number = new Number();
+            number.Number1 = MobileNumber;
+            number.Source_Id = source.Id;
+            
            // Source.Mobile1 = source.Mobile1;
            
             DB.SaveChanges();

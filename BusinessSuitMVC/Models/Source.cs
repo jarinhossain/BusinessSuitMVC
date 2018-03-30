@@ -14,6 +14,11 @@ namespace BusinessSuitMVC.Models
     
     public partial class Source
     {
+        public Source()
+        {
+            this.Numbers = new HashSet<Number>();
+        }
+    
         public int Id { get; set; }
         public string Contact_Name { get; set; }
         public string Company_Name { get; set; }
@@ -32,5 +37,10 @@ namespace BusinessSuitMVC.Models
         public Nullable<int> Created_By { get; set; }
         public Nullable<System.DateTime> Updated_On { get; set; }
         public Nullable<int> updated_By { get; set; }
+        public Nullable<bool> Is_Deleted { get; set; }
+        public Nullable<int> Deleted_By { get; set; }
+        public Nullable<System.DateTime> Deleted_On { get; set; }
+    
+        public virtual ICollection<Number> Numbers { get; set; }
     }
 }

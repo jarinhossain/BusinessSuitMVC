@@ -9,9 +9,9 @@
     type.Add(new SelectListItem() { Value = "1", Text = "Transport" });
     type.Add(new SelectListItem() { Value = "2", Text = "Liflet" });
     type.Add(new SelectListItem() { Value = "3", Text = "Visiting Card" });
-    type.Add(new SelectListItem() { Value = "1", Text = "Food" });
-    type.Add(new SelectListItem() { Value = "2", Text = "Bulk SMS" });
-    type.Add(new SelectListItem() { Value = "3", Text = "IP TSP" });
+    type.Add(new SelectListItem() { Value = "4", Text = "Food" });
+    type.Add(new SelectListItem() { Value = "5", Text = "Bulk SMS" });
+    type.Add(new SelectListItem() { Value = "6", Text = "IP TSP" });
 }
 <section class="content-wrapper">
 
@@ -50,9 +50,17 @@
 
                             <div class="form-group">
 
-                                @Html.Label("Date", new { @class = "control-label col-md-1" })
+                                <label class="control-label col-md-1">Date<span style="color:red;">*</span> </label>
                                 <div class="col-md-2">
-                                    @Html.TextBoxFor(m => m.Spent_Date, new { @Class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Spent_Date, new { @Class = "form-control myDatePicker" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="control-label col-md-1">Amount<span style="color:red;">*</span> </label>
+
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Amount, new { @Class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group">
@@ -62,12 +70,17 @@
                                     @Html.TextBoxFor(m => m.Description, new { @Class = "form-control" })
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <div class="col-md-1"></div>
 
                                 <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
                                 <input type="button" value="Reset" id="reset" class="btn btn-info" />
 
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-1"></div>
+                                <label id="msg">@ViewData["msg"]</label>
                             </div>
                         </div>
                     }
@@ -76,7 +89,14 @@
         </div>
     </section>
 </section>
+<link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
+@section scripts{
+    
 <script>
+    $('.myDatePicker').datepicker({
+        format: 'dd/mm/yyyy'
+    })
+
     $("form").submit(function (event) {
         if ($("#Type").val() == "") {
             event.preventDefault();
@@ -85,30 +105,44 @@
                 $("#Type").focus();
             });
 
+
         }
-        //else if ($("#Spent_Date").val() == "") {
-        //    event.preventDefault();
-        //    swal("Failed", "Date is required", "error").then(function () {
-        //        $("#Spent_Date").focus();
-        //    });
-        //}
-        //else if ($("#Description").val() == "") {
-        //    event.preventDefault();
-        //    swal("Failed", "Description is required", "error").then(function () {
-        //        $("#Description").focus();
-        //    });
-        //}
-      
+        else if ($("#Spent_Date").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Date is required", "error").then(function () {
+                $("#Spent_Date").focus();
+            });
+        }
+        else if ($("#Amount").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Amount is required", "error").then(function () {
+                $("#Amount").focus();
+            });
+        }
 
     });
+
+    function resetFunction() {
+        $('#Type option:first').prop('selected', true); //clear
+        $("#Spent_Date").val("");
+        $("#Amount").val("");
+        $("#Description").val("");
+    }
+
     $(document).ready(function () {
+        var message = $("#msg").text();
+        
+        if (message == "Successfully Saved") {
+            swal("Successful", "Successfully Saved", "success");
+            resetFunction();
+        }
+
         $("#reset").click(function () {
-          
-            $('#Type option:first').prop('selected', true); //clear
-            $("#Spent_Date").val("");
-            $("#Description").val("");
-           
+
+            resetFunction();
+
         });
 
     });
 </script>
+}

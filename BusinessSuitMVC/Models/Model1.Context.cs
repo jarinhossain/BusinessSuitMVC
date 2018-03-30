@@ -25,6 +25,8 @@ namespace BusinessSuitMVC.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<Number> Numbers { get; set; }
         public DbSet<Source> Sources { get; set; }
+        public DbSet<Operator> Operators { get; set; }
     }
 }

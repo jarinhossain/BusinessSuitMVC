@@ -16,6 +16,7 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="~/Content/_all-skins.min.css">
+    
     <!-- Morris chart -->
     @*<link rel="stylesheet" href="bower_components/morris.js/morris.css">*@
     <!-- jvectormap -->
@@ -27,11 +28,11 @@
     <script src="~/Script/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
-  $.widget.bridge('uibutton', $.ui.button);
+        $.widget.bridge('uibutton', $.ui.button);
     </script>
     <!-- Bootstrap 3.3.7 -->
     <script src="~/Script/bootstrap.min.js"></script>
-    
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -573,7 +574,7 @@
             });
         });
         </script>*@
-    
+
     <script>
         $(document).ready(function () {
             var url = window.location;
@@ -586,7 +587,7 @@
                 return this.href == url;
             }).parentsUntil(".sidebar-menu > .treeview-menu").siblings().removeClass('active').end().addClass('active');
         });
-        
+
     </script>
     <script src="~/Script/sweetalert.min.js"></script>
     <!-- Morris.js charts -->

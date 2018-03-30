@@ -29,7 +29,10 @@ namespace BusinessSuitMVC.Models
         public DbSet<District> Districts { get; set; }
         public DbSet<Division> Divisions { get; set; }
         public DbSet<Expense> Expenses { get; set; }
-        public DbSet<Number> Numbers { get; set; }
+        public DbSet<Notification_Obd_Bulk> Notification_Obd_Bulk { get; set; }
+        public DbSet<Notification_Obd_Request> Notification_Obd_Request { get; set; }
+        public DbSet<Notification_Sms_Bulk> Notification_Sms_Bulk { get; set; }
+        public DbSet<Notification_Sms_Request> Notification_Sms_Request { get; set; }
         public DbSet<Offline_Order_Detalis> Offline_Order_Detalis { get; set; }
         public DbSet<Online_Order_Detalis> Online_Order_Detalis { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -37,6 +40,7 @@ namespace BusinessSuitMVC.Models
         public DbSet<Promotion_Type> Promotion_Type { get; set; }
         public DbSet<Remark> Remarks { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Sippeer> Sippeers { get; set; }
         public DbSet<Status_> Status_ { get; set; }
         public DbSet<User_Login> User_Login { get; set; }
         public DbSet<User_Profile> User_Profile { get; set; }

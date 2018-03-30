@@ -150,7 +150,7 @@ namespace BusinessSuitMVC.Controllers
                                      where user.User_Profile_Id == profile.Id
                                      select user).FirstOrDefault();
 
-            ViewData["user_name"] = user_login.UserName;
+            ViewData["UserName"] = user_login.UserName;
             ViewData["Role"] = user_login.Role;
 
             return View(profile);
@@ -178,6 +178,7 @@ namespace BusinessSuitMVC.Controllers
 
             DBUserLogin.UserName = UserName;
             DBUserLogin.Role = Role;
+            DB.SaveChanges();
 
             return View();
         }

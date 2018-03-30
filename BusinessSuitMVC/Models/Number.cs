@@ -24,11 +24,19 @@ namespace BusinessSuitMVC.Models
         public Nullable<int> Obd_Succeed { get; set; }
         public Nullable<System.DateTime> Last_Succeeded_Obd_Date { get; set; }
         public Nullable<int> Address_Id { get; set; }
-        public Nullable<int> Operators___Id { get; set; }
         public string Name { get; set; }
         public string Prefix { get; set; }
-        public Nullable<int> Source_Number_Map___Id { get; set; }
         public Nullable<int> Number_Id { get; set; }
-        public Nullable<int> C_Source_Id { get; set; }
+        public Nullable<int> Source_Id { get; set; }
+        public Nullable<System.DateTime> Created_On { get; set; }
+        public Nullable<int> Created_By { get; set; }
+        public Nullable<System.DateTime> Updated_On { get; set; }
+        public Nullable<int> Updated_By { get; set; }
+        public Nullable<bool> Is_Deleted { get; set; }
+        public Nullable<int> Deleted_By { get; set; }
+        public Nullable<System.DateTime> Deleted_On { get; set; }
+    
+        public virtual Source Source { get; set; }
+        public virtual Operator Operator { get; set; }
     }
 }

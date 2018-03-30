@@ -57,6 +57,13 @@
                             </div>
                             <div class="form-group">
 
+                                @Html.Label("Amount", new { @class = "control-label col-md-1" })
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Amount, new { @Class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+
                                 @Html.Label("Description", new { @class = "control-label col-md-1" })
                                 <div class="col-md-2">
                                     @Html.TextBoxFor(m => m.Description, new { @Class = "form-control" })
@@ -86,25 +93,25 @@
             });
 
         }
-        //else if ($("#Spent_Date").val() == "") {
-        //    event.preventDefault();
-        //    swal("Failed", "Date is required", "error").then(function () {
-        //        $("#Spent_Date").focus();
-        //    });
-        //}
-        //else if ($("#Description").val() == "") {
-        //    event.preventDefault();
-        //    swal("Failed", "Description is required", "error").then(function () {
-        //        $("#Description").focus();
-        //    });
-        //}
-
-
+        else if ($("#Spent_Date").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Date is required", "error").then(function () {
+                $("#Spent_Date").focus();
+            });
+        }
+        else if ($("#Amount").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Amount is required", "error").then(function () {
+                $("#Amount").focus();
+            });
+        }
+       
     });
     $(document).ready(function () {
         $("#reset").click(function () {
 
             $('#Type option:first').prop('selected', true); //clear
+
             $("#Spent_Date").val("");
             $("#Description").val("");
 
