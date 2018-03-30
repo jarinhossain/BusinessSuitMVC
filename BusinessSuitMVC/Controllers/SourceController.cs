@@ -166,9 +166,9 @@ namespace BusinessSuitMVC.Controllers
             Number number = new Number();
             number.Number1 = MobileNumber;
             number.Source_Id = source.Id;
-            
-           // Source.Mobile1 = source.Mobile1;
-           
+
+            // Source.Mobile1 = source.Mobile1;
+            DB.Numbers.Add(number);
             DB.SaveChanges();
             ViewData["msg"] = "Successfully Updated";
             return View();
