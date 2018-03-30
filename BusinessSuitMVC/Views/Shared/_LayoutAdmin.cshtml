@@ -25,14 +25,19 @@
     <!-- jQuery 3 -->
     <script src="~/Script/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src="~/Script/jquery-ui.min.js"></script>
+    @*<script src="~/Script/jquery-ui.min.js"></script>*@
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button);
-    </script>
+    @*<script>
+  $.widget.bridge('uibutton', $.ui.button);
+    </script>*@
     <!-- Bootstrap 3.3.7 -->
     <script src="~/Script/bootstrap.min.js"></script>
 
+    <script src="~/Script/sweetalert.min.js"></script>
+    
+    <script src="~/Script/adminlte.js"></script>
+    
+    @*<script src="~/Script/demo.js"></script>*@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -561,20 +566,7 @@
          immediately after the control sidebar -->
         <div class="control-sidebar-bg"></div>
     </div>
-
-    @*<script>
-        $(document).ready(function () {
-            var sPath = window.location.pathname;
-            var sPage = sPath; //sPath.substring(sPath.indexOf('/') + 1);
-            $(".sidebar-menu").each(function () {
-                $(this).find("a[href='" + sPage + "']").parents(".treeview ").addClass("menu-open");
-                $(this).find("a[href='" + sPage + "']").parents(".treeview").find('.treeview-menu').css("display", "block");
-                $(this).find("a[href='" + sPage + "']").parents(".treeview").find('a.dropdown-toggle').addClass("active");
-                $(this).find("a[href='" + sPage + "']").addClass("active");
-            });
-        });
-        </script>*@
-
+    
     <script>
         $(document).ready(function () {
             var url = window.location;
@@ -589,36 +581,36 @@
         });
 
     </script>
-    <script src="~/Script/sweetalert.min.js"></script>
+    
     <!-- Morris.js charts -->
-    <script src="~/Script/raphael.min.js"></script>
+    @*<script src="~/Script/raphael.min.js"></script>*@
     @*<script src="~/Script/morris.min.js"></script>*@
     <!-- Sparkline -->
-    <script src="~/Script/jquery.sparkline.min.js"></script>
+    @*<script src="~/Script/jquery.sparkline.min.js"></script>*@
     <!-- jvectormap -->
-    <script src="~/Script/jquery-jvectormap-1.2.2.min.js"></script>
-    <script src="~/Script/jquery-jvectormap-world-mill-en.js"></script>
+    @*<script src="~/Script/jquery-jvectormap-1.2.2.min.js"></script>*@
+    @*<script src="~/Script/jquery-jvectormap-world-mill-en.js"></script>*@
     <!-- jQuery Knob Chart -->
-    <script src="~/Script/jquery.knob.min.js"></script>
+    @*<script src="~/Script/jquery.knob.min.js"></script>*@
     <!-- daterangepicker -->
-    <script src="~/Script/moment.min.js"></script>
-    <script src="~/Script/daterangepicker.js"></script>
+    @*<script src="~/Script/moment.min.js"></script>*@
+    @*<script src="~/Script/daterangepicker.js"></script>*@
     <!-- datepicker -->
-    <script src="~/Script/bootstrap-datepicker.min.js"></script>
+    @*<script src="~/Script/bootstrap-datepicker.min.js"></script>*@
     <!-- Bootstrap WYSIHTML5 -->
-    <script src="~/Script/bootstrap3-wysihtml5.all.min.js"></script>
+    @*<script src="~/Script/bootstrap3-wysihtml5.all.min.js"></script>*@
     <!-- Slimscroll -->
-    <script src="~/Script/jquery.slimscroll.min.js"></script>
+    @*<script src="~/Script/jquery.slimscroll.min.js"></script>*@
     <!-- FastClick -->
-    <script src="~/Script/fastclick.js"></script>
+    @*<script src="~/Script/fastclick.js"></script>*@
     <!-- AdminLTE App -->
-    <script src="~/Script/adminlte.js"></script>
+    
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     @*<script src="~/Script/dashboard.js"></script>*@
     <!-- AdminLTE for demo purposes -->
-    <script src="~/Script/demo.js"></script>
+    
 
-
+    @RenderSection("contents", required: false)
     @RenderSection("scripts", required: false)
 </body>
 </html>

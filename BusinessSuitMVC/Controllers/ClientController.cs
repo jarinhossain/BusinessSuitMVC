@@ -1,4 +1,5 @@
-﻿using BusinessSuitMVC.Models;
+﻿using BusinessSuitMVC.ModelClasses;
+using BusinessSuitMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,6 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-
             return View();
         }
 
@@ -70,6 +70,11 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            Session["role"] = "testrole";
+            if (RoleValidate.IsValidatedRole())
+            {
+
+            }
             DBContext DB = new DBContext();
             Client_List client = (from user in DB.Client_List
                                   where user.Id == id
