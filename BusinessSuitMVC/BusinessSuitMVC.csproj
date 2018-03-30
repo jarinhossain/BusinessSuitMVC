@@ -156,6 +156,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="ModelClasses\asyncService.cs" />
+    <Compile Include="Controllers\AccountingController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -168,6 +169,15 @@
     <Compile Include="ModelClasses\ParameterEncryption.cs" />
     <Compile Include="ModelClasses\RoleValidate.cs" />
     <Compile Include="Models\Client_List.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\District.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Division.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Expense.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model.Context.cs">
@@ -199,6 +209,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Number.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Offline_Order_Detalis.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -276,6 +289,12 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Views\Client\Details.cshtml" />
+    <Content Include="Views\Source\Create.cshtml" />
+    <Content Include="Views\Source\Edit.cshtml" />
+    <Content Include="Views\Source\Details.cshtml" />
+    <Content Include="Views\Source\Search.cshtml" />
+    <Content Include="Views\Source\SourceNumberCreate.cshtml" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -284,6 +303,8 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <Content Include="Views\SMS\BulkSMS.cshtml" />
+    <Content Include="Views\Accounting\ExpenseCreate.cshtml" />
+    <Content Include="Views\Accounting\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

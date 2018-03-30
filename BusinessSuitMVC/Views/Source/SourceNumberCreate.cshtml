@@ -1,0 +1,120 @@
+﻿@model BusinessSuitMVC.Models.Source
+<!DOCTYPE html>
+@{
+    List<SelectListItem> source = new List<SelectListItem>();
+    source.Add(new SelectListItem() { Value = "1", Text = "Shop" });
+    source.Add(new SelectListItem() { Value = "2", Text = "Councillor" });
+    source.Add(new SelectListItem() { Value = "3", Text = "General Councillor" });
+    source.Add(new SelectListItem() { Value = "4", Text = "Mayor" });
+    source.Add(new SelectListItem() { Value = "5", Text = "Other" });
+    
+}
+
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+
+    <script src="~/Script/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("SourceNumberCreate", "Source", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", @id = "userCreate", @name = "userCreate" }))
+        {
+            <h2 style="margin-left:20px">Source</h2>
+            @Html.HiddenFor(m => m.Id)
+            <div class="form-group">
+                <label class="control-label col-md-1">Source Name<span style="color:red;">*</span> </label>
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Contact_Name, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">Company Name<span style="color:red;">*</span> </label>
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Company_Name, new { @Class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-1">Source Type<span style="color:red;">*</span> </label>
+                <div class="col-md-2">
+                    @Html.DropDownList("Source_Type", @source, "Select Source Type", new { @class = "form-control editor-field" })
+                </div>
+            </div>
+            @*<div class="form-group">
+                <label class="control-label col-md-1">Mobile1<span style="color:red;">*</span> </label>
+                <div class="col-md-2">
+                    @Html.TextBoxFor(m => m.Mobile1, new { @Class = "form-control" })
+                </div>
+            </div>*@
+
+         
+
+            <div class="form-group">
+                <div class="col-md-1"></div>
+                <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
+                <input type="button" value="Reset" id="reset" class="btn btn-info" />
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-1"></div>
+                <label>@ViewData["msg"]</label>
+            </div>
+
+        }
+    </div>
+</body>
+<script>
+
+
+    $("form").submit(function (event) {
+         //stop form submit
+
+        if ($("#Contact_Name").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Source Name is required", "error").then(function () {
+                $("#Contact_Name").focus();
+            });
+        }
+        else if ($("#Company_Name").val() == "")
+        {
+            event.preventDefault();
+            swal("Failed", "Company Name is required", "error").then(function () {
+                $("#Company_Name").focus();
+            });
+        }
+        else if ($("#Source_Type").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Source Type is required", "error").then(function () {
+                $("#Source_Type").focus();
+            });
+        }
+        //else if ($("#Mobile1").val() == "") {
+        //    event.preventDefault();
+        //    swal("Failed", "Mobile1 is required", "error").then(function () {
+        //        $("#Mobile1").focus();
+        //    });
+        //}
+    
+    });
+
+    $(document).ready(function () {
+
+
+        $("#reset").click(function () {
+
+            $("#Contact_Name").val("");
+            $("#Company_Name").val("");
+            $("#Source_Type").val("");
+            //$("#Mobile1").val("");
+           
+        });
+
+    });
+</script>
+</html>

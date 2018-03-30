@@ -1,154 +1,285 @@
 ﻿@model BusinessSuitMVC.Models.User_Profile
-@{ 
-    Layout = null;
-}
-<!DOCTYPE html>
+
 @{
-
-    List<SelectListItem> Gender = new List<SelectListItem>();
-    Gender.Add(new SelectListItem() { Value = "1", Text = "Male" });
-    Gender.Add(new SelectListItem() { Value = "2", Text = "Female" });
-
-    List<SelectListItem> role = new List<SelectListItem>();
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    List<SelectListItem>
+    role = new List<SelectListItem>
+        ();
     role.Add(new SelectListItem() { Value = "1", Text = "Super Admin" });
     role.Add(new SelectListItem() { Value = "2", Text = "Admin" });
     role.Add(new SelectListItem() { Value = "3", Text = "Moderator" });
     role.Add(new SelectListItem() { Value = "4", Text = "User" });
     role.Add(new SelectListItem() { Value = "5", Text = "Guest" });
 
-    List<SelectListItem> Usertype = new List<SelectListItem>();
+    List<SelectListItem>
+        Gender = new List<SelectListItem>();
+    Gender.Add(new SelectListItem() { Value = "1", Text = "Male" });
+    Gender.Add(new SelectListItem() { Value = "2", Text = "Female" });
+
+
+
+    List<SelectListItem>
+        Usertype = new List<SelectListItem>
+            ();
     Usertype.Add(new SelectListItem() { Value = "1", Text = "Internal user" });
     Usertype.Add(new SelectListItem() { Value = "2", Text = "Uddokta" });
     Usertype.Add(new SelectListItem() { Value = "2", Text = "Client" });
 
-    List<SelectListItem> City = new List<SelectListItem>();
+    List<SelectListItem>
+        City = new List<SelectListItem>
+            ();
     City.Add(new SelectListItem() { Value = "1", Text = "Dhaka" });
     City.Add(new SelectListItem() { Value = "2", Text = "Gajipur" });
 
+
 }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Edit</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
-    <script src="~/Script/jquery.min.js"></script>
-    <script src="~/Script/jquery.min.js"></script>
-</head>
-<body>
-    <div>
-        @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal" }))
-        {
-            <h2 style="margin-left:20px">User Profile</h2>
-            @Html.HiddenFor(m => m.Id)
-            <div class="form-group">
-                @Html.Label("Name", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Name, new { @Class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.Label("Bangla Name", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Bangla_Name, new { @Class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.Label("Gender", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.DropDownList("Gender", @Gender, "Select Gender", new { @class = "form-control editor-field" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.Label("Ward", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Ward, new { @Class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.Label("User Type", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.DropDownList("User_Type", @Usertype, "Select Usertype", new { @class = "form-control editor-field" })
-                </div>
-            </div>
+<section class="content-wrapper">
 
-            <div class="form-group">
-                @Html.Label("City", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.DropDownList("City", @City, "Select City", new { @class = "form-control editor-field" })
-                </div>
-            </div>
+    <section class="content-header">
+        <h1>
+            User
+        </h1>
+        @*<ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Forms</a></li>
+                <li class="active">General Elements</li>
+            </ol>*@
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Create</h3>
+                    </div>
+                    @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        <div class="box-body">
 
-            <div class="form-group">
-                @Html.Label("User Name", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.TextBox("Username", null, new { @class = "form-control" })
-                </div>
-            </div>
 
-            <div class="form-group">
-                @Html.Label("Area", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Area, new { @Class = "form-control" })
-                </div>
-            </div>
+                            @Html.HiddenFor(m => m.Id)
+                            <div class="form-group">
+                                @*@Html.Label("Name", new { @class = "control-label col-md-1" })*@
+                                <label class="control-label col-md-1">Name<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Name, new { @Class = "form-control" })
+                                </div>
+                            </div>
 
-            <div class="form-group">
-                @Html.Label("Password", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.TextBox("Password", null, new { @class = "form-control" })
-                </div>
-            </div>
+                            <div class="form-group">
+                                @Html.Label("Bangla Name", new { @class = "control-label col-md-1" })
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Bangla_Name, new { @Class = "form-control" })
+                                </div>
+                            </div>
 
-            <div class="form-group">
-                @Html.Label("Confirm Password", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.TextBox("ConfirmPassword", null, new { @class = "form-control" })
-                </div>
-            </div>
+                            <div class="form-group">
+                                @*@Html.Label("Gender", new { @class = "control-label col-md-1" })*@
+                                <label class="control-label col-md-1">Gender<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownList("Gender", @Gender, "Select Gender", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>
 
-            <div class="form-group">
-                @Html.Label("Role", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.DropDownList("Role", @role, "Select Role", new { @class = "form-control editor-field" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.Label("Mobile", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Mobile, new { @Class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.Label("Email", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Email, new { @Class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.Label("Address", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Address, new { @Class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.Label("Phone", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Phone, new { @Class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-1"></div>
-                <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
-                <input type="submit" value="Delete" class="btn btn-info" />
-            </div>
-            <div class="form-group">
-                <div class="col-md-1"></div>
-                <label>@ViewData["msg"]</label>
-            </div>
+                            <div class="form-group">
+                                @*@Html.Label("Ward", new { @class = "control-label col-md-1" })*@
+                                <label class="control-label col-md-1">Ward<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Ward, new { @Class = "form-control" })
+                                </div>
+                            </div>
 
+                            <div class="form-group">
+                                @*@Html.Label("User Type", new { @class = "control-label col-md-1" })*@
+                                <label class="control-label col-md-1">User Type<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownList("User_Type", @Usertype, "Select Usertype", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @*@Html.Label("City", new { @class = "control-label col-md-1" })*@
+                                <label class="control-label col-md-1">City<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownList("City", @City, "Select City", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @*@Html.Label("User Name", new { @class = "control-label col-md-1" })*@
+                                <label class="control-label col-md-1">User Name<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.TextBox("Username", null, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @*@Html.Label("Mobile", new { @class = "control-label col-md-1" })*@
+                                <label class="control-label col-md-1">Mobile<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Mobile, new { @Class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @*@Html.Label("Role", new { @class = "control-label col-md-1" })*@
+                                <label class="control-label col-md-1">Role<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownList("Role", @role, "Select Role", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Email", new { @class = "control-label col-md-1" })
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Email, new { @Class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @*@Html.Label("Address", new { @class = "control-label col-md-1" })*@
+                                <label class="control-label col-md-1">Address<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Address, new { @Class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Phone", new { @class = "control-label col-md-1" })
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Phone, new { @Class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Profile Image", new { @class = "control-label col-md-1" })
+                                <div class="col-md-2">
+                                    <input type="file" id="image" name="image" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-1"></div>
+                                <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
+                                <input type="button" value="Reset" id="reset" class="btn btn-info" />
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-1"></div>
+                                <label>@ViewData["msg"]</label>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<Script>
+
+    $("form").submit(function (event) {
+        //stop form submit
+        if ($("#Name").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Name is required", "error").then(function () {
+                $("#Name").focus();
+            });
         }
-    </div>
-</body>
-</html>
+        else if ($("#Gender").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Gender is required", "error").then(function () {
+                $("#Gender").focus();
+            });
+        }
+        else if ($("#Ward").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Ward is required", "error").then(function () {
+                $("#Ward").focus();
+            });
+        }
+        else if ($("#User_Type").val() == "") {
+            event.preventDefault();
+            swal("Failed", "User Type is required", "error").then(function () {
+                $("#User_Type").focus();
+            });
+        }
+        else if ($("#City").val() == "") {
+            event.preventDefault();
+            swal("Failed", "City is required", "error").then(function () {
+                $("#City").focus();
+            });
+        }
+        else if ($("#Username").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Username is required", "error").then(function () {
+                $("#Username").focus();
+            });
+        }
+        else if ($("#Password").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Password is required", "error").then(function () {
+                $("#Password").focus();
+            });
+        }
+        else if ($("#ConfirmPassword").val() != $("#Password").val()) {
+            event.preventDefault();
+            swal("Failed", "ConfirmPassword is required", "error").then(function () {
+                $("#ConfirmPassword").focus();
+            });
+        }
+        else if ($("#Mobile").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Mobile is required", "error").then(function () {
+                $("#Mobile").focus();
+            });
+        }
+        else if ($("#Role").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Role is required", "error").then(function () {
+                $("#Role").focus();
+            });
+        }
+
+            //else if ($("#Email").val() == "") {
+            //    event.preventDefault();
+            //    $("#Email").focus();
+            //    alert("Email is required");
+            //}
+        else if ($("#Address").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Address is required", "error").then(function () {
+                $("#Address").focus();
+            });
+        }
+    });
+
+    $(document).ready(function () {
+
+
+        $("#reset").click(function () {
+
+            $("#Name").val("");
+            $("#Bangla_Name").val("");
+            $("#Gender").val("");
+            $("#Ward").val("");
+            $("#User_Type").val("");
+            $("#City").val("");
+            $("#Username").val("");
+            $("#Area").val("");
+            $("#Password").val("");
+            $("#ConfirmPassword").val("");
+            $("#Role").val("");
+            $("#Mobile").val("");
+            $("#Email").val("");
+            $("#Address").val("");
+            $("#Phone").val("");
+
+        });
+
+    });
+</Script>

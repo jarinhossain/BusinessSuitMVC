@@ -1,0 +1,96 @@
+﻿
+@model BusinessSuitMVC.Models.Source
+
+@{
+    ViewBag.Title = "Show";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Source
+        </h1>
+        @*<ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Forms</a></li>
+                <li class="active">General Elements</li>
+            </ol>*@
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h1 class="box-title">Details</h1>
+                    </div>
+
+                    <div class="table-responsive panel">
+                        <table class="table">
+                            <tbody>
+
+                                <tr>
+                                    <td class="text-primary text-right" width="30%">Contact Name: </td>
+                                    <td style="font-weight:bold">@Model.Contact_Name</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right">Company Name: </td>
+                                    <td style="font-weight:bold">@Model.Company_Name</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right"> Source Type: </td>
+                                    <td style="font-weight:bold">@Model.Source_Type</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-primary text-right" width="30%"> Mobile1: </td>
+                                    <td style="font-weight:bold">@Model.Mobile1</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right">Mobile2: </td>
+                                    <td style="font-weight:bold">@Model.Mobile2</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right">Division:</td>
+                                    <td style="font-weight:bold">@Model.Division_Id</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-primary text-right">District:</td>
+                                    <td style="font-weight:bold">@Model.District_Id</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right">Ward:</td>
+                                    <td style="font-weight:bold">@Model.Ward</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-primary text-right" width="30%">Address:</td>
+                                    <td style="font-weight:bold">@Model.Address</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right">Remark: </td>
+                                    <td style="font-weight:bold">@Model.Remarks</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="form-group" style="text-align:center">
+
+                            <a href="~/Source/Edit?id=@Model.Id" class="btn btn-success">Edit</a>
+                            <a href="~/Source/Search" class="btn btn-info">Back</a>
+                            <a href="~/Source/SourceNumberCreate?id=@Model.Id" class="btn btn-success">Add Product</a>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</section>

@@ -40,7 +40,7 @@ namespace BusinessSuitMVC.Controllers
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
 
-            if (file.ContentLength > 0)
+            if (file != null && file.ContentLength > 0)
             {
                 string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
                 if (extension != ".jpg")
@@ -104,18 +104,19 @@ namespace BusinessSuitMVC.Controllers
             {
                 DBContext DB = new DBContext();
 
-                User.Image = file.ContentLength > 0 ? true : false;
+                User.Image = file != null && file.ContentLength > 0 ? true : false;
                 DB.User_Profile.Add(User);
                 DB.SaveChanges();
 
                 login.UserName = UserName;
+                login.User_Profile_Id = User.Id;
                 login.Password = Password;
                 login.Role = Role;
 
                 DB.User_Login.Add(login);
                 DB.SaveChanges();
 
-                if(file.ContentLength > 0)
+                if(file != null && file.ContentLength > 0)
                 {
                     string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
                     string path = Path.Combine(Server.MapPath("~/Images/User"), "U_" + User.Id + extension);
