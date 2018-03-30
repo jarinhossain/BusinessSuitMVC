@@ -55,26 +55,48 @@
           <Property Name="Deleted_By" Type="int" />
           <Property Name="Deleted_On" Type="datetime" />
         </EntityType>
-        <EntityType Name="Numbers">
+        <EntityType Name="Notification_Obd_Bulk">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Number" Type="int" />
-          <Property Name="Operator_Id" Type="int" />
-          <Property Name="Sms_Tried" Type="int" />
-          <Property Name="Sms_Succeed" Type="int" />
-          <Property Name="Last_Succeeded_Sms_Date" Type="datetime" />
-          <Property Name="Obd_Tried" Type="int" />
-          <Property Name="Obd_Succeed" Type="int" />
-          <Property Name="Last_Succeeded_Obd_Date" Type="datetime" />
-          <Property Name="Address_Id" Type="int" />
-          <Property Name="Operators - Id" Type="int" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="Prefix" Type="varchar" MaxLength="20" />
-          <Property Name="Source_Number_Map - Id" Type="int" />
-          <Property Name="Number_Id" Type="int" />
-          <Property Name=" Source_Id" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Start_Time" Type="datetime" />
+          <Property Name="End_Time" Type="datetime" />
+          <Property Name="Calls_Per_Sec" Type="int" />
+          <Property Name="Retry_Time" Type="int" />
+          <Property Name="Msisdn_File" Type="varchar" MaxLength="500" />
+          <Property Name="Play_File" Type="varchar" MaxLength="500" />
+          <Property Name="Retry" Type="int" />
+          <Property Name="Created_At" Type="timestamp" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Notification_Obd_Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notification_Sms_Bulk">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content" Type="varchar" MaxLength="255" />
+          <Property Name="Start_Time" Type="datetime" />
+          <Property Name="End_Time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Notification_Sms_Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Msisdn" Type="varchar" MaxLength="20" />
+          <Property Name="Content" Type="varchar" MaxLength="255" />
+          <Property Name="Start_Time" Type="datetime" />
+          <Property Name="End_Time" Type="datetime" />
+          <Property Name="Transmission_Time" Type="datetime" />
+          <Property Name="Locked_Time" Type="datetime" />
+          <Property Name="Try_Count" Type="int" />
         </EntityType>
         <EntityType Name="Offline_Order_Detalis">
           <Key>
@@ -195,6 +217,12 @@
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Permissions" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Sippeers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Status ">
           <Key>
             <PropertyRef Name="Id" />
@@ -304,7 +332,10 @@
           <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Expense" EntityType="Self.Expense" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Numbers" EntityType="Self.Numbers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notification_Obd_Bulk" EntityType="Self.Notification_Obd_Bulk" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notification_Obd_Request" EntityType="Self.Notification_Obd_Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notification_Sms_Bulk" EntityType="Self.Notification_Sms_Bulk" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notification_Sms_Request" EntityType="Self.Notification_Sms_Request" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Offline_Order_Detalis" EntityType="Self.Offline_Order_Detalis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Online_Order_Detalis" EntityType="Self.Online_Order_Detalis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
@@ -312,6 +343,7 @@
           <EntitySet Name="Promotion_Type" EntityType="Self.Promotion_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Remarks" EntityType="Self.Remarks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sippeers" EntityType="Self.Sippeers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status " EntityType="Self.Status " Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Login" EntityType="Self.User_Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Profile" EntityType="Self.User_Profile" Schema="dbo" store:Type="Tables" />
@@ -392,26 +424,48 @@
           <Property Name="Deleted_By" Type="Int32" />
           <Property Name="Deleted_On" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="Number">
+        <EntityType Name="Notification_Obd_Bulk">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Number1" Type="Int32" />
-          <Property Name="Operator_Id" Type="Int32" />
-          <Property Name="Sms_Tried" Type="Int32" />
-          <Property Name="Sms_Succeed" Type="Int32" />
-          <Property Name="Last_Succeeded_Sms_Date" Type="DateTime" Precision="3" />
-          <Property Name="Obd_Tried" Type="Int32" />
-          <Property Name="Obd_Succeed" Type="Int32" />
-          <Property Name="Last_Succeeded_Obd_Date" Type="DateTime" Precision="3" />
-          <Property Name="Address_Id" Type="Int32" />
-          <Property Name="Operators___Id" Type="Int32" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Prefix" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Source_Number_Map___Id" Type="Int32" />
-          <Property Name="Number_Id" Type="Int32" />
-          <Property Name="C_Source_Id" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Start_Time" Type="DateTime" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Precision="3" />
+          <Property Name="Calls_Per_Sec" Type="Int32" />
+          <Property Name="Retry_Time" Type="Int32" />
+          <Property Name="Msisdn_File" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Play_File" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Retry" Type="Int32" />
+          <Property Name="Created_At" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Notification_Obd_Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Notification_Sms_Bulk">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Start_Time" Type="DateTime" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Notification_Sms_Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Msisdn" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Start_Time" Type="DateTime" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Precision="3" />
+          <Property Name="Transmission_Time" Type="DateTime" Precision="3" />
+          <Property Name="Locked_Time" Type="DateTime" Precision="3" />
+          <Property Name="Try_Count" Type="Int32" />
         </EntityType>
         <EntityType Name="Offline_Order_Detalis">
           <Key>
@@ -540,6 +594,12 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Permissions" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Sippeer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="Status_">
           <Key>
             <PropertyRef Name="Id" />
@@ -651,7 +711,10 @@
           <EntitySet Name="Districts" EntityType="Self.District" />
           <EntitySet Name="Divisions" EntityType="Self.Division" />
           <EntitySet Name="Expenses" EntityType="Self.Expense" />
-          <EntitySet Name="Numbers" EntityType="Self.Number" />
+          <EntitySet Name="Notification_Obd_Bulk" EntityType="Self.Notification_Obd_Bulk" />
+          <EntitySet Name="Notification_Obd_Request" EntityType="Self.Notification_Obd_Request" />
+          <EntitySet Name="Notification_Sms_Bulk" EntityType="Self.Notification_Sms_Bulk" />
+          <EntitySet Name="Notification_Sms_Request" EntityType="Self.Notification_Sms_Request" />
           <EntitySet Name="Offline_Order_Detalis" EntityType="Self.Offline_Order_Detalis" />
           <EntitySet Name="Online_Order_Detalis" EntityType="Self.Online_Order_Detalis" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
@@ -659,6 +722,7 @@
           <EntitySet Name="Promotion_Type" EntityType="Self.Promotion_Type" />
           <EntitySet Name="Remarks" EntityType="Self.Remark" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Sippeers" EntityType="Self.Sippeer" />
           <EntitySet Name="Status_" EntityType="Self.Status_" />
           <EntitySet Name="User_Login" EntityType="Self.User_Login" />
           <EntitySet Name="User_Profile" EntityType="Self.User_Profile" />
@@ -744,25 +808,50 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Numbers">
-            <EntityTypeMapping TypeName="Business_SuitModel.Number">
-              <MappingFragment StoreEntitySet="Numbers">
+          <EntitySetMapping Name="Notification_Obd_Bulk">
+            <EntityTypeMapping TypeName="Business_SuitModel.Notification_Obd_Bulk">
+              <MappingFragment StoreEntitySet="Notification_Obd_Bulk">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Number1" ColumnName="Number" />
-                <ScalarProperty Name="Operator_Id" ColumnName="Operator_Id" />
-                <ScalarProperty Name="Sms_Tried" ColumnName="Sms_Tried" />
-                <ScalarProperty Name="Sms_Succeed" ColumnName="Sms_Succeed" />
-                <ScalarProperty Name="Last_Succeeded_Sms_Date" ColumnName="Last_Succeeded_Sms_Date" />
-                <ScalarProperty Name="Obd_Tried" ColumnName="Obd_Tried" />
-                <ScalarProperty Name="Obd_Succeed" ColumnName="Obd_Succeed" />
-                <ScalarProperty Name="Last_Succeeded_Obd_Date" ColumnName="Last_Succeeded_Obd_Date" />
-                <ScalarProperty Name="Address_Id" ColumnName="Address_Id" />
-                <ScalarProperty Name="Operators___Id" ColumnName="Operators - Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Prefix" ColumnName="Prefix" />
-                <ScalarProperty Name="Source_Number_Map___Id" ColumnName="Source_Number_Map - Id" />
-                <ScalarProperty Name="Number_Id" ColumnName="Number_Id" />
-                <ScalarProperty Name="C_Source_Id" ColumnName=" Source_Id" />
+                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+                <ScalarProperty Name="Calls_Per_Sec" ColumnName="Calls_Per_Sec" />
+                <ScalarProperty Name="Retry_Time" ColumnName="Retry_Time" />
+                <ScalarProperty Name="Msisdn_File" ColumnName="Msisdn_File" />
+                <ScalarProperty Name="Play_File" ColumnName="Play_File" />
+                <ScalarProperty Name="Retry" ColumnName="Retry" />
+                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notification_Obd_Request">
+            <EntityTypeMapping TypeName="Business_SuitModel.Notification_Obd_Request">
+              <MappingFragment StoreEntitySet="Notification_Obd_Request">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notification_Sms_Bulk">
+            <EntityTypeMapping TypeName="Business_SuitModel.Notification_Sms_Bulk">
+              <MappingFragment StoreEntitySet="Notification_Sms_Bulk">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notification_Sms_Request">
+            <EntityTypeMapping TypeName="Business_SuitModel.Notification_Sms_Request">
+              <MappingFragment StoreEntitySet="Notification_Sms_Request">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Msisdn" ColumnName="Msisdn" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+                <ScalarProperty Name="Transmission_Time" ColumnName="Transmission_Time" />
+                <ScalarProperty Name="Locked_Time" ColumnName="Locked_Time" />
+                <ScalarProperty Name="Try_Count" ColumnName="Try_Count" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -889,6 +978,13 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Permissions" ColumnName="Permissions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sippeers">
+            <EntityTypeMapping TypeName="Business_SuitModel.Sippeer">
+              <MappingFragment StoreEntitySet="Sippeers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

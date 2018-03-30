@@ -22,16 +22,20 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult ExpenseCreate(Expense expense)
         {
-            if (expense.Type == null)
+            string validation = ValidateExpense(expense);
+
+            if (validation != "true")
             {
-                ViewData["msg"] = "Please enter your valid Type";
-
+                ViewData["msg"] = validation;
             }
-            DBContext DB = new DBContext();
+            else
+            {
+                DBContext DB = new DBContext();
 
-            DB.Expenses.Add(expense);
-            DB.SaveChanges();
-            ViewData["msg"] = "Successfully Saved";
+                DB.Expenses.Add(expense);
+                DB.SaveChanges();
+                ViewData["msg"] = "Successfully Saved";
+            }
             return View();
         }
         [HttpGet]
@@ -48,27 +52,50 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Edit(Expense expens)
         {
-            //if (expens.Type == null)
-            //{
-            //    ViewData["msg"] = "Please enter your valid Type";
-            //}
-          
-            //else
-            //{
+            string validation = ValidateExpense(expens);
+
+            if(validation != "true")
+            {
+                ViewData["msg"] = validation;
+            }
+            else
+            {
                 DBContext DB = new DBContext();
                 Expense expense = (from user in DB.Expenses
-                                      where user.Id == expens.Id
-                                      select user).FirstOrDefault();
+                                   where user.Id == expens.Id
+                                   select user).FirstOrDefault();
 
 
                 expense.Type = expens.Type;
                 expense.Spent_Date = expens.Spent_Date;
+                expense.Amount = expens.Amount;
                 expense.Description = expens.Description;
 
                 DB.SaveChanges();
                 ViewData["msg"] = "Successfully Updated";
-            
+            }
             return View();
         }
+
+        public string ValidateExpense(Expense expense)
+        {
+            if (expense.Type == null)
+            {
+                return  "Please enter your valid Type";
+
+            }
+            else if (expense.Spent_Date == null)
+            {
+                return "Please enter your valid Spent_Date";
+
+            }
+            else if (expense.Amount == null)
+            {
+                return "Please enter your valid Amount";
+            }
+
+            return "true";
+        }
+
     }
 }

@@ -64,111 +64,111 @@
                             @Html.HiddenFor(m => m.Id)
                             <div class="form-group">
                                 @*@Html.Label("Name", new { @class = "control-label col-md-1" })*@
-                                <label class="control-label col-md-1">Name<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Name<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Name, new { @Class = "form-control" })
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                @Html.Label("Bangla Name", new { @class = "control-label col-md-1" })
-                                <div class="col-md-2">
+                                @Html.Label("Bangla Name", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Bangla_Name, new { @Class = "form-control" })
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 @*@Html.Label("Gender", new { @class = "control-label col-md-1" })*@
-                                <label class="control-label col-md-1">Gender<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Gender<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.DropDownList("Gender", @Gender, "Select Gender", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 @*@Html.Label("Ward", new { @class = "control-label col-md-1" })*@
-                                <label class="control-label col-md-1">Ward<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Ward<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Ward, new { @Class = "form-control" })
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 @*@Html.Label("User Type", new { @class = "control-label col-md-1" })*@
-                                <label class="control-label col-md-1">User Type<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">User Type<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.DropDownList("User_Type", @Usertype, "Select Usertype", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 @*@Html.Label("City", new { @class = "control-label col-md-1" })*@
-                                <label class="control-label col-md-1">City<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">City<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.DropDownList("City", @City, "Select City", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 @*@Html.Label("User Name", new { @class = "control-label col-md-1" })*@
-                                <label class="control-label col-md-1">User Name<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
-                                    @Html.TextBox("Username", null, new { @class = "form-control" })
+                                <label class="control-label col-md-3">User Name<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
+                                    @Html.TextBox("UserName", null, new { @class = "form-control" })
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 @*@Html.Label("Mobile", new { @class = "control-label col-md-1" })*@
-                                <label class="control-label col-md-1">Mobile<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Mobile<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Mobile, new { @Class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 @*@Html.Label("Role", new { @class = "control-label col-md-1" })*@
-                                <label class="control-label col-md-1">Role<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Role<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.DropDownList("Role", @role, "Select Role", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                @Html.Label("Email", new { @class = "control-label col-md-1" })
-                                <div class="col-md-2">
+                                @Html.Label("Email", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Email, new { @Class = "form-control" })
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 @*@Html.Label("Address", new { @class = "control-label col-md-1" })*@
-                                <label class="control-label col-md-1">Address<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Address<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Address, new { @Class = "form-control" })
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                @Html.Label("Phone", new { @class = "control-label col-md-1" })
-                                <div class="col-md-2">
+                                @Html.Label("Phone", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Phone, new { @Class = "form-control" })
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                @Html.Label("Profile Image", new { @class = "control-label col-md-1" })
-                                <div class="col-md-2">
+                                @Html.Label("Profile Image", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
                                     <input type="file" id="image" name="image" />
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-1"></div>
+                                <div class="col-md-3"></div>
                                 <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
                                 <input type="button" value="Reset" id="reset" class="btn btn-info" />
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-1"></div>
+                                <div class="col-md-3"></div>
                                 <label>@ViewData["msg"]</label>
                             </div>
 
@@ -214,10 +214,10 @@
                 $("#City").focus();
             });
         }
-        else if ($("#Username").val() == "") {
+        else if ($("#UserName").val() == "") {
             event.preventDefault();
             swal("Failed", "Username is required", "error").then(function () {
-                $("#Username").focus();
+                $("#UserName").focus();
             });
         }
         else if ($("#Password").val() == "") {
@@ -269,10 +269,8 @@
             $("#Ward").val("");
             $("#User_Type").val("");
             $("#City").val("");
-            $("#Username").val("");
+            $("#UserName").val("");
             $("#Area").val("");
-            $("#Password").val("");
-            $("#ConfirmPassword").val("");
             $("#Role").val("");
             $("#Mobile").val("");
             $("#Email").val("");

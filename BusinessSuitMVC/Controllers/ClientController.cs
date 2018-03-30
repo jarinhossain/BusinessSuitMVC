@@ -68,7 +68,7 @@ namespace BusinessSuitMVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int userid)
+        public ActionResult Edit(int id)
         {
             Session["role"] = "testrole";
             if (RoleValidate.IsValidatedRole())
@@ -77,7 +77,7 @@ namespace BusinessSuitMVC.Controllers
             }
             DBContext DB = new DBContext();
             Client_List client = (from user in DB.Client_List
-                                  where user.Id == userid
+                                  where user.Id == id
                                   select user).FirstOrDefault();
 
             return View(client);

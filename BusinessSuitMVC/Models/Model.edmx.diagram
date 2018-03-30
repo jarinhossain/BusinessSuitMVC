@@ -4,23 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a96ca8e8332d4744a188038e2b7a41bc" Name="Diagram1">
+      <Diagram DiagramId="0978956560344e4fb18c522691e7ce0c" Name="Diagram1">
         <EntityTypeShape EntityType="Business_SuitModel.Client_List" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.District" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Division" Width="1.5" PointX="8.75" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Expense" Width="1.5" PointX="8.75" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Number" Width="1.5" PointX="10.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Notification_Obd_Bulk" Width="1.5" PointX="10.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Notification_Obd_Request" Width="1.5" PointX="10.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Notification_Sms_Bulk" Width="1.5" PointX="10.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Notification_Sms_Request" Width="1.5" PointX="0.75" PointY="12.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Offline_Order_Detalis" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Online_Order_Detalis" Width="1.5" PointX="6" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Order" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Product" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Promotion_Type" Width="1.5" PointX="3.75" PointY="13.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Remark" Width="1.5" PointX="10.75" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Role" Width="1.5" PointX="0.75" PointY="12.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Status_" Width="1.5" PointX="12.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Remark" Width="1.5" PointX="12.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Role" Width="1.5" PointX="5.75" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Sippeer" Width="1.5" PointX="12.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Status_" Width="1.5" PointX="12.75" PointY="9.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.User_Login" Width="1.5" PointX="11" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.User_Profile" Width="1.5" PointX="8.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Voter_Slip_Image_Type" Width="1.5" PointX="5.75" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Voter_Slip_Image_Type" Width="1.5" PointX="12.75" PointY="12.875" IsExpanded="true" />
         <AssociationConnector Association="Business_SuitModel.FK_Offline_Order_Detalis_Order" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_Online_Order_Detalis_Order" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_Online_Order_Detalis_Product" ManuallyRouted="false" />

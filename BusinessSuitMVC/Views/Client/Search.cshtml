@@ -17,6 +17,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Option</th>
                         <th>Name</th>
                         <th>Mobile1</th>
                         <th>Mobile2</th>
@@ -31,6 +32,7 @@
                     @foreach (BusinessSuitMVC.Models.Client_List client in (IEnumerable<BusinessSuitMVC.Models.Client_List>)Model)
             {
                         <tr>
+                            <td><a href="~/Client/Edit?id=@client.Id">Edit</a></td>
                             <td>@client.Counsilor_Name</td>
                             <td>@client.Mobile1</td>
                             <td>@client.Mobile2</td>

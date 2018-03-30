@@ -1,4 +1,7 @@
 ﻿@model BusinessSuitMVC.Models.Source
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
 <!DOCTYPE html>
 @{
     List<SelectListItem> source = new List<SelectListItem>();
@@ -7,73 +10,84 @@
     source.Add(new SelectListItem() { Value = "3", Text = "General Councillor" });
     source.Add(new SelectListItem() { Value = "4", Text = "Mayor" });
     source.Add(new SelectListItem() { Value = "5", Text = "Other" });
-    
+
 }
 
 
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+<section class="content-wrapper">
 
-    <script src="~/Script/jquery.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-</head>
-<body>
-    <div>
-        @using (Html.BeginForm("SourceNumberCreate", "Source", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", @id = "userCreate", @name = "userCreate" }))
-        {
-            <h2 style="margin-left:20px">Source</h2>
-            @Html.HiddenFor(m => m.Id)
-            <div class="form-group">
-                <label class="control-label col-md-1">Source Name<span style="color:red;">*</span> </label>
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Contact_Name, new { @Class = "form-control" })
+    <section class="content-header">
+        <h1>
+            Source
+        </h1>
+        @*<ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Forms</a></li>
+                <li class="active">General Elements</li>
+            </ol>*@
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Source Number Create</h3>
+                    </div>
+                    @using (Html.BeginForm("SourceNumberCreate", "Source", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", @id = "userCreate", @name = "userCreate" }))
+                    {
+                        <div class="box-body">
+                            @Html.HiddenFor(m => m.Id)
+                            <div class="form-group">
+                                <label class="control-label col-md-1">Source Name<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Contact_Name, new { @Class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1">Company Name<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(m => m.Company_Name, new { @Class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-1">Source Type<span style="color:red;">*</span> </label>
+                                <div class="col-md-2">
+                                    @Html.DropDownList("Source_Type", @source, "Select Source Type", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="control-label col-md-1">Mobile<span style="color:red;">*</span> </label>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("MobileNumber",null, new { @Class = "form-control" })
+                                    </div>
+                                </div>
+
+
+
+                            <div class="form-group">
+                                <div class="col-md-1"></div>
+                                <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
+                                <input type="button" value="Reset" id="reset" class="btn btn-info" />
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-1"></div>
+                                <label>@ViewData["msg"]</label>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label col-md-1">Company Name<span style="color:red;">*</span> </label>
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Company_Name, new { @Class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-md-1">Source Type<span style="color:red;">*</span> </label>
-                <div class="col-md-2">
-                    @Html.DropDownList("Source_Type", @source, "Select Source Type", new { @class = "form-control editor-field" })
-                </div>
-            </div>
-            @*<div class="form-group">
-                <label class="control-label col-md-1">Mobile1<span style="color:red;">*</span> </label>
-                <div class="col-md-2">
-                    @Html.TextBoxFor(m => m.Mobile1, new { @Class = "form-control" })
-                </div>
-            </div>*@
-
-         
-
-            <div class="form-group">
-                <div class="col-md-1"></div>
-                <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
-                <input type="button" value="Reset" id="reset" class="btn btn-info" />
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-1"></div>
-                <label>@ViewData["msg"]</label>
-            </div>
-
-        }
-    </div>
-</body>
+        </div>
+    </section>
+</section>
 <script>
 
 
     $("form").submit(function (event) {
-         //stop form submit
+        //stop form submit
 
         if ($("#Contact_Name").val() == "") {
             event.preventDefault();
@@ -81,8 +95,7 @@
                 $("#Contact_Name").focus();
             });
         }
-        else if ($("#Company_Name").val() == "")
-        {
+        else if ($("#Company_Name").val() == "") {
             event.preventDefault();
             swal("Failed", "Company Name is required", "error").then(function () {
                 $("#Company_Name").focus();
@@ -100,7 +113,7 @@
         //        $("#Mobile1").focus();
         //    });
         //}
-    
+
     });
 
     $(document).ready(function () {
@@ -112,9 +125,9 @@
             $("#Company_Name").val("");
             $("#Source_Type").val("");
             //$("#Mobile1").val("");
-           
+
         });
 
     });
 </script>
-</html>
+            

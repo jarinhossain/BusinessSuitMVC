@@ -4,7 +4,41 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="numeralDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="numeralDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Numbers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="int" />
+          <Property Name="Operator_Id" Type="int" />
+          <Property Name="Sms_Tried" Type="int" />
+          <Property Name="Sms_Succeed" Type="int" />
+          <Property Name="Last_Succeeded_Sms_Date" Type="datetime" />
+          <Property Name="Obd_Tried" Type="int" />
+          <Property Name="Obd_Succeed" Type="int" />
+          <Property Name="Last_Succeeded_Obd_Date" Type="datetime" />
+          <Property Name="Address_Id" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Prefix" Type="varchar" MaxLength="20" />
+          <Property Name="Number_Id" Type="int" />
+          <Property Name="Source_Id" Type="int" />
+          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Created_By" Type="int" />
+          <Property Name="Updated_On" Type="datetime" />
+          <Property Name="Updated_By" Type="int" />
+          <Property Name="Is_Deleted" Type="bit" />
+          <Property Name="Deleted_By" Type="int" />
+          <Property Name="Deleted_On" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Operators">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Prefix" Type="int" />
+        </EntityType>
         <EntityType Name="Sources">
           <Key>
             <PropertyRef Name="Id" />
@@ -27,15 +61,79 @@
           <Property Name="Created_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="updated_By" Type="int" />
+          <Property Name="Is_Deleted" Type="bit" />
+          <Property Name="Deleted_By" Type="int" />
+          <Property Name="Deleted_On" Type="datetime" />
         </EntityType>
+        <Association Name="FK_Numbers_Operators">
+          <End Role="Operators" Type="Self.Operators" Multiplicity="0..1" />
+          <End Role="Numbers" Type="Self.Numbers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operators">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Numbers">
+              <PropertyRef Name="Operator_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Numbers_Sources">
+          <End Role="Sources" Type="Self.Sources" Multiplicity="0..1" />
+          <End Role="Numbers" Type="Self.Numbers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sources">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Numbers">
+              <PropertyRef Name="Source_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="numeralDBModelStoreContainer">
+          <EntitySet Name="Numbers" EntityType="Self.Numbers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operators" EntityType="Self.Operators" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sources" EntityType="Self.Sources" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Numbers_Operators" Association="Self.FK_Numbers_Operators">
+            <End Role="Operators" EntitySet="Operators" />
+            <End Role="Numbers" EntitySet="Numbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Numbers_Sources" Association="Self.FK_Numbers_Sources">
+            <End Role="Sources" EntitySet="Sources" />
+            <End Role="Numbers" EntitySet="Numbers" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="numeralDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Number">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number1" Type="Int32" />
+          <Property Name="Operator_Id" Type="Int32" />
+          <Property Name="Sms_Tried" Type="Int32" />
+          <Property Name="Sms_Succeed" Type="Int32" />
+          <Property Name="Last_Succeeded_Sms_Date" Type="DateTime" Precision="3" />
+          <Property Name="Obd_Tried" Type="Int32" />
+          <Property Name="Obd_Succeed" Type="Int32" />
+          <Property Name="Last_Succeeded_Obd_Date" Type="DateTime" Precision="3" />
+          <Property Name="Address_Id" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Prefix" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Number_Id" Type="Int32" />
+          <Property Name="Source_Id" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Is_Deleted" Type="Boolean" />
+          <Property Name="Deleted_By" Type="Int32" />
+          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Source" Relationship="numeralDBModel.FK_Numbers_Sources" FromRole="Number" ToRole="Source" />
+          <NavigationProperty Name="Operator" Relationship="numeralDBModel.FK_Numbers_Operators" FromRole="Number" ToRole="Operator" />
+        </EntityType>
         <EntityType Name="Source">
           <Key>
             <PropertyRef Name="Id" />
@@ -58,19 +156,96 @@
           <Property Name="Created_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
           <Property Name="updated_By" Type="Int32" />
+          <Property Name="Is_Deleted" Type="Boolean" />
+          <Property Name="Deleted_By" Type="Int32" />
+          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Numbers" Relationship="numeralDBModel.FK_Numbers_Sources" FromRole="Source" ToRole="Number" />
         </EntityType>
         <EntityContainer Name="Numeral_DBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Numbers" EntityType="Self.Number" />
           <EntitySet Name="Sources" EntityType="Self.Source" />
+          <AssociationSet Name="FK_Numbers_Sources" Association="numeralDBModel.FK_Numbers_Sources">
+            <End Role="Source" EntitySet="Sources" />
+            <End Role="Number" EntitySet="Numbers" />
+          </AssociationSet>
+          <EntitySet Name="Operators" EntityType="numeralDBModel.Operator" />
+          <AssociationSet Name="FK_Numbers_Operators" Association="numeralDBModel.FK_Numbers_Operators">
+            <End Role="Operator" EntitySet="Operators" />
+            <End Role="Number" EntitySet="Numbers" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Numbers_Sources">
+          <End Type="numeralDBModel.Source" Role="Source" Multiplicity="0..1" />
+          <End Type="numeralDBModel.Number" Role="Number" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Source">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Number">
+              <PropertyRef Name="Source_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Operator">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Prefix" Type="Int32" />
+          <NavigationProperty Name="Numbers" Relationship="numeralDBModel.FK_Numbers_Operators" FromRole="Operator" ToRole="Number" />
+        </EntityType>
+        <Association Name="FK_Numbers_Operators">
+          <End Type="numeralDBModel.Operator" Role="Operator" Multiplicity="0..1" />
+          <End Type="numeralDBModel.Number" Role="Number" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operator">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Number">
+              <PropertyRef Name="Operator_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="numeralDBModelStoreContainer" CdmEntityContainer="Numeral_DBContext">
+          <EntitySetMapping Name="Numbers">
+            <EntityTypeMapping TypeName="numeralDBModel.Number">
+              <MappingFragment StoreEntitySet="Numbers">
+                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
+                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Source_Id" ColumnName="Source_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number1" ColumnName="Number" />
+                <ScalarProperty Name="Operator_Id" ColumnName="Operator_Id" />
+                <ScalarProperty Name="Sms_Tried" ColumnName="Sms_Tried" />
+                <ScalarProperty Name="Sms_Succeed" ColumnName="Sms_Succeed" />
+                <ScalarProperty Name="Last_Succeeded_Sms_Date" ColumnName="Last_Succeeded_Sms_Date" />
+                <ScalarProperty Name="Obd_Tried" ColumnName="Obd_Tried" />
+                <ScalarProperty Name="Obd_Succeed" ColumnName="Obd_Succeed" />
+                <ScalarProperty Name="Last_Succeeded_Obd_Date" ColumnName="Last_Succeeded_Obd_Date" />
+                <ScalarProperty Name="Address_Id" ColumnName="Address_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+                <ScalarProperty Name="Number_Id" ColumnName="Number_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Sources">
             <EntityTypeMapping TypeName="numeralDBModel.Source">
               <MappingFragment StoreEntitySet="Sources">
+                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
+                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Contact_Name" ColumnName="Contact_Name" />
                 <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
@@ -89,6 +264,15 @@
                 <ScalarProperty Name="Created_By" ColumnName="Created_By" />
                 <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
                 <ScalarProperty Name="updated_By" ColumnName="updated_By" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operators">
+            <EntityTypeMapping TypeName="numeralDBModel.Operator">
+              <MappingFragment StoreEntitySet="Operators">
+                <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
