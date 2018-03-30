@@ -1,0 +1,159 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="~/Script/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    (function () { var $, SmsCounter; window.SmsCounter = SmsCounter = (function () { function SmsCounter() { } SmsCounter.gsm7bitChars = "@@£$¥èéùìòÇ\\nØø\\rÅåΔ_ΦΓΛΩΠΨΣΘΞÆæßÉ !\\\"#¤%&'()*+,-./0123456789:;<=>?¡ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà"; SmsCounter.gsm7bitExChar = "\\^{}\\\\\\[~\\]|€"; SmsCounter.gsm7bitRegExp = RegExp("^[" + SmsCounter.gsm7bitChars + "]*$"); SmsCounter.gsm7bitExRegExp = RegExp("^[" + SmsCounter.gsm7bitChars + SmsCounter.gsm7bitExChar + "]*$"); SmsCounter.gsm7bitExOnlyRegExp = RegExp("^[\\" + SmsCounter.gsm7bitExChar + "]*$"); SmsCounter.GSM_7BIT = 'GSM_7BIT'; SmsCounter.GSM_7BIT_EX = 'GSM_7BIT_EX'; SmsCounter.UTF16 = 'UTF16'; SmsCounter.messageLength = { GSM_7BIT: 160, GSM_7BIT_EX: 160, UTF16: 70 }; SmsCounter.multiMessageLength = { GSM_7BIT: 153, GSM_7BIT_EX: 153, UTF16: 67 }; SmsCounter.count = function (text) { var count, encoding, length, messages, per_message, remaining; encoding = this.detectEncoding(text); length = text.length; if (encoding === this.GSM_7BIT_EX) { length += this.countGsm7bitEx(text); } per_message = this.messageLength[encoding]; if (length > per_message) { per_message = this.multiMessageLength[encoding]; } messages = Math.ceil(length / per_message); remaining = (per_message * messages) - length; if (remaining == 0 && messages == 0) { remaining = per_message; } if (encoding === this.UTF16) { maxLen = 670; } else { maxLen = 1071; } if (text.length > maxLen) { document.getElementById("message").value = text.substring(0, maxLen); } else { document.getElementsByClassName("totalcounter")[0].innerHTML = maxLen - text.length; } return count = { encoding: encoding, length: length, per_message: per_message, remaining: remaining, messages: messages }; }; SmsCounter.detectEncoding = function (text) { switch (false) { case text.match(this.gsm7bitRegExp) == null: return this.GSM_7BIT; case text.match(this.gsm7bitExRegExp) == null: return this.GSM_7BIT_EX; default: return this.UTF16; } }; SmsCounter.countGsm7bitEx = function (text) { var char2, chars; chars = (function () { var _i, _len, _results; _results = []; for (_i = 0, _len = text.length; _i < _len; _i++) { char2 = text[_i]; if (char2.match(this.gsm7bitExOnlyRegExp) != null) { _results.push(char2); } } return _results; }).call(this); return chars.length; }; return SmsCounter; })(); if (typeof jQuery !== "undefined" && jQuery !== null) { $ = jQuery; $.fn.countSms = function (target) { var count_sms, input; input = this; target = $(target); count_sms = function () { var count, k, v, _results; count = SmsCounter.count(input.val()); _results = []; for (k in count) { v = count[k]; _results.push(target.find("." + k).text(v)); } return _results; }; this.on('keyup', count_sms); return count_sms(); }; } }).call(this);
+</script>
+<section class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            SMS
+        </h1>
+        @*<ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Forms</a></li>
+                <li class="active">General Elements</li>
+            </ol>*@
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Send</h3>
+                    </div>
+                    <div class="box-body">
+                        <form action="~/SMS/BulkSMS" method="post" class="form-horizontal">
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3">To: <span style="color:red;">*</span></label>
+                                <div class="col-md-6">
+                                    @Html.TextBox("nc", null, new { @Class = "form-control" ,@placeholder= "01xxxxxxxxx, 01xxxxxxxxx" })
+                                    (Total:
+                                    <div id="one" class="result" style="display:inline;">1 Numbers</div>)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Message: <span style="color:red;">*</span></label>
+                                <div class="col-md-6">
+                                    @Html.TextArea("message", new { @Class = "form-control", @rows = "4" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-2"></div>
+
+                                <div class="col-md-6">
+                                    <ul id="sms-counter">
+
+                                        <li>
+                                            Text Length:
+                                            <span class="length">0</span> (
+                                            <span class="remaining">160</span> Words Remaining)
+                                        </li>
+                                        <li>
+                                            Text Parts:
+                                            <div style="display:inline" id="two">
+                                                <span style="color:red" class="messages">0</span>
+                                            </div>,
+                                            <span style="color:blue" class="per_message">160</span> Words Per Message
+                                        </li>
+
+                                        <li>
+                                            Total  Characters Remaining:
+                                            <span class="totalcounter">1071</span>
+                                        </li>
+                                        <br>
+
+                                        <li>
+                                            Total SMS (Don't Send More Than
+                                            <b style="color:red">20000 SMS</b> at once) =
+                                            <div id="totalsmss" style="display:inline;color:red">0</div> SMS
+                                        </li>
+                                        <li>
+                                            Total  Cost: Text Parts X Total Numbers =
+                                            <div id="total" style="display:inline;color:red">0</div> Tk
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+
+                                <script>$('#message').countSms('#sms-counter');</script>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">@ViewBag.message</label>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-6" style="text-align:center">
+                                    <button type="submit" name="submit" class="btn btn-info btn-lg input-control">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+@section Scripts {
+
+
+    <script>
+        $('#smsTextbox').on('keydown', function () {
+            alert('hoi');
+        })
+    </script>
+
+    <script>$(document).ready(function () { $('input#nc').on('keyup', function () { var charCount = $(this).val().split(',').length; $(".result").text(charCount + " Numbers"); }); });</script>
+
+    <script>$(document).ready(function () { $('input#nc').on('mouseout', function () { var charCount = $(this).val().split(',').length; $(".result").text(charCount + " Numbers"); }); });</script>
+
+    <script>function sending() { div = document.getElementById('sending'); div.style.display = "block"; }</script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('input#nc').on('change', function () {
+                var cost = parseFloat($('#one').text()) * "0.20" * parseFloat($('#two').text()); var costs = cost.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
+                $('#total').text(costs);
+            }); $('textarea#message').on('keyup', function () {
+                var cost = parseFloat($('#one').text()) * "0.20" * parseFloat($('#two').text()); var costs = cost.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
+                $('#total').text(costs);
+            });
+        }); $(document).ready(function () {
+            $('input#nc').on('change', function () {
+                var costss = parseFloat($('#one').text()) * parseFloat($('#two').text()); var costse = costss.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
+                $('#totalsmss').text(costse);
+            }); $('textarea#message').on('keyup', function () {
+                var costss = parseFloat($('#one').text()) * parseFloat($('#two').text()); var costse = costss.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
+                $('#totalsmss').text(costse);
+            });
+        });</script>
+
+    <script>
+        $('foarm').submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: '/SMS/sendSingleSmsMethod2',
+                type: "POST",
+                dataType: "JSON",
+                data: { number: $('#nc').val(), message: $('#message').val() },
+                async: true, //blocks window close
+                success: function (data) {
+                    alert("success");
+                },
+                error: function () {
+                    alert("failed");
+                }
+            });
+        });
+    </script>
+}
