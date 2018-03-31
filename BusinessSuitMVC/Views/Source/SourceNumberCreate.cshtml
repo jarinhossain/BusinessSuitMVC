@@ -40,26 +40,26 @@
                         <div class="box-body">
                             @Html.HiddenFor(m => m.Id)
                             <div class="form-group">
-                                <label class="control-label col-md-1">Source Name<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
-                                    @Html.TextBoxFor(m => m.Contact_Name, new { @Class = "form-control" })
+                                <label class="control-label col-md-3">Source Name<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
+                                    @Html.DisplayFor(m => m.Contact_Name)
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-1">Company Name<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
-                                    @Html.TextBoxFor(m => m.Company_Name, new { @Class = "form-control" })
+                                <label class="control-label col-md-3">Company Name<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
+                                    @Html.DisplayFor(m => m.Company_Name, new { @Class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-1">Source Type<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
-                                    @Html.DropDownList("Source_Type", @source, "Select Source Type", new { @class = "form-control editor-field" })
+                                <label class="control-label col-md-3">Source Type<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
+                                    @Html.DropDownList("Source_Type", @source, "Select Source Type", new { @class = "form-control editor-field", @readonly = "true" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                    <label class="control-label col-md-1">Mobile<span style="color:red;">*</span> </label>
-                                    <div class="col-md-2">
+                                    <label class="control-label col-md-3">Mobile<span style="color:red;">*</span> </label>
+                                    <div class="col-md-5">
                                         @Html.TextBox("MobileNumber",null, new { @Class = "form-control" })
                                     </div>
                                 </div>
@@ -67,14 +67,14 @@
 
 
                             <div class="form-group">
-                                <div class="col-md-1"></div>
+                                <div class="col-md-3"></div>
                                 <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
                                 <input type="button" value="Reset" id="reset" class="btn btn-info" />
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-1"></div>
-                                <label>@ViewData["msg"]</label>
+                                <div class="col-md-3"></div>
+                                <label id="msg">@ViewData["msg"]</label>
                             </div>
                         </div>
                     }
@@ -105,27 +105,33 @@
             event.preventDefault();
             swal("Failed", "Source Type is required", "error").then(function () {
                 $("#Source_Type").focus();
-            });
+            }); 
         }
-        //else if ($("#Mobile1").val() == "") {
+        //else if ($("#MobileNumber").val() == "") {
         //    event.preventDefault();
-        //    swal("Failed", "Mobile1 is required", "error").then(function () {
-        //        $("#Mobile1").focus();
+        //    swal("Failed", "MobileNumber is required", "error").then(function () {
+        //        $("#MobileNumber").focus();
         //    });
         //}
 
     });
-
+    function resetFunction() {
+        $("#Contact_Name").val("");
+        $("#Company_Name").val("");
+        $("#Source_Type").val("");
+       // $("#MobileNumber").val("");
+       
+    }
     $(document).ready(function () {
 
+        var message = $("#msg").text();
 
+        if (message == "Successfully Updated") {
+            swal("Successful", "Successfully Updated", "success");
+            resetFunction();
+        }
         $("#reset").click(function () {
-
-            $("#Contact_Name").val("");
-            $("#Company_Name").val("");
-            $("#Source_Type").val("");
-            //$("#Mobile1").val("");
-
+            resetFunction();
         });
 
     });

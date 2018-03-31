@@ -25,14 +25,14 @@
             ();
     Usertype.Add(new SelectListItem() { Value = "1", Text = "Internal user" });
     Usertype.Add(new SelectListItem() { Value = "2", Text = "Uddokta" });
-    Usertype.Add(new SelectListItem() { Value = "2", Text = "Client" });
+    Usertype.Add(new SelectListItem() { Value = "3", Text = "Client" });
 
     List<SelectListItem>
-        City = new List<SelectListItem>
-            ();
+        City = new List<SelectListItem>();
     City.Add(new SelectListItem() { Value = "1", Text = "Dhaka" });
-    City.Add(new SelectListItem() { Value = "2", Text = "Gajipur" });
-
+    City.Add(new SelectListItem() { Value = "2", Text = "Gazipur" });
+    City.Add(new SelectListItem() { Value = "3", Text = "Khulna" });
+    City.Add(new SelectListItem() { Value = "4", Text = "Sylhet" });
 
 }
 
@@ -54,9 +54,9 @@
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Create</h3>
+                        <h3 class="box-title">Edit</h3>
                     </div>
-                    @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+                    @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
                     {
                         <div class="box-body">
 
@@ -109,13 +109,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                @*@Html.Label("User Name", new { @class = "control-label col-md-1" })*@
-                                <label class="control-label col-md-3">User Name<span style="color:red;">*</span> </label>
-                                <div class="col-md-5">
-                                    @Html.TextBox("UserName", null, new { @class = "form-control" })
-                                </div>
-                            </div>
 
                             <div class="form-group">
                                 @*@Html.Label("Mobile", new { @class = "control-label col-md-1" })*@
@@ -160,16 +153,16 @@
                                     <input type="file" id="image" name="image" />
                                 </div>
                             </div>
-
+                           
                             <div class="form-group">
                                 <div class="col-md-3"></div>
-                                <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
+                                <input type="submit" value="Update" style="margin-left:15px" class="btn btn-info" />
                                 <input type="button" value="Reset" id="reset" class="btn btn-info" />
                             </div>
 
                             <div class="form-group">
                                 <div class="col-md-3"></div>
-                                <label>@ViewData["msg"]</label>
+                                <label id="msg">@ViewData["msg"]</label>
                             </div>
 
                         </div>
@@ -184,6 +177,7 @@
 
     $("form").submit(function (event) {
         //stop form submit
+
         if ($("#Name").val() == "") {
             event.preventDefault();
             swal("Failed", "Name is required", "error").then(function () {
@@ -214,24 +208,7 @@
                 $("#City").focus();
             });
         }
-        else if ($("#UserName").val() == "") {
-            event.preventDefault();
-            swal("Failed", "Username is required", "error").then(function () {
-                $("#UserName").focus();
-            });
-        }
-        else if ($("#Password").val() == "") {
-            event.preventDefault();
-            swal("Failed", "Password is required", "error").then(function () {
-                $("#Password").focus();
-            });
-        }
-        else if ($("#ConfirmPassword").val() != $("#Password").val()) {
-            event.preventDefault();
-            swal("Failed", "ConfirmPassword is required", "error").then(function () {
-                $("#ConfirmPassword").focus();
-            });
-        }
+       
         else if ($("#Mobile").val() == "") {
             event.preventDefault();
             swal("Failed", "Mobile is required", "error").then(function () {
@@ -257,25 +234,35 @@
             });
         }
     });
-
+    function resetFunction() {
+        $("#Name").val("");
+        $("#Bangla_Name").val("");
+        $("#Gender").val("");
+        $("#Ward").val("");
+        $("#User_Type").val("");
+        $("#City").val("");
+        $("#UserName").val("");
+        $("#Password").val("");
+        $("#ConfirmPassword").val("");
+        $("#Area").val("");
+        $("#Role").val("");
+        $("#Mobile").val("");
+        $("#Email").val("");
+        $("#Address").val("");
+        $("#Phone").val("");
+    }
     $(document).ready(function () {
 
+        var message = $("#msg").text();
+
+        if (message == "Successfully Updated") {
+            swal("Successful", "Successfully Updated", "success");
+            resetFunction();
+        }
 
         $("#reset").click(function () {
 
-            $("#Name").val("");
-            $("#Bangla_Name").val("");
-            $("#Gender").val("");
-            $("#Ward").val("");
-            $("#User_Type").val("");
-            $("#City").val("");
-            $("#UserName").val("");
-            $("#Area").val("");
-            $("#Role").val("");
-            $("#Mobile").val("");
-            $("#Email").val("");
-            $("#Address").val("");
-            $("#Phone").val("");
+            resetFunction();
 
         });
 

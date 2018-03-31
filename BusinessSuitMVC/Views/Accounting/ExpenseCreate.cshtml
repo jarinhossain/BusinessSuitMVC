@@ -42,44 +42,44 @@
 
                             <div class="form-group">
                                 @*@Html.Label("District", new { @class = "control-label col-md-1" })*@
-                                <label class="control-label col-md-1">Type<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Type<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.DropDownList("Type", @type, "Select type", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
 
                             <div class="form-group">
 
-                                <label class="control-label col-md-1">Date<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Date<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Spent_Date, new { @Class = "form-control myDatePicker" })
                                 </div>
                             </div>
                             <div class="form-group">
 
-                                <label class="control-label col-md-1">Amount<span style="color:red;">*</span> </label>
+                                <label class="control-label col-md-3">Amount<span style="color:red;">*</span> </label>
 
-                                <div class="col-md-2">
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Amount, new { @Class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group">
 
-                                @Html.Label("Description", new { @class = "control-label col-md-1" })
-                                <div class="col-md-2">
+                                @Html.Label("Description", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Description, new { @Class = "form-control" })
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-1"></div>
+                                <div class="col-md-3"></div>
 
                                 <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
                                 <input type="button" value="Reset" id="reset" class="btn btn-info" />
 
                             </div>
                             <div class="form-group">
-                                <div class="col-md-1"></div>
+                                <div class="col-md-3"></div>
                                 <label id="msg">@ViewData["msg"]</label>
                             </div>
                         </div>
@@ -89,60 +89,63 @@
         </div>
     </section>
 </section>
-<link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
+@section contents{
+    <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
+}
+
 @section scripts{
-    
-<script>
-    $('.myDatePicker').datepicker({
-        format: 'dd/mm/yyyy'
-    })
+    <script src="~/Script/bootstrap-datepicker.min.js"></script>
+    <script>
+        $('.myDatePicker').datepicker({
+            format: 'dd/mm/yyyy'
+        })
 
-    $("form").submit(function (event) {
-        if ($("#Type").val() == "") {
-            event.preventDefault();
-            //alert("Counsilor_Name is required");
-            swal("Failed", "Type is required", "error").then(function () {
-                $("#Type").focus();
-            });
+        $("form").submit(function (event) {
+            if ($("#Type").val() == "") {
+                event.preventDefault();
+                //alert("Counsilor_Name is required");
+                swal("Failed", "Type is required", "error").then(function () {
+                    $("#Type").focus();
+                });
 
 
-        }
-        else if ($("#Spent_Date").val() == "") {
-            event.preventDefault();
-            swal("Failed", "Date is required", "error").then(function () {
-                $("#Spent_Date").focus();
-            });
-        }
-        else if ($("#Amount").val() == "") {
-            event.preventDefault();
-            swal("Failed", "Amount is required", "error").then(function () {
-                $("#Amount").focus();
-            });
-        }
-
-    });
-
-    function resetFunction() {
-        $('#Type option:first').prop('selected', true); //clear
-        $("#Spent_Date").val("");
-        $("#Amount").val("");
-        $("#Description").val("");
-    }
-
-    $(document).ready(function () {
-        var message = $("#msg").text();
-        
-        if (message == "Successfully Saved") {
-            swal("Successful", "Successfully Saved", "success");
-            resetFunction();
-        }
-
-        $("#reset").click(function () {
-
-            resetFunction();
+            }
+            else if ($("#Spent_Date").val() == "") {
+                event.preventDefault();
+                swal("Failed", "Date is required", "error").then(function () {
+                    $("#Spent_Date").focus();
+                });
+            }
+            else if ($("#Amount").val() == "") {
+                event.preventDefault();
+                swal("Failed", "Amount is required", "error").then(function () {
+                    $("#Amount").focus();
+                });
+            }
 
         });
 
-    });
-</script>
+        function resetFunction() {
+            $('#Type option:first').prop('selected', true); //clear
+            $("#Spent_Date").val("");
+            $("#Amount").val("");
+            $("#Description").val("");
+        }
+
+        $(document).ready(function () {
+            var message = $("#msg").text();
+
+            if (message == "Successfully Saved") {
+                swal("Successful", "Successfully Saved", "success");
+                resetFunction();
+            }
+
+            $("#reset").click(function () {
+
+                resetFunction();
+
+            });
+
+        });
+    </script>
 }

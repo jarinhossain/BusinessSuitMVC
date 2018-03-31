@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Business_SuitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Business_SuitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client_List">
           <Key>
             <PropertyRef Name="Id" />
@@ -21,6 +21,7 @@
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="Is_Elected" Type="bit" />
           <Property Name="Client_Type" Type="int" />
+          <Property Name="Image" Type="bit" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -51,7 +52,7 @@
           <Property Name="Created_On" Type="datetime" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
-          <Property Name="Is_Deleted" Type="int" />
+          <Property Name="Is_Deleted" Type="bit" />
           <Property Name="Deleted_By" Type="int" />
           <Property Name="Deleted_On" Type="datetime" />
         </EntityType>
@@ -369,8 +370,7 @@
             <End Role="User_Login" EntitySet="User_Login" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Business_SuitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -390,6 +390,7 @@
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Is_Elected" Type="Boolean" />
           <Property Name="Client_Type" Type="Int32" />
+          <Property Name="Image" Type="Boolean" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -420,7 +421,7 @@
           <Property Name="Created_On" Type="DateTime" Precision="3" />
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
-          <Property Name="Is_Deleted" Type="Int32" />
+          <Property Name="Is_Deleted" Type="Boolean" />
           <Property Name="Deleted_By" Type="Int32" />
           <Property Name="Deleted_On" Type="DateTime" Precision="3" />
         </EntityType>
@@ -757,6 +758,7 @@
           <EntitySetMapping Name="Client_List">
             <EntityTypeMapping TypeName="Business_SuitModel.Client_List">
               <MappingFragment StoreEntitySet="Client_List">
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Counsilor_Name" ColumnName="Counsilor_Name" />
                 <ScalarProperty Name="Bangla_Name" ColumnName="Bangla_Name" />

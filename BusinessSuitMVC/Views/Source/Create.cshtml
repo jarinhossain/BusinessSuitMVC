@@ -44,83 +44,88 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Create</h3>
                     </div>
-                    @using (Html.BeginForm("Create", "Source", FormMethod.Post, new { @class = "form-horizontal" }))
+                    @using (Html.BeginForm("Create", "Source", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
                     {
                         <div class="box-body">
 
                             <div class="form-group">
-                                <label class="control-label col-md-1">Contact Name<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Contact Name<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Contact_Name, new { @Class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-1">Company Name<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Company Name<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Company_Name, new { @Class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-1">Source Type<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Source Type<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.DropDownList("Source_Type", @source, "Select Source Type", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-1">Mobile1<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Mobile1<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Mobile1, new { @Class = "form-control" })
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                @Html.Label("Mobile2", new { @class = "control-label col-md-1" })
-                                <div class="col-md-2">
+                                @Html.Label("Mobile2", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Mobile2, new { @Class = "form-control" })
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-1">Division<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Division<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.DropDownList("Division_Id", @Division, "Select Division", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-1">District<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">District<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.DropDownList("District_Id", @District, "Select District", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-1">Ward<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Ward<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Ward, new { @Class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-1">Address<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Address<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Address, new { @Class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                @Html.Label("Remark", new { @class = "control-label col-md-1" })
-                                <div class="col-md-2">
+                                @Html.Label("Remark", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Remarks, new { @Class = "form-control" })
                                 </div>
                             </div>
-
                             <div class="form-group">
-                                <div class="col-md-1"></div>
+                                @Html.Label("Profile Image", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
+                                    <input type="file" id="image" name="image" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
                                 <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
                                 <input type="button" value="Reset" id="reset" class="btn btn-info" />
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-1"></div>
-                                <label>@ViewData["msg"]</label>
+                                <div class="col-md-3"></div>
+                                <label id="msg">@ViewData["msg"]</label>
                             </div>
                             </div>
                             }
@@ -185,20 +190,29 @@
             }
 
         });
-
+        function resetFunction() {
+            $("#Contact_Name").val("");
+            $("#Company_Name").val("");
+            $("#Source_Type").val("");
+            $("#Mobile1").val("");
+            $("#Mobile2").val("");
+            $("#Division_Id").val("");
+            $("#District_Id").val("");
+            $("#Ward").val("");
+            $("#Address").val("");
+            $("#Remarks").val("");
+        }
         $(document).ready(function () {
 
+            var message = $("#msg").text();
 
+            if (message == "Successfully Saved") {
+                swal("Successful", "Successfully Saved", "success");
+                resetFunction();
+            }
             $("#reset").click(function () {
 
-                $("#Contact_Name").val("");
-                $("#Company_Name").val("");
-                $("#Source_Type").val("");
-                $("#Mobile1").val("");
-                $("#Division_Id").val("");
-                $("#District_Id").val("");
-                $("#Ward").val("");
-                $("#Address").val("");
+                resetFunction();
 
             });
 

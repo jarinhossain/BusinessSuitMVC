@@ -9,9 +9,9 @@
     type.Add(new SelectListItem() { Value = "1", Text = "Transport" });
     type.Add(new SelectListItem() { Value = "2", Text = "Liflet" });
     type.Add(new SelectListItem() { Value = "3", Text = "Visiting Card" });
-    type.Add(new SelectListItem() { Value = "1", Text = "Food" });
-    type.Add(new SelectListItem() { Value = "2", Text = "Bulk SMS" });
-    type.Add(new SelectListItem() { Value = "3", Text = "IP TSP" });
+    type.Add(new SelectListItem() { Value = "4", Text = "Food" });
+    type.Add(new SelectListItem() { Value = "5", Text = "Bulk SMS" });
+    type.Add(new SelectListItem() { Value = "6", Text = "IP TSP" });
 }
 <section class="content-wrapper">
 
@@ -31,50 +31,53 @@
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Edit</h3>
+                        <h3 class="box-title">Create</h3>
                     </div>
                     @using (Html.BeginForm("Edit", "Accounting", FormMethod.Post, new { @class = "form-horizontal" }))
                     {
                         <div class="box-body">
-
                             @Html.HiddenFor(m => m.Id)
-
-
                             <div class="form-group">
                                 @*@Html.Label("District", new { @class = "control-label col-md-1" })*@
-                                <label class="control-label col-md-1">Type<span style="color:red;">*</span> </label>
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Type<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
                                     @Html.DropDownList("Type", @type, "Select type", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
 
                             <div class="form-group">
 
-                                @Html.Label("Date", new { @class = "control-label col-md-1" })
-                                <div class="col-md-2">
-                                    @Html.TextBoxFor(m => m.Spent_Date, new { @Class = "form-control" })
+                                <label class="control-label col-md-3">Date<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(m => m.Spent_Date, new { @Class = "form-control myDatePicker" })
                                 </div>
                             </div>
                             <div class="form-group">
 
-                                @Html.Label("Amount", new { @class = "control-label col-md-1" })
-                                <div class="col-md-2">
+                                <label class="control-label col-md-3">Amount<span style="color:red;">*</span> </label>
+
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Amount, new { @Class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group">
 
-                                @Html.Label("Description", new { @class = "control-label col-md-1" })
-                                <div class="col-md-2">
+                                @Html.Label("Description", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Description, new { @Class = "form-control" })
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <div class="col-md-1"></div>
+                                <div class="col-md-3"></div>
 
-                                <input type="submit" value="Update" style="margin-left:15px" class="btn btn-info" />
+                                <input type="submit" value="Udate" style="margin-left:15px" class="btn btn-info" />
+                                <input type="button" value="Reset" id="reset" class="btn btn-info" />
 
-
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
+                                <label id="msg">@ViewData["msg"]</label>
                             </div>
                         </div>
                     }
@@ -83,39 +86,63 @@
         </div>
     </section>
 </section>
-<script>
-    $("form").submit(function (event) {
-        if ($("#Type").val() == "") {
-            event.preventDefault();
-            //alert("Counsilor_Name is required");
-            swal("Failed", "Type is required", "error").then(function () {
-                $("#Type").focus();
-            });
+@section contents{
+    <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
+}
 
-        }
-        else if ($("#Spent_Date").val() == "") {
-            event.preventDefault();
-            swal("Failed", "Date is required", "error").then(function () {
-                $("#Spent_Date").focus();
-            });
-        }
-        else if ($("#Amount").val() == "") {
-            event.preventDefault();
-            swal("Failed", "Amount is required", "error").then(function () {
-                $("#Amount").focus();
-            });
-        }
-       
-    });
-    $(document).ready(function () {
-        $("#reset").click(function () {
+@section scripts{
+    <script src="~/Script/bootstrap-datepicker.min.js"></script>
+    <script>
+        $('.myDatePicker').datepicker({
+            format: 'dd/mm/yyyy'
+        })
 
-            $('#Type option:first').prop('selected', true); //clear
+        $("form").submit(function (event) {
+            if ($("#Type").val() == "") {
+                event.preventDefault();
+                //alert("Counsilor_Name is required");
+                swal("Failed", "Type is required", "error").then(function () {
+                    $("#Type").focus();
+                });
 
-            $("#Spent_Date").val("");
-            $("#Description").val("");
+
+            }
+            else if ($("#Spent_Date").val() == "") {
+                event.preventDefault();
+                swal("Failed", "Date is required", "error").then(function () {
+                    $("#Spent_Date").focus();
+                });
+            }
+            else if ($("#Amount").val() == "") {
+                event.preventDefault();
+                swal("Failed", "Amount is required", "error").then(function () {
+                    $("#Amount").focus();
+                });
+            }
 
         });
 
-    });
-</script>
+        function resetFunction() {
+            $('#Type option:first').prop('selected', true); //clear
+            $("#Spent_Date").val("");
+            $("#Amount").val("");
+            $("#Description").val("");
+        }
+
+        $(document).ready(function () {
+            var message = $("#msg").text();
+
+            if (message == "Successfully Updated") {
+                swal("Successful", "Successfully Updated", "success");
+                resetFunction();
+            }
+
+            $("#reset").click(function () {
+
+                resetFunction();
+
+            });
+
+        });
+    </script>
+}

@@ -2,6 +2,7 @@
 using BusinessSuitMVC.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -25,36 +26,68 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Create(Client_List client)
         {
-            if (client.Counsilor_Name == null)
+            HttpPostedFileBase file = null;
+            try { file = Request.Files[0]; } catch { }
+
+            if (file != null && file.ContentLength > 0)
             {
-                ViewData["msg"] = "Please enter your valid Counsilor_Name";
+                string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                if (extension != ".jpg")
+                {
+                    ViewData["msg"] = "Failed to Save User Information! Allowed image format is .jpg";
+                    return View();
+                }
             }
-            else if (client.Mobile1 == null)
+
+            string validation = validationCreate(client);
+
+            if (validation != "true")
             {
-                ViewData["msg"] = "Please enter your valid Mobile1 Number";
-            }
-            else if (client.ward == null)
-            {
-                ViewData["msg"] = "Please enter your valid Word";
-            }
-            else if (client.District == null)
-            {
-                ViewData["msg"] = "Please enter your valid District";
-            }
-            else if (client.Client_Type == null)
-            {
-                ViewData["msg"] = "Please enter your valid Client_Type";
+                ViewData["msg"] = validation;
             }
             else
             {
                 DBContext DB = new DBContext();
-
+                client.Image = file != null && file.ContentLength > 0 ? true : false;
                 DB.Client_List.Add(client);
                 DB.SaveChanges();
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                    string path = Path.Combine(Server.MapPath("~/Images/Client"), "C_" + client.Id + extension);
+                    file.SaveAs(path);/// file save
+                }
                 ViewData["msg"] = "Successfully Saved";
             }
             return View();
         }
+
+        public String validationCreate(Client_List client)
+        {
+            if (client.Counsilor_Name == null)
+            {
+                return "Please enter your valid Counsilor_Name";
+            }
+            else if (client.Mobile1 == null)
+            {
+                return "Please enter your valid Mobile1";
+            }
+            else if (client.ward == null)
+            {
+                return "Please enter your valid word";
+            }
+            else if (client.District == null)
+            {
+                return "Please enter your valid District";
+            }
+            else if (client.Client_Type == null)
+            {
+                return "Please enter your valid Client Type";
+            }
+            return "true";
+        }
+      
 
         [HttpGet]
         public ActionResult Search()
@@ -70,11 +103,11 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            Session["role"] = "testrole";
-            if (RoleValidate.IsValidatedRole())
-            {
+            //Session["role"] = "testrole";
+            //if (RoleValidate.IsValidatedRole())
+            //{
 
-            }
+            //}
             DBContext DB = new DBContext();
             Client_List client = (from user in DB.Client_List
                                   where user.Id == id
@@ -85,37 +118,23 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Edit(Client_List client)
         {
-            if (client.Counsilor_Name == null)
+            HttpPostedFileBase file = null;
+            try { file = Request.Files[0]; } catch { }
+
+            if (file != null && file.ContentLength > 0)
             {
-                ViewData["msg"] = "Please enter your valid Counsilor_Name";
+                string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                if (extension != ".jpg")
+                {
+                    ViewData["msg"] = "Failed to Save User Information! Allowed image format is .jpg";
+                    return View();
+                }
             }
-            else if (client.Mobile1 == null)
+            string validation = validationCreate(client);
+
+            if (validation != "true")
             {
-                ViewData["msg"] = "Please enter your valid Mobile1";
-            }
-            else if (client.Mobile2 == null)
-            {
-                ViewData["msg"] = "Please enter your valid Mobile2";
-            }
-            else if (client.Email == null)
-            {
-                ViewData["msg"] = "Please enter your valid Email";
-            }
-            else if (client.ward == null)
-            {
-                ViewData["msg"] = "Please enter your valid word";
-            }
-            else if (client.District == null)
-            {
-                ViewData["msg"] = "Please enter your valid District";
-            }
-            else if (client.Address == null)
-            {
-                ViewData["msg"] = "Please enter your valid Address";
-            }
-            else if (client.Remarks == null)
-            {
-                ViewData["msg"] = "Please enter your valid Remarks";
+                ViewData["msg"] = validation;
             }
             else
             {
@@ -135,13 +154,19 @@ namespace BusinessSuitMVC.Controllers
                 Client.Remarks = client.Remarks;
                 Client.Is_Elected = client.Is_Elected;
                 Client.Client_Type = client.Client_Type;
-
+                Client.Image = client.Image;
                 DB.SaveChanges();
+                if (file != null && file.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                    string path = Path.Combine(Server.MapPath("~/Images/Client"), "C_" + client.Id + extension);
+                    file.SaveAs(path);/// file save
+                }
                 ViewData["msg"] = "Successfully Updated";
             }
-            return View(client);
+            return View();
         }
-
+      
         [HttpGet]
         public ActionResult Online_Create()
         {

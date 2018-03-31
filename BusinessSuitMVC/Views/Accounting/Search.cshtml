@@ -1,4 +1,4 @@
-﻿@model List<BusinessSuitMVC.Models.Client_List>
+﻿@model List<BusinessSuitMVC.Models.Expense>
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -8,7 +8,7 @@
 
     <section class="content-header">
         <h1>
-            User Profile
+            Expense
         </h1>
         @*<ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -28,34 +28,27 @@
 
                         <div class="box-body">
 
-                            <h1 style="margin-left:450px;margin-bottom:20px">Client List</h1>
+                            <h1 style="margin-left:450px;margin-bottom:20px">Expense List</h1>
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th>Option</th>
-                                        <th>Name</th>
-                                        <th>Mobile1</th>
-                                        <th>Mobile2</th>
-                                        <th>Email</th>
-                                        <th>Word</th>
-                                        <th>District</th>
-                                        <th>Address</th>
-                                        <th>Remarks</th>
+                                        <th>Type</th>
+                                        <th>Spent_Date</th>
+                                        <th>Amount</th>
+                                        <th>Description</th>
+                                        
                                     </tr>
                                 <thead>
                                 <tbody>
-                                    @foreach (BusinessSuitMVC.Models.Client_List client in (IEnumerable<BusinessSuitMVC.Models.Client_List>)Model)
+                                    @foreach (BusinessSuitMVC.Models.Expense expense in (IEnumerable<BusinessSuitMVC.Models.Expense>)Model)
             {
                                         <tr>
-                                            <td><a href="~/Client/Edit?id=@client.Id">Edit</a></td>
-                                            <td>@client.Counsilor_Name</td>
-                                            <td>@client.Mobile1</td>
-                                            <td>@client.Mobile2</td>
-                                            <td>@client.Email</td>
-                                            <td>@client.ward</td>
-                                            <td>@client.District</td>
-                                            <td>@client.Address</td>
-                                            <td>@client.Remarks</td>
+                                            <td><a href="~/Accounting/Edit?id=@expense.Id">Edit</a></td>
+                                            <td>@expense.Type</td>
+                                            <td>@expense.Spent_Date</td>
+                                            <td>@expense.Amount</td>
+                                            <td>@expense.Description</td>
                                         </tr>
 
                                     }
