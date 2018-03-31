@@ -26,5 +26,6 @@ namespace BusinessSuitMVC.Models
         public string Remarks { get; set; }
         public Nullable<bool> Is_Elected { get; set; }
         public Nullable<int> Client_Type { get; set; }
+        public Nullable<bool> Image { get; set; }
     }
 }

@@ -96,6 +96,16 @@ namespace BusinessSuitMVC.Controllers
 
             return "true";
         }
+        [HttpGet]
+        public ActionResult Search()
+        {
+            DBContext DB = new DBContext();
+
+            List<Expense> expense = (from expens in DB.Expenses
+                                            select expens).ToList();
+
+            return View(expense);
+        }
 
     }
 }

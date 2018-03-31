@@ -19,26 +19,26 @@
     <div>
         @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-horizontal" }))
         {
-            <h2 style="margin-left:20px">Login</h2>
+            <h2 style="margin-left:250px">Login</h2>
             <div class="form-group">
-                @Html.Label("UserName", new { @class = "control-label col-md-1" })
-                <div class="col-md-2">
+                @Html.Label("UserName", new { @class = "control-label col-md-3" })
+                <div class="col-md-5">
                     @Html.TextBoxFor(m => m.UserName, new { @Class = "form-control" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.Label("Password", new { @class = "control-label col-md-1" })
-                    <div class="col-md-2">
+                    @Html.Label("Password", new { @class = "control-label col-md-3" })
+                    <div class="col-md-5">
                         @Html.TextBoxFor(m => m.Password, new { @Class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-1"></div>
+                        <div class="col-md-3"></div>
                         <input type="submit" value="Log in"  style="margin-left:15px" class="btn btn-info" />
                     </div>
                     <div class="form-group">
-                        <div class="col-md-1"></div>
+                        <div class="col-md-3"></div>
                         <label>@ViewData["msg"]</label>
                         </div>
 

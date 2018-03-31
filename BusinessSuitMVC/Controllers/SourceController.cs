@@ -1,6 +1,7 @@
 ﻿using BusinessSuitMVC.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,46 +19,74 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Create(Source source)
         {
-            if (source.Contact_Name == null)
+            HttpPostedFileBase file = null;
+            try { file = Request.Files[0]; } catch { }
+
+            if (file != null && file.ContentLength > 0)
             {
-                ViewData["msg"] = "Please enter your valid Contact Name";
+                string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                if (extension != ".jpg")
+                {
+                    ViewData["msg"] = "Failed to Save User Information! Allowed image format is .jpg";
+                    return View();
+                }
             }
-            else if (source.Company_Name == null)
+
+            String validation = ValidationSource(source);
+            if (validation != "true")
             {
-                ViewData["msg"] = "Please enter your valid Company Name";
-            }
-            else if (source.Source_Type == null)
-            {
-                ViewData["msg"] = "Please enter your valid Source Type";
-            }
-            else if (source.Mobile1 == null)
-            {
-                ViewData["msg"] = "Please enter your valid Mobile1";
-            }
-            else if (source.Division_Id == null)
-            {
-                ViewData["msg"] = "Please enter your valid Division";
-            }
-            else if (source.District_Id == null)
-            {
-                ViewData["msg"] = "Please enter your valid District";
-            }
-            else if (source.Ward == null)
-            {
-                ViewData["msg"] = "Please enter your valid Ward";
-            }
-            else if (source.Address == null)
-            {
-                ViewData["msg"] = "Please enter your valid Address";
+                ViewData["msg"] = validation;
             }
             else
             {
                 Numeral_DBContext DB = new Numeral_DBContext();
                 DB.Sources.Add(source);
                 DB.SaveChanges();
+                if (file != null && file.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                    string path = Path.Combine(Server.MapPath("~/Images/Source"), "S_" + source.Id + extension);
+                    file.SaveAs(path);/// file save
+                }
                 ViewData["msg"] = "Successfully Saved";
             }
             return View();
+        }
+        public String ValidationSource(Source source)
+        {
+            if (source.Contact_Name == null)
+            {
+                return "Please enter your valid Contact Name";
+            }
+            else if (source.Company_Name == null)
+            {
+                return "Please enter your valid Company Name";
+            }
+            else if (source.Source_Type == null)
+            {
+                return "Please enter your valid Source Type";
+            }
+            else if (source.Mobile1 == null)
+            {
+                return "Please enter your valid Mobile1";
+            }
+            else if (source.Division_Id == null)
+            {
+                return "Please enter your valid Division";
+            }
+            else if (source.District_Id == null)
+            {
+                return "Please enter your valid District";
+            }
+            else if (source.Ward == null)
+            {
+                return "Please enter your valid Ward";
+            }
+            else if (source.Address == null)
+            {
+                return "Please enter your valid Address";
+            }
+            return "true";
         }
         [HttpGet]
         public ActionResult Edit(int id)
@@ -72,37 +101,22 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Edit(Source source)
         {
-            if (source.Contact_Name == null)
+            HttpPostedFileBase file = null;
+            try { file = Request.Files[0]; } catch { }
+
+            if (file != null && file.ContentLength > 0)
             {
-                ViewData["msg"] = "Please enter your valid Contact Name";
+                string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                if (extension != ".jpg")
+                {
+                    ViewData["msg"] = "Failed to Save User Information! Allowed image format is .jpg";
+                    return View();
+                }
             }
-            else if (source.Company_Name == null)
+            String validation = ValidationSource(source);
+            if (validation != "true")
             {
-                ViewData["msg"] = "Please enter your valid Company Name";
-            }
-            else if (source.Source_Type == null)
-            {
-                ViewData["msg"] = "Please enter your valid Source Type";
-            }
-            else if (source.Mobile1 == null)
-            {
-                ViewData["msg"] = "Please enter your valid Mobile1";
-            }
-            else if (source.Division_Id == null)
-            {
-                ViewData["msg"] = "Please enter your valid Division";
-            }
-            else if (source.District_Id == null)
-            {
-                ViewData["msg"] = "Please enter your valid District";
-            }
-            else if (source.Ward == null)
-            {
-                ViewData["msg"] = "Please enter your valid Ward";
-            }
-            else if (source.Address == null)
-            {
-                ViewData["msg"] = "Please enter your valid Address";
+                ViewData["msg"] = validation;
             }
             else
             {
@@ -120,8 +134,15 @@ namespace BusinessSuitMVC.Controllers
                 Source.District_Id = source.District_Id;
                 Source.Ward = source.Ward;
                 Source.Address = source.Address;
-
+                Source.Image = source.Image;
+               
                 DB.SaveChanges();
+                if (file != null && file.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                    string path = Path.Combine(Server.MapPath("~/Images/Source"), "S_" + source.Id + extension);
+                    file.SaveAs(path);/// file save
+                }
                 ViewData["msg"] = "Successfully Updated";
             }
             return View();

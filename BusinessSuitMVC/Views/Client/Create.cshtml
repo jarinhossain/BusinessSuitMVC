@@ -39,7 +39,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Create</h3>
                     </div>
-                    @using (Html.BeginForm("Create", "Client", FormMethod.Post, new { @class = "form-horizontal", @id = "clientCreate", @name = "clientCreate" }))
+                    @using (Html.BeginForm("Create", "Client", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", @id = "clientCreate", @name = "clientCreate" }))
                     {
                         <div class="box-body">
                             
@@ -114,14 +114,20 @@
                             <div class="form-group">
                                 @Html.Label("Is_Elected", new { @class = "control-label col-md-3" })
                                 <div class="col-md-5">
-                                    @Html.DropDownList("Is_Elected", @Elected, "Select Is_Elected", new { @class = "form-control editor-field" })
+                                    @Html.DropDownList("Is_Elected", @Elected, "Select Is Elected", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 @*@Html.Label("Client_Type", new { @class = "control-label col-md-1" })*@
                                 <label class="control-label col-md-3">Client Type <span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
-                                    @Html.DropDownList("Client_Type", @Clienttype, "Select Gender", new { @class = "form-control editor-field" })
+                                    @Html.DropDownList("Client_Type", @Clienttype, "Select Client Type", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Profile Image", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
+                                    <input type="file" id="image" name="image" />
                                 </div>
                             </div>
 
@@ -135,7 +141,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-3"></div>
-                                <label>@ViewData["msg"]</label>
+                                <label id="msg">@ViewData["msg"]</label>
                             </div>
                             </div>
 
@@ -164,10 +170,10 @@
                 $("#Mobile1").focus();
             });
         }
-        else if ($("#Ward").val() == "") {
+        else if ($("#ward").val() == "") {
             event.preventDefault();
             swal("Failed", "Ward is required", "error").then(function () {
-                $("#Ward").focus();
+                $("#ward").focus();
             });
         }
         else if ($("#District").val() == "") {
@@ -184,20 +190,32 @@
         }
 
     });
+    function resetFunction()
+    {
+        $("#Counsilor_Name").val("");
+        $('#District option:first').prop('selected', true); //clear
+        $("#Bangla_Name").val("");
+        $("#Mobile1").val("");
+        $("#Mobile2").val("");
+        $("#Email").val("");
+        $("#ward").val("");
+        $("#District").val("");
+        $("#Address").val("");
+        $("#Remarks").val("");
+        $("#Is_Elected").val("");
+        $("#Client_Type").val("");
+    }
     $(document).ready(function () {
+        var message = $("#msg").text();
+
+        if (message == "Successfully Saved") {
+            swal("Successful", "Successfully Saved", "success");
+            resetFunction();
+        }
+
         $("#reset").click(function () {
-            $("#Counsilor_Name").val("");
-            $('#District option:first').prop('selected', true); //clear
-            $("#Bangla_Name").val("");
-            $("#Mobile1").val("");
-            $("#Mobile2").val("");
-            $("#Email").val("");
-            $("#Ward").val("");
-            //$("#District").val("");
-            $("#Address").val("");
-            $("#Remarks").val("");
-            $("#Is_Elected").val("");
-            $("#Client_Type").val("");
+
+            resetFunction();
 
         });
 

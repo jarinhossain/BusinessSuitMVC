@@ -50,51 +50,13 @@ namespace BusinessSuitMVC.Controllers
                 }
             }
 
-            if (User.Name == null)
+            string validation = ValidationUser(User, UserName, Password, ConfirmPassword, Role);
+
+            if (validation != "true")
             {
-                ViewData["msg"] = "please enter your valid Name";
+                ViewData["msg"] = validation;
             }
-            else if (User.Gender == null)
-            {
-                ViewData["msg"] = "please enter your valid Gender";
-            }
-            else if (User.Ward == null)
-            {
-                ViewData["msg"] = "please enter your valid Ward";
-            }
-            else if (User.User_Type == null)
-            {
-                ViewData["msg"] = "please enter your valid User_Type";
-            }
-            else if (User.City == null)
-            {
-                ViewData["msg"] = "please enter your valid City";
-            }
-            else if (UserName == "")
-            {
-                ViewData["msg"] = "please enter your valid UserName";
-            }
-            else if (Password == "")
-            {
-                ViewData["msg"] = "please enter your valid Password";
-            }
-            else if (ConfirmPassword != Password)
-            {
-                ViewData["msg"] = "please enter your valid Confirm Password";
-            }
-            else if (User.Mobile == null)
-            {
-                ViewData["msg"] = "please enter your valid Mobile";
-            }
-            else if (Role == null)
-            {
-                ViewData["msg"] = "please enter your valid Role";
-            }
-            else if (User.Address == null)
-            {
-                ViewData["msg"] = "please enter your valid Address";
-            }
-            
+
             //else if (User.Email == null)
             //{
             //    ViewData["msg"] = "please enter your valid Email";
@@ -137,6 +99,54 @@ namespace BusinessSuitMVC.Controllers
             //ViewData["role"] = role;
             return View();
         }
+        public String ValidationUser(User_Profile User,String UserName,String Password,String ConfirmPassword, int? Role)
+        {
+            if (User.Name == null)
+            {
+                return "please enter your valid Name";
+            }
+            else if (User.Gender == null)
+            {
+                return "please enter your valid Gender";
+            }
+            else if (User.Ward == null)
+            {
+                return "please enter your valid Ward";
+            }
+            else if (User.User_Type == null)
+            {
+                return "please enter your valid User_Type";
+            }
+            else if (User.City == null)
+            {
+                return "please enter your valid City";
+            }
+            else if (UserName == "")
+            {
+                return "please enter your valid UserName";
+            }
+            else if (Password == "")
+            {
+                return "please enter your valid Password";
+            }
+            else if (ConfirmPassword != Password)
+            {
+                return "please enter your valid Confirm Password";
+            }
+            else if (User.Mobile == null)
+            {
+                return "please enter your valid Mobile";
+            }
+            else if (Role == null)
+            {
+                return "please enter your valid Role";
+            }
+            else if (User.Address == null)
+            {
+                return "please enter your valid Address";
+            }
+            return "true";
+        }
         [HttpGet]
         public ActionResult Edit(int userId)
         {
@@ -150,7 +160,7 @@ namespace BusinessSuitMVC.Controllers
                                      where user.User_Profile_Id == profile.Id
                                      select user).FirstOrDefault();
 
-            ViewData["UserName"] = user_login.UserName;
+         
             ViewData["Role"] = user_login.Role;
 
             return View(profile);
@@ -159,27 +169,56 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Edit(User_Profile profile, string UserName, int? Role)
         {
-            DBContext DB = new DBContext();
-            User_Profile DBProfile = (from user in DB.User_Profile
-                                      where user.Id == profile.Id
-                                      select user).FirstOrDefault();
+            HttpPostedFileBase file = null;
+            try { file = Request.Files[0]; } catch { }
 
-            DBProfile.Name = profile.Name;
-            DBProfile.Mobile = profile.Mobile;
-            DBProfile.Phone = profile.Phone;
-            DBProfile.Address = profile.Address;
-            DBProfile.Email = profile.Email;
+            if (file != null && file.ContentLength > 0)
+            {
+                string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                if (extension != ".jpg")
+                {
+                    ViewData["msg"] = "Failed to Save User Information! Allowed image format is .jpg";
+                    return View();
+                }
+            }
+            string validation = ValidationUser(profile, UserName, "hi", "hi",  Role);
 
-            DB.SaveChanges();
+            if (validation != "true")
+            {
+                ViewData["msg"] = validation;
+            }
+            else
+            {
+                DBContext DB = new DBContext();
+                User_Profile DBProfile = (from user in DB.User_Profile
+                                          where user.Id == profile.Id
+                                          select user).FirstOrDefault();
 
-            User_Login DBUserLogin = (from user in DB.User_Login
-                                      where user.User_Profile_Id == profile.Id
-                                      select user).FirstOrDefault();
+                DBProfile.Name = profile.Name;
+                DBProfile.Mobile = profile.Mobile;
+                DBProfile.Phone = profile.Phone;
+                DBProfile.Address = profile.Address;
+                DBProfile.Email = profile.Email;
+                DBProfile.Image = profile.Image;
 
-            DBUserLogin.UserName = UserName;
-            DBUserLogin.Role = Role;
-            DB.SaveChanges();
+                DB.SaveChanges();
 
+                User_Login DBUserLogin = (from user in DB.User_Login
+                                          where user.User_Profile_Id == profile.Id
+                                          select user).FirstOrDefault();
+
+                DBUserLogin.UserName = UserName;
+                DBUserLogin.Role = Role;
+                DB.SaveChanges();
+                if (file != null && file.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                    string path = Path.Combine(Server.MapPath("~/Images/User"), "U_" + profile.Id + extension);
+                    file.SaveAs(path);/// file save
+                }
+
+                ViewData["msg"] = "Successfully Updated";
+            }
             return View();
         }
 
@@ -206,6 +245,6 @@ namespace BusinessSuitMVC.Controllers
       
             return View(user);
         }
-
+       
     }
 }
