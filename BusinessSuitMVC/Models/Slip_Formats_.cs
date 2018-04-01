@@ -12,25 +12,20 @@ namespace BusinessSuitMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Order
+    public partial class Slip_Formats_
     {
-        public Order()
+        public Slip_Formats_()
         {
             this.Offline_Order_Detalis = new HashSet<Offline_Order_Detalis>();
-            this.Online_Order_Detalis = new HashSet<Online_Order_Detalis>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<bool> Is_Package { get; set; }
-        public Nullable<double> Total_Paid { get; set; }
-        public Nullable<double> Total_Bill { get; set; }
-        public string order_status { get; set; }
-        public Nullable<int> Created_By { get; set; }
-        public Nullable<int> Updated_By { get; set; }
+        public Nullable<int> Slip_Per_Page { get; set; }
+        public Nullable<double> Slip_Height { get; set; }
+        public Nullable<double> Slip_Width { get; set; }
+        public Nullable<bool> Is_Active { get; set; }
     
         public virtual ICollection<Offline_Order_Detalis> Offline_Order_Detalis { get; set; }
-        public virtual ICollection<Online_Order_Detalis> Online_Order_Detalis { get; set; }
     }
 }

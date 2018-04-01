@@ -67,7 +67,7 @@
 
                                 @Html.Label("Description", new { @class = "control-label col-md-3" })
                                 <div class="col-md-5">
-                                    @Html.TextBoxFor(m => m.Description, new { @Class = "form-control" })
+                                    @Html.TextAreaFor(m => m.Description, new { @Class = "form-control", @rows="3" })
                                 </div>
                             </div>
 
@@ -80,7 +80,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-3"></div>
-                                <label id="msg">@ViewData["msg"]</label>
+                                <label id="msg" style="color:red;">@ViewData["msg"]</label>
                             </div>
                         </div>
                     }
@@ -133,6 +133,7 @@
         }
 
         $(document).ready(function () {
+           
             var message = $("#msg").text();
 
             if (message == "Successfully Saved") {

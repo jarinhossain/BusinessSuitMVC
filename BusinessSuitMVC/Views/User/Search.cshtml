@@ -44,7 +44,7 @@
                                     @foreach (BusinessSuitMVC.Models.User_Profile userlist in (IEnumerable<BusinessSuitMVC.Models.User_Profile>)Model)
                                     {
                                         <tr>
-                                            <td><a href="~/User/Edit?userid=@userlist.Id">Edit</a></td>
+                                            <td><a href="~/User/Edit?userid=@userlist.Id">Edit | </a><a href="~/User/Details?id=@userlist.Id">Details</a></td>
                                             <td>@userlist.Name</td>
                                             <td>@userlist.Mobile</td>
                                             <td>@userlist.Email</td>

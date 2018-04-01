@@ -20,13 +20,13 @@
     </section>
     <section class="content">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h1 class="box-title">Details</h1>
                     </div>
 
-                    <div class="table-responsive panel">
+                    <div class="table-responsive panel col-md-8">
                         <table class="table">
                             <tbody>
 
@@ -86,11 +86,15 @@
                             <a href="~/Source/SourceNumberCreate?id=@Model.Id" class="btn btn-primary">Add Number</a>
 
                         </div>
+                        </div>
+                    <div class="col-md-4">
+                        <img height="150px" alt="No Image" src="~/Images/Source/S_@(Model.Id + ".jpg")" />
+                    </div>
                     </div>
 
                 </div>
             </div>
-        </div>
+       
     </section>
 
 </section>

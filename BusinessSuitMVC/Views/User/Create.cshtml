@@ -25,14 +25,13 @@
             ();
     Usertype.Add(new SelectListItem() { Value = "1", Text = "Internal user" });
     Usertype.Add(new SelectListItem() { Value = "2", Text = "Uddokta" });
-    Usertype.Add(new SelectListItem() { Value = "2", Text = "Client" });
+    Usertype.Add(new SelectListItem() { Value = "3", Text = "Client" });
 
     List<SelectListItem>
         City = new List<SelectListItem>  ();
-    City.Add(new SelectListItem() { Value = "1", Text = "Dhaka" });
-    City.Add(new SelectListItem() { Value = "2", Text = "Gazipur" });
-    City.Add(new SelectListItem() { Value = "3", Text = "Khulna" });
-    City.Add(new SelectListItem() { Value = "4", Text = "Sylhet" });
+    City.Add(new SelectListItem() { Value = "1", Text = "Gazipur" });
+    City.Add(new SelectListItem() { Value = "2", Text = "Khulna" });
+  
 
 }
 
@@ -89,7 +88,7 @@
                                 @*@Html.Label("Ward", new { @class = "control-label col-md-1" })*@
                                 <label class="control-label col-md-3">Ward<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
-                                    @Html.TextBoxFor(m => m.Ward, new { @Class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Ward, new { @Class = "form-control", @type = "number" })
                                 </div>
                             </div>
 
@@ -121,7 +120,7 @@
                                 @*@Html.Label("Password", new { @class = "control-label col-md-1" })*@
                                 <label class="control-label col-md-3">Password<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
-                                    @Html.TextBox("Password", null, new { @class = "form-control" })
+                                    @Html.TextBox("Password", null, new { @class = "form-control",@type="Password" })
                                 </div>
                             </div>
 
@@ -129,7 +128,7 @@
                                 @*@Html.Label("Confirm Password", new { @class = "control-label col-md-1" })*@
                                 <label class="control-label col-md-3">Confirm Password<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
-                                    @Html.TextBox("ConfirmPassword", null, new { @class = "form-control" })
+                                    @Html.TextBox("ConfirmPassword", null, new { @class = "form-control",@type = "Password" })
                                 </div>
                             </div>
 
@@ -245,13 +244,13 @@
         }
         else if ($("#ConfirmPassword").val() != $("#Password").val()) {
             event.preventDefault();
-            swal("Failed", "ConfirmPassword is required", "error").then(function () {
+            swal("Failed", "ConfirmPassword doesn't match password ", "error").then(function () {
                 $("#ConfirmPassword").focus();
             });
         }
-        else if ($("#Mobile").val() == "") {
+        else if ($("#Mobile").val() == "" || $("#Mobile").val().length != 11) {
             event.preventDefault();
-            swal("Failed", "Mobile is required", "error").then(function () {
+            swal("Failed", "Mobile number should be 11 digit", "error").then(function () {
                 $("#Mobile").focus();
             });
         }

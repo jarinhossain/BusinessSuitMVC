@@ -12,14 +12,12 @@
     source.Add(new SelectListItem() { Value = "5", Text = "Other" });
 
     List<SelectListItem> Division = new List<SelectListItem>();
-    Division.Add(new SelectListItem() { Value = "1", Text = "Dhaka" });
-    Division.Add(new SelectListItem() { Value = "2", Text = "Comilla" });
-    Division.Add(new SelectListItem() { Value = "3", Text = "Rajshahi" });
+    Division.Add(new SelectListItem() { Value = "1", Text = "Gazipur" });
+    Division.Add(new SelectListItem() { Value = "2", Text = "Khulna" });
 
     List<SelectListItem> District = new List<SelectListItem>();
-    District.Add(new SelectListItem() { Value = "1", Text = "Dhaka" });
-    District.Add(new SelectListItem() { Value = "2", Text = "Gazipur" });
-    District.Add(new SelectListItem() { Value = "3", Text = "Sylhet" });
+    District.Add(new SelectListItem() { Value = "1", Text = "Gazipur" });
+    District.Add(new SelectListItem() { Value = "2", Text = "Khulna" });
 }
 
 
@@ -55,7 +53,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">Company Name<span style="color:red;">*</span> </label>
+                                <label class="control-label col-md-3">Company Name</label>
                                 <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Company_Name, new { @Class = "form-control" })
                                 </div>
@@ -96,7 +94,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">Ward<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
-                                    @Html.TextBoxFor(m => m.Ward, new { @Class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Ward, new { @Class = "form-control", @type = "number" })
                                 </div>
                             </div>
                             <div class="form-group">
@@ -108,7 +106,7 @@
                             <div class="form-group">
                                 @Html.Label("Remark", new { @class = "control-label col-md-3" })
                                 <div class="col-md-5">
-                                    @Html.TextBoxFor(m => m.Remarks, new { @Class = "form-control" })
+                                    @Html.TextAreaFor(m => m.Remarks, new { @Class = "form-control",@rows="3" })
                                 </div>
                             </div>
                             <div class="form-group">
@@ -146,21 +144,16 @@
                     $("#Contact_Name").focus();
                 });
             }
-            else if ($("#Company_Name").val() == "") {
-                event.preventDefault();
-                swal("Failed", "Company Name is required", "error").then(function () {
-                    $("#Company_Name").focus();
-                });
-            }
+           
             else if ($("#Source_Type").val() == "") {
                 event.preventDefault();
                 swal("Failed", "Source Type is required", "error").then(function () {
                     $("#Source_Type").focus();
                 });
             }
-            else if ($("#Mobile1").val() == "") {
+            else if ($("#Mobile1").val() == "" || $("#Mobile1").val().length != 11) {
                 event.preventDefault();
-                swal("Failed", "Mobile1 is required", "error").then(function () {
+                swal("Failed", "Mobile1 should be 11 digit", "error").then(function () {
                     $("#Mobile1").focus();
                 });
             }

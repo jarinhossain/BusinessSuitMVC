@@ -131,11 +131,15 @@ namespace BusinessSuitMVC.Controllers
             }
             else if (ConfirmPassword != Password)
             {
-                return "please enter your valid Confirm Password";
+                return "ConfirmPassword doesn't match password";
             }
-            else if (User.Mobile == null)
+            //else if (User.Mobile == null)
+            //{
+            //    return "please enter your valid Mobile";
+            //}
+            else if (User.Mobile == null || User.Mobile.Length != 11)
             {
-                return "please enter your valid Mobile";
+                return "Please enter your valid Mobile1";
             }
             else if (Role == null)
             {
@@ -167,7 +171,7 @@ namespace BusinessSuitMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(User_Profile profile, string UserName, int? Role)
+        public ActionResult Edit(User_Profile profile, int? Role)
         {
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
@@ -181,7 +185,7 @@ namespace BusinessSuitMVC.Controllers
                     return View();
                 }
             }
-            string validation = ValidationUser(profile, UserName, "hi", "hi",  Role);
+            string validation = ValidationUser(profile,"hi", "hi", "hi",  Role);
 
             if (validation != "true")
             {
@@ -199,7 +203,7 @@ namespace BusinessSuitMVC.Controllers
                 DBProfile.Phone = profile.Phone;
                 DBProfile.Address = profile.Address;
                 DBProfile.Email = profile.Email;
-                DBProfile.Image = profile.Image;
+                DBProfile.Image = file != null && file.ContentLength > 0 ? true : profile.Image;
 
                 DB.SaveChanges();
 
@@ -207,7 +211,7 @@ namespace BusinessSuitMVC.Controllers
                                           where user.User_Profile_Id == profile.Id
                                           select user).FirstOrDefault();
 
-                DBUserLogin.UserName = UserName;
+              //  DBUserLogin.UserName = UserName;
                 DBUserLogin.Role = Role;
                 DB.SaveChanges();
                 if (file != null && file.ContentLength > 0)
@@ -219,7 +223,7 @@ namespace BusinessSuitMVC.Controllers
 
                 ViewData["msg"] = "Successfully Updated";
             }
-            return View();
+            return View(profile);
         }
 
         [HttpGet]

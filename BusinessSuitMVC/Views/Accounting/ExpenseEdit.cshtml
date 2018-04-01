@@ -33,10 +33,11 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Create</h3>
                     </div>
-                    @using (Html.BeginForm("Edit", "Accounting", FormMethod.Post, new { @class = "form-horizontal" }))
+                    @using (Html.BeginForm("ExpenseEdit", "Accounting", FormMethod.Post, new { @class = "form-horizontal" }))
                     {
                         <div class="box-body">
                             @Html.HiddenFor(m => m.Id)
+
                             <div class="form-group">
                                 @*@Html.Label("District", new { @class = "control-label col-md-1" })*@
                                 <label class="control-label col-md-3">Type<span style="color:red;">*</span> </label>
@@ -64,14 +65,14 @@
 
                                 @Html.Label("Description", new { @class = "control-label col-md-3" })
                                 <div class="col-md-5">
-                                    @Html.TextBoxFor(m => m.Description, new { @Class = "form-control" })
+                                    @Html.TextAreaFor(m => m.Description, new { @Class = "form-control", @rows = "3" })
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-md-3"></div>
 
-                                <input type="submit" value="Udate" style="margin-left:15px" class="btn btn-info" />
+                                <input type="submit" value="Update" style="margin-left:15px" class="btn btn-info" />
                                 <input type="button" value="Reset" id="reset" class="btn btn-info" />
 
                             </div>
@@ -132,8 +133,8 @@
         $(document).ready(function () {
             var message = $("#msg").text();
 
-            if (message == "Successfully Updated") {
-                swal("Successful", "Successfully Updated", "success");
+            if (message == "Successfully Update") {
+                swal("Successful", "Successfully Update", "success");
                 resetFunction();
             }
 

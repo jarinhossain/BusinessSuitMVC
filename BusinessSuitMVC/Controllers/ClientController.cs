@@ -69,7 +69,11 @@ namespace BusinessSuitMVC.Controllers
             {
                 return "Please enter your valid Counsilor_Name";
             }
-            else if (client.Mobile1 == null)
+            //else if (client.Mobile1 == null)
+            //{
+            //    return "Please enter your valid Mobile1";
+            //}
+            else if (client.Mobile1 == null || client.Mobile1.Length != 11)
             {
                 return "Please enter your valid Mobile1";
             }
@@ -152,9 +156,10 @@ namespace BusinessSuitMVC.Controllers
                 Client.District = client.District;
                 Client.Address = client.Address;
                 Client.Remarks = client.Remarks;
-                Client.Is_Elected = client.Is_Elected;
+              //  Client.Is_Elected = client.Is_Elected;
                 Client.Client_Type = client.Client_Type;
-                Client.Image = client.Image;
+                Client.Present_Position = client.Present_Position;
+                Client.Image = file != null && file.ContentLength > 0 ? true : client.Image;
                 DB.SaveChanges();
                 if (file != null && file.ContentLength > 0)
                 {
@@ -162,9 +167,9 @@ namespace BusinessSuitMVC.Controllers
                     string path = Path.Combine(Server.MapPath("~/Images/Client"), "C_" + client.Id + extension);
                     file.SaveAs(path);/// file save
                 }
-                ViewData["msg"] = "Successfully Updated";
+                ViewData["msg"] = "Successfully Update";
             }
-            return View();
+            return View(client);
         }
       
         [HttpGet]
@@ -196,14 +201,14 @@ namespace BusinessSuitMVC.Controllers
             {
                 ViewData["msg"] = "Please enter your valid Age Group";
             }
-            else if (online.Duration == null)
-            {
-                ViewData["msg"] = "Please enter your valid Duration";
-            }
-            else if (online.Obd_Voice_Provided == null)
-            {
-                ViewData["msg"] = "Please enter your valid Obd Voice Provided";
-            }
+            //else if (online.Duration == null)
+            //{
+            //    ViewData["msg"] = "Please enter your valid Duration";
+            //}
+            //else if (online.Obd_Voice_Provided == null)
+            //{
+            //    ViewData["msg"] = "Please enter your valid Obd Voice Provided";
+            //}
             else if (online.Obd_Vioce_Content == null)
             {
                 ViewData["msg"] = "Please enter your valid Obd Vioce Content";
@@ -263,14 +268,14 @@ namespace BusinessSuitMVC.Controllers
             {
                 ViewData["msg"] = "Please enter your valid Age Group";
             }
-            else if (online.Duration == null)
-            {
-                ViewData["msg"] = "Please enter your valid Duration";
-            }
-            else if (online.Obd_Voice_Provided == null)
-            {
-                ViewData["msg"] = "Please enter your valid Obd Voice Provided";
-            }
+            //else if (online.Duration == null)
+            //{
+            //    ViewData["msg"] = "Please enter your valid Duration";
+            //}
+            //else if (online.Obd_Voice_Provided == null)
+            //{
+            //    ViewData["msg"] = "Please enter your valid Obd Voice Provided";
+            //}
             else if (online.Obd_Vioce_Content == null)
             {
                 ViewData["msg"] = "Please enter your valid Obd Vioce Content";
@@ -302,8 +307,8 @@ namespace BusinessSuitMVC.Controllers
                 Online.Estimated_Budget = online.Estimated_Budget;
                 Online.Price_Per_Piece = online.Price_Per_Piece;
                 Online.Age_Group = online.Age_Group;
-                Online.Duration= online.Duration;
-                Online.Obd_Voice_Provided = online.Obd_Voice_Provided;
+                //Online.Duration= online.Duration;
+                //Online.Obd_Voice_Provided = online.Obd_Voice_Provided;
                 Online.Obd_Vioce_Content = online.Obd_Vioce_Content;
                 Online.Sms_Content= online.Sms_Content;
                 Online.Status = online.Status;
@@ -367,10 +372,10 @@ namespace BusinessSuitMVC.Controllers
             //{
             //    ViewData["msg"] = "Please enter your valid Is Cd Provided";
             //}
-            else if (offline.Kendro_Name_Image == null)
-            {
-                ViewData["msg"] = "Please enter your valid Kendro Name Image";
-            }
+            //else if (offline.Kendro_Name_Image == null)
+            //{
+            //    ViewData["msg"] = "Please enter your valid Kendro Name Image";
+            //}
             //else if (offline.Kendro_Name_List == null)
             //{
             //    ViewData["msg"] = "Please enter your valid Voter List File";
