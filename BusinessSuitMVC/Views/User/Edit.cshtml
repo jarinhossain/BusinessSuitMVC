@@ -21,8 +21,7 @@
 
 
     List<SelectListItem>
-        Usertype = new List<SelectListItem>
-            ();
+        Usertype = new List<SelectListItem> ();
     Usertype.Add(new SelectListItem() { Value = "1", Text = "Internal user" });
     Usertype.Add(new SelectListItem() { Value = "2", Text = "Uddokta" });
     Usertype.Add(new SelectListItem() { Value = "3", Text = "Client" });
@@ -89,7 +88,7 @@
                                 @*@Html.Label("Ward", new { @class = "control-label col-md-1" })*@
                                 <label class="control-label col-md-3">Ward<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
-                                    @Html.TextBoxFor(m => m.Ward, new { @Class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Ward, new { @Class = "form-control", @type = "number" })
                                 </div>
                             </div>
 
@@ -148,12 +147,17 @@
                             </div>
 
                             <div class="form-group">
-                                @Html.Label("Profile Image", new { @class = "control-label col-md-3" })
+                                <label class="control-label col-md-3">Profile Image</label>
                                 <div class="col-md-5">
                                     <input type="file" id="image" name="image" />
                                 </div>
                             </div>
-                           
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-4">
+                                    <img height="150px" alt="No Image" src="~/Images/User/U_@(Model.Id + ".jpg")" />
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="col-md-3"></div>
                                 <input type="submit" value="Update" style="margin-left:15px" class="btn btn-info" />
@@ -209,7 +213,7 @@
             });
         }
        
-        else if ($("#Mobile").val() == "") {
+        else if ($("#Mobile").val() == "" || $("#Mobile").val().length != 11) {
             event.preventDefault();
             swal("Failed", "Mobile is required", "error").then(function () {
                 $("#Mobile").focus();

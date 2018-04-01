@@ -52,6 +52,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -263,6 +264,9 @@
     <Compile Include="Models\Sippeer.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Slip_Formats_.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Source.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -331,8 +335,15 @@
     </Content>
     <Content Include="Views\SMS\BulkSMS.cshtml" />
     <Content Include="Views\Accounting\ExpenseCreate.cshtml" />
-    <Content Include="Views\Accounting\Edit.cshtml" />
     <Content Include="Views\Accounting\Search.cshtml" />
+    <Content Include="Views\Accounting\ExpenseEdit.cshtml" />
+    <EntityDeploy Include="Models\Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model.edmx.diagram">
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -345,6 +356,7 @@
     <Folder Include="Images\Client\" />
     <Folder Include="Images\Source\" />
     <Folder Include="Images\User\" />
+    <Folder Include="Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

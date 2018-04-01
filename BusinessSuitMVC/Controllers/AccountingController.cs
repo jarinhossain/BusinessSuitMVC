@@ -39,7 +39,7 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult Edit(int id)
+        public ActionResult ExpenseEdit(int id)
         {
             DBContext DB = new DBContext();
             Expense expense = (from user in DB.Expenses
@@ -50,7 +50,7 @@ namespace BusinessSuitMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Expense expens)
+        public ActionResult ExpenseEdit(Expense expens)
         {
             string validation = ValidateExpense(expens);
 
@@ -72,7 +72,7 @@ namespace BusinessSuitMVC.Controllers
                 expense.Description = expens.Description;
 
                 DB.SaveChanges();
-                ViewData["msg"] = "Successfully Updated";
+                ViewData["msg"] = "Successfully Update";
             }
             return View();
         }

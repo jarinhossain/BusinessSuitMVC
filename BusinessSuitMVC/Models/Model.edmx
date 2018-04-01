@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Business_SuitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Business_SuitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client_List">
           <Key>
             <PropertyRef Name="Id" />
@@ -22,6 +22,7 @@
           <Property Name="Is_Elected" Type="bit" />
           <Property Name="Client_Type" Type="int" />
           <Property Name="Image" Type="bit" />
+          <Property Name="Present_Position" Type="int" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -105,26 +106,31 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Order_Id" Type="int" />
+          <Property Name="Slip_Format_Id" Type="int" />
           <Property Name="Price_Per_Piece" Type="float" />
           <Property Name="Estimated_Voters" Type="int" />
           <Property Name="Format_No" Type="int" />
           <Property Name="Delivery_Date" Type="datetime" />
+          <Property Name="Delivery_Type" Type="varchar" MaxLength="50" />
           <Property Name="Free_Blank_Slip" Type="int" />
           <Property Name="Paid_Blank_Slip" Type="int" />
-          <Property Name="Sample_Slip_Image" Type="int" />
+          <Property Name="Sample_Slip_Image" Type="bit" />
           <Property Name="Slip_Content" Type="nvarchar" MaxLength="700" />
           <Property Name="Voter_List_File" Type="int" />
-          <Property Name="Voter_Slip_Image_Type" Type="int" />
           <Property Name="Is_Cd_Provided" Type="bit" />
-          <Property Name="Kendro_Name_Image" Type="int" />
-          <Property Name=" Kendro_Name_List" Type="nvarchar" MaxLength="700" />
+          <Property Name="Voter_Slip_Image_Type" Type="int" />
+          <Property Name="Center_Name_List_Image" Type="bit" />
+          <Property Name="Center_Name_List" Type="nvarchar" MaxLength="700" />
           <Property Name="Voter_List_Print" Type="int" />
           <Property Name="Voter_List_Print_Comment" Type="nvarchar" MaxLength="200" />
+          <Property Name=" Voter_List_Print_Price" Type="float" />
+          <Property Name="Liflet_Image" Type="bit" />
           <Property Name="Election_Date" Type="datetime" />
           <Property Name="Discount" Type="float" />
           <Property Name="Status" Type="int" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="Marka" Type="varchar" MaxLength="50" />
+          <Property Name="Marka_Image" Type="bit" />
           <Property Name="Created_By" Type="int" />
           <Property Name="Ceated_On" Type="datetime" />
           <Property Name="Updated_By" Type="int" />
@@ -132,6 +138,8 @@
           <Property Name="Is_Deleted" Type="int" />
           <Property Name="Deleted_By" Type="int" />
           <Property Name="Deleted_On" Type="datetime" />
+          <Property Name="Download_Link" Type="varchar" MaxLength="1000" />
+          <Property Name="Can_Download" Type="bit" />
         </EntityType>
         <EntityType Name="Online_Order_Detalis">
           <Key>
@@ -139,24 +147,27 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Product_Id" Type="int" />
-          <Property Name="Promotion_Type_Id" Type="int" />
-          <Property Name="Order_Id" Type="int" />
           <Property Name="Advertisement_Area" Type="nvarchar" MaxLength="300" />
+          <Property Name="Ward" Type="int" />
           <Property Name="Estimated_Reach_Ordered" Type="int" />
           <Property Name="Estimated_Budget" Type="int" />
           <Property Name="Price_Per_Piece" Type="float" />
+          <Property Name="Promotion_Type_Id" Type="int" />
           <Property Name="Age_Group" Type="varchar" MaxLength="20" />
           <Property Name="Delivery_Date" Type="datetime" />
           <Property Name="Promotion_Date_From" Type="datetime" />
-          <Property Name="Duration" Type="int" />
+          <Property Name="Promotion_Date_To" Type="datetime" />
           <Property Name="Is_Masked" Type="bit" />
-          <Property Name="Obd_Voice_Provided" Type="int" />
+          <Property Name="Marking_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Obd_Voice_File" Type="bit" />
+          <Property Name="Is_Obd_Provided" Type="bit" />
           <Property Name="Obd_Vioce_Content" Type="nvarchar" MaxLength="2000" />
           <Property Name="Number_Db_Provided" Type="bit" />
           <Property Name="Sms_Content" Type="nvarchar" MaxLength="500" />
+          <Property Name="Order_Id" Type="int" />
           <Property Name="Status" Type="int" />
           <Property Name="Discount" Type="float" />
-          <Property Name=" Created_On" Type="datetime" />
+          <Property Name="Created_On" Type="datetime" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="Is_Deleted" Type="int" />
@@ -169,6 +180,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Date" Type="datetime" />
           <Property Name="Is_Package" Type="bit" />
           <Property Name="Total_Paid" Type="float" />
           <Property Name="Total_Bill" Type="float" />
@@ -224,6 +236,17 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Slip_Formats ">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Slip_Per_Page" Type="int" />
+          <Property Name="Slip_Height" Type="float" />
+          <Property Name="Slip_Width" Type="float" />
+          <Property Name="Is_Active" Type="bit" />
+        </EntityType>
         <EntityType Name="Status ">
           <Key>
             <PropertyRef Name="Id" />
@@ -277,6 +300,18 @@
             </Principal>
             <Dependent Role="Offline_Order_Detalis">
               <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offline_Order_Detalis_Slip_Formats ">
+          <End Role="Slip_Formats " Type="Self.Slip_Formats " Multiplicity="0..1" />
+          <End Role="Offline_Order_Detalis" Type="Self.Offline_Order_Detalis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Slip_Formats ">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Offline_Order_Detalis">
+              <PropertyRef Name="Slip_Format_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -345,12 +380,17 @@
           <EntitySet Name="Remarks" EntityType="Self.Remarks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sippeers" EntityType="Self.Sippeers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Slip_Formats " EntityType="Self.Slip_Formats " Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status " EntityType="Self.Status " Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Login" EntityType="Self.User_Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Profile" EntityType="Self.User_Profile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Voter_Slip_Image_Type" EntityType="Self.Voter_Slip_Image_Type" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Offline_Order_Detalis_Order" Association="Self.FK_Offline_Order_Detalis_Order">
             <End Role="Order" EntitySet="Order" />
+            <End Role="Offline_Order_Detalis" EntitySet="Offline_Order_Detalis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offline_Order_Detalis_Slip_Formats " Association="Self.FK_Offline_Order_Detalis_Slip_Formats ">
+            <End Role="Slip_Formats " EntitySet="Slip_Formats " />
             <End Role="Offline_Order_Detalis" EntitySet="Offline_Order_Detalis" />
           </AssociationSet>
           <AssociationSet Name="FK_Online_Order_Detalis_Order" Association="Self.FK_Online_Order_Detalis_Order">
@@ -370,7 +410,8 @@
             <End Role="User_Login" EntitySet="User_Login" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Business_SuitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -391,6 +432,7 @@
           <Property Name="Is_Elected" Type="Boolean" />
           <Property Name="Client_Type" Type="Int32" />
           <Property Name="Image" Type="Boolean" />
+          <Property Name="Present_Position" Type="Int32" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -474,26 +516,31 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Order_Id" Type="Int32" />
+          <Property Name="Slip_Format_Id" Type="Int32" />
           <Property Name="Price_Per_Piece" Type="Double" />
           <Property Name="Estimated_Voters" Type="Int32" />
           <Property Name="Format_No" Type="Int32" />
           <Property Name="Delivery_Date" Type="DateTime" Precision="3" />
+          <Property Name="Delivery_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Free_Blank_Slip" Type="Int32" />
           <Property Name="Paid_Blank_Slip" Type="Int32" />
-          <Property Name="Sample_Slip_Image" Type="Int32" />
+          <Property Name="Sample_Slip_Image" Type="Boolean" />
           <Property Name="Slip_Content" Type="String" MaxLength="700" FixedLength="false" Unicode="true" />
           <Property Name="Voter_List_File" Type="Int32" />
-          <Property Name="Voter_Slip_Image_Type" Type="Int32" />
           <Property Name="Is_Cd_Provided" Type="Boolean" />
-          <Property Name="Kendro_Name_Image" Type="Int32" />
-          <Property Name="C_Kendro_Name_List" Type="String" MaxLength="700" FixedLength="false" Unicode="true" />
+          <Property Name="Voter_Slip_Image_Type" Type="Int32" />
+          <Property Name="Center_Name_List_Image" Type="Boolean" />
+          <Property Name="Center_Name_List" Type="String" MaxLength="700" FixedLength="false" Unicode="true" />
           <Property Name="Voter_List_Print" Type="Int32" />
           <Property Name="Voter_List_Print_Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="C_Voter_List_Print_Price" Type="Double" />
+          <Property Name="Liflet_Image" Type="Boolean" />
           <Property Name="Election_Date" Type="DateTime" Precision="3" />
           <Property Name="Discount" Type="Double" />
           <Property Name="Status" Type="Int32" />
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Marka" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Marka_Image" Type="Boolean" />
           <Property Name="Created_By" Type="Int32" />
           <Property Name="Ceated_On" Type="DateTime" Precision="3" />
           <Property Name="Updated_By" Type="Int32" />
@@ -501,7 +548,10 @@
           <Property Name="Is_Deleted" Type="Int32" />
           <Property Name="Deleted_By" Type="Int32" />
           <Property Name="Deleted_On" Type="DateTime" Precision="3" />
+          <Property Name="Download_Link" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Can_Download" Type="Boolean" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Offline_Order_Detalis_Order" FromRole="Offline_Order_Detalis" ToRole="Order" />
+          <NavigationProperty Name="Slip_Formats_" Relationship="Self.FK_Offline_Order_Detalis_Slip_Formats_" FromRole="Offline_Order_Detalis" ToRole="Slip_Formats_" />
         </EntityType>
         <EntityType Name="Online_Order_Detalis">
           <Key>
@@ -509,24 +559,27 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Product_Id" Type="Int32" />
-          <Property Name="Promotion_Type_Id" Type="Int32" />
-          <Property Name="Order_Id" Type="Int32" />
           <Property Name="Advertisement_Area" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Ward" Type="Int32" />
           <Property Name="Estimated_Reach_Ordered" Type="Int32" />
           <Property Name="Estimated_Budget" Type="Int32" />
           <Property Name="Price_Per_Piece" Type="Double" />
+          <Property Name="Promotion_Type_Id" Type="Int32" />
           <Property Name="Age_Group" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Delivery_Date" Type="DateTime" Precision="3" />
           <Property Name="Promotion_Date_From" Type="DateTime" Precision="3" />
-          <Property Name="Duration" Type="Int32" />
+          <Property Name="Promotion_Date_To" Type="DateTime" Precision="3" />
           <Property Name="Is_Masked" Type="Boolean" />
-          <Property Name="Obd_Voice_Provided" Type="Int32" />
+          <Property Name="Marking_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Obd_Voice_File" Type="Boolean" />
+          <Property Name="Is_Obd_Provided" Type="Boolean" />
           <Property Name="Obd_Vioce_Content" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="Number_Db_Provided" Type="Boolean" />
           <Property Name="Sms_Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Order_Id" Type="Int32" />
           <Property Name="Status" Type="Int32" />
           <Property Name="Discount" Type="Double" />
-          <Property Name="C_Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
           <Property Name="Is_Deleted" Type="Int32" />
@@ -542,6 +595,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="Is_Package" Type="Boolean" />
           <Property Name="Total_Paid" Type="Double" />
           <Property Name="Total_Bill" Type="Double" />
@@ -601,6 +655,18 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="Slip_Formats_">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Slip_Per_Page" Type="Int32" />
+          <Property Name="Slip_Height" Type="Double" />
+          <Property Name="Slip_Width" Type="Double" />
+          <Property Name="Is_Active" Type="Boolean" />
+          <NavigationProperty Name="Offline_Order_Detalis" Relationship="Self.FK_Offline_Order_Detalis_Slip_Formats_" FromRole="Slip_Formats_" ToRole="Offline_Order_Detalis" />
+        </EntityType>
         <EntityType Name="Status_">
           <Key>
             <PropertyRef Name="Id" />
@@ -656,6 +722,18 @@
             </Principal>
             <Dependent Role="Offline_Order_Detalis">
               <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offline_Order_Detalis_Slip_Formats_">
+          <End Role="Slip_Formats_" Type="Self.Slip_Formats_" Multiplicity="0..1" />
+          <End Role="Offline_Order_Detalis" Type="Self.Offline_Order_Detalis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Slip_Formats_">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Offline_Order_Detalis">
+              <PropertyRef Name="Slip_Format_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -724,12 +802,17 @@
           <EntitySet Name="Remarks" EntityType="Self.Remark" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Sippeers" EntityType="Self.Sippeer" />
+          <EntitySet Name="Slip_Formats_" EntityType="Self.Slip_Formats_" />
           <EntitySet Name="Status_" EntityType="Self.Status_" />
           <EntitySet Name="User_Login" EntityType="Self.User_Login" />
           <EntitySet Name="User_Profile" EntityType="Self.User_Profile" />
           <EntitySet Name="Voter_Slip_Image_Type" EntityType="Self.Voter_Slip_Image_Type" />
           <AssociationSet Name="FK_Offline_Order_Detalis_Order" Association="Self.FK_Offline_Order_Detalis_Order">
             <End Role="Order" EntitySet="Orders" />
+            <End Role="Offline_Order_Detalis" EntitySet="Offline_Order_Detalis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offline_Order_Detalis_Slip_Formats_" Association="Self.FK_Offline_Order_Detalis_Slip_Formats_">
+            <End Role="Slip_Formats_" EntitySet="Slip_Formats_" />
             <End Role="Offline_Order_Detalis" EntitySet="Offline_Order_Detalis" />
           </AssociationSet>
           <AssociationSet Name="FK_Online_Order_Detalis_Order" Association="Self.FK_Online_Order_Detalis_Order">
@@ -758,7 +841,6 @@
           <EntitySetMapping Name="Client_List">
             <EntityTypeMapping TypeName="Business_SuitModel.Client_List">
               <MappingFragment StoreEntitySet="Client_List">
-                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Counsilor_Name" ColumnName="Counsilor_Name" />
                 <ScalarProperty Name="Bangla_Name" ColumnName="Bangla_Name" />
@@ -771,6 +853,8 @@
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="Is_Elected" ColumnName="Is_Elected" />
                 <ScalarProperty Name="Client_Type" ColumnName="Client_Type" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Present_Position" ColumnName="Present_Position" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -862,26 +946,31 @@
               <MappingFragment StoreEntitySet="Offline_Order_Detalis">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+                <ScalarProperty Name="Slip_Format_Id" ColumnName="Slip_Format_Id" />
                 <ScalarProperty Name="Price_Per_Piece" ColumnName="Price_Per_Piece" />
                 <ScalarProperty Name="Estimated_Voters" ColumnName="Estimated_Voters" />
                 <ScalarProperty Name="Format_No" ColumnName="Format_No" />
                 <ScalarProperty Name="Delivery_Date" ColumnName="Delivery_Date" />
+                <ScalarProperty Name="Delivery_Type" ColumnName="Delivery_Type" />
                 <ScalarProperty Name="Free_Blank_Slip" ColumnName="Free_Blank_Slip" />
                 <ScalarProperty Name="Paid_Blank_Slip" ColumnName="Paid_Blank_Slip" />
                 <ScalarProperty Name="Sample_Slip_Image" ColumnName="Sample_Slip_Image" />
                 <ScalarProperty Name="Slip_Content" ColumnName="Slip_Content" />
                 <ScalarProperty Name="Voter_List_File" ColumnName="Voter_List_File" />
-                <ScalarProperty Name="Voter_Slip_Image_Type" ColumnName="Voter_Slip_Image_Type" />
                 <ScalarProperty Name="Is_Cd_Provided" ColumnName="Is_Cd_Provided" />
-                <ScalarProperty Name="Kendro_Name_Image" ColumnName="Kendro_Name_Image" />
-                <ScalarProperty Name="C_Kendro_Name_List" ColumnName=" Kendro_Name_List" />
+                <ScalarProperty Name="Voter_Slip_Image_Type" ColumnName="Voter_Slip_Image_Type" />
+                <ScalarProperty Name="Center_Name_List_Image" ColumnName="Center_Name_List_Image" />
+                <ScalarProperty Name="Center_Name_List" ColumnName="Center_Name_List" />
                 <ScalarProperty Name="Voter_List_Print" ColumnName="Voter_List_Print" />
                 <ScalarProperty Name="Voter_List_Print_Comment" ColumnName="Voter_List_Print_Comment" />
+                <ScalarProperty Name="C_Voter_List_Print_Price" ColumnName=" Voter_List_Print_Price" />
+                <ScalarProperty Name="Liflet_Image" ColumnName="Liflet_Image" />
                 <ScalarProperty Name="Election_Date" ColumnName="Election_Date" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="Marka" ColumnName="Marka" />
+                <ScalarProperty Name="Marka_Image" ColumnName="Marka_Image" />
                 <ScalarProperty Name="Created_By" ColumnName="Created_By" />
                 <ScalarProperty Name="Ceated_On" ColumnName="Ceated_On" />
                 <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
@@ -889,6 +978,8 @@
                 <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
                 <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
                 <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
+                <ScalarProperty Name="Download_Link" ColumnName="Download_Link" />
+                <ScalarProperty Name="Can_Download" ColumnName="Can_Download" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -897,24 +988,27 @@
               <MappingFragment StoreEntitySet="Online_Order_Detalis">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
-                <ScalarProperty Name="Promotion_Type_Id" ColumnName="Promotion_Type_Id" />
-                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
                 <ScalarProperty Name="Advertisement_Area" ColumnName="Advertisement_Area" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
                 <ScalarProperty Name="Estimated_Reach_Ordered" ColumnName="Estimated_Reach_Ordered" />
                 <ScalarProperty Name="Estimated_Budget" ColumnName="Estimated_Budget" />
                 <ScalarProperty Name="Price_Per_Piece" ColumnName="Price_Per_Piece" />
+                <ScalarProperty Name="Promotion_Type_Id" ColumnName="Promotion_Type_Id" />
                 <ScalarProperty Name="Age_Group" ColumnName="Age_Group" />
                 <ScalarProperty Name="Delivery_Date" ColumnName="Delivery_Date" />
                 <ScalarProperty Name="Promotion_Date_From" ColumnName="Promotion_Date_From" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Promotion_Date_To" ColumnName="Promotion_Date_To" />
                 <ScalarProperty Name="Is_Masked" ColumnName="Is_Masked" />
-                <ScalarProperty Name="Obd_Voice_Provided" ColumnName="Obd_Voice_Provided" />
+                <ScalarProperty Name="Marking_Name" ColumnName="Marking_Name" />
+                <ScalarProperty Name="Obd_Voice_File" ColumnName="Obd_Voice_File" />
+                <ScalarProperty Name="Is_Obd_Provided" ColumnName="Is_Obd_Provided" />
                 <ScalarProperty Name="Obd_Vioce_Content" ColumnName="Obd_Vioce_Content" />
                 <ScalarProperty Name="Number_Db_Provided" ColumnName="Number_Db_Provided" />
                 <ScalarProperty Name="Sms_Content" ColumnName="Sms_Content" />
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="C_Created_On" ColumnName=" Created_On" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
                 <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
                 <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
                 <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
@@ -928,6 +1022,7 @@
               <MappingFragment StoreEntitySet="Order">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Is_Package" ColumnName="Is_Package" />
                 <ScalarProperty Name="Total_Paid" ColumnName="Total_Paid" />
                 <ScalarProperty Name="Total_Bill" ColumnName="Total_Bill" />
@@ -987,6 +1082,18 @@
             <EntityTypeMapping TypeName="Business_SuitModel.Sippeer">
               <MappingFragment StoreEntitySet="Sippeers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Slip_Formats_">
+            <EntityTypeMapping TypeName="Business_SuitModel.Slip_Formats_">
+              <MappingFragment StoreEntitySet="Slip_Formats ">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Slip_Per_Page" ColumnName="Slip_Per_Page" />
+                <ScalarProperty Name="Slip_Height" ColumnName="Slip_Height" />
+                <ScalarProperty Name="Slip_Width" ColumnName="Slip_Width" />
+                <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

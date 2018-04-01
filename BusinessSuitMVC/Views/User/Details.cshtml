@@ -19,85 +19,93 @@
     </section>
     <section class="content">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h1 class="box-title">Details</h1>
                     </div>
 
-                    <div class="table-responsive panel">
-                        <table class="table">
-                            <tbody>
+                    <div class="box-body">
+                        <div class="table-responsive panel col-md-8">
+                            <table class="table">
+                                <tbody>
 
-                                <tr>
-                                    <td class="text-primary text-right" width="30%"> Full Name: </td>
-                                    <td style="font-weight:bold">@Model.Name</td>
-                                </tr>
+                                    <tr>
+                                        <td class="text-primary text-right" width="30%"> Full Name: </td>
+                                        <td style="font-weight:bold">@Model.Name</td>
+                                    </tr>
 
-                                <tr>
-                                    <td class="text-primary text-right">Bangla Name: </td>
-                                    <td style="font-weight:bold">@Model.Bangla_Name</td>
-                                </tr>
+                                    <tr>
+                                        <td class="text-primary text-right">Bangla Name: </td>
+                                        <td style="font-weight:bold">@Model.Bangla_Name</td>
+                                    </tr>
 
-                                <tr>
-                                    <td class="text-primary text-right"> Gender: </td>
-                                    <td style="font-weight:bold">@Model.Gender</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-primary text-right" width="30%"> Ward: </td>
-                                    <td style="font-weight:bold">@Model.Ward</td>
-                                </tr>
+                                    <tr>
+                                        <td class="text-primary text-right"> Gender: </td>
+                                        <td style="font-weight:bold">@Model.Gender</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-primary text-right" width="30%"> Ward: </td>
+                                        <td style="font-weight:bold">@Model.Ward</td>
+                                    </tr>
 
-                                <tr>
-                                    <td class="text-primary text-right">User Type: </td>
-                                    <td style="font-weight:bold">@Model.User_Type</td>
-                                </tr>
+                                    <tr>
+                                        <td class="text-primary text-right">User Type: </td>
+                                        <td style="font-weight:bold">@Model.User_Type</td>
+                                    </tr>
 
-                                <tr>
-                                    <td class="text-primary text-right"> City: </td>
-                                    <td style="font-weight:bold">@Model.City</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-primary text-right">Area: </td>
-                                    <td style="font-weight:bold">@Model.Area</td>
-                                </tr>
+                                    <tr>
+                                        <td class="text-primary text-right"> City: </td>
+                                        <td style="font-weight:bold">@Model.City</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-primary text-right">Area: </td>
+                                        <td style="font-weight:bold">@Model.Area</td>
+                                    </tr>
 
-                                <tr>
-                                    <td class="text-primary text-right"> Address: </td>
-                                    <td style="font-weight:bold">@Model.Address</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-primary text-right" width="30%"> Mobile: </td>
-                                    <td style="font-weight:bold">@Model.Mobile</td>
-                                </tr>
+                                    <tr>
+                                        <td class="text-primary text-right"> Address: </td>
+                                        <td style="font-weight:bold">@Model.Address</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-primary text-right" width="30%"> Mobile: </td>
+                                        <td style="font-weight:bold">@Model.Mobile</td>
+                                    </tr>
 
-                                <tr>
-                                    <td class="text-primary text-right">Email: </td>
-                                    <td style="font-weight:bold">@Model.Email</td>
-                                </tr>
+                                    <tr>
+                                        <td class="text-primary text-right">Email: </td>
+                                        <td style="font-weight:bold">@Model.Email</td>
+                                    </tr>
 
-                                <tr>
-                                    <td class="text-primary text-right"> Phone: </td>
-                                    <td style="font-weight:bold">@Model.Phone</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-primary text-right"> Image: </td>
-                                    <td style="font-weight:bold">@Model.Image</td>
-                                </tr>
+                                    <tr>
+                                        <td class="text-primary text-right"> Phone: </td>
+                                        <td style="font-weight:bold">@Model.Phone</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-primary text-right"> Image: </td>
+                                        <td style="font-weight:bold">@Model.Image</td>
+                                    </tr>
 
 
-                            </tbody>
-                        </table>
-                        <div class="form-group" style="text-align:center">
-                            
-                            <a href="~/User/Edit?userid=@Model.Id" class="btn btn-success">Edit</a>
-                            <a href="~/User/Search" class="btn btn-info">Back</a>
-                            
+                                </tbody>
+                            </table>
+                            <div class="form-group" style="text-align:center">
+
+                                <a href="~/User/Edit?userid=@Model.Id" class="btn btn-success">Edit</a>
+                                <a href="~/User/Search" class="btn btn-info">Back</a>
+
+                            </div>
                         </div>
-                    </div>
+
+                        <div class="col-md-4">
+                            <img height="150px" alt="No Image" src="~/Images/User/U_@(Model.Id + ".jpg")" />
+                        </div>
 
                     </div>
+
+                </div>
             </div>
+
         </div>
     </section>
 

@@ -40,6 +40,7 @@ namespace BusinessSuitMVC.Controllers
             else
             {
                 Numeral_DBContext DB = new Numeral_DBContext();
+                source.Image = file != null && file.ContentLength > 0 ? true : false;
                 DB.Sources.Add(source);
                 DB.SaveChanges();
                 if (file != null && file.ContentLength > 0)
@@ -58,15 +59,16 @@ namespace BusinessSuitMVC.Controllers
             {
                 return "Please enter your valid Contact Name";
             }
-            else if (source.Company_Name == null)
-            {
-                return "Please enter your valid Company Name";
-            }
+          
             else if (source.Source_Type == null)
             {
                 return "Please enter your valid Source Type";
             }
-            else if (source.Mobile1 == null)
+            //else if (source.Mobile1 == null)
+            //{
+            //    return "Please enter your valid Mobile1";
+            //}
+            else if (source.Mobile1 == null || source.Mobile1.Length != 11)
             {
                 return "Please enter your valid Mobile1";
             }
@@ -130,12 +132,12 @@ namespace BusinessSuitMVC.Controllers
                 Source.Company_Name = source.Company_Name;
                 Source.Source_Type = source.Source_Type;
                 Source.Mobile1 = source.Mobile1;
+                Source.Mobile2 = source.Mobile2;
                 Source.Division_Id = source.Division_Id;
                 Source.District_Id = source.District_Id;
                 Source.Ward = source.Ward;
                 Source.Address = source.Address;
-                Source.Image = source.Image;
-               
+                Source.Image = file != null && file.ContentLength > 0 ? true : source.Image;
                 DB.SaveChanges();
                 if (file != null && file.ContentLength > 0)
                 {
@@ -145,7 +147,7 @@ namespace BusinessSuitMVC.Controllers
                 }
                 ViewData["msg"] = "Successfully Updated";
             }
-            return View();
+            return View(source);
         }
         [HttpGet]
         public ActionResult Details(int id)
@@ -178,11 +180,16 @@ namespace BusinessSuitMVC.Controllers
                              where user.Id == id
                              select user).FirstOrDefault();
 
+            if(TempData["msg"] != null)
+            {
+                ViewData["msg"] = TempData["msg"];
+            }
             return View(source);
         }
         [HttpPost]
         public ActionResult SourceNumberCreate(Source source, int MobileNumber)
         {
+           
             Numeral_DBContext DB = new Numeral_DBContext();
             Number number = new Number();
             number.Number1 = MobileNumber;
@@ -191,9 +198,11 @@ namespace BusinessSuitMVC.Controllers
             // Source.Mobile1 = source.Mobile1;
             DB.Numbers.Add(number);
             DB.SaveChanges();
-            ViewData["msg"] = "Successfully Updated";
-            return View();
+            TempData["msg"] = "Successfully Updated";
+            //Source/SourceNumerCreate?id=4
+            return RedirectToAction("SourceNumberCreate", new { id = source.Id });
         }
-       
+     
+
         }
 }

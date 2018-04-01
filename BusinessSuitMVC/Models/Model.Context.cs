@@ -41,6 +41,7 @@ namespace BusinessSuitMVC.Models
         public DbSet<Remark> Remarks { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Sippeer> Sippeers { get; set; }
+        public DbSet<Slip_Formats_> Slip_Formats_ { get; set; }
         public DbSet<Status_> Status_ { get; set; }
         public DbSet<User_Login> User_Login { get; set; }
         public DbSet<User_Profile> User_Profile { get; set; }

@@ -42,23 +42,23 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">Source Name<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
-                                    @Html.DisplayFor(m => m.Contact_Name)
+                                    @Html.DisplayFor(m => m.Contact_Name, new { @Class = "form-control", @disabled = "disabled" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Company Name<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
-                                    @Html.DisplayFor(m => m.Company_Name, new { @Class = "form-control" })
+                                    @Html.DisplayFor(m => m.Company_Name, new { @Class = "form-control", })
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Source Type<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
-                                    @Html.DropDownList("Source_Type", @source, "Select Source Type", new { @class = "form-control editor-field", @readonly = "true" })
+                                    @Html.DropDownList("Source_Type", @source, "Select Source Type", new { @class = "form-control editor-field", @readonly = "true", @disabled="disabled" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                    <label class="control-label col-md-3">Mobile<span style="color:red;">*</span> </label>
+                                    <label class="control-label col-md-3">Mobile </label>
                                     <div class="col-md-5">
                                         @Html.TextBox("MobileNumber",null, new { @Class = "form-control" })
                                     </div>
@@ -107,19 +107,19 @@
                 $("#Source_Type").focus();
             }); 
         }
-        //else if ($("#MobileNumber").val() == "") {
-        //    event.preventDefault();
-        //    swal("Failed", "MobileNumber is required", "error").then(function () {
-        //        $("#MobileNumber").focus();
-        //    });
-        //}
+        else if ($("#MobileNumber").val() == "" || $("#MobileNumber").val().length != 11) {
+            event.preventDefault();
+            swal("Failed", "MobileNumber is required", "error").then(function () {
+                $("#MobileNumber").focus();
+            });
+        }
 
     });
     function resetFunction() {
-        $("#Contact_Name").val("");
-        $("#Company_Name").val("");
-        $("#Source_Type").val("");
-       // $("#MobileNumber").val("");
+        //$("#Contact_Name").val("");
+        //$("#Company_Name").val("");
+        //$("#Source_Type").val("");
+        $("#MobileNumber").val("");
        
     }
     $(document).ready(function () {

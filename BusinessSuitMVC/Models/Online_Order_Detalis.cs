@@ -16,24 +16,27 @@ namespace BusinessSuitMVC.Models
     {
         public int Id { get; set; }
         public Nullable<int> Product_Id { get; set; }
-        public Nullable<int> Promotion_Type_Id { get; set; }
-        public Nullable<int> Order_Id { get; set; }
         public string Advertisement_Area { get; set; }
+        public Nullable<int> Ward { get; set; }
         public Nullable<int> Estimated_Reach_Ordered { get; set; }
         public Nullable<int> Estimated_Budget { get; set; }
         public Nullable<double> Price_Per_Piece { get; set; }
+        public Nullable<int> Promotion_Type_Id { get; set; }
         public string Age_Group { get; set; }
         public Nullable<System.DateTime> Delivery_Date { get; set; }
         public Nullable<System.DateTime> Promotion_Date_From { get; set; }
-        public Nullable<int> Duration { get; set; }
+        public Nullable<System.DateTime> Promotion_Date_To { get; set; }
         public Nullable<bool> Is_Masked { get; set; }
-        public Nullable<int> Obd_Voice_Provided { get; set; }
+        public string Marking_Name { get; set; }
+        public Nullable<bool> Obd_Voice_File { get; set; }
+        public Nullable<bool> Is_Obd_Provided { get; set; }
         public string Obd_Vioce_Content { get; set; }
         public Nullable<bool> Number_Db_Provided { get; set; }
         public string Sms_Content { get; set; }
+        public Nullable<int> Order_Id { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<double> Discount { get; set; }
-        public Nullable<System.DateTime> C_Created_On { get; set; }
+        public Nullable<System.DateTime> Created_On { get; set; }
         public Nullable<int> Updated_By { get; set; }
         public Nullable<System.DateTime> Updated_On { get; set; }
         public Nullable<int> Is_Deleted { get; set; }
