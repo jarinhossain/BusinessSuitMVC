@@ -105,10 +105,14 @@
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap3-wysihtml5.min.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\ionicons.min.css" />
     <Content Include="Content\jquery-jvectormap.css" />
     <Content Include="Content\_all-skins.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\user2-160x160.jpg" />
+    <Content Include="Images\user3-128x128.jpg" />
+    <Content Include="Images\user4-128x128.jpg" />
     <Content Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
