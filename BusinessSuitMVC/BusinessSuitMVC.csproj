@@ -110,6 +110,9 @@
     <Content Include="Content\jquery-jvectormap.css" />
     <Content Include="Content\_all-skins.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\team-1.jpg" />
+    <Content Include="Images\team-2.jpg" />
+    <Content Include="Images\team-3.jpg" />
     <Content Include="Images\user2-160x160.jpg" />
     <Content Include="Images\user3-128x128.jpg" />
     <Content Include="Images\user4-128x128.jpg" />
