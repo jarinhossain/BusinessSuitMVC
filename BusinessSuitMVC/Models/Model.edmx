@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Business_SuitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Business_SuitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client_List">
           <Key>
             <PropertyRef Name="Id" />
@@ -114,7 +114,9 @@
           <Property Name="Delivery_Type" Type="varchar" MaxLength="50" />
           <Property Name="Free_Blank_Slip" Type="int" />
           <Property Name="Paid_Blank_Slip" Type="int" />
+          <Property Name="Blank_Slip_Price" Type="float" />
           <Property Name="Sample_Slip_Image" Type="bit" />
+          <Property Name="Passport_Image" Type="bit" />
           <Property Name="Slip_Content" Type="nvarchar" MaxLength="700" />
           <Property Name="Voter_List_File" Type="int" />
           <Property Name="Is_Cd_Provided" Type="bit" />
@@ -123,7 +125,7 @@
           <Property Name="Center_Name_List" Type="nvarchar" MaxLength="700" />
           <Property Name="Voter_List_Print" Type="int" />
           <Property Name="Voter_List_Print_Comment" Type="nvarchar" MaxLength="200" />
-          <Property Name=" Voter_List_Print_Price" Type="float" />
+          <Property Name="Voter_List_Print_Price" Type="float" />
           <Property Name="Liflet_Image" Type="bit" />
           <Property Name="Election_Date" Type="datetime" />
           <Property Name="Discount" Type="float" />
@@ -166,6 +168,7 @@
           <Property Name="Sms_Content" Type="nvarchar" MaxLength="500" />
           <Property Name="Order_Id" Type="int" />
           <Property Name="Status" Type="int" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="Discount" Type="float" />
           <Property Name="Created_On" Type="datetime" />
           <Property Name="Updated_By" Type="int" />
@@ -188,6 +191,35 @@
           <Property Name="Created_By" Type="int" />
           <Property Name="Updated_By" Type="int" />
         </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Display_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="Module" Type="varchar" MaxLength="50" />
+          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Updated_On" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Permission_Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Permission_Id" Type="int" />
+          <Property Name="Role_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Permission_User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Permission_Id" Type="int" />
+          <Property Name="User_Id" Type="int" />
+          <Property Name="User_Type" Type="int" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="Id" />
@@ -196,6 +228,8 @@
           <Property Name="Name" Type="varchar" MaxLength="100" />
           <Property Name="Is_Online" Type="bit" />
           <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="Regular_Price" Type="float" />
+          <Property Name="Lower_Price" Type="float" />
           <Property Name="Created_On" Type="datetime" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
@@ -230,17 +264,37 @@
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Permissions" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Role_User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role_Id" Type="int" />
+          <Property Name="User_Id" Type="int" />
+          <Property Name="User_Type" Type="int" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Display_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Updated_On" Type="datetime" />
+        </EntityType>
         <EntityType Name="Sippeers">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Slip_Formats ">
+        <EntityType Name="Slip_Formats">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Slip_Per_Page" Type="int" />
           <Property Name="Slip_Height" Type="float" />
@@ -254,6 +308,21 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tokens">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Token" Type="varchar" MaxLength="100" />
+          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Updated_By" Type="int" />
+          <Property Name="Updated_On" Type="datetime" />
+          <Property Name="Is_Deleted" Type="int" />
+          <Property Name="Deleted_By" Type="int" />
+          <Property Name="Deleted_On" Type="datetime" />
         </EntityType>
         <EntityType Name="User_Login">
           <Key>
@@ -283,6 +352,20 @@
           <Property Name="Phone" Type="varchar" MaxLength="50" />
           <Property Name="Image" Type="bit" />
         </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Remember_Token" Type="varchar" MaxLength="50" />
+          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Updated_On" Type="datetime" />
+          <Property Name="Created_By" Type="int" />
+          <Property Name="User_Name" Type="nchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="Voter_Slip_Image_Type">
           <Key>
             <PropertyRef Name="Id" />
@@ -303,11 +386,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Offline_Order_Detalis_Slip_Formats ">
-          <End Role="Slip_Formats " Type="Self.Slip_Formats " Multiplicity="0..1" />
+        <Association Name="FK_Offline_Order_Detalis_Slip_Formats">
+          <End Role="Slip_Formats" Type="Self.Slip_Formats" Multiplicity="0..1" />
           <End Role="Offline_Order_Detalis" Type="Self.Offline_Order_Detalis" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Slip_Formats ">
+            <Principal Role="Slip_Formats">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Offline_Order_Detalis">
@@ -351,6 +434,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Permission_Role_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="0..1" />
+          <End Role="Permission_Role" Type="Self.Permission_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Permission_Role">
+              <PropertyRef Name="Permission_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_Role_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Permission_Role" Type="Self.Permission_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Permission_Role">
+              <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_User_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="0..1" />
+          <End Role="Permission_User" Type="Self.Permission_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Permission_User">
+              <PropertyRef Name="Permission_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_User_User_Login">
+          <End Role="User_Login" Type="Self.User_Login" Multiplicity="0..1" />
+          <End Role="Permission_User" Type="Self.Permission_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Login">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Permission_User">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Role_User" Type="Self.Role_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role_User">
+              <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_User_User_Login">
+          <End Role="User_Login" Type="Self.User_Login" Multiplicity="0..1" />
+          <End Role="Role_User" Type="Self.Role_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Login">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role_User">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Login_User_Profile">
           <End Role="User_Profile" Type="Self.User_Profile" Multiplicity="0..1" />
           <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
@@ -375,22 +530,40 @@
           <EntitySet Name="Offline_Order_Detalis" EntityType="Self.Offline_Order_Detalis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Online_Order_Detalis" EntityType="Self.Online_Order_Detalis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission_Role" EntityType="Self.Permission_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission_User" EntityType="Self.Permission_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Promotion_Type" EntityType="Self.Promotion_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Remarks" EntityType="Self.Remarks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role_User" EntityType="Self.Role_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sippeers" EntityType="Self.Sippeers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Slip_Formats " EntityType="Self.Slip_Formats " Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Slip_Formats" EntityType="Self.Slip_Formats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status " EntityType="Self.Status " Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Login" EntityType="Self.User_Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Profile" EntityType="Self.User_Profile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Voter_Slip_Image_Type" EntityType="Self.Voter_Slip_Image_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tokens" EntityType="Self.Tokens" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[Tokens].[Id] AS [Id], 
+[Tokens].[Token] AS [Token], 
+[Tokens].[Created_On] AS [Created_On], 
+[Tokens].[Updated_By] AS [Updated_By], 
+[Tokens].[Updated_On] AS [Updated_On], 
+[Tokens].[Is_Deleted] AS [Is_Deleted], 
+[Tokens].[Deleted_By] AS [Deleted_By], 
+[Tokens].[Deleted_On] AS [Deleted_On]
+FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Offline_Order_Detalis_Order" Association="Self.FK_Offline_Order_Detalis_Order">
             <End Role="Order" EntitySet="Order" />
             <End Role="Offline_Order_Detalis" EntitySet="Offline_Order_Detalis" />
           </AssociationSet>
-          <AssociationSet Name="FK_Offline_Order_Detalis_Slip_Formats " Association="Self.FK_Offline_Order_Detalis_Slip_Formats ">
-            <End Role="Slip_Formats " EntitySet="Slip_Formats " />
+          <AssociationSet Name="FK_Offline_Order_Detalis_Slip_Formats" Association="Self.FK_Offline_Order_Detalis_Slip_Formats">
+            <End Role="Slip_Formats" EntitySet="Slip_Formats" />
             <End Role="Offline_Order_Detalis" EntitySet="Offline_Order_Detalis" />
           </AssociationSet>
           <AssociationSet Name="FK_Online_Order_Detalis_Order" Association="Self.FK_Online_Order_Detalis_Order">
@@ -405,13 +578,36 @@
             <End Role="Promotion_Type" EntitySet="Promotion_Type" />
             <End Role="Online_Order_Detalis" EntitySet="Online_Order_Detalis" />
           </AssociationSet>
+          <AssociationSet Name="FK_Permission_Role_Permission" Association="Self.FK_Permission_Role_Permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="Permission_Role" EntitySet="Permission_Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_Role_Role" Association="Self.FK_Permission_Role_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Permission_Role" EntitySet="Permission_Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_User_Permission" Association="Self.FK_Permission_User_Permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="Permission_User" EntitySet="Permission_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_User_User_Login" Association="Self.FK_Permission_User_User_Login">
+            <End Role="User_Login" EntitySet="User_Login" />
+            <End Role="Permission_User" EntitySet="Permission_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_User_Role" Association="Self.FK_Role_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Role_User" EntitySet="Role_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_User_User_Login" Association="Self.FK_Role_User_User_Login">
+            <End Role="User_Login" EntitySet="User_Login" />
+            <End Role="Role_User" EntitySet="Role_User" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_Login_User_Profile" Association="Self.FK_User_Login_User_Profile">
             <End Role="User_Profile" EntitySet="User_Profile" />
             <End Role="User_Login" EntitySet="User_Login" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Business_SuitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -533,7 +729,7 @@
           <Property Name="Center_Name_List" Type="String" MaxLength="700" FixedLength="false" Unicode="true" />
           <Property Name="Voter_List_Print" Type="Int32" />
           <Property Name="Voter_List_Print_Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="C_Voter_List_Print_Price" Type="Double" />
+          <Property Name="Voter_List_Print_Price" Type="Double" />
           <Property Name="Liflet_Image" Type="Boolean" />
           <Property Name="Election_Date" Type="DateTime" Precision="3" />
           <Property Name="Discount" Type="Double" />
@@ -551,7 +747,9 @@
           <Property Name="Download_Link" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="Can_Download" Type="Boolean" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Offline_Order_Detalis_Order" FromRole="Offline_Order_Detalis" ToRole="Order" />
-          <NavigationProperty Name="Slip_Formats_" Relationship="Self.FK_Offline_Order_Detalis_Slip_Formats_" FromRole="Offline_Order_Detalis" ToRole="Slip_Formats_" />
+          <NavigationProperty Name="Slip_Formats" Relationship="Self.FK_Offline_Order_Detalis_Slip_Formats" FromRole="Offline_Order_Detalis" ToRole="Slip_Formats" />
+          <Property Name="Passport_Image" Type="Boolean" />
+          <Property Name="Blank_Slip_Price" Type="Double" />
         </EntityType>
         <EntityType Name="Online_Order_Detalis">
           <Key>
@@ -578,6 +776,7 @@
           <Property Name="Sms_Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Order_Id" Type="Int32" />
           <Property Name="Status" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Discount" Type="Double" />
           <Property Name="Created_On" Type="DateTime" Precision="3" />
           <Property Name="Updated_By" Type="Int32" />
@@ -605,6 +804,41 @@
           <NavigationProperty Name="Offline_Order_Detalis" Relationship="Self.FK_Offline_Order_Detalis_Order" FromRole="Order" ToRole="Offline_Order_Detalis" />
           <NavigationProperty Name="Online_Order_Detalis" Relationship="Self.FK_Online_Order_Detalis_Order" FromRole="Order" ToRole="Online_Order_Detalis" />
         </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Display_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Permission_Role" Relationship="Self.FK_Permission_Role_Permission" FromRole="Permission" ToRole="Permission_Role" />
+          <NavigationProperty Name="Permission_User" Relationship="Self.FK_Permission_User_Permission" FromRole="Permission" ToRole="Permission_User" />
+        </EntityType>
+        <EntityType Name="Permission_Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Permission_Id" Type="Int32" />
+          <Property Name="Role_Id" Type="Int32" />
+          <NavigationProperty Name="Permission" Relationship="Self.FK_Permission_Role_Permission" FromRole="Permission_Role" ToRole="Permission" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Permission_Role_Role" FromRole="Permission_Role" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Permission_User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Permission_Id" Type="Int32" />
+          <Property Name="User_Id" Type="Int32" />
+          <Property Name="User_Type" Type="Int32" />
+          <NavigationProperty Name="Permission" Relationship="Self.FK_Permission_User_Permission" FromRole="Permission_User" ToRole="Permission" />
+          <NavigationProperty Name="User_Login" Relationship="Self.FK_Permission_User_User_Login" FromRole="Permission_User" ToRole="User_Login" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="Id" />
@@ -613,6 +847,8 @@
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Is_Online" Type="Boolean" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Regular_Price" Type="Double" />
+          <Property Name="Lower_Price" Type="Double" />
           <Property Name="Created_On" Type="DateTime" Precision="3" />
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
@@ -648,6 +884,30 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Permissions" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Permission_Role" Relationship="Self.FK_Permission_Role_Role" FromRole="Role" ToRole="Permission_Role" />
+          <NavigationProperty Name="Role_User" Relationship="Self.FK_Role_User_Role" FromRole="Role" ToRole="Role_User" />
+        </EntityType>
+        <EntityType Name="Role_User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role_Id" Type="Int32" />
+          <Property Name="User_Id" Type="Int32" />
+          <Property Name="User_Type" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Role_User_Role" FromRole="Role_User" ToRole="Role" />
+          <NavigationProperty Name="User_Login" Relationship="Self.FK_Role_User_User_Login" FromRole="Role_User" ToRole="User_Login" />
+        </EntityType>
+        <EntityType Name="Role1">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Display_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Sippeer">
           <Key>
@@ -655,17 +915,17 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="Slip_Formats_">
+        <EntityType Name="Slip_Formats">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Slip_Per_Page" Type="Int32" />
           <Property Name="Slip_Height" Type="Double" />
           <Property Name="Slip_Width" Type="Double" />
           <Property Name="Is_Active" Type="Boolean" />
-          <NavigationProperty Name="Offline_Order_Detalis" Relationship="Self.FK_Offline_Order_Detalis_Slip_Formats_" FromRole="Slip_Formats_" ToRole="Offline_Order_Detalis" />
+          <NavigationProperty Name="Offline_Order_Detalis" Relationship="Self.FK_Offline_Order_Detalis_Slip_Formats" FromRole="Slip_Formats" ToRole="Offline_Order_Detalis" />
         </EntityType>
         <EntityType Name="Status_">
           <Key>
@@ -684,6 +944,8 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Role" Type="Int32" />
           <Property Name="User_Profile_Id" Type="Int32" />
+          <NavigationProperty Name="Permission_User" Relationship="Self.FK_Permission_User_User_Login" FromRole="User_Login" ToRole="Permission_User" />
+          <NavigationProperty Name="Role_User" Relationship="Self.FK_Role_User_User_Login" FromRole="User_Login" ToRole="Role_User" />
           <NavigationProperty Name="User_Profile" Relationship="Self.FK_User_Login_User_Profile" FromRole="User_Login" ToRole="User_Profile" />
         </EntityType>
         <EntityType Name="User_Profile">
@@ -705,6 +967,20 @@
           <Property Name="Image" Type="Boolean" />
           <NavigationProperty Name="User_Login" Relationship="Self.FK_User_Login_User_Profile" FromRole="User_Profile" ToRole="User_Login" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Remember_Token" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="User_Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
         <EntityType Name="Voter_Slip_Image_Type">
           <Key>
             <PropertyRef Name="Id" />
@@ -712,6 +988,19 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Display_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Token">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Token1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <Property Name="Is_Deleted" Type="Int32" />
+          <Property Name="Deleted_By" Type="Int32" />
+          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_Offline_Order_Detalis_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
@@ -725,11 +1014,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Offline_Order_Detalis_Slip_Formats_">
-          <End Role="Slip_Formats_" Type="Self.Slip_Formats_" Multiplicity="0..1" />
+        <Association Name="FK_Offline_Order_Detalis_Slip_Formats">
+          <End Role="Slip_Formats" Type="Self.Slip_Formats" Multiplicity="0..1" />
           <End Role="Offline_Order_Detalis" Type="Self.Offline_Order_Detalis" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Slip_Formats_">
+            <Principal Role="Slip_Formats">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Offline_Order_Detalis">
@@ -773,6 +1062,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Permission_Role_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="0..1" />
+          <End Role="Permission_Role" Type="Self.Permission_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Permission_Role">
+              <PropertyRef Name="Permission_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_User_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="0..1" />
+          <End Role="Permission_User" Type="Self.Permission_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Permission_User">
+              <PropertyRef Name="Permission_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_Role_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Permission_Role" Type="Self.Permission_Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Permission_Role">
+              <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_User_User_Login">
+          <End Role="User_Login" Type="Self.User_Login" Multiplicity="0..1" />
+          <End Role="Permission_User" Type="Self.Permission_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Login">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Permission_User">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Role_User" Type="Self.Role_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role_User">
+              <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_User_User_Login">
+          <End Role="User_Login" Type="Self.User_Login" Multiplicity="0..1" />
+          <End Role="Role_User" Type="Self.Role_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Login">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role_User">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Login_User_Profile">
           <End Role="User_Profile" Type="Self.User_Profile" Multiplicity="0..1" />
           <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
@@ -797,22 +1158,29 @@
           <EntitySet Name="Offline_Order_Detalis" EntityType="Self.Offline_Order_Detalis" />
           <EntitySet Name="Online_Order_Detalis" EntityType="Self.Online_Order_Detalis" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Permissions" EntityType="Self.Permission" />
+          <EntitySet Name="Permission_Role" EntityType="Self.Permission_Role" />
+          <EntitySet Name="Permission_User" EntityType="Self.Permission_User" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Promotion_Type" EntityType="Self.Promotion_Type" />
           <EntitySet Name="Remarks" EntityType="Self.Remark" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Role_User" EntityType="Self.Role_User" />
+          <EntitySet Name="Roles1" EntityType="Self.Role1" />
           <EntitySet Name="Sippeers" EntityType="Self.Sippeer" />
-          <EntitySet Name="Slip_Formats_" EntityType="Self.Slip_Formats_" />
+          <EntitySet Name="Slip_Formats" EntityType="Self.Slip_Formats" />
           <EntitySet Name="Status_" EntityType="Self.Status_" />
           <EntitySet Name="User_Login" EntityType="Self.User_Login" />
           <EntitySet Name="User_Profile" EntityType="Self.User_Profile" />
+          <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="Voter_Slip_Image_Type" EntityType="Self.Voter_Slip_Image_Type" />
+          <EntitySet Name="Tokens" EntityType="Self.Token" />
           <AssociationSet Name="FK_Offline_Order_Detalis_Order" Association="Self.FK_Offline_Order_Detalis_Order">
             <End Role="Order" EntitySet="Orders" />
             <End Role="Offline_Order_Detalis" EntitySet="Offline_Order_Detalis" />
           </AssociationSet>
-          <AssociationSet Name="FK_Offline_Order_Detalis_Slip_Formats_" Association="Self.FK_Offline_Order_Detalis_Slip_Formats_">
-            <End Role="Slip_Formats_" EntitySet="Slip_Formats_" />
+          <AssociationSet Name="FK_Offline_Order_Detalis_Slip_Formats" Association="Self.FK_Offline_Order_Detalis_Slip_Formats">
+            <End Role="Slip_Formats" EntitySet="Slip_Formats" />
             <End Role="Offline_Order_Detalis" EntitySet="Offline_Order_Detalis" />
           </AssociationSet>
           <AssociationSet Name="FK_Online_Order_Detalis_Order" Association="Self.FK_Online_Order_Detalis_Order">
@@ -826,6 +1194,30 @@
           <AssociationSet Name="FK_Online_Order_Detalis_Promotion_Type" Association="Self.FK_Online_Order_Detalis_Promotion_Type">
             <End Role="Promotion_Type" EntitySet="Promotion_Type" />
             <End Role="Online_Order_Detalis" EntitySet="Online_Order_Detalis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_Role_Permission" Association="Self.FK_Permission_Role_Permission">
+            <End Role="Permission" EntitySet="Permissions" />
+            <End Role="Permission_Role" EntitySet="Permission_Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_User_Permission" Association="Self.FK_Permission_User_Permission">
+            <End Role="Permission" EntitySet="Permissions" />
+            <End Role="Permission_User" EntitySet="Permission_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_Role_Role" Association="Self.FK_Permission_Role_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Permission_Role" EntitySet="Permission_Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_User_User_Login" Association="Self.FK_Permission_User_User_Login">
+            <End Role="User_Login" EntitySet="User_Login" />
+            <End Role="Permission_User" EntitySet="Permission_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_User_Role" Association="Self.FK_Role_User_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Role_User" EntitySet="Role_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_User_User_Login" Association="Self.FK_Role_User_User_Login">
+            <End Role="User_Login" EntitySet="User_Login" />
+            <End Role="Role_User" EntitySet="Role_User" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Login_User_Profile" Association="Self.FK_User_Login_User_Profile">
             <End Role="User_Profile" EntitySet="User_Profile" />
@@ -944,6 +1336,8 @@
           <EntitySetMapping Name="Offline_Order_Detalis">
             <EntityTypeMapping TypeName="Business_SuitModel.Offline_Order_Detalis">
               <MappingFragment StoreEntitySet="Offline_Order_Detalis">
+                <ScalarProperty Name="Blank_Slip_Price" ColumnName="Blank_Slip_Price" />
+                <ScalarProperty Name="Passport_Image" ColumnName="Passport_Image" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
                 <ScalarProperty Name="Slip_Format_Id" ColumnName="Slip_Format_Id" />
@@ -963,7 +1357,7 @@
                 <ScalarProperty Name="Center_Name_List" ColumnName="Center_Name_List" />
                 <ScalarProperty Name="Voter_List_Print" ColumnName="Voter_List_Print" />
                 <ScalarProperty Name="Voter_List_Print_Comment" ColumnName="Voter_List_Print_Comment" />
-                <ScalarProperty Name="C_Voter_List_Print_Price" ColumnName=" Voter_List_Print_Price" />
+                <ScalarProperty Name="Voter_List_Print_Price" ColumnName="Voter_List_Print_Price" />
                 <ScalarProperty Name="Liflet_Image" ColumnName="Liflet_Image" />
                 <ScalarProperty Name="Election_Date" ColumnName="Election_Date" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
@@ -1007,6 +1401,7 @@
                 <ScalarProperty Name="Sms_Content" ColumnName="Sms_Content" />
                 <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
                 <ScalarProperty Name="Created_On" ColumnName="Created_On" />
                 <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
@@ -1032,6 +1427,38 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="Business_SuitModel.Permission">
+              <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Module" ColumnName="Module" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permission_Role">
+            <EntityTypeMapping TypeName="Business_SuitModel.Permission_Role">
+              <MappingFragment StoreEntitySet="Permission_Role">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Permission_Id" ColumnName="Permission_Id" />
+                <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permission_User">
+            <EntityTypeMapping TypeName="Business_SuitModel.Permission_User">
+              <MappingFragment StoreEntitySet="Permission_User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Permission_Id" ColumnName="Permission_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="User_Type" ColumnName="User_Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="Business_SuitModel.Product">
               <MappingFragment StoreEntitySet="Product">
@@ -1039,6 +1466,8 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Is_Online" ColumnName="Is_Online" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Regular_Price" ColumnName="Regular_Price" />
+                <ScalarProperty Name="Lower_Price" ColumnName="Lower_Price" />
                 <ScalarProperty Name="Created_On" ColumnName="Created_On" />
                 <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
                 <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
@@ -1078,6 +1507,28 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Role_User">
+            <EntityTypeMapping TypeName="Business_SuitModel.Role_User">
+              <MappingFragment StoreEntitySet="Role_User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="User_Type" ColumnName="User_Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles1">
+            <EntityTypeMapping TypeName="Business_SuitModel.Role1">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Sippeers">
             <EntityTypeMapping TypeName="Business_SuitModel.Sippeer">
               <MappingFragment StoreEntitySet="Sippeers">
@@ -1085,9 +1536,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Slip_Formats_">
-            <EntityTypeMapping TypeName="Business_SuitModel.Slip_Formats_">
-              <MappingFragment StoreEntitySet="Slip_Formats ">
+          <EntitySetMapping Name="Slip_Formats">
+            <EntityTypeMapping TypeName="Business_SuitModel.Slip_Formats">
+              <MappingFragment StoreEntitySet="Slip_Formats">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Slip_Per_Page" ColumnName="Slip_Per_Page" />
@@ -1136,12 +1587,41 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Business_SuitModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Remember_Token" ColumnName="Remember_Token" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="User_Name" ColumnName="User_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Voter_Slip_Image_Type">
             <EntityTypeMapping TypeName="Business_SuitModel.Voter_Slip_Image_Type">
               <MappingFragment StoreEntitySet="Voter_Slip_Image_Type">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tokens">
+            <EntityTypeMapping TypeName="Business_SuitModel.Token">
+              <MappingFragment StoreEntitySet="Tokens">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Token1" ColumnName="Token" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
+                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

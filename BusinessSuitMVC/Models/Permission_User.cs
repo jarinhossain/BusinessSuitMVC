@@ -12,19 +12,14 @@ namespace BusinessSuitMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class Permission_User
     {
-        public Role()
-        {
-            this.Permission_Role = new HashSet<Permission_Role>();
-            this.Role_User = new HashSet<Role_User>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Permissions { get; set; }
+        public Nullable<int> Permission_Id { get; set; }
+        public Nullable<int> User_Id { get; set; }
+        public Nullable<int> User_Type { get; set; }
     
-        public virtual ICollection<Permission_Role> Permission_Role { get; set; }
-        public virtual ICollection<Role_User> Role_User { get; set; }
+        public virtual Permission Permission { get; set; }
+        public virtual User_Login User_Login { get; set; }
     }
 }

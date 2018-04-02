@@ -11,7 +11,7 @@
 
     List<SelectListItem> Clienttype = new List<SelectListItem>();
     Clienttype.Add(new SelectListItem() { Value = "1", Text = "Councillor" });
-    Clienttype.Add(new SelectListItem() { Value = "2", Text = "General-Councillor" });
+    Clienttype.Add(new SelectListItem() { Value = "2", Text = "General Councillor" });
     Clienttype.Add(new SelectListItem() { Value = "3", Text = "Mayor" });
 
     List<SelectListItem> position = new List<SelectListItem>();
@@ -151,7 +151,7 @@
                             <div class="form-group">
                                 <div class="col-md-3"></div>
 
-                                <input type="submit" value="Updated" style="margin-left:15px" class="btn btn-info" />
+                                <input type="submit" value="Update" style="margin-left:15px" class="btn btn-info" />
                                 <input type="button" value="Reset" id="reset" class="btn btn-info" />
 
                             </div>
@@ -159,7 +159,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-3"></div>
-                                <label id="msg">@ViewData["msg"]</label>
+                                <label id="msg" style="color:red;">@ViewData["msg"]</label>
                             </div>
                         </div>
 
@@ -228,7 +228,7 @@
         var message = $("#msg").text();
 
         if (message == "Successfully Update") {
-            swal("Successful", "Successfully Update", "success");
+            swal("Successful", "Successfully Updated", "success");
             resetFunction();
         }
 
