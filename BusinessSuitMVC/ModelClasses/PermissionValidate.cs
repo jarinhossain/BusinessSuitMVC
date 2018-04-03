@@ -23,7 +23,7 @@ namespace BusinessSuitMVC.ModelClasses
             }
             catch
             {
-                HttpContext.Current.Response.Redirect("/Home/Dashboard", true);
+                HttpContext.Current.Response.Redirect("/User/Dashboard", true);
             }
             return false;
         }
