@@ -44,29 +44,40 @@ namespace BusinessSuitMVC.Controllers
             }
             return View();
         }
-
         [HttpGet]
-        public ActionResult ChangePassword()
+        public ActionResult newLogin()
         {
-            //User_Login userLogin  = (from login in DB.User_Login
-            //                     where login.Password == userLogin.Password
-            //                     && login.Id == userLogin.Id
-            //                     select login).FirstOrDefault();
             return View();
         }
         [HttpPost]
-        public ActionResult ChangePassword(User_Login userLogin)
+        public ActionResult newLogin(User_Login model)
         {
-            DBContext DB = new DBContext();
-            User_Login insert = (from login in DB.User_Login
-                                 where login.Password == userLogin.Password
-                                 && login.Id == userLogin.Id
-                                 select login).FirstOrDefault();
+            if (model.UserName == null)
+            {
+                ViewData["msg"] = "please enter your valid Username";
+            }
+            else if (model.Password == null)
+            {
+                ViewData["msg"] = "please enter your valid  Password";
 
+            }
+            else
+            {
+                DBContext DB = new DBContext();
 
-            DB.SaveChanges();
+                User_Login search = (from user in DB.User_Login
+                                     where user.UserName == model.UserName
+                                     && user.Password == model.Password
+                                     select user).FirstOrDefault();
 
+                if (search != null)
+                {
+                    return RedirectToAction("Create", "User");
+                }
+
+            }
             return View();
         }
+
     }
 }

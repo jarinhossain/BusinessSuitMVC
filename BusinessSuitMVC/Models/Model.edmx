@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Business_SuitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Business_SuitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client_List">
           <Key>
             <PropertyRef Name="Id" />
@@ -122,7 +122,7 @@
           <Property Name="Is_Cd_Provided" Type="bit" />
           <Property Name="Voter_Slip_Image_Type" Type="int" />
           <Property Name="Center_Name_List_Image" Type="bit" />
-          <Property Name="Center_Name_List" Type="nvarchar" MaxLength="700" />
+          <Property Name="Center_Name_List" Type="nvarchar" MaxLength="1000" />
           <Property Name="Voter_List_Print" Type="int" />
           <Property Name="Voter_List_Print_Comment" Type="nvarchar" MaxLength="200" />
           <Property Name="Voter_List_Print_Price" Type="float" />
@@ -607,7 +607,8 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             <End Role="User_Login" EntitySet="User_Login" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Business_SuitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -720,13 +721,15 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Delivery_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Free_Blank_Slip" Type="Int32" />
           <Property Name="Paid_Blank_Slip" Type="Int32" />
+          <Property Name="Blank_Slip_Price" Type="Double" />
           <Property Name="Sample_Slip_Image" Type="Boolean" />
+          <Property Name="Passport_Image" Type="Boolean" />
           <Property Name="Slip_Content" Type="String" MaxLength="700" FixedLength="false" Unicode="true" />
           <Property Name="Voter_List_File" Type="Int32" />
           <Property Name="Is_Cd_Provided" Type="Boolean" />
           <Property Name="Voter_Slip_Image_Type" Type="Int32" />
           <Property Name="Center_Name_List_Image" Type="Boolean" />
-          <Property Name="Center_Name_List" Type="String" MaxLength="700" FixedLength="false" Unicode="true" />
+          <Property Name="Center_Name_List" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Voter_List_Print" Type="Int32" />
           <Property Name="Voter_List_Print_Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Voter_List_Print_Price" Type="Double" />
@@ -748,8 +751,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Can_Download" Type="Boolean" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Offline_Order_Detalis_Order" FromRole="Offline_Order_Detalis" ToRole="Order" />
           <NavigationProperty Name="Slip_Formats" Relationship="Self.FK_Offline_Order_Detalis_Slip_Formats" FromRole="Offline_Order_Detalis" ToRole="Slip_Formats" />
-          <Property Name="Passport_Image" Type="Boolean" />
-          <Property Name="Blank_Slip_Price" Type="Double" />
         </EntityType>
         <EntityType Name="Online_Order_Detalis">
           <Key>
@@ -1336,8 +1337,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="Offline_Order_Detalis">
             <EntityTypeMapping TypeName="Business_SuitModel.Offline_Order_Detalis">
               <MappingFragment StoreEntitySet="Offline_Order_Detalis">
-                <ScalarProperty Name="Blank_Slip_Price" ColumnName="Blank_Slip_Price" />
-                <ScalarProperty Name="Passport_Image" ColumnName="Passport_Image" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
                 <ScalarProperty Name="Slip_Format_Id" ColumnName="Slip_Format_Id" />
@@ -1348,7 +1347,9 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
                 <ScalarProperty Name="Delivery_Type" ColumnName="Delivery_Type" />
                 <ScalarProperty Name="Free_Blank_Slip" ColumnName="Free_Blank_Slip" />
                 <ScalarProperty Name="Paid_Blank_Slip" ColumnName="Paid_Blank_Slip" />
+                <ScalarProperty Name="Blank_Slip_Price" ColumnName="Blank_Slip_Price" />
                 <ScalarProperty Name="Sample_Slip_Image" ColumnName="Sample_Slip_Image" />
+                <ScalarProperty Name="Passport_Image" ColumnName="Passport_Image" />
                 <ScalarProperty Name="Slip_Content" ColumnName="Slip_Content" />
                 <ScalarProperty Name="Voter_List_File" ColumnName="Voter_List_File" />
                 <ScalarProperty Name="Is_Cd_Provided" ColumnName="Is_Cd_Provided" />

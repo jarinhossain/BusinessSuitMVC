@@ -24,7 +24,9 @@ namespace BusinessSuitMVC.Models
         public string Delivery_Type { get; set; }
         public Nullable<int> Free_Blank_Slip { get; set; }
         public Nullable<int> Paid_Blank_Slip { get; set; }
+        public Nullable<double> Blank_Slip_Price { get; set; }
         public Nullable<bool> Sample_Slip_Image { get; set; }
+        public Nullable<bool> Passport_Image { get; set; }
         public string Slip_Content { get; set; }
         public Nullable<int> Voter_List_File { get; set; }
         public Nullable<bool> Is_Cd_Provided { get; set; }
@@ -50,8 +52,6 @@ namespace BusinessSuitMVC.Models
         public Nullable<System.DateTime> Deleted_On { get; set; }
         public string Download_Link { get; set; }
         public Nullable<bool> Can_Download { get; set; }
-        public Nullable<bool> Passport_Image { get; set; }
-        public Nullable<double> Blank_Slip_Price { get; set; }
     
         public virtual Order Order { get; set; }
         public virtual Slip_Formats Slip_Formats { get; set; }

@@ -150,6 +150,19 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult VoterSlipCreate(Offline_Order_Detalis offline)
         {
+            HttpPostedFileBase file = null;
+            try { file = Request.Files[0]; } catch { }
+
+            if (file != null && file.ContentLength > 0)
+            {
+                string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                if (extension != ".jpg")
+                {
+                    ViewData["msg"] = "Failed to Save User Information! Allowed image format is .jpg";
+                    return View();
+                }
+            }
+           
             string validation = validationVoterCreate(offline);
 
             if (validation != "true")
@@ -159,8 +172,16 @@ namespace BusinessSuitMVC.Controllers
             else
             {
                 DBContext DB = new DBContext();
+                offline.Passport_Image = file != null && file.ContentLength > 0 ? true : false;
                 DB.Offline_Order_Detalis.Add(offline);
                 DB.SaveChanges();
+                if (file != null && file.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                    string path = Path.Combine(Server.MapPath("~/Images/VoterSlip"), "V_" + offline.Id + extension);
+                    file.SaveAs(path);/// file save
+                }
+               
                 ViewData["msg"] = "Successfully Saved";
             }
             return View();
@@ -175,50 +196,47 @@ namespace BusinessSuitMVC.Controllers
             {
                 return "Please enter your valid Estimated Voters";
             }
-            else if (offline.Passport_Image == null)
-            {
-                return "Please enter your valid Passport Size Photo";
-            }
-            else if (offline.Sample_Slip_Image == null)
-            {
-                return "Please enter your valid Sample Voter Slip";
-            }
-            else if (offline.Is_Cd_Provided == null)
-            {
-                return "Please enter your valid Cd Provided";
-            }
-            else if (offline.Voter_List_File == null)
-            {
-                return "Please enter your valid Voter List File";
-            }
-            else if (offline.Center_Name_List == null)
-            {
-                return "Please enter your valid Center Name List";
-            }
-            else if (offline.Center_Name_List_Image == null)
-            {
-                return "Please enter your valid Center List Image";
-            }
-            else if (offline.Paid_Blank_Slip == null)
-            {
-                return "Please enter your valid Blank Slip";
-            }
-            else if (offline.Blank_Slip_Price == null)
-            {
-                return "Please enter your valid Blank Slip Price";
-            }
-            else if (offline.Marka == null)
-            {
-                return "Please enter your valid Marka";
-            }
-            else if (offline.Marka_Image == null)
-            {
-                return "Please enter your valid Marka_Image";
-            }
-            else if (offline.Marka_Image == null)
-            {
-                return "Please enter your valid Marka_Image";
-            }
+            //else if (offline.Passport_Image == null)
+            //{
+            //    return "Please enter your valid Passport Size Photo";
+            //}
+            //else if (offline.Sample_Slip_Image == null)
+            //{
+            //    return "Please enter your valid Sample Voter Slip";
+            //}
+            //else if (offline.Is_Cd_Provided == null)
+            //{
+            //    return "Please enter your valid Cd Provided";
+            //}
+            //else if (offline.Voter_List_File == null)
+            //{
+            //    return "Please enter your valid Voter List File";
+            //}
+            //else if (offline.Center_Name_List == null)
+            //{
+            //    return "Please enter your valid Center Name List";
+            //}
+            //else if (offline.Center_Name_List_Image == null)
+            //{
+            //    return "Please enter your valid Center List Image";
+            //}
+            //else if (offline.Paid_Blank_Slip == null)
+            //{
+            //    return "Please enter your valid Blank Slip";
+            //}
+            //else if (offline.Blank_Slip_Price == null)
+            //{
+            //    return "Please enter your valid Blank Slip Price";
+            //}
+            //else if (offline.Marka == null)
+            //{
+            //    return "Please enter your valid Marka";
+            //}
+            //else if (offline.Marka_Image == null)
+            //{
+            //    return "Please enter your valid Marka Image";
+            //}
+          
             else if (offline.Delivery_Type == null)
             {
                 return "Please enter your valid Delivery Type";

@@ -109,17 +109,30 @@ namespace BusinessSuitMVC.Controllers
             {
                 return "please enter your valid Gender";
             }
-            else if (User.Ward == null)
+            else if (User.Mobile == null || User.Mobile.Length != 11)
             {
-                return "please enter your valid Ward";
+                return "Please enter your valid Mobile1";
             }
             else if (User.User_Type == null)
             {
                 return "please enter your valid User_Type";
             }
+            else if (Role == null)
+            {
+                return "please enter your valid Role";
+            }
+            else if (User.Ward == null)
+            {
+                return "please enter your valid Ward";
+            }
+          
             else if (User.City == null)
             {
                 return "please enter your valid City";
+            }
+            else if (User.Address == null)
+            {
+                return "please enter your valid Address";
             }
             else if (UserName == "")
             {
@@ -137,18 +150,7 @@ namespace BusinessSuitMVC.Controllers
             //{
             //    return "please enter your valid Mobile";
             //}
-            else if (User.Mobile == null || User.Mobile.Length != 11)
-            {
-                return "Please enter your valid Mobile1";
-            }
-            else if (Role == null)
-            {
-                return "please enter your valid Role";
-            }
-            else if (User.Address == null)
-            {
-                return "please enter your valid Address";
-            }
+           
             return "true";
         }
         [HttpGet]

@@ -110,19 +110,6 @@
                                 </div>
                             </div>
                             <div class="form-group">
-
-                                @Html.Label("Remarks", new { @class = "control-label col-md-3" })
-                                <div class="col-md-5">
-                                    @Html.TextAreaFor(m => m.Remarks, new { @Class = "form-control" ,@rows="3"})
-                                </div>
-                            </div>
-                            @*<div class="form-group">
-                                @Html.Label("Is_Elected", new { @class = "control-label col-md-3" })
-                                <div class="col-md-5">
-                                    @Html.DropDownList("Is_Elected", @Elected, "Select Is Elected", new { @class = "form-control editor-field" })
-                                </div>
-                            </div>*@
-                            <div class="form-group">
                                 @*@Html.Label("Client_Type", new { @class = "control-label col-md-1" })*@
                                 <label class="control-label col-md-3">Client Type <span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
@@ -136,6 +123,20 @@
                                     @Html.DropDownList("Present_Position", @position, "Select Position", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
+                            <div class="form-group">
+
+                                @Html.Label("Remarks", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
+                                    @Html.TextAreaFor(m => m.Remarks, new { @Class = "form-control" ,@rows="3"})
+                                </div>
+                            </div>
+                            @*<div class="form-group">
+                                @Html.Label("Is_Elected", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
+                                    @Html.DropDownList("Is_Elected", @Elected, "Select Is Elected", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>*@
+                           
                             <div class="form-group">
                                 <label class="control-label col-md-3">Profile Image</label>
                                 <div class="col-md-5">
@@ -213,10 +214,11 @@
         $("#ward").val("");
         $("#District").val("");
         $("#Address").val("");
-        $("#Remarks").val("");
-        // $("#Is_Elected").val("");
         $("#Client_Type").val("");
         $("#Present_Position").val("");
+        $("#Remarks").val("");
+        // $("#Is_Elected").val("");
+       
     }
     $(document).ready(function () {
         var message = $("#msg").text();
