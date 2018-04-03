@@ -36,15 +36,22 @@ namespace BusinessSuitMVC.Models
         public DbSet<Offline_Order_Detalis> Offline_Order_Detalis { get; set; }
         public DbSet<Online_Order_Detalis> Online_Order_Detalis { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
+        public DbSet<Permission_Role> Permission_Role { get; set; }
+        public DbSet<Permission_User> Permission_User { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Promotion_Type> Promotion_Type { get; set; }
         public DbSet<Remark> Remarks { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Role_User> Role_User { get; set; }
+        public DbSet<Role1> Roles1 { get; set; }
         public DbSet<Sippeer> Sippeers { get; set; }
-        public DbSet<Slip_Formats_> Slip_Formats_ { get; set; }
+        public DbSet<Slip_Formats> Slip_Formats { get; set; }
         public DbSet<Status_> Status_ { get; set; }
         public DbSet<User_Login> User_Login { get; set; }
         public DbSet<User_Profile> User_Profile { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Voter_Slip_Image_Type> Voter_Slip_Image_Type { get; set; }
+        public DbSet<Token> Tokens { get; set; }
     }
 }

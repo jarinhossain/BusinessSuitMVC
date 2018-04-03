@@ -33,7 +33,7 @@ namespace BusinessSuitMVC.Models
         public string Center_Name_List { get; set; }
         public Nullable<int> Voter_List_Print { get; set; }
         public string Voter_List_Print_Comment { get; set; }
-        public Nullable<double> C_Voter_List_Print_Price { get; set; }
+        public Nullable<double> Voter_List_Print_Price { get; set; }
         public Nullable<bool> Liflet_Image { get; set; }
         public Nullable<System.DateTime> Election_Date { get; set; }
         public Nullable<double> Discount { get; set; }
@@ -50,8 +50,10 @@ namespace BusinessSuitMVC.Models
         public Nullable<System.DateTime> Deleted_On { get; set; }
         public string Download_Link { get; set; }
         public Nullable<bool> Can_Download { get; set; }
+        public Nullable<bool> Passport_Image { get; set; }
+        public Nullable<double> Blank_Slip_Price { get; set; }
     
         public virtual Order Order { get; set; }
-        public virtual Slip_Formats_ Slip_Formats_ { get; set; }
+        public virtual Slip_Formats Slip_Formats { get; set; }
     }
 }

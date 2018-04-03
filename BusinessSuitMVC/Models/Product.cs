@@ -23,6 +23,8 @@ namespace BusinessSuitMVC.Models
         public string Name { get; set; }
         public Nullable<bool> Is_Online { get; set; }
         public string Description { get; set; }
+        public Nullable<double> Regular_Price { get; set; }
+        public Nullable<double> Lower_Price { get; set; }
         public Nullable<System.DateTime> Created_On { get; set; }
         public Nullable<int> Updated_By { get; set; }
         public Nullable<System.DateTime> Updated_On { get; set; }

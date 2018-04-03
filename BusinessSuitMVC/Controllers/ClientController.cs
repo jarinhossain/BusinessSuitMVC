@@ -167,7 +167,7 @@ namespace BusinessSuitMVC.Controllers
                     string path = Path.Combine(Server.MapPath("~/Images/Client"), "C_" + client.Id + extension);
                     file.SaveAs(path);/// file save
                 }
-                ViewData["msg"] = "Successfully Update";
+                ViewData["msg"] = "Successfully Updated";
             }
             return View(client);
         }

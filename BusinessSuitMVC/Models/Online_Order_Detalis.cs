@@ -35,6 +35,7 @@ namespace BusinessSuitMVC.Models
         public string Sms_Content { get; set; }
         public Nullable<int> Order_Id { get; set; }
         public Nullable<int> Status { get; set; }
+        public string Remarks { get; set; }
         public Nullable<double> Discount { get; set; }
         public Nullable<System.DateTime> Created_On { get; set; }
         public Nullable<int> Updated_By { get; set; }

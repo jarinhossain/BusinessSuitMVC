@@ -12,19 +12,20 @@ namespace BusinessSuitMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class Slip_Formats
     {
-        public Role()
+        public Slip_Formats()
         {
-            this.Permission_Role = new HashSet<Permission_Role>();
-            this.Role_User = new HashSet<Role_User>();
+            this.Offline_Order_Detalis = new HashSet<Offline_Order_Detalis>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Permissions { get; set; }
+        public Nullable<int> Slip_Per_Page { get; set; }
+        public Nullable<double> Slip_Height { get; set; }
+        public Nullable<double> Slip_Width { get; set; }
+        public Nullable<bool> Is_Active { get; set; }
     
-        public virtual ICollection<Permission_Role> Permission_Role { get; set; }
-        public virtual ICollection<Role_User> Role_User { get; set; }
+        public virtual ICollection<Offline_Order_Detalis> Offline_Order_Detalis { get; set; }
     }
 }
