@@ -997,7 +997,7 @@ throw new Error('AdminLTE requires jQuery')
   var DataKey = 'lte.tree';
 
   var Default = {
-    animationSpeed: 500,
+    animationSpeed: 280,
     accordion     : true,
     followLink    : false,
     trigger       : '.treeview a'

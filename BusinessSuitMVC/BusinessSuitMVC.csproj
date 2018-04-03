@@ -106,10 +106,19 @@
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap3-wysihtml5.min.css" />
+    <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\ionicons.min.css" />
     <Content Include="Content\jquery-jvectormap.css" />
     <Content Include="Content\_all-skins.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\akhi.jpg" />
+    <Content Include="Images\team-1.jpg" />
+    <Content Include="Images\team-2.jpg" />
+    <Content Include="Images\team-3.jpg" />
+    <Content Include="Images\team-5.jpg" />
+    <Content Include="Images\user2-160x160.jpg" />
+    <Content Include="Images\user3-128x128.jpg" />
+    <Content Include="Images\user4-128x128.jpg" />
     <Content Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
@@ -171,7 +180,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ModelClasses\ParameterEncryption.cs" />
-    <Compile Include="ModelClasses\RoleValidate.cs" />
+    <Compile Include="ModelClasses\PermissionValidate.cs" />
     <Compile Include="Models\Client_List.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -308,7 +317,6 @@
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Search.cshtml" />
-    <Content Include="Views\OfflineOrder\Create.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -331,6 +339,7 @@
     <Content Include="Views\Source\Details.cshtml" />
     <Content Include="Views\Source\Search.cshtml" />
     <Content Include="Views\Source\SourceNumberCreate.cshtml" />
+    <Content Include="Views\Accounting\ExpenseCreate.cshtml" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -352,6 +361,9 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\BusinessSuitMVC.pubxml" />
+    <Content Include="Views\User\Dashboard.cshtml" />
+    <Content Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Login\newLogin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

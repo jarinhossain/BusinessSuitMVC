@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace BusinessSuitMVC.Controllers
 {
@@ -38,6 +39,7 @@ namespace BusinessSuitMVC.Controllers
 
                 if (search != null)
                 {
+                    FormsAuthentication.SetAuthCookie(search.UserName, false);
                     return RedirectToAction("Create", "User");
                 }
 
@@ -45,8 +47,20 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult newLogin()
+        public ActionResult Logout()
         {
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            return Redirect("/User/Dashboard");
+        }
+
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            //User_Login userLogin  = (from login in DB.User_Login
+            //                     where login.Password == userLogin.Password
+            //                     && login.Id == userLogin.Id
+            //                     select login).FirstOrDefault();
             return View();
         }
         [HttpPost]

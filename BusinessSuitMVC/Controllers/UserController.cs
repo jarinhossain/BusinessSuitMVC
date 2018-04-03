@@ -1,4 +1,5 @@
-﻿using BusinessSuitMVC.Models;
+﻿using BusinessSuitMVC.ModelClasses;
+using BusinessSuitMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -251,6 +252,11 @@ namespace BusinessSuitMVC.Controllers
       
             return View(user);
         }
-       
+
+        [HttpGet]
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
     }
 }
