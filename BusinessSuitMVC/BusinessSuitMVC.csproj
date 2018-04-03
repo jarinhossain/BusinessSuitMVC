@@ -179,7 +179,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ModelClasses\ParameterEncryption.cs" />
-    <Compile Include="ModelClasses\RoleValidate.cs" />
+    <Compile Include="ModelClasses\PermissionValidate.cs" />
     <Compile Include="Models\Client_List.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

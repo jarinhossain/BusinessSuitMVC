@@ -1,11 +1,12 @@
-﻿using System;
+﻿using BusinessSuitMVC.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace BusinessSuitMVC.ModelClasses
 {
-    public static class RoleValidate
+    public static class PermissionValidate
     {
         public static bool IsValidatedRole()
         {
@@ -43,6 +44,14 @@ namespace BusinessSuitMVC.ModelClasses
                 return true;
 
             return false;
+        }
+
+        public static void getPermissions()
+        {
+            DBContext DB = new DBContext();
+
+            
+
         }
     }
 }
