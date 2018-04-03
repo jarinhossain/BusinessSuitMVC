@@ -362,6 +362,8 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\BusinessSuitMVC.pubxml" />
+    <Content Include="Views\User\Dashboard.cshtml" />
+    <Content Include="Views\Shared\Unauthorized.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

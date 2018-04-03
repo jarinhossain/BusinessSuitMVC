@@ -12,14 +12,17 @@ namespace BusinessSuitMVC.Controllers
     public class ClientController : Controller
     {
         // GET: Client
-
         public ActionResult Index()
         {
             return View();
         }
+
         [HttpGet]
         public ActionResult Create()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             return View();
         }
 
