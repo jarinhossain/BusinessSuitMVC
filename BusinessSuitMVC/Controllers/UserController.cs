@@ -110,9 +110,13 @@ namespace BusinessSuitMVC.Controllers
             {
                 return "please enter your valid Gender";
             }
-            else if (User.Mobile == null || User.Mobile.Length != 11)
+            else if (User.Mobile == null)
             {
-                return "Please enter your valid Mobile1";
+                return "please enter your valid mobile";
+            }
+            else if (User.Mobile.Length != 11)
+            {
+                return "Mobile number should be 11 digit";
             }
             else if (User.User_Type == null)
             {

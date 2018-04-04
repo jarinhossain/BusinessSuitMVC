@@ -17,11 +17,26 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult ExpenseCreate()
         {
+
             return View();
         }
         [HttpPost]
         public ActionResult ExpenseCreate(Expense expense)
         {
+            DBContext DB = new DBContext();
+            //if (expense.Id == 0)
+            //{
+            //    ModelState.AddModelError("", "Select Type");
+            //}
+            //int selectvalue = expense.Id;
+            //ViewBag.SelectedValue = expense.Id;
+            //List<Expense> expens = new List<Models.Expense>();
+            //expens = (from ex in DB.Expenses
+            //          select ex).ToList();
+
+            //expens.Insert(0, new Expense { Id = 0, Type = Convert.ToInt32("Select")});
+            //ViewBag.ListOfExpense = expens;
+           // return View();
             string validation = ValidateExpense(expense);
 
             if (validation != "true")
@@ -30,7 +45,7 @@ namespace BusinessSuitMVC.Controllers
             }
             else
             {
-                DBContext DB = new DBContext();
+              
 
                 DB.Expenses.Add(expense);
                 DB.SaveChanges();

@@ -34,10 +34,16 @@
                                     <tr>
                                         <th>Option</th>
                                         <th>Name</th>
+                                        <th>Bangla_Name</th>
                                         <th>Mobile</th>
-                                        <th>Email</th>
-                                        <th>Address</th>
                                         <th>Phone</th>
+                                        <th>User_Type</th>
+                                        <th>Email</th>
+                                        <th>Ward</th>
+                                        <th>Area</th>
+                                        <th>City</th>
+                                        <th>Address</th>
+                                      
                                     </tr>
                                 <thead>
                                 <tbody>
@@ -46,10 +52,15 @@
                                         <tr>
                                             <td><a href="~/User/Edit?userid=@userlist.Id">Edit | </a><a href="~/User/Details?id=@userlist.Id">Details</a></td>
                                             <td>@userlist.Name</td>
+                                            <td>@userlist.Bangla_Name</td>
                                             <td>@userlist.Mobile</td>
-                                            <td>@userlist.Email</td>
-                                            <td>@userlist.Address</td>
                                             <td>@userlist.Phone</td>
+                                            <td>@userlist.User_Type</td>
+                                            <td>@userlist.Email</td>
+                                            <td>@userlist.Ward</td>
+                                            <td>@userlist.Area</td>
+                                            <td>@userlist.City</td>
+                                            <td>@userlist.Address</td>
                                         </tr>
                                     }
                                 <tbody>

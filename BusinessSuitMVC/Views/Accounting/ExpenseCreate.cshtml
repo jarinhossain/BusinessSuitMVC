@@ -5,13 +5,13 @@
 
 <!DOCTYPE html>
 @{
-    List<SelectListItem> type = new List<SelectListItem>();
-    type.Add(new SelectListItem() { Value = "1", Text = "Transport" });
-    type.Add(new SelectListItem() { Value = "2", Text = "Liflet" });
-    type.Add(new SelectListItem() { Value = "3", Text = "Visiting Card" });
-    type.Add(new SelectListItem() { Value = "4", Text = "Food" });
-    type.Add(new SelectListItem() { Value = "5", Text = "Bulk SMS" });
-    type.Add(new SelectListItem() { Value = "6", Text = "IP TSP" });
+//List<SelectListItem> type = new List<SelectListItem>();
+//type.Add(new SelectListItem() { Value = "1", Text = "Transport" });
+//type.Add(new SelectListItem() { Value = "2", Text = "Liflet" });
+//type.Add(new SelectListItem() { Value = "3", Text = "Visiting Card" });
+//type.Add(new SelectListItem() { Value = "4", Text = "Food" });
+//type.Add(new SelectListItem() { Value = "5", Text = "Bulk SMS" });
+//type.Add(new SelectListItem() { Value = "6", Text = "IP TSP" });
 }
 <section class="content-wrapper">
 
@@ -39,15 +39,14 @@
 
 
 
-
                             <div class="form-group">
-                                @*@Html.Label("District", new { @class = "control-label col-md-1" })*@
+                                @Html.Label("District", new { @class = "control-label col-md-1" })
                                 <label class="control-label col-md-3">Type<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
                                     @Html.DropDownList("Type", @type, "Select type", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
-
+                          
                             <div class="form-group">
 
                                 <label class="control-label col-md-3">Date<span style="color:red;">*</span> </label>

@@ -29,6 +29,7 @@ namespace BusinessSuitMVC.Models
         public DbSet<District> Districts { get; set; }
         public DbSet<Division> Divisions { get; set; }
         public DbSet<Expense> Expenses { get; set; }
+        public DbSet<Expense_Type> Expense_Type { get; set; }
         public DbSet<Notification_Obd_Bulk> Notification_Obd_Bulk { get; set; }
         public DbSet<Notification_Obd_Request> Notification_Obd_Request { get; set; }
         public DbSet<Notification_Sms_Bulk> Notification_Sms_Bulk { get; set; }

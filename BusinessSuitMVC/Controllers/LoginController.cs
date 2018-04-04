@@ -63,6 +63,11 @@ namespace BusinessSuitMVC.Controllers
             //                     select login).FirstOrDefault();
             return View();
         }
+        [HttpGet]
+        public ActionResult newLogin()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult newLogin(User_Login model)
         {
