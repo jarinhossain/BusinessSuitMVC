@@ -25,7 +25,7 @@
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Send</h3>
+                        <h3 class="box-title">Send <span id="balance"></span></h3>
                     </div>
                     <div class="box-body">
                         <form action="~/SMS/BulkSMS" method="post" class="form-horizontal">
@@ -139,6 +139,24 @@
         });</script>
 
     <script>
+        $(document).ready(function () {
+            
+            $.ajax({
+                url: 'http://sms.greenweb.com.bd/g_api.php?token=9b8a6934e6c7e83dc79728274677b8f2&balance',
+                type: "GET",
+                //dataType: "JSON",
+                ///data: { number: $('#nc').val(), message: $('#message').val() },
+                success: function (data) {
+                    var balance = parseFloat(data.slice(0, -5));
+                    var sms = balance / .2;
+                    $('#balance').text(balance + '/' + sms);
+                },
+                error: function () {
+                    
+                }
+            });
+        });
+
         $('foarm').submit(function (event) {
             event.preventDefault();
             $.ajax({
