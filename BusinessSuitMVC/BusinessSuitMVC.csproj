@@ -382,6 +382,7 @@
     <Folder Include="Images\TelephonyOrder\" />
     <Folder Include="Images\User\" />
     <Folder Include="Images\VoterSlip\" />
+    <Folder Include="Views\exm\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

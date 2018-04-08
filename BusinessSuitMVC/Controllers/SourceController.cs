@@ -103,6 +103,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            ViewData["Source_Type"] = loadTypeDropDown();
+            ViewData["District"] = loadDistrictDropdown();
+            ViewData["Division"] = loadDivisionDropDown();
             Numeral_DBContext DB = new Numeral_DBContext();
             Source source = (from user in DB.Sources
                               where user.Id == id
@@ -113,6 +116,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Edit(Source source)
         {
+            ViewData["Source_Type"] = loadTypeDropDown();
+            ViewData["District"] = loadDistrictDropdown();
+            ViewData["Division"] = loadDivisionDropDown();
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
 
