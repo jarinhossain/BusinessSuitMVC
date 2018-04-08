@@ -20,15 +20,16 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            if (PermissionValidate.validatePermission() == false)
-                return View("Unauthorized");
-
+            //if (PermissionValidate.validatePermission() == false)
+            //    return View("Unauthorized");
+            ViewData["District"] = loadDistrict();
             return View();
         }
 
         [HttpPost]
         public ActionResult Create(Client_List client)
         {
+            ViewData["District"] = loadDistrict();
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
 
@@ -94,7 +95,7 @@ namespace BusinessSuitMVC.Controllers
             }
             return "true";
         }
-      
+
 
         [HttpGet]
         public ActionResult Search()
@@ -115,6 +116,7 @@ namespace BusinessSuitMVC.Controllers
             //{
 
             //}
+            ViewData["District"] = loadDistrict();
             DBContext DB = new DBContext();
             Client_List client = (from user in DB.Client_List
                                   where user.Id == id
@@ -125,6 +127,7 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Edit(Client_List client)
         {
+            ViewData["District"] = loadDistrict();
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
 
@@ -159,7 +162,7 @@ namespace BusinessSuitMVC.Controllers
                 Client.District = client.District;
                 Client.Address = client.Address;
                 Client.Remarks = client.Remarks;
-              //  Client.Is_Elected = client.Is_Elected;
+                //  Client.Is_Elected = client.Is_Elected;
                 Client.Client_Type = client.Client_Type;
                 Client.Present_Position = client.Present_Position;
                 Client.Image = file != null && file.ContentLength > 0 ? true : client.Image;
@@ -174,7 +177,7 @@ namespace BusinessSuitMVC.Controllers
             }
             return View(client);
         }
-      
+
         [HttpGet]
         public ActionResult Online_Create()
         {
@@ -244,7 +247,7 @@ namespace BusinessSuitMVC.Controllers
             DBContext DB = new DBContext();
             Online_Order_Detalis online = (from user in DB.Online_Order_Detalis
                                            where user.Id == userid
-                                  select user).FirstOrDefault();
+                                           select user).FirstOrDefault();
 
             return View(online);
         }
@@ -301,7 +304,7 @@ namespace BusinessSuitMVC.Controllers
                 Online_Order_Detalis Online = (from user in DB.Online_Order_Detalis
                                                where user.Id == user.Id
                                                select user).FirstOrDefault();
-               
+
 
 
 
@@ -313,7 +316,7 @@ namespace BusinessSuitMVC.Controllers
                 //Online.Duration= online.Duration;
                 //Online.Obd_Voice_Provided = online.Obd_Voice_Provided;
                 Online.Obd_Vioce_Content = online.Obd_Vioce_Content;
-                Online.Sms_Content= online.Sms_Content;
+                Online.Sms_Content = online.Sms_Content;
                 Online.Status = online.Status;
                 Online.Discount = online.Discount;
                 DB.SaveChanges();
@@ -354,7 +357,7 @@ namespace BusinessSuitMVC.Controllers
             {
                 ViewData["msg"] = "Please enter your valid Sample Slip Image";
             }
-          
+
             else if (offline.Slip_Content == null)
             {
                 ViewData["msg"] = "Please enter your valid Slip Content";
@@ -383,7 +386,7 @@ namespace BusinessSuitMVC.Controllers
             //{
             //    ViewData["msg"] = "Please enter your valid Voter List File";
             //}
-           
+
             else if (offline.Discount == null)
             {
                 ViewData["msg"] = "Please enter your valid Discount";
@@ -416,11 +419,22 @@ namespace BusinessSuitMVC.Controllers
 
             DBContext DB = new DBContext();
             Client_List client = (from u in DB.Client_List
-                                where u.Id == id
-                                 select u).FirstOrDefault();
+                                  where u.Id == id
+                                  select u).FirstOrDefault();
 
             return View(client);
         }
-       
+        public List<SelectListItem> loadDistrict()
+        {
+            DBContext DB = new DBContext();
+            List<District> district = (from dis in DB.Districts
+                                       select dis).ToList();
+            List<SelectListItem> districtDropdown = new List<SelectListItem>();
+            foreach (var item in district)
+            {
+                districtDropdown.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
+            }
+            return districtDropdown;
+        }
     }
 }

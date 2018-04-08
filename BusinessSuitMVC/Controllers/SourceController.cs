@@ -14,8 +14,15 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            ViewData["Source_Type"] = loadTypeDropDown();
+            ViewData["District"] = loadDistrictDropdown();
+            ViewData["Division"] = loadDivisionDropDown();
+           
+
             return View();
+          //  return View();
         }
+
         [HttpPost]
         public ActionResult Create(Source source)
         {
@@ -51,6 +58,9 @@ namespace BusinessSuitMVC.Controllers
                 }
                 ViewData["msg"] = "Successfully Saved";
             }
+            ViewData["Source_Type"] = loadTypeDropDown();
+            ViewData["District"] = loadDistrictDropdown();
+            ViewData["Division"] = loadDivisionDropDown();
             return View();
         }
         public String ValidationSource(Source source)
@@ -93,6 +103,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            ViewData["Source_Type"] = loadTypeDropDown();
+            ViewData["District"] = loadDistrictDropdown();
+            ViewData["Division"] = loadDivisionDropDown();
             Numeral_DBContext DB = new Numeral_DBContext();
             Source source = (from user in DB.Sources
                               where user.Id == id
@@ -103,6 +116,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Edit(Source source)
         {
+            ViewData["Source_Type"] = loadTypeDropDown();
+            ViewData["District"] = loadDistrictDropdown();
+            ViewData["Division"] = loadDivisionDropDown();
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
 
@@ -202,7 +218,44 @@ namespace BusinessSuitMVC.Controllers
             //Source/SourceNumerCreate?id=4
             return RedirectToAction("SourceNumberCreate", new { id = source.Id });
         }
-     
+           public List<SelectListItem> loadDistrictDropdown()
+        {
+            DBContext DB = new DBContext();
+            List<District> district = (from user in DB.Districts
+                                       select user).ToList();
 
+            List<SelectListItem> districtDropdown = new List<SelectListItem>();
+
+            foreach (var item in district)
+            {
+
+                districtDropdown.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
+            }
+            return districtDropdown;
+        }
+        public List<SelectListItem> loadDivisionDropDown()
+        {
+            DBContext DB = new DBContext();
+            List<Division> division = (from div in DB.Divisions
+                                       select div).ToList();
+            List<SelectListItem> divisiondropdown = new List<SelectListItem>();
+            foreach(var item in division)
+            {
+                divisiondropdown.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
+            }
+            return divisiondropdown;
+        }
+        public List<SelectListItem> loadTypeDropDown()
+        {
+            DBContext DB = new DBContext();
+            List<Expense_Type> type = (from typ in DB.Expense_Type
+                                       select typ).ToList();
+            List<SelectListItem> typeDropdown = new List<SelectListItem>();
+            foreach (var item in type)
+            {
+                typeDropdown.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
+             }
+            return typeDropdown;
+           }
         }
 }

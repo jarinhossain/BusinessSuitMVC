@@ -21,7 +21,7 @@ namespace BusinessSuitMVC.Models
         public string Mobile2 { get; set; }
         public string Email { get; set; }
         public Nullable<int> ward { get; set; }
-        public string District { get; set; }
+        public Nullable<int> District { get; set; }
         public string Address { get; set; }
         public string Remarks { get; set; }
         public Nullable<bool> Is_Elected { get; set; }

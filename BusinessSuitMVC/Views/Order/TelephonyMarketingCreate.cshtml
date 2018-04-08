@@ -114,7 +114,8 @@
     <script src="~/Script/bootstrap-datepicker.min.js"></script>
     <script>
         $('.myDatePicker').datepicker({
-            format: 'dd/mm/yyyy'
+            format: 'dd/mm/yyyy',
+            autoclose: true
         })
         $(".calculateCost").on('keyup', function () {
             var numberOfCall = $("#Estimated_Reach_Ordered").val();
