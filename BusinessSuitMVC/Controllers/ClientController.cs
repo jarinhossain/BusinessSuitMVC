@@ -22,14 +22,14 @@ namespace BusinessSuitMVC.Controllers
         {
             //if (PermissionValidate.validatePermission() == false)
             //    return View("Unauthorized");
-            ViewData["District"] = loadDistrict();
+            ViewData["DistrictList"] = loadDistrict();
             return View();
         }
 
         [HttpPost]
         public ActionResult Create(Client_List client)
         {
-            ViewData["District"] = loadDistrict();
+            ViewData["DistrictList"] = loadDistrict();
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
 
@@ -116,7 +116,7 @@ namespace BusinessSuitMVC.Controllers
             //{
 
             //}
-            ViewData["District"] = loadDistrict();
+            ViewData["DistrictList"] = loadDistrict();
             DBContext DB = new DBContext();
             Client_List client = (from user in DB.Client_List
                                   where user.Id == id
@@ -127,7 +127,7 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Edit(Client_List client)
         {
-            ViewData["District"] = loadDistrict();
+            ViewData["DistrictList"] = loadDistrict();
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
 

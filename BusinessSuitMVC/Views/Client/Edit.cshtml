@@ -13,6 +13,7 @@
     Clienttype.Add(new SelectListItem() { Value = "1", Text = "Councillor" });
     Clienttype.Add(new SelectListItem() { Value = "2", Text = "General Councillor" });
     Clienttype.Add(new SelectListItem() { Value = "3", Text = "Mayor" });
+    Clienttype.Add(new SelectListItem() { Value = "4", Text = "Panel Mayor" });
 
     List<SelectListItem> position = new List<SelectListItem>();
     position.Add(new SelectListItem() { Value = "1", Text = "Current" });
@@ -97,7 +98,7 @@
                                 @*@Html.Label("District", new { @class = "control-label col-md-1" })*@
                                 <label class="control-label col-md-3">District<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
-                                    @Html.DropDownList("District", null, "Select District", new { @class = "form-control editor-field" })
+                                    @Html.DropDownList("District",(List<SelectListItem>)ViewData["DistrictList"],"Select District", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
 
@@ -227,7 +228,7 @@
     $(document).ready(function () {
         var message = $("#msg").text();
 
-        if (message == "Successfully Update") {
+        if (message == "Successfully Updated") {
             swal("Successful", "Successfully Updated", "success");
             resetFunction();
         }

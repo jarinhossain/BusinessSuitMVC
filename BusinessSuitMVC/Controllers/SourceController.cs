@@ -14,7 +14,7 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            ViewData["Source_Type"] = loadTypeDropDown();
+            ViewData["SourceList"] = loadTypeDropDown();
             ViewData["District"] = loadDistrictDropdown();
             ViewData["Division"] = loadDivisionDropDown();
            
@@ -58,7 +58,7 @@ namespace BusinessSuitMVC.Controllers
                 }
                 ViewData["msg"] = "Successfully Saved";
             }
-            ViewData["Source_Type"] = loadTypeDropDown();
+            ViewData["SourceList"] = loadTypeDropDown();
             ViewData["District"] = loadDistrictDropdown();
             ViewData["Division"] = loadDivisionDropDown();
             return View();
@@ -103,7 +103,7 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            ViewData["Source_Type"] = loadTypeDropDown();
+            ViewData["SourceList"] = loadTypeDropDown();
             ViewData["District"] = loadDistrictDropdown();
             ViewData["Division"] = loadDivisionDropDown();
             Numeral_DBContext DB = new Numeral_DBContext();
@@ -116,9 +116,7 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Edit(Source source)
         {
-            ViewData["Source_Type"] = loadTypeDropDown();
-            ViewData["District"] = loadDistrictDropdown();
-            ViewData["Division"] = loadDivisionDropDown();
+           
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
 
@@ -163,6 +161,9 @@ namespace BusinessSuitMVC.Controllers
                 }
                 ViewData["msg"] = "Successfully Updated";
             }
+            ViewData["SourceList"] = loadTypeDropDown();
+            ViewData["District"] = loadDistrictDropdown();
+            ViewData["Division"] = loadDivisionDropDown();
             return View(source);
         }
         [HttpGet]

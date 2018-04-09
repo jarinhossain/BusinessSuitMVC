@@ -36,7 +36,7 @@ namespace BusinessSuitMVC.Models
         public Nullable<int> Deleted_By { get; set; }
         public Nullable<System.DateTime> Deleted_On { get; set; }
     
-        public virtual Source Source { get; set; }
         public virtual Operator Operator { get; set; }
+        public virtual Source Source { get; set; }
     }
 }
