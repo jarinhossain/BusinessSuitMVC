@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -47,6 +48,35 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
         [HttpGet]
+        public ActionResult PermissionCreate()
+        {
+            ViewData["ModuleList"] = loadmodule();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult PermissionCreate(Permission per)
+        {
+            DBContext DB = new DBContext();
+            DB.Permissions.Add(per);
+            DB.SaveChanges();
+            ViewData["msg"] = "Successfully Saved";
+            ViewData["ModuleList"] = loadmodule();
+            return View();
+        }
+        public List<SelectListItem> loadmodule()
+        {
+            DBContext DB = new DBContext();
+            List<Models.Module> type = (from div in DB.Modules
+                                 select div).ToList();
+            List<SelectListItem> moduleDropdown = new List<SelectListItem>();
+            foreach (var item in type)
+            {
+                moduleDropdown.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
+            }
+            return moduleDropdown;
+        }
+    
+    [HttpGet]
         public ActionResult Logout()
         {
             Session.Clear();

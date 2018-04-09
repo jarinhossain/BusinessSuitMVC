@@ -26,7 +26,8 @@ namespace BusinessSuitMVC.Models
         }
     
         public DbSet<Number> Numbers { get; set; }
-        public DbSet<Source> Sources { get; set; }
         public DbSet<Operator> Operators { get; set; }
+        public DbSet<Source> Sources { get; set; }
+        public DbSet<Source_Type> Source_Type { get; set; }
     }
 }
