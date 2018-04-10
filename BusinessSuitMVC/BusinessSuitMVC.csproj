@@ -169,6 +169,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CallController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="ModelClasses\asyncService.cs" />
     <Compile Include="Controllers\AccountingController.cs" />
@@ -391,6 +392,7 @@
     <Folder Include="Images\TelephonyOrder\" />
     <Folder Include="Images\User\" />
     <Folder Include="Images\VoterSlip\" />
+    <Folder Include="Views\Call\" />
     <Folder Include="Views\exm\" />
   </ItemGroup>
   <ItemGroup>
