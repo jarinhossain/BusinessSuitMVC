@@ -377,6 +377,11 @@
     <Content Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Login\newLogin.cshtml" />
     <Content Include="Views\Login\PermissionCreate.cshtml" />
+    <Content Include="Views\Login\PermissionEdit.cshtml" />
+    <Content Include="Views\Login\RoleCreate.cshtml" />
+    <Content Include="Views\Login\RoleEdit.cshtml" />
+    <Content Include="Views\Login\PermissionSearch.cshtml" />
+    <Content Include="Views\Login\PermissionDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

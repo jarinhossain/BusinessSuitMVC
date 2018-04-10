@@ -27,9 +27,8 @@
                     <div class="container">
 
                         <div class="box-body">
+                            <table class="table table-responsive display" id="example">
 
-                            <h1 style="margin-left:450px;margin-bottom:20px">Source</h1>
-                            <table class="table">
                                 <thead>
                                     <tr>
                                         <th>Option</th>
@@ -69,3 +68,16 @@
         </div>
     </section>
 </section>
+@section contents{
+    <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+}
+@section scripts{
+
+    <script src="~/Script/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
+
+}

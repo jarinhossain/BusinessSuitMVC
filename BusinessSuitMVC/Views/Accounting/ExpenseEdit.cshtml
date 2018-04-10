@@ -95,10 +95,9 @@
     <script src="~/Script/bootstrap-datepicker.min.js"></script>
     <script>
         $('.myDatePicker').datepicker({
-            format: 'dd/mm/yyyy'
+            format: 'dd/mm/yyyy',
             autoclose: true
         })
-
         $("form").submit(function (event) {
             if ($("#Type").val() == "") {
                 event.preventDefault();
@@ -135,8 +134,10 @@
             var message = $("#msg").text();
 
             if (message == "Successfully Update") {
-                swal("Successful", "Successfully Update", "success");
-                resetFunction();
+                swal("Successful", "Successfully Update", "success").then(function () {
+                    resetFunction();
+                    window.location = "/Accounting/Search";
+                });
             }
 
             $("#reset").click(function () {

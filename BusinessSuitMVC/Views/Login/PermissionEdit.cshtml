@@ -29,11 +29,11 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Create</h3>
                     </div>
-                    @using (Html.BeginForm("PermissionCreate", "Login", FormMethod.Post, new {@class = "form-horizontal" }))
+                    @using (Html.BeginForm("PermissionEdit", "Login", FormMethod.Post, new { @class = "form-horizontal" }))
                     {
                         <div class="box-body">
 
-
+                            @Html.HiddenFor(m => m.Id)
 
                             <div class="form-group">
                                 <label class="control-label col-md-3">Name<span style="color:red;">*</span> </label>
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
 
-                         
+
                             <div class="form-group">
                                 @*@Html.Label("Mobile", new { @class = "control-label col-md-1" })*@
                                 <label class="control-label col-md-3">Description</label>
@@ -64,13 +64,13 @@
                                 </div>
                             </div>
 
-                        
 
-                          
+
+
 
                             <div class="form-group">
                                 <div class="col-md-3"></div>
-                                <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
+                                <input type="submit" value="Update" style="margin-left:15px" class="btn btn-info" />
                                 <input type="button" value="Reset" id="reset" class="btn btn-info" />
                             </div>
 
@@ -109,7 +109,7 @@
                 $("#Module").focus();
             });
         }
-       
+
 
     });
     function resetFunction()
@@ -118,14 +118,14 @@
         $("#Display_Name").val("");
         $("#Description").val("");
         $("#Module").val("");
-       
-       
+
+
     }
     $(document).ready(function () {
         var message = $("#msg").text();
 
-        if (message == "Successfully Saved") {
-            swal("Successful", "Successfully Saved", "success");
+        if (message == "Successfully Updated") {
+            swal("Successful", "Successfully Updated", "success");
             resetFunction();
         }
 

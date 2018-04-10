@@ -1,4 +1,4 @@
-﻿@model List<BusinessSuitMVC.Models.Expense>
+﻿@model List<BusinessSuitMVC.Models.Permission>
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -8,7 +8,7 @@
 
     <section class="content-header">
         <h1>
-            Expense
+            User
         </h1>
         @*<ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -28,27 +28,26 @@
 
                         <div class="box-body">
                             <table class="table table-responsive display" id="example">
+
                                 <thead>
                                     <tr>
                                         <th>Option</th>
-                                        <th>Type</th>
-                                        <th>Spent_Date</th>
-                                        <th>Amount</th>
+                                        <th>Name</th>
+                                        <th>Display Name</th>
                                         <th>Description</th>
-                                        
+                                        <th>Module</th>
                                     </tr>
                                 <thead>
                                 <tbody>
-                                    @foreach (BusinessSuitMVC.Models.Expense expense in (IEnumerable<BusinessSuitMVC.Models.Expense>)Model)
-            {
+                                    @foreach (BusinessSuitMVC.Models.Permission permissionlist in (IEnumerable<BusinessSuitMVC.Models.Permission>)Model)
+                                    {
                                         <tr>
-                                            <td><a href="~/Accounting/Edit?id=@expense.Id">Edit</a></td>
-                                            <td>@expense.Type</td>
-                                            <td>@expense.Spent_Date</td>
-                                            <td>@expense.Amount</td>
-                                            <td>@expense.Description</td>
+                                            <td><a href="~/Login/PermissionEdit?id=@permissionlist.Id">Edit | </a><a href="~/Login/PermissionDetails?id=@permissionlist.Id">Details</a></td>
+                                            <td>@permissionlist.Name</td>
+                                            <td>@permissionlist.Display_Name</td>
+                                            <td>@permissionlist.Description</td>
+                                            <td>@permissionlist.Module</td>
                                         </tr>
-
                                     }
                                 <tbody>
                             </table>
@@ -59,7 +58,6 @@
         </div>
     </section>
 </section>
-
 @section contents{
     <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
 }

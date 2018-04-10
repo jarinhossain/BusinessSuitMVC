@@ -225,11 +225,14 @@
         var message = $("#msg").text();
 
         if (message == "Successfully Saved") {
-            swal("Successful", "Successfully Saved", "success");
-            resetFunction();
+            swal("Successful", "Successfully Saved", "success").then(function () {
+                resetFunction();
+                window.location = "/Client/Search";
+            });
+           
         }
 
-        $("#reset").click(function () {
+        $("#reset").click(function() {
 
             resetFunction();
 

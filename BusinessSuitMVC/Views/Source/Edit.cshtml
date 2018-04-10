@@ -209,8 +209,10 @@
             var message = $("#msg").text();
 
             if (message == "Successfully Updated") {
-                swal("Successful", "Successfully Updated", "success");
-                resetFunction();
+                swal("Successful", "Successfully Updated", "success").then(function () {
+                    resetFunction();
+                    window.location = "/Source/Search";
+                });
             }
             $("#reset").click(function () {
 

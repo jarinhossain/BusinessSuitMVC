@@ -40,13 +40,13 @@
 
 
                             <div class="form-group">
-                                @Html.Label("District", new { @class = "control-label col-md-1" })
+                                @*@Html.Label("District", new { @class = "control-label col-md-1" })*@
                                 <label class="control-label col-md-3">Type<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
                                     @Html.DropDownList("Type", @type, "Select type", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
-                          
+
                             <div class="form-group">
 
                                 <label class="control-label col-md-3">Date<span style="color:red;">*</span> </label>
@@ -66,7 +66,7 @@
 
                                 @Html.Label("Description", new { @class = "control-label col-md-3" })
                                 <div class="col-md-5">
-                                    @Html.TextAreaFor(m => m.Description, new { @Class = "form-control", @rows="3" })
+                                    @Html.TextAreaFor(m => m.Description, new { @Class = "form-control", @rows = "3" })
                                 </div>
                             </div>
 
@@ -137,8 +137,10 @@
             var message = $("#msg").text();
 
             if (message == "Successfully Saved") {
-                swal("Successful", "Successfully Saved", "success");
-                resetFunction();
+                swal("Successful", "Successfully Saved", "success").then(function () {
+                    resetFunction();
+                    window.location = "/Accounting/Search";
+                });
             }
 
             $("#reset").click(function () {

@@ -312,9 +312,11 @@ Gender = new List<SelectListItem>();
 
         var message = $("#msg").text();
 
-        if (message == "Successfully Saved") {
-            swal("Successful", "Successfully Saved", "success");
-            resetFunction();
+        if (message == "Successfully Updated") {
+            swal("Successful", "Successfully Updated", "success").then(function () {
+                resetFunction();
+                window.location = "/User/Search";
+            });
         }
 
         $("#reset").click(function () {
