@@ -48,21 +48,146 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
         [HttpGet]
+        public ActionResult PermissionSearch()
+        {
+
+            DBContext DB = new DBContext();
+            List<Permission> permi = (from per in DB.Permissions
+                                           select per).ToList();
+
+
+            return View(permi);
+        }
+        [HttpGet]
+        public ActionResult PermissionDetails(int id)
+        {
+
+            DBContext DB = new DBContext();
+            Permission per = (from pe in DB.Permissions
+                                 where pe.Id == id
+                                 select pe).FirstOrDefault();
+
+            return View(per);
+        }
+        [HttpGet]
         public ActionResult PermissionCreate()
         {
             ViewData["ModuleList"] = loadmodule();
+            
             return View();
         }
         [HttpPost]
         public ActionResult PermissionCreate(Permission per)
         {
-            DBContext DB = new DBContext();
-            DB.Permissions.Add(per);
-            DB.SaveChanges();
-            ViewData["msg"] = "Successfully Saved";
+            String validation = validationCreate(per);
+            if (validation != "true")
+            {
+                ViewData["msg"] = validation;
+            }
+            else
+            {
+                DBContext DB = new DBContext();
+                DB.Permissions.Add(per);
+                DB.SaveChanges();
+                ViewData["msg"] = "Successfully Saved";
+            }
             ViewData["ModuleList"] = loadmodule();
             return View();
         }
+        [HttpGet]
+        public ActionResult PermissionEdit(int id)
+        {
+            ViewData["ModuleList"] = loadmodule();
+            DBContext DB = new DBContext();
+            Permission permiss = (from per in DB.Permissions
+                                  where per.Id == id
+                                  select per).FirstOrDefault();
+            return View(permiss);
+            
+        }
+       
+        [HttpPost]
+        public ActionResult PermissionEdit(Permission per)
+        {
+            ViewData["ModuleList"] = loadmodule();
+            string validation = validationCreate(per);
+
+            if (validation != "true")
+            {
+                ViewData["msg"] = validation;
+            }
+            else
+            {
+                DBContext DB = new DBContext();
+                Permission permisn = (from pe in DB.Permissions
+                                      where pe.Id == per.Id
+                                      select pe).FirstOrDefault();
+
+                permisn.Name = per.Name;
+                permisn.Display_Name = per.Display_Name;
+                permisn.Description = per.Description;
+                permisn.Module = per.Module;
+                DB.SaveChanges();
+                ViewData["msg"] = "Successfully Updated";
+            }
+            return View(per);
+        }
+        [HttpGet]
+        public ActionResult RoleCreate()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult RoleCreate(Role rol)
+        {
+            String validation = validationRoleCreate(rol);
+            if (validation != "true")
+            {
+                ViewData["msg"] = validation;
+            }
+            else
+            {
+                DBContext DB = new DBContext();
+                DB.Roles.Add(rol);
+                DB.SaveChanges();
+                ViewData["msg"] = "Successfully Saved";
+            }
+
+            return View();
+        }
+        [HttpGet]
+        public ActionResult RoleEdit(int id)
+        {
+            DBContext DB = new DBContext();
+            Role rol = (from ro in DB.Roles
+                                  where ro.Id == id
+                                  select ro).FirstOrDefault();
+            return View(rol);
+        }
+        [HttpPost]
+        public ActionResult RoleEdit(Role role)
+        {
+            string validation = validationRoleCreate(role);
+
+            if (validation != "true")
+            {
+                ViewData["msg"] = validation;
+            }
+            else
+            {
+                DBContext DB = new DBContext();
+                Role roll = (from ro in DB.Roles
+                                      where ro.Id == role.Id
+                                      select ro).FirstOrDefault();
+
+                roll.Name = role.Name;
+                DB.SaveChanges();
+                ViewData["msg"] = "Successfully Updated";
+            }
+            return View(role);
+        }
+
         public List<SelectListItem> loadmodule()
         {
             DBContext DB = new DBContext();
@@ -127,6 +252,30 @@ namespace BusinessSuitMVC.Controllers
             }
             return View();
         }
-
+        public String validationCreate(Permission perm)
+        {
+            if (perm.Name == null)
+            {
+                return "Please enter your valid Name";
+            }
+            else if (perm.Display_Name == null)
+            {
+                return "Please enter your valid Display Name";
+            }
+            else if (perm.Module == null)
+            {
+                return "Please enter your valid Module";
+            }
+            return "true";
+        }
+        public String validationRoleCreate(Role ro)
+        {
+            if (ro.Name == null)
+            {
+                return "Please enter your valid Name";
+            }
+           
+            return "true";
+        }
     }
 }

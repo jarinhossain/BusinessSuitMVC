@@ -14,6 +14,7 @@
     Clienttype.Add(new SelectListItem() { Value = "2", Text = "General Councillor" });
     Clienttype.Add(new SelectListItem() { Value = "3", Text = "Mayor" });
     Clienttype.Add(new SelectListItem() { Value = "4", Text = "Panel Mayor" });
+    Clienttype.Add(new SelectListItem() { Value = "5", Text = "School Committee" });
 
     List<SelectListItem> position = new List<SelectListItem>();
     position.Add(new SelectListItem() { Value = "1", Text = "Current" });
@@ -229,8 +230,11 @@
         var message = $("#msg").text();
 
         if (message == "Successfully Updated") {
-            swal("Successful", "Successfully Updated", "success");
-            resetFunction();
+            swal("Successful", "Successfully Updated", "success").then(function () {
+                resetFunction();
+                window.location = "/Client/Search";
+            });
+           
         }
 
         $("#reset").click(function () {

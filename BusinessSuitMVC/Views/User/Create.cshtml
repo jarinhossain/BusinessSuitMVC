@@ -314,8 +314,10 @@
         var message = $("#msg").text();
 
         if (message == "Successfully Saved") {
-            swal("Successful", "Successfully Saved", "success");
-            resetFunction();
+            swal("Successful", "Successfully Saved", "success").then(function () {
+                resetFunction();
+                window.location = "/User/Search";
+            });
         }
 
         $("#reset").click(function () {
