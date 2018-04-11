@@ -24,7 +24,7 @@ namespace BusinessSuitMVC.Controllers
 
             foreach (var item in numberList)
             {
-                string filename = "source_" + item+ ".call";
+                string filename = "source_" + item + "_" + DateTime.Now + ".call";
                 FileInfo MyFile = new FileInfo(Server.MapPath("~\\App_Data\\asd.txt"));
 
             }
