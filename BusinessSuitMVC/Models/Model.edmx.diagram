@@ -47,6 +47,7 @@
         <AssociationConnector Association="Business_SuitModel.FK_Role_User_User_Login" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_User_Login_User_Profile" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Business_SuitModel.Module" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Business_SuitModel.CDR_Instant" Width="1.5" PointX="16.375" PointY="14.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

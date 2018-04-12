@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Single Call";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Call
+        </h1>
+        @*<ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Forms</a></li>
+                <li class="active">General Elements</li>
+            </ol>*@
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Test Call</h3>
+                    </div>
+                        <div class="box-body">
+                            @using (Html.BeginForm("SingleCall", "Call", FormMethod.Post, new {  @class = "form-horizontal" }))
+                            {
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">Mobile Number <span style="color:red;" >*</span> </label>
+                                        <div class="col-md-5">
+                                            @Html.TextBox("number", null, new { @Class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.Label("Remarks", new { @class = "control-label col-md-3" })
+                                        <div class="col-md-5">
+                                            @Html.TextBox("remarks", null, new { @Class = "form-control" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-3"></div>
+                                        <input type="submit" value="Test Call" style="margin-left:15px" class="btn btn-info" />
+                                        
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-3"></div>
+                                        <label id="msg" style="color:red;">@ViewData["msg"]</label>
+                                    </div>
+                                </div>
+                            }
+
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+@section scripts{
+ <script>
+
+     $(document).ready(function () {
+
+         var message = $("#msg").text();
+
+         if (message == "Call Placed. Please Wait for the call") {
+             swal("Successful", "Call Placed. Please Wait for the call", "success").then(function () {
+                 $("#number").val('');
+                 $("#remarks").val('');
+             });
+         }
+
+         $("#reset").click(function () {
+
+             resetFunction();
+
+         });
+
+     });
+    </script>   
+ }

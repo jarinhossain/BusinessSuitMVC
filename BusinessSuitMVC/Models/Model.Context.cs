@@ -55,5 +55,6 @@ namespace BusinessSuitMVC.Models
         public DbSet<Voter_Slip_Image_Type> Voter_Slip_Image_Type { get; set; }
         public DbSet<Token> Tokens { get; set; }
         public DbSet<Module> Modules { get; set; }
+        public DbSet<CDR_Instant> CDR_Instant { get; set; }
     }
 }
