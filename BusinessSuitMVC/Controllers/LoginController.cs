@@ -17,6 +17,7 @@ namespace BusinessSuitMVC.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Index(User_Login model)
         {
@@ -47,6 +48,7 @@ namespace BusinessSuitMVC.Controllers
             }
             return View();
         }
+
         [HttpGet]
         public ActionResult PermissionSearch()
         {
@@ -55,9 +57,10 @@ namespace BusinessSuitMVC.Controllers
             List<Permission> permi = (from per in DB.Permissions
                                            select per).ToList();
 
-
+            
             return View(permi);
         }
+
         [HttpGet]
         public ActionResult PermissionDetails(int id)
         {
@@ -69,6 +72,7 @@ namespace BusinessSuitMVC.Controllers
 
             return View(per);
         }
+
         [HttpGet]
         public ActionResult PermissionCreate()
         {
@@ -76,6 +80,7 @@ namespace BusinessSuitMVC.Controllers
             
             return View();
         }
+
         [HttpPost]
         public ActionResult PermissionCreate(Permission per)
         {
@@ -94,6 +99,7 @@ namespace BusinessSuitMVC.Controllers
             ViewData["ModuleList"] = loadmodule();
             return View();
         }
+
         [HttpGet]
         public ActionResult PermissionEdit(int id)
         {
@@ -132,12 +138,14 @@ namespace BusinessSuitMVC.Controllers
             }
             return View(per);
         }
+
         [HttpGet]
         public ActionResult RoleCreate()
         {
 
             return View();
         }
+
         [HttpPost]
         public ActionResult RoleCreate(Role rol)
         {
@@ -156,15 +164,22 @@ namespace BusinessSuitMVC.Controllers
 
             return View();
         }
+
         [HttpGet]
         public ActionResult RoleEdit(int id)
         {
+            
             DBContext DB = new DBContext();
             Role rol = (from ro in DB.Roles
                                   where ro.Id == id
                                   select ro).FirstOrDefault();
+            
+
+            ViewData["existingPermission"] = DB.Permission_Role.Where(x =>);
+            ViewData["permissions"] = DB.Permissions.Include("Module").ToList();
             return View(rol);
         }
+
         [HttpPost]
         public ActionResult RoleEdit(Role role)
         {
@@ -186,6 +201,13 @@ namespace BusinessSuitMVC.Controllers
                 ViewData["msg"] = "Successfully Updated";
             }
             return View(role);
+        }
+
+        [HttpGet]
+        public ActionResult RoleSearch()
+        {
+            DBContext DB = new DBContext();
+            return View(DB.Roles.ToList());
         }
 
         public List<SelectListItem> loadmodule()

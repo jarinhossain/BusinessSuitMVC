@@ -393,6 +393,7 @@
     <Content Include="Views\Login\PermissionDetails.cshtml" />
     <Content Include="Views\Call\SingleCall.cshtml" />
     <Content Include="Views\Call\SingleCallList.cshtml" />
+    <Content Include="Views\Login\RoleSearch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
