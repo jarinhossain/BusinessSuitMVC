@@ -1,4 +1,5 @@
-﻿using BusinessSuitMVC.Models;
+﻿using BusinessSuitMVC.ModelClasses;
+using BusinessSuitMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,6 +15,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             ViewData["SourceList"] = loadTypeDropDown();
             ViewData["District"] = loadDistrictDropdown();
             ViewData["Division"] = loadDivisionDropDown();
@@ -26,6 +30,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Create(Source source)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
 
@@ -103,6 +110,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             ViewData["SourceList"] = loadTypeDropDown();
             ViewData["District"] = loadDistrictDropdown();
             ViewData["Division"] = loadDivisionDropDown();
@@ -116,7 +126,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Edit(Source source)
         {
-           
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
 
@@ -166,9 +178,13 @@ namespace BusinessSuitMVC.Controllers
             ViewData["Division"] = loadDivisionDropDown();
             return View(source);
         }
+
         [HttpGet]
         public ActionResult Details(int id)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             Numeral_DBContext DB = new Numeral_DBContext();
             Source source = (from u in DB.Sources
                              where u.Id == id
@@ -180,6 +196,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Search()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
             Numeral_DBContext DB = new Numeral_DBContext();
             List<Source> source = (from user in DB.Sources
@@ -192,6 +210,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult SourceNumberCreate(int id)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             Numeral_DBContext DB = new Numeral_DBContext();
             Source source = (from user in DB.Sources
                              where user.Id == id
@@ -206,7 +227,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult SourceNumberCreate(Source source, int MobileNumber)
         {
-           
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             Numeral_DBContext DB = new Numeral_DBContext();
             Number number = new Number();
             number.Number1 = MobileNumber;

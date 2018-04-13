@@ -1,4 +1,5 @@
-﻿using BusinessSuitMVC.Models;
+﻿using BusinessSuitMVC.ModelClasses;
+using BusinessSuitMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,17 +9,17 @@ using System.Web.Mvc;
 
 namespace BusinessSuitMVC.Controllers
 {
+
     public class CallController : Controller
     {
-        // GET: Call
-        public ActionResult Index()
-        {
-            return View();
-        }
+        private DBContext DB = new DBContext();
 
+        [Authorize]
         public ActionResult GenerateCallFile()
         {
-            DBContext DB = new DBContext();
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
 
             var numberList = DB.Client_List.Select(x => x.Mobile1).ToList();
 
@@ -31,10 +32,13 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpGet]
         public string CallMe(string number)
         {
-            DBContext DB = new DBContext();
+            if (PermissionValidate.validatePermission() == false)
+                return "Unauthorized";
+
             var myNumber = DB.CDR_Instant.Where(x => x.Mobile == number).FirstOrDefault();
 
             myNumber.Status = 0;
@@ -43,29 +47,43 @@ namespace BusinessSuitMVC.Controllers
             return myNumber.ToString();
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult SingleCall()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult SingleCall(string number, string remarks)
         {
-            if(number == null)
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
+            if (number == null || number == "" || number.Length != 11)
             {
                 ViewData["msg"] = "Please enter a valid number";
                 return View();
             }
 
-            DBContext DB = new DBContext();
+            bool hasDuplicateCall = DB.CDR_Instant.Where(x => x.Mobile == number && x.Status == 0).Any();
+
+            if(hasDuplicateCall == true)
+            {
+                ViewData["msg"] = "Duplicate Call Request";
+                return View();
+            }
 
             CDR_Instant cdr = new CDR_Instant();
 
             cdr.Mobile = number;
             cdr.Remarks = remarks;
             cdr.Status = 0;
-
+            cdr.Created_By = int.Parse(Session["Profile_Id"].ToString());
             DB.CDR_Instant.Add(cdr);
 
             DB.SaveChanges();
@@ -76,16 +94,18 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult SingleCallList()
         {
-            DBContext DB = new DBContext();
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             return View(DB.CDR_Instant.OrderByDescending(x => x.Created_On).ToList());
         }
 
         [HttpGet]
         public JsonResult fetchdata()
         {
-            DBContext DB = new DBContext();
 
             var numberList = DB.CDR_Instant.Where(x => x.Status == 0).Select(x => x.Mobile).ToList();
 
@@ -97,8 +117,7 @@ namespace BusinessSuitMVC.Controllers
 
             }
             DB.SaveChanges();
-
-
+            
             return Json(numberList, JsonRequestBehavior.AllowGet);
         }
     }

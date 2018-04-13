@@ -1,4 +1,5 @@
-﻿using BusinessSuitMVC.Models;
+﻿using BusinessSuitMVC.ModelClasses;
+using BusinessSuitMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,23 +8,26 @@ using System.Web.Mvc;
 
 namespace BusinessSuitMVC.Controllers
 {
+    [Authorize]
     public class AccountingController : Controller
     {
-        // GET: Accounting
-        public ActionResult Index()
-        {
-            return View();
-        }
+        private DBContext DB = new DBContext();
+
         [HttpGet]
         public ActionResult ExpenseCreate()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
             return View();
         }
         [HttpPost]
         public ActionResult ExpenseCreate(Expense expense)
         {
-            DBContext DB = new DBContext();
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
+           
             //if (expense.Id == 0)
             //{
             //    ModelState.AddModelError("", "Select Type");
@@ -46,17 +50,19 @@ namespace BusinessSuitMVC.Controllers
             else
             {
               
-
                 DB.Expenses.Add(expense);
                 DB.SaveChanges();
                 ViewData["msg"] = "Successfully Saved";
             }
             return View();
         }
+
         [HttpGet]
         public ActionResult ExpenseEdit(int id)
         {
-            DBContext DB = new DBContext();
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             Expense expense = (from user in DB.Expenses
                                   where user.Id == id
                                   select user).FirstOrDefault();
@@ -67,6 +73,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult ExpenseEdit(Expense expens)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             string validation = ValidateExpense(expens);
 
             if(validation != "true")
@@ -92,6 +101,20 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Search()
+        {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
+            DBContext DB = new DBContext();
+
+            List<Expense> expense = (from expens in DB.Expenses
+                                     select expens).ToList();
+
+            return View(expense);
+        }
+
         public string ValidateExpense(Expense expense)
         {
             if (expense.Type == null)
@@ -111,16 +134,7 @@ namespace BusinessSuitMVC.Controllers
 
             return "true";
         }
-        [HttpGet]
-        public ActionResult Search()
-        {
-            DBContext DB = new DBContext();
 
-            List<Expense> expense = (from expens in DB.Expenses
-                                            select expens).ToList();
-
-            return View(expense);
-        }
 
     }
 }

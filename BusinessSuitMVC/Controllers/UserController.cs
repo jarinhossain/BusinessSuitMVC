@@ -24,12 +24,18 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             ViewData["City"] = new SourceController().loadDistrictDropdown();
             return View();
         }
         [HttpPost]
         public ActionResult Create(User_Profile User, string UserName, string Password, string ConfirmPassword, int? roleId)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             User_Login login = new User_Login();
 
             HttpPostedFileBase file = null;
@@ -145,9 +151,13 @@ namespace BusinessSuitMVC.Controllers
            
             return "true";
         }
+
         [HttpGet]
         public ActionResult Edit(int userId)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+            
             DBContext DB = new DBContext();
 
             User_Profile profile = (from user in DB.User_Profile
@@ -168,6 +178,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Edit(User_Profile profile, int? Role)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
 
@@ -225,6 +238,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Search()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
             DBContext DB = new DBContext();
             List<User_Profile> userlist = (from user in DB.User_Profile
@@ -237,6 +252,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
             DBContext DB = new DBContext();
             User_Profile user = (from u in DB.User_Profile
@@ -249,6 +266,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Dashboard()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             return View();
         }
     }

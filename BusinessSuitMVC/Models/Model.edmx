@@ -19,7 +19,7 @@
           <Property Name="Duration" Type="int" />
           <Property Name="Remarks" Type="varchar" MaxLength="20" />
           <Property Name="Created_By" Type="int" />
-          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
         </EntityType>
@@ -1310,7 +1310,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Duration" Type="Int32" />
           <Property Name="Remarks" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
         </EntityType>

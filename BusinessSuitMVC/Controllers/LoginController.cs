@@ -14,11 +14,11 @@ namespace BusinessSuitMVC.Controllers
     {
         private DBContext DB = new DBContext();
         // GET: Login
-        [HttpGet]
-        public ActionResult Index()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
 
         [HttpPost]
         public ActionResult Index(User_Login model)
@@ -51,9 +51,12 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult PermissionSearch()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
             DBContext DB = new DBContext();
             var permi = DB.Permissions.Include("Module").OrderBy(x => x.Module_Id).ToList();
@@ -63,9 +66,12 @@ namespace BusinessSuitMVC.Controllers
             return View(permi);
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult PermissionDetails(int id)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
             DBContext DB = new DBContext();
             Permission per = (from pe in DB.Permissions
@@ -75,17 +81,25 @@ namespace BusinessSuitMVC.Controllers
             return View(per);
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult PermissionCreate()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             ViewData["ModuleList"] = loadmodule();
             
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult PermissionCreate(Permission per)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             String validation = validationCreate(per);
             if (validation != "true")
             {
@@ -102,9 +116,13 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult PermissionEdit(int id)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             ViewData["ModuleList"] = loadmodule();
             DBContext DB = new DBContext();
             Permission permiss = (from per in DB.Permissions
@@ -114,9 +132,13 @@ namespace BusinessSuitMVC.Controllers
             
         }
        
+        [Authorize]
         [HttpPost]
         public ActionResult PermissionEdit(Permission per)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             ViewData["ModuleList"] = loadmodule();
             string validation = validationCreate(per);
 
@@ -141,16 +163,23 @@ namespace BusinessSuitMVC.Controllers
             return View(per);
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult RoleCreate()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult RoleCreate(Role rol)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             String validation = validationRoleCreate(rol);
             if (validation != "true")
             {
@@ -167,9 +196,13 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult RoleEdit(int id)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             //int profileID = 1;// (int)Session["profile_id"];
             DBContext DB = new DBContext();
             Role rol = (from ro in DB.Roles
@@ -182,9 +215,13 @@ namespace BusinessSuitMVC.Controllers
             return View(rol);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult RoleEdit(Role role)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             string validation = validationRoleCreate(role);
             string[] permissions = Request.Form.GetValues("permission");
             if (validation != "true")
@@ -231,9 +268,13 @@ namespace BusinessSuitMVC.Controllers
             return View(role);
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult RoleSearch()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             return View(DB.Roles.ToList());
         }
 
@@ -273,9 +314,11 @@ namespace BusinessSuitMVC.Controllers
             return Redirect("/Login/Signin");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult ChangePassword()
         {
+            
             //User_Login userLogin  = (from login in DB.User_Login
             //                     where login.Password == userLogin.Password
             //                     && login.Id == userLogin.Id

@@ -13,17 +13,26 @@ using BusinessSuitMVC.ModelClasses;
 
 namespace BusinessSuitMVC.Controllers
 {
+    
     public class SMSController : Controller
     {
+        [Authorize]
         [HttpGet]
         public ActionResult BulkSMS()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult BulkSMS(System.Web.Mvc.FormCollection collection)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             string token = "9b8a6934e6c7e83dc79728274677b8f2";
             string number = collection["nc"];
             string message = collection["message"];
