@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c9affa78d5e6453c88e819412adcea07" Name="Diagram1">
+      <Diagram DiagramId="c9affa78d5e6453c88e819412adcea07" Name="Diagram1" ZoomLevel="98">
         <EntityTypeShape EntityType="Business_SuitModel.Client_List" Width="1.5" PointX="7.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.District" Width="1.5" PointX="9.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Division" Width="1.5" PointX="9.75" PointY="5" IsExpanded="true" />
@@ -25,7 +25,6 @@
         <EntityTypeShape EntityType="Business_SuitModel.Remark" Width="1.5" PointX="2.75" PointY="15" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Role" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Role_User" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Role1" Width="1.5" PointX="13.75" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Sippeer" Width="1.5" PointX="13.75" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Slip_Formats" Width="1.5" PointX="5.75" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Status_" Width="1.5" PointX="14.75" PointY="5" IsExpanded="true" />
@@ -48,6 +47,8 @@
         <AssociationConnector Association="Business_SuitModel.FK_User_Login_User_Profile" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Business_SuitModel.Module" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="Business_SuitModel.CDR_Instant" Width="1.5" PointX="16.375" PointY="14.75" />
+        <AssociationConnector Association="Business_SuitModel.FK__Permissio__Modul__02084FDA" />
+        <AssociationConnector Association="Business_SuitModel.FK__User_Logi__Role___14270015" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

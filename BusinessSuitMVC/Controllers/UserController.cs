@@ -24,17 +24,11 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            //List<SelectListItem> role = new List<SelectListItem>();
-            //role.Add(new SelectListItem() { Value = "1", Text = "Super Admin" });
-            //role.Add(new SelectListItem() { Value = "2", Text = "Admin" });
-            //role.Add(new SelectListItem() { Value = "3", Text = "Moderator" });
-            //role.Add(new SelectListItem() { Value = "4", Text = "User" });
-            //role.Add(new SelectListItem() { Value = "5", Text = "Guest" });
-            //ViewData["role"] = role;
+            ViewData["City"] = new SourceController().loadDistrictDropdown();
             return View();
         }
         [HttpPost]
-        public ActionResult Create(User_Profile User, string UserName, string Password, string ConfirmPassword, int? Role)
+        public ActionResult Create(User_Profile User, string UserName, string Password, string ConfirmPassword, int? roleId)
         {
             User_Login login = new User_Login();
 
@@ -51,7 +45,7 @@ namespace BusinessSuitMVC.Controllers
                 }
             }
 
-            string validation = ValidationUser(User, UserName, Password, ConfirmPassword, Role);
+            string validation = ValidationUser(User, UserName, Password, ConfirmPassword, roleId);
 
             if (validation != "true")
             {
@@ -73,8 +67,8 @@ namespace BusinessSuitMVC.Controllers
 
                 login.UserName = UserName;
                 login.User_Profile_Id = User.Id;
-                login.Password = Password;
-                login.Role = Role;
+                login.Password = PasswordEncryption.GetSHA1HashData(Password);
+                login.Role_Id = roleId;
 
                 DB.User_Login.Add(login);
                 DB.SaveChanges();
@@ -90,14 +84,7 @@ namespace BusinessSuitMVC.Controllers
 
             }
 
-            
-            //List<SelectListItem> role = new List<SelectListItem>();
-            //role.Add(new SelectListItem() { Value = "1", Text = "Super Admin" });
-            //role.Add(new SelectListItem() { Value = "2", Text = "Admin" });
-            //role.Add(new SelectListItem() { Value = "3", Text = "Moderator" });
-            //role.Add(new SelectListItem() { Value = "4", Text = "User" });
-            //role.Add(new SelectListItem() { Value = "5", Text = "Guest" });
-            //ViewData["role"] = role;
+            ViewData["City"] = new SourceController().loadDistrictDropdown();
             return View();
         }
         public String ValidationUser(User_Profile User,String UserName,String Password,String ConfirmPassword, int? Role)
@@ -172,7 +159,8 @@ namespace BusinessSuitMVC.Controllers
                                      select user).FirstOrDefault();
 
          
-            ViewData["Role"] = user_login.Role;
+            ViewData["Role"] = user_login.Role_Id;
+            ViewData["City"] = new SourceController().loadDistrictDropdown();
 
             return View(profile);
         }
@@ -219,7 +207,7 @@ namespace BusinessSuitMVC.Controllers
                                           select user).FirstOrDefault();
 
               //  DBUserLogin.UserName = UserName;
-                DBUserLogin.Role = Role;
+                DBUserLogin.Role_Id = Role;
                 DB.SaveChanges();
                 if (file != null && file.ContentLength > 0)
                 {
@@ -230,6 +218,7 @@ namespace BusinessSuitMVC.Controllers
 
                 ViewData["msg"] = "Successfully Updated";
             }
+            ViewData["City"] = new SourceController().loadDistrictDropdown();
             return View(profile);
         }
 

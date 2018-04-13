@@ -27,7 +27,7 @@
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Create</h3>
+                        <h3 class="box-title">Edit</h3>
                     </div>
                     @using (Html.BeginForm("PermissionEdit", "Login", FormMethod.Post, new { @class = "form-horizontal" }))
                     {
@@ -60,7 +60,8 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">Module<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
-                                    @Html.DropDownList("Module", (List<SelectListItem>)ViewData["ModuleList"], "Select Module", new { @class = "form-control editor-field" })
+                                    @*@Html.DropDownList("Module", (List<SelectListItem>)ViewData["ModuleList"], "Select Module", new { @class = "form-control editor-field" })*@
+                                    @Html.DropDownListFor(m => m.Module_Id, (List<SelectListItem>)ViewData["ModuleList"], "Select Module", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
 
@@ -71,7 +72,7 @@
                             <div class="form-group">
                                 <div class="col-md-3"></div>
                                 <input type="submit" value="Update" style="margin-left:15px" class="btn btn-info" />
-                                <input type="button" value="Reset" id="reset" class="btn btn-info" />
+                                <a class="btn btn-info" href="~/Login/PermissionSearch">Back</a>
                             </div>
 
                             <div class="form-group">
@@ -125,8 +126,10 @@
         var message = $("#msg").text();
 
         if (message == "Successfully Updated") {
-            swal("Successful", "Successfully Updated", "success");
-            resetFunction();
+            swal("Successful", "Successfully Updated", "success").then(function myfunction() {
+                window.location.href = "/Login/PermissionSearch";
+            });
+            
         }
 
         $("#reset").click(function () {

@@ -18,6 +18,7 @@ namespace BusinessSuitMVC.Models
         {
             this.Permission_Role = new HashSet<Permission_Role>();
             this.Role_User = new HashSet<Role_User>();
+            this.User_Login = new HashSet<User_Login>();
         }
     
         public int Id { get; set; }
@@ -26,5 +27,6 @@ namespace BusinessSuitMVC.Models
     
         public virtual ICollection<Permission_Role> Permission_Role { get; set; }
         public virtual ICollection<Role_User> Role_User { get; set; }
+        public virtual ICollection<User_Login> User_Login { get; set; }
     }
 }

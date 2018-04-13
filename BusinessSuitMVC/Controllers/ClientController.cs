@@ -9,19 +9,15 @@ using System.Web.Mvc;
 
 namespace BusinessSuitMVC.Controllers
 {
+    [Authorize]
     public class ClientController : Controller
     {
-        // GET: Client
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         [HttpGet]
         public ActionResult Create()
         {
-            //if (PermissionValidate.validatePermission() == false)
-            //    return View("Unauthorized");
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             ViewData["DistrictList"] = loadDistrict();
             return View();
         }
@@ -29,6 +25,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Create(Client_List client)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             ViewData["DistrictList"] = loadDistrict();
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
@@ -100,6 +99,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Search()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             DBContext DB = new DBContext();
 
             List<Client_List> clientList = (from client in DB.Client_List
@@ -111,11 +113,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            //Session["role"] = "testrole";
-            //if (RoleValidate.IsValidatedRole())
-            //{
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
-            //}
             ViewData["DistrictList"] = loadDistrict();
             DBContext DB = new DBContext();
             Client_List client = (from user in DB.Client_List
@@ -127,6 +127,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult Edit(Client_List client)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             ViewData["DistrictList"] = loadDistrict();
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
@@ -181,11 +184,13 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Online_Create()
         {
+            
             return View();
         }
         [HttpPost]
         public ActionResult Online_Create(Online_Order_Detalis online)
         {
+            
 
             if (online.Advertisement_Area == null)
             {

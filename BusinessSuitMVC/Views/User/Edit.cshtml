@@ -26,12 +26,6 @@ Gender = new List<SelectListItem>();
     Usertype.Add(new SelectListItem() { Value = "2", Text = "Uddokta" });
     Usertype.Add(new SelectListItem() { Value = "3", Text = "Client" });
 
-    List<SelectListItem>
-        City = new List<SelectListItem>();
-    City.Add(new SelectListItem() { Value = "1", Text = "Dhaka" });
-    City.Add(new SelectListItem() { Value = "2", Text = "Gazipur" });
-    City.Add(new SelectListItem() { Value = "3", Text = "Khulna" });
-    City.Add(new SelectListItem() { Value = "4", Text = "Sylhet" });
 
 }
 
@@ -137,7 +131,7 @@ Gender = new List<SelectListItem>();
                                 @*@Html.Label("City", new { @class = "control-label col-md-1" })*@
                                 <label class="control-label col-md-3">City<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
-                                    @Html.DropDownList("City", @City, "Select City", new { @class = "form-control editor-field" })
+                                    @Html.DropDownList("City", (List<SelectListItem>)ViewData["City"], "Select City", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
                             <div class="form-group">

@@ -1,4 +1,5 @@
-﻿using BusinessSuitMVC.Models;
+﻿using BusinessSuitMVC.ModelClasses;
+using BusinessSuitMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace BusinessSuitMVC.Controllers
 {
     public class LoginController : Controller
     {
+        private DBContext DB = new DBContext();
         // GET: Login
         [HttpGet]
         public ActionResult Index()
@@ -54,10 +56,10 @@ namespace BusinessSuitMVC.Controllers
         {
 
             DBContext DB = new DBContext();
-            List<Permission> permi = (from per in DB.Permissions
-                                           select per).ToList();
+            var permi = DB.Permissions.Include("Module").OrderBy(x => x.Module_Id).ToList();
 
-            
+            //(from per in DB.Permissions.Include("Module")
+            // select per);
             return View(permi);
         }
 
@@ -132,7 +134,7 @@ namespace BusinessSuitMVC.Controllers
                 permisn.Name = per.Name;
                 permisn.Display_Name = per.Display_Name;
                 permisn.Description = per.Description;
-                permisn.Module = per.Module;
+                permisn.Module_Id = per.Module_Id;
                 DB.SaveChanges();
                 ViewData["msg"] = "Successfully Updated";
             }
@@ -168,15 +170,15 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult RoleEdit(int id)
         {
-            
+            //int profileID = 1;// (int)Session["profile_id"];
             DBContext DB = new DBContext();
             Role rol = (from ro in DB.Roles
                                   where ro.Id == id
                                   select ro).FirstOrDefault();
-            
 
-            ViewData["existingPermission"] = DB.Permission_Role.Where(x =>);
-            ViewData["permissions"] = DB.Permissions.Include("Module").ToList();
+
+            ViewBag.existingPermission = getAllPermissionsByRoleId(id);
+            ViewData["permissionsList"] = getAllPermissions();
             return View(rol);
         }
 
@@ -184,7 +186,7 @@ namespace BusinessSuitMVC.Controllers
         public ActionResult RoleEdit(Role role)
         {
             string validation = validationRoleCreate(role);
-
+            string[] permissions = Request.Form.GetValues("permission");
             if (validation != "true")
             {
                 ViewData["msg"] = validation;
@@ -197,22 +199,62 @@ namespace BusinessSuitMVC.Controllers
                                       select ro).FirstOrDefault();
 
                 roll.Name = role.Name;
+
+                var existingPermissionIds = getAllPermissionsByRoleId(role.Id).Select(x => x.Permission_Id).ToList();
+
+                foreach (var item in permissions)
+                {
+                    int per = int.Parse(item);
+                    if (existingPermissionIds.Contains(per) == false)
+                    {
+                        roll.Permission_Role.Add(new Permission_Role() { Permission_Id = per }); //adding new permission to role
+                    }
+                }
+
+                foreach (var item in existingPermissionIds)
+                {
+                    if (permissions.Contains(item.ToString()) == false)
+                    {
+                        var permissionToRemove = DB.Permission_Role.Where(x => x.Permission_Id == item).FirstOrDefault();
+                        //roll.Permission_Role.Remove(permissionToRemove); 
+                        DB.Permission_Role.Remove(permissionToRemove);//removin permission from role
+                    }
+                }
+
                 DB.SaveChanges();
                 ViewData["msg"] = "Successfully Updated";
             }
+
+            ViewData["existingPermission"] = 
+            ViewData["permissionsList"] = getAllPermissions();
+
             return View(role);
         }
 
         [HttpGet]
         public ActionResult RoleSearch()
         {
-            DBContext DB = new DBContext();
             return View(DB.Roles.ToList());
+        }
+
+        public List<Permission_Role> getAllPermissionsByRoleId(int id)
+        {
+            return DB.Permission_Role.Where(x => x.Role_Id == id).ToList();
+        }
+
+        [HttpGet]
+        public JsonResult getAllPermissionsByRoleIdJson(int id)
+        {
+            return Json(getAllPermissionsByRoleId(id).Select(x => x.Permission_Id).ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        public List<Permission> getAllPermissions()
+        {
+            return DB.Permissions.OrderBy(x => x.Module_Id).ToList();
         }
 
         public List<SelectListItem> loadmodule()
         {
-            DBContext DB = new DBContext();
             List<Models.Module> type = (from div in DB.Modules
                                  select div).ToList();
             List<SelectListItem> moduleDropdown = new List<SelectListItem>();
@@ -228,7 +270,7 @@ namespace BusinessSuitMVC.Controllers
         {
             Session.Clear();
             FormsAuthentication.SignOut();
-            return Redirect("/User/Dashboard");
+            return Redirect("/Login/Signin");
         }
 
         [HttpGet]
@@ -240,13 +282,15 @@ namespace BusinessSuitMVC.Controllers
             //                     select login).FirstOrDefault();
             return View();
         }
+
         [HttpGet]
-        public ActionResult newLogin()
+        public ActionResult Signin()
         {
             return View();
         }
+
         [HttpPost]
-        public ActionResult newLogin(User_Login model)
+        public ActionResult Signin(User_Login model, string ReturnUrl)
         {
             if (model.UserName == null)
             {
@@ -260,16 +304,33 @@ namespace BusinessSuitMVC.Controllers
             else
             {
                 DBContext DB = new DBContext();
-
+                string shaPass = PasswordEncryption.GetSHA1HashData(model.Password);
                 User_Login search = (from user in DB.User_Login
                                      where user.UserName == model.UserName
-                                     && user.Password == model.Password
+                                     && user.Password == shaPass
                                      select user).FirstOrDefault();
 
                 if (search != null)
                 {
-                    return RedirectToAction("Create", "User");
+                    FormsAuthentication.SetAuthCookie(search.UserName, false);
+                    int roleId = (int)search.Role_Id;
+                    Session["Profile_Id"] = search.User_Profile_Id;
+                    Session["Login_Id"] = search.Id;
+                    Session["User_Name"] = search.UserName;
+                    Session["Role_Id"] = roleId;
+
+                    if (ReturnUrl != null)
+                    {
+                        return Redirect(ReturnUrl);
+                    }
+
+                    if (roleId >= 6)
+                        return RedirectToAction("Dashboard", "Client");
+                    else
+                        return RedirectToAction("Dashboard", "User");
                 }
+                else
+                    ViewData["msg"] = "wrong username or password";
 
             }
             return View();
@@ -284,7 +345,7 @@ namespace BusinessSuitMVC.Controllers
             {
                 return "Please enter your valid Display Name";
             }
-            else if (perm.Module == null)
+            else if (perm.Module_Id == 0)
             {
                 return "Please enter your valid Module";
             }

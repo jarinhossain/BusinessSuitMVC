@@ -68,7 +68,7 @@
           <Property Name="Description" Type="varchar" MaxLength="500" />
           <Property Name="Spent_Date" Type="datetime" />
           <Property Name="Created_By" Type="int" />
-          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="Is_Deleted" Type="bit" />
@@ -166,7 +166,7 @@
           <Property Name="Marka" Type="varchar" MaxLength="50" />
           <Property Name="Marka_Image" Type="bit" />
           <Property Name="Created_By" Type="int" />
-          <Property Name="Ceated_On" Type="datetime" />
+          <Property Name="Ceated_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="Is_Deleted" Type="int" />
@@ -202,7 +202,7 @@
           <Property Name="Status" Type="int" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="Discount" Type="float" />
-          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="Is_Deleted" Type="int" />
@@ -231,8 +231,8 @@
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Display_Name" Type="varchar" MaxLength="50" />
           <Property Name="Description" Type="varchar" MaxLength="500" />
-          <Property Name="Module" Type="varchar" MaxLength="50" />
-          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Module_Id" Type="int" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_On" Type="datetime" />
         </EntityType>
         <EntityType Name="Permission_Role">
@@ -262,7 +262,7 @@
           <Property Name="Description" Type="varchar" MaxLength="500" />
           <Property Name="Regular_Price" Type="float" />
           <Property Name="Lower_Price" Type="float" />
-          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="Is_Deleted" Type="int" />
@@ -284,7 +284,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="Created_By" Type="int" />
-          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="updated_On" Type="datetime" />
         </EntityType>
@@ -304,17 +304,6 @@
           <Property Name="Role_Id" Type="int" />
           <Property Name="User_Id" Type="int" />
           <Property Name="User_Type" Type="int" />
-        </EntityType>
-        <EntityType Name="Roles">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="Display_Name" Type="varchar" MaxLength="50" />
-          <Property Name="Description" Type="varchar" MaxLength="500" />
-          <Property Name="Created_On" Type="datetime" />
-          <Property Name="Updated_On" Type="datetime" />
         </EntityType>
         <EntityType Name="Sippeers">
           <Key>
@@ -362,8 +351,8 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="varchar" MaxLength="50" />
-          <Property Name="Password" Type="varchar" MaxLength="50" />
-          <Property Name="Role" Type="int" />
+          <Property Name="Password" Type="varchar" MaxLength="200" />
+          <Property Name="Role_Id" Type="int" />
           <Property Name="User_Profile_Id" Type="int" />
         </EntityType>
         <EntityType Name="User_Profile">
@@ -406,6 +395,30 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Display_Name" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <Association Name="FK__Permissio__Modul__02084FDA">
+          <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
+          <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Permission">
+              <PropertyRef Name="Module_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User_Logi__Role___14270015">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Login">
+              <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Offline_Order_Detalis_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
           <End Role="Offline_Order_Detalis" Type="Self.Offline_Order_Detalis" Multiplicity="*" />
@@ -573,7 +586,6 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <EntitySet Name="Remarks" EntityType="Self.Remarks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role_User" EntityType="Self.Role_User" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sippeers" EntityType="Self.Sippeers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Slip_Formats" EntityType="Self.Slip_Formats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status " EntityType="Self.Status " Schema="dbo" store:Type="Tables" />
@@ -593,6 +605,14 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
 [Tokens].[Deleted_On] AS [Deleted_On]
 FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__Permissio__Modul__02084FDA" Association="Self.FK__Permissio__Modul__02084FDA">
+            <End Role="Module" EntitySet="Module" />
+            <End Role="Permission" EntitySet="Permission" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User_Logi__Role___14270015" Association="Self.FK__User_Logi__Role___14270015">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User_Login" EntitySet="User_Login" />
+          </AssociationSet>
           <AssociationSet Name="FK_Offline_Order_Detalis_Order" Association="Self.FK_Offline_Order_Detalis_Order">
             <End Role="Order" EntitySet="Order" />
             <End Role="Offline_Order_Detalis" EntitySet="Offline_Order_Detalis" />
@@ -691,7 +711,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Spent_Date" Type="DateTime" Precision="3" />
           <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
           <Property Name="Is_Deleted" Type="Boolean" />
@@ -782,7 +802,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Marka" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Marka_Image" Type="Boolean" />
           <Property Name="Created_By" Type="Int32" />
-          <Property Name="Ceated_On" Type="DateTime" Precision="3" />
+          <Property Name="Ceated_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
           <Property Name="Is_Deleted" Type="Int32" />
@@ -820,7 +840,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Status" Type="Int32" />
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Discount" Type="Double" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
           <Property Name="Is_Deleted" Type="Int32" />
@@ -854,11 +874,12 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Display_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Module" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Permission_Role" Relationship="Self.FK_Permission_Role_Permission" FromRole="Permission" ToRole="Permission_Role" />
           <NavigationProperty Name="Permission_User" Relationship="Self.FK_Permission_User_Permission" FromRole="Permission" ToRole="Permission_User" />
+          <Property Name="Module_Id" Type="Int32" />
+          <NavigationProperty Name="Module" Relationship="Business_SuitModel.FK__Permissio__Modul__02084FDA" FromRole="Permission" ToRole="Module" />
         </EntityType>
         <EntityType Name="Permission_Role">
           <Key>
@@ -891,7 +912,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Regular_Price" Type="Double" />
           <Property Name="Lower_Price" Type="Double" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
           <Property Name="Is_Deleted" Type="Int32" />
@@ -915,7 +936,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="updated_On" Type="DateTime" Precision="3" />
         </EntityType>
@@ -928,6 +949,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Permissions" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Permission_Role" Relationship="Self.FK_Permission_Role_Role" FromRole="Role" ToRole="Permission_Role" />
           <NavigationProperty Name="Role_User" Relationship="Self.FK_Role_User_Role" FromRole="Role" ToRole="Role_User" />
+          <NavigationProperty Name="User_Login" Relationship="Business_SuitModel.FK__User_Logi__Role___14270015" FromRole="Role" ToRole="User_Login" />
         </EntityType>
         <EntityType Name="Role_User">
           <Key>
@@ -939,17 +961,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="User_Type" Type="Int32" />
           <NavigationProperty Name="Role" Relationship="Self.FK_Role_User_Role" FromRole="Role_User" ToRole="Role" />
           <NavigationProperty Name="User_Login" Relationship="Self.FK_Role_User_User_Login" FromRole="Role_User" ToRole="User_Login" />
-        </EntityType>
-        <EntityType Name="Role1">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Display_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" />
-          <Property Name="Updated_On" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Sippeer">
           <Key>
@@ -983,12 +994,13 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Role" Type="Int32" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="User_Profile_Id" Type="Int32" />
           <NavigationProperty Name="Permission_User" Relationship="Self.FK_Permission_User_User_Login" FromRole="User_Login" ToRole="Permission_User" />
           <NavigationProperty Name="Role_User" Relationship="Self.FK_Role_User_User_Login" FromRole="User_Login" ToRole="Role_User" />
           <NavigationProperty Name="User_Profile" Relationship="Self.FK_User_Login_User_Profile" FromRole="User_Login" ToRole="User_Profile" />
+          <Property Name="Role_Id" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="Business_SuitModel.FK__User_Logi__Role___14270015" FromRole="User_Login" ToRole="Role" />
         </EntityType>
         <EntityType Name="User_Profile">
           <Key>
@@ -1209,7 +1221,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySet Name="Remarks" EntityType="Self.Remark" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Role_User" EntityType="Self.Role_User" />
-          <EntitySet Name="Roles1" EntityType="Self.Role1" />
           <EntitySet Name="Sippeers" EntityType="Self.Sippeer" />
           <EntitySet Name="Slip_Formats" EntityType="Self.Slip_Formats" />
           <EntitySet Name="Status_" EntityType="Self.Status_" />
@@ -1268,6 +1279,14 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           </AssociationSet>
           <EntitySet Name="Modules" EntityType="Business_SuitModel.Module" />
           <EntitySet Name="CDR_Instant" EntityType="Business_SuitModel.CDR_Instant" />
+          <AssociationSet Name="FK__Permissio__Modul__02084FDA" Association="Business_SuitModel.FK__Permissio__Modul__02084FDA">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="Permission" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User_Logi__Role___14270015" Association="Business_SuitModel.FK__User_Logi__Role___14270015">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User_Login" EntitySet="User_Login" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Module">
           <Key>
@@ -1275,6 +1294,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Permissions" Relationship="Business_SuitModel.FK__Permissio__Modul__02084FDA" FromRole="Module" ToRole="Permission" />
         </EntityType>
         <EntityType Name="CDR_Instant">
           <Key>
@@ -1294,6 +1314,30 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
         </EntityType>
+        <Association Name="FK__Permissio__Modul__02084FDA">
+          <End Type="Business_SuitModel.Module" Role="Module" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Permission" Role="Permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Permission">
+              <PropertyRef Name="Module_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User_Logi__Role___14270015">
+          <End Type="Business_SuitModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.User_Login" Role="User_Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Login">
+              <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1508,11 +1552,11 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="Permissions">
             <EntityTypeMapping TypeName="Business_SuitModel.Permission">
               <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="Module_Id" ColumnName="Module_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Module" ColumnName="Module" />
                 <ScalarProperty Name="Created_On" ColumnName="Created_On" />
                 <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
               </MappingFragment>
@@ -1595,18 +1639,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Roles1">
-            <EntityTypeMapping TypeName="Business_SuitModel.Role1">
-              <MappingFragment StoreEntitySet="Roles">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Sippeers">
             <EntityTypeMapping TypeName="Business_SuitModel.Sippeer">
               <MappingFragment StoreEntitySet="Sippeers">
@@ -1638,10 +1670,10 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="User_Login">
             <EntityTypeMapping TypeName="Business_SuitModel.User_Login">
               <MappingFragment StoreEntitySet="User_Login">
+                <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="User_Profile_Id" ColumnName="User_Profile_Id" />
               </MappingFragment>
             </EntityTypeMapping>

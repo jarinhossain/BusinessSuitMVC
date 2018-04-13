@@ -186,6 +186,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ModelClasses\ParameterEncryption.cs" />
+    <Compile Include="ModelClasses\PasswordEncryption.cs" />
     <Compile Include="ModelClasses\PermissionValidate.cs" />
     <Compile Include="Models\CDR_Instant.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -286,9 +287,6 @@
     <Compile Include="Models\Role.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Role1.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Role_User.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -384,7 +382,7 @@
     <None Include="Properties\PublishProfiles\BusinessSuitMVC.pubxml" />
     <Content Include="Views\User\Dashboard.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
-    <Content Include="Views\Login\newLogin.cshtml" />
+    <Content Include="Views\Login\Signin.cshtml" />
     <Content Include="Views\Login\PermissionCreate.cshtml" />
     <Content Include="Views\Login\PermissionEdit.cshtml" />
     <Content Include="Views\Login\RoleCreate.cshtml" />
@@ -394,6 +392,7 @@
     <Content Include="Views\Call\SingleCall.cshtml" />
     <Content Include="Views\Call\SingleCallList.cshtml" />
     <Content Include="Views\Login\RoleSearch.cshtml" />
+    <Content Include="Views\Client\Dashboard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

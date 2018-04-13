@@ -5,7 +5,7 @@
 }
 @{
 
-
+   var  checkedList = ViewBag.existingPermission;
 
 }
 
@@ -46,7 +46,7 @@
                                 <div class="form-group">
                                     <div class="col-md-3"></div>
                                     <input type="submit" value="Update" style="margin-left:15px" class="btn btn-info" />
-                                    <input type="button" value="Reset" id="reset" class="btn btn-info" />
+                                    <a class="btn btn-info" href="~/Login/RoleSearch">Back</a>
                                 </div>
 
                                 <div class="form-group">
@@ -65,14 +65,15 @@
 
                             <div class="box-body">  
 
-                                    @foreach (BusinessSuitMVC.Models.Permission list in (IEnumerable<BusinessSuitMVC.Models.Permission>)ViewData["permissions"])
+                                    @foreach (BusinessSuitMVC.Models.Permission list in (IEnumerable<BusinessSuitMVC.Models.Permission>)ViewData["permissionsList"])
                                     {
                                         <div class="form-group">
-                                            <label class="control-label col-md-3">@list.Display_Name </label>
-                                            <label class="col-md-4">@list.Module </label>
-                                            <div class="col-md-1 checkbox">
-                                                @Html.CheckBox(list.Id.ToString(),false)
-                                                <span class="slider round"></span>
+                                            <label class="control-label col-md-4">@list.Display_Name </label>
+                                            <label class="col-md-4">@list.Module.Name </label>
+                                            <div class="col-md-1">
+                                                @*@Html.CheckBox(list.Id.ToString(),false)*@
+                                                <input type="checkbox" id="@list.Id" name="permission" value="@list.Id"/>
+                                                @*<span class="slider round"></span>*@
                                             </div>
                                         </div>
                                     }
@@ -86,8 +87,8 @@
           </div>
     </section>
 </section>
-
-<script>
+@section scripts{
+    <script>
     $("form").submit(function (event) {
         if ($("#Name").val() == "") {
             event.preventDefault();
@@ -108,7 +109,10 @@
         var message = $("#msg").text();
 
         if (message == "Successfully Updated") {
-            swal("Successful", "Successfully Updated", "success");
+            swal("Successful", "Successfully Updated", "success").then(function myfunction() {
+                window.location.href = "/Login/RoleSearch";
+            });
+
             resetFunction();
         }
 
@@ -117,6 +121,30 @@
             resetFunction();
 
         });
-
+        setPermissions();
     });
+
+    function setPermissions() {
+        $.ajax({
+            url: '/Login/getAllPermissionsByRoleIdJson/'+ $('#Id').val(),
+            type: "GET",
+            dataType: "JSON",
+            //data: { ID: ACR_MASTER_ID },
+            success: function (data) {
+                console.log(data);
+                $('input[type=checkbox]').each(function() {
+                    var checkBoxId = parseInt($(this).attr('id'));
+                    console.log(checkBoxId);
+                    if (data.indexOf(checkBoxId) > -1) {
+                        $(this).attr('checked', true);
+                    }
+                });
+            },
+            error: function () {
+                swal('Failed', "unknown error occoured", 'error');
+            }
+        });
+    }
 </script>
+    }
+

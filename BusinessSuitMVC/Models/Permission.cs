@@ -24,11 +24,12 @@ namespace BusinessSuitMVC.Models
         public string Name { get; set; }
         public string Display_Name { get; set; }
         public string Description { get; set; }
-        public string Module { get; set; }
         public Nullable<System.DateTime> Created_On { get; set; }
         public Nullable<System.DateTime> Updated_On { get; set; }
+        public Nullable<int> Module_Id { get; set; }
     
         public virtual ICollection<Permission_Role> Permission_Role { get; set; }
         public virtual ICollection<Permission_User> Permission_User { get; set; }
+        public virtual Module Module { get; set; }
     }
 }
