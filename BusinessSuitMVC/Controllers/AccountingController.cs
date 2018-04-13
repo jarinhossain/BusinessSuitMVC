@@ -102,7 +102,7 @@ namespace BusinessSuitMVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult Search()
+        public ActionResult ExpenseSearch()
         {
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");

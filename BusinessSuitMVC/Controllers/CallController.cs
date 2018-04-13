@@ -100,7 +100,7 @@ namespace BusinessSuitMVC.Controllers
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
 
-            return View(DB.CDR_Instant.OrderByDescending(x => x.Created_On).ToList());
+            return View(DB.CDR_Instant.OrderBy(x => x.Created_On).ToList());
         }
 
         [HttpGet]

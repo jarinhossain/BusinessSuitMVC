@@ -429,6 +429,16 @@ namespace BusinessSuitMVC.Controllers
 
             return View(client);
         }
+
+        [HttpGet]
+        public ActionResult Dashboard()
+        {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
+            return View();
+        }
+
         public List<SelectListItem> loadDistrict()
         {
             DBContext DB = new DBContext();

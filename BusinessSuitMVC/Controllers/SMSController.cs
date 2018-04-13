@@ -18,11 +18,43 @@ namespace BusinessSuitMVC.Controllers
     {
         [Authorize]
         [HttpGet]
-        public ActionResult BulkSMS()
+        public ActionResult SingleSMS()
         {
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
 
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult SingleSMS(System.Web.Mvc.FormCollection collection)
+        {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
+            string token = "9b8a6934e6c7e83dc79728274677b8f2";
+            string number = collection["nc"];
+            string message = collection["message"];
+
+            if (number == "" || number == null || number.Length != 11)
+            {
+                ViewBag.msg = "please enter e valid number";
+                return View();
+            }
+            var result = SendSms(number, message, token);
+            ViewBag.msg = result;
+
+            return View();
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult BulkSMS()
+        {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+            
             return View();
         }
 
@@ -39,7 +71,7 @@ namespace BusinessSuitMVC.Controllers
             //sendSingleSmsMethod2(number, message, token);
             //sendSingleSmsMethod1(number, message, token);
             var result  = SendSms(number, message, token);
-            ViewBag.message = result;
+            ViewBag.msg = result;
             return View();
         }
 

@@ -148,6 +148,7 @@
     <Content Include="Script\bootstrap-datepicker.min.js" />
     <Content Include="Script\bootstrap.min.js" />
     <Content Include="Script\bootstrap3-wysihtml5.all.min.js" />
+    <Content Include="Script\commonScript.js" />
     <Content Include="Script\dashboard.js" />
     <Content Include="Script\daterangepicker.js" />
     <Content Include="Script\demo.js" />
@@ -164,6 +165,7 @@
     <Content Include="Script\moment.min.js" />
     <Content Include="Script\morris.min.js" />
     <Content Include="Script\raphael.min.js" />
+    <Content Include="Script\sms.js" />
     <Content Include="Script\sweetalert.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -360,7 +362,7 @@
     <Content Include="Views\Accounting\ExpenseCreate.cshtml" />
     <Content Include="Views\SMS\BulkSMS.cshtml" />
     <Content Include="Views\Accounting\ExpenseCreate.cshtml" />
-    <Content Include="Views\Accounting\Search.cshtml" />
+    <Content Include="Views\Accounting\ExpenseSearch.cshtml" />
     <Content Include="Views\Accounting\ExpenseEdit.cshtml" />
     <Content Include="Views\Order\SmsMarketingCreate.cshtml" />
     <Content Include="Views\Order\TelephonyMarketingCreate.cshtml" />
@@ -394,6 +396,7 @@
     <Content Include="Views\Login\RoleSearch.cshtml" />
     <Content Include="Views\Client\Dashboard.cshtml" />
     <Content Include="Views\Login\Welcome.cshtml" />
+    <Content Include="Views\SMS\SingleSMS.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -408,7 +411,6 @@
     <Folder Include="Images\TelephonyOrder\" />
     <Folder Include="Images\User\" />
     <Folder Include="Images\VoterSlip\" />
-    <Folder Include="Views\exm\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

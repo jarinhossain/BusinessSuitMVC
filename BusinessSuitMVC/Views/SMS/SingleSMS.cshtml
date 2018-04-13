@@ -28,14 +28,13 @@
                         <h3 class="box-title">Send <span id="balance"></span></h3>
                     </div>
                     <div class="box-body">
-                        <form action="~/SMS/BulkSMS" method="post" class="form-horizontal">
+                        <form action="~/SMS/SingleSMS" method="post" class="form-horizontal">
 
                             <div class="form-group">
                                 <label class="control-label col-md-3">To: <span style="color:red;">*</span></label>
                                 <div class="col-md-6">
-                                    @Html.TextBox("nc", null, new { @Class = "form-control" ,@placeholder= "01xxxxxxxxx, 01xxxxxxxxx" })
-                                    (Total:
-                                    <div id="one" class="result" style="display:inline;">1 Numbers</div>)
+                                    @Html.TextBox("nc", null, new { @Class = "form-control", @placeholder = "01xxxxxxxxx", @type="number" })
+                                   <span>Max 1 Number at a time</span> 
                                 </div>
                             </div>
                             <div class="form-group">
@@ -68,9 +67,9 @@
                                             Total  Characters Remaining:
                                             <span class="totalcounter">1071</span>
                                         </li>
-                                        <br>
+                                        @*<br>*@
 
-                                        <li>
+                                        @*<li>
                                             Total SMS (Don't Send More Than
                                             <b style="color:red">20000 SMS</b> at once) =
                                             <div id="totalsmss" style="display:inline;color:red">0</div> SMS
@@ -78,10 +77,10 @@
                                         <li>
                                             Total  Cost: Text Parts X Total Numbers =
                                             <div id="total" style="display:inline;color:red">0</div> Tk
-                                        </li>
+                                        </li>*@
                                     </ul>
                                 </div>
-                                
+
 
                                 <script>$('#message').countSms('#sms-counter');</script>
                             </div>
@@ -104,23 +103,33 @@
         </div>
     </section>
 </section>
+
+@section contents{
+    <style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+}
+
 @section Scripts {
 
-
-    <script>
+<script>
         $('#smsTextbox').on('keydown', function () {
             alert('hoi');
         })
-    </script>
+</script>
 
-    <script>$(document).ready(function () { $('input#nc').on('keyup', function () { var charCount = $(this).val().split(',').length; $(".result").text(charCount + " Numbers"); }); });</script>
+<script>$(document).ready(function () { $('input#nc').on('keyup', function () { var charCount = $(this).val().split(',').length; $(".result").text(charCount + " Numbers"); }); });</script>
 
-    <script>$(document).ready(function () { $('input#nc').on('mouseout', function () { var charCount = $(this).val().split(',').length; $(".result").text(charCount + " Numbers"); }); });</script>
+<script>$(document).ready(function () { $('input#nc').on('mouseout', function () { var charCount = $(this).val().split(',').length; $(".result").text(charCount + " Numbers"); }); });</script>
 
-    <script>function sending() { div = document.getElementById('sending'); div.style.display = "block"; }</script>
+<script>function sending() { div = document.getElementById('sending'); div.style.display = "block"; }</script>
 
 
-    <script>
+<script>
         $(document).ready(function () {
             $('input#nc').on('change', function () {
                 var cost = parseFloat($('#one').text()) * "0.20" * parseFloat($('#two').text()); var costs = cost.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
@@ -140,23 +149,7 @@
         });</script>
 
     <script>
-        $(document).ready(function () {
-            
-            $.ajax({
-                url: 'http://sms.greenweb.com.bd/g_api.php?token=9b8a6934e6c7e83dc79728274677b8f2&balance',
-                type: "GET",
-                //dataType: "JSON",
-                ///data: { number: $('#nc').val(), message: $('#message').val() },
-                success: function (data) {
-                    var balance = parseFloat(data.slice(0, -5));
-                    var sms = balance / .2;
-                    $('#balance').text(balance + '/' + sms);
-                },
-                error: function () {
-                    
-                }
-            });
-        });
+
 
         $('foarm').submit(function (event) {
             event.preventDefault();
