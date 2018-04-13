@@ -393,6 +393,7 @@
     <Content Include="Views\Call\SingleCallList.cshtml" />
     <Content Include="Views\Login\RoleSearch.cshtml" />
     <Content Include="Views\Client\Dashboard.cshtml" />
+    <Content Include="Views\Login\Welcome.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

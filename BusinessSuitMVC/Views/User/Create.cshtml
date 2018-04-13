@@ -4,14 +4,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 @{
-    List<SelectListItem>
-    role = new List<SelectListItem>();
-    role.Add(new SelectListItem() { Value = "1", Text = "Super Admin"});
-    role.Add(new SelectListItem() { Value = "2", Text = "Admin"});
-    role.Add(new SelectListItem() { Value = "3", Text = "Moderator"});
-    role.Add(new SelectListItem() { Value = "4", Text = "User"});
-    role.Add(new SelectListItem() { Value = "5", Text = "Uddokta" });
-    role.Add(new SelectListItem() { Value = "6", Text = "Guest"});
+
 
     List<SelectListItem>   Gender = new List<SelectListItem>();
     Gender.Add(new SelectListItem() { Value = "1", Text = "Male" });
@@ -101,7 +94,7 @@
                                 @*@Html.Label("Role", new { @class = "control-label col-md-1" })*@
                                 <label class="control-label col-md-3">Role<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
-                                    @Html.DropDownList("Role", @role, "Select Role", new { @class = "form-control editor-field" })
+                                    @Html.DropDownList("Role", (List<SelectListItem>)ViewData["roleList"], "Select Role", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
 

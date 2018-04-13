@@ -26,7 +26,8 @@ namespace BusinessSuitMVC.Controllers
         {
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
-
+            DBContext DB = new DBContext();
+            ViewData["roleList"] = loadRoleDropdown();
             ViewData["City"] = new SourceController().loadDistrictDropdown();
             return View();
         }
@@ -270,6 +271,22 @@ namespace BusinessSuitMVC.Controllers
                 return View("Unauthorized");
 
             return View();
+        }
+
+        public List<SelectListItem> loadRoleDropdown()
+        {
+            DBContext DB = new DBContext();
+            List<Role> role = (from user in DB.Roles
+                                       select user).ToList();
+
+            List<SelectListItem> roleDropdown = new List<SelectListItem>();
+
+            foreach (var item in role)
+            {
+
+                roleDropdown.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
+            }
+            return roleDropdown;
         }
     }
 }

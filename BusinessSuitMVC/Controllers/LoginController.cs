@@ -51,6 +51,12 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Welcome()
+        {
+            return View();
+        }
+
         [Authorize]
         [HttpGet]
         public ActionResult PermissionSearch()
