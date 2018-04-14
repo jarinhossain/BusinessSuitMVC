@@ -21,10 +21,10 @@ namespace BusinessSuitMVC.Controllers
             ViewData["SourceList"] = loadTypeDropDown();
             ViewData["District"] = loadDistrictDropdown();
             ViewData["Division"] = loadDivisionDropDown();
-           
+
 
             return View();
-          //  return View();
+            //  return View();
         }
 
         [HttpPost]
@@ -76,7 +76,7 @@ namespace BusinessSuitMVC.Controllers
             {
                 return "Please enter your valid Contact Name";
             }
-          
+
             else if (source.Source_Type == null)
             {
                 return "Please enter your valid Source Type";
@@ -118,8 +118,8 @@ namespace BusinessSuitMVC.Controllers
             ViewData["Division"] = loadDivisionDropDown();
             Numeral_DBContext DB = new Numeral_DBContext();
             Source source = (from user in DB.Sources
-                              where user.Id == id
-                                  select user).FirstOrDefault();
+                             where user.Id == id
+                             select user).FirstOrDefault();
 
             return View(source);
         }
@@ -148,11 +148,11 @@ namespace BusinessSuitMVC.Controllers
             }
             else
             {
-               
+
                 Numeral_DBContext DB = new Numeral_DBContext();
                 Source Source = (from user in DB.Sources
                                  where user.Id == source.Id
-                                      select user).FirstOrDefault();
+                                 select user).FirstOrDefault();
 
                 Source.Contact_Name = source.Contact_Name;
                 Source.Company_Name = source.Company_Name;
@@ -218,12 +218,20 @@ namespace BusinessSuitMVC.Controllers
                              where user.Id == id
                              select user).FirstOrDefault();
 
-            if(TempData["msg"] != null)
+            ///if the source not found in the database
+            if (source == null)
+            {
+                ViewData["msg"] = "no source found";
+                return RedirectToAction("Search", "Source");
+            }
+
+            if (TempData["msg"] != null)
             {
                 ViewData["msg"] = TempData["msg"];
             }
             return View(source);
         }
+
         [HttpPost]
         public ActionResult SourceNumberCreate(Source source, int MobileNumber)
         {
@@ -242,7 +250,7 @@ namespace BusinessSuitMVC.Controllers
             //Source/SourceNumerCreate?id=4
             return RedirectToAction("SourceNumberCreate", new { id = source.Id });
         }
-           public List<SelectListItem> loadDistrictDropdown()
+        public List<SelectListItem> loadDistrictDropdown()
         {
             DBContext DB = new DBContext();
             List<District> district = (from user in DB.Districts
@@ -263,23 +271,37 @@ namespace BusinessSuitMVC.Controllers
             List<Division> division = (from div in DB.Divisions
                                        select div).ToList();
             List<SelectListItem> divisiondropdown = new List<SelectListItem>();
-            foreach(var item in division)
+            foreach (var item in division)
             {
                 divisiondropdown.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
             }
             return divisiondropdown;
         }
+
         public List<SelectListItem> loadTypeDropDown()
         {
-            DBContext DB = new DBContext();
-            List<Expense_Type> type = (from typ in DB.Expense_Type
-                                       select typ).ToList();
-            List<SelectListItem> typeDropdown = new List<SelectListItem>();
-            foreach (var item in type)
-            {
-                typeDropdown.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
-             }
-            return typeDropdown;
-           }
+            // DBContext DB = new DBContext();
+            // List<Expense_Type> type = (from typ in DB.Expense_Type
+            //                            select typ).ToList();
+            // List<SelectListItem> typeDropdown = new List<SelectListItem>();
+            // foreach (var item in type)
+            // {
+            //     typeDropdown.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
+            //  }
+            // return typeDropdown;
+
+
+            List<SelectListItem> source = new List<SelectListItem>();
+
+            source.Add(new SelectListItem() { Value = "1", Text = "Councillor" });
+            source.Add(new SelectListItem() { Value = "2", Text = "General Councillor" });
+            source.Add(new SelectListItem() { Value = "6", Text = "Councillor Supporter" });
+            source.Add(new SelectListItem() { Value = "3", Text = "Mayor" });
+            source.Add(new SelectListItem() { Value = "4", Text = "Panel Mayor" });
+            source.Add(new SelectListItem() { Value = "5", Text = "School Committee" });
+            source.Add(new SelectListItem() { Value = "7", Text = "Shop" });
+
+            return source;
         }
+    }
 }

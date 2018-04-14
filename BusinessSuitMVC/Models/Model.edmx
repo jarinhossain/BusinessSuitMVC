@@ -354,6 +354,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Password" Type="varchar" MaxLength="200" />
           <Property Name="Role_Id" Type="int" />
           <Property Name="User_Profile_Id" Type="int" />
+          <Property Name="Is_Client" Type="bit" />
         </EntityType>
         <EntityType Name="User_Profile">
           <Key>
@@ -1001,6 +1002,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <NavigationProperty Name="User_Profile" Relationship="Self.FK_User_Login_User_Profile" FromRole="User_Login" ToRole="User_Profile" />
           <Property Name="Role_Id" Type="Int32" />
           <NavigationProperty Name="Role" Relationship="Business_SuitModel.FK__User_Logi__Role___14270015" FromRole="User_Login" ToRole="Role" />
+          <Property Name="Is_Client" Type="Boolean" />
         </EntityType>
         <EntityType Name="User_Profile">
           <Key>
@@ -1287,7 +1289,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             <End Role="Role" EntitySet="Roles" />
             <End Role="User_Login" EntitySet="User_Login" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Module">
           <Key>
             <PropertyRef Name="Id" />
@@ -1338,7 +1340,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1670,6 +1672,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="User_Login">
             <EntityTypeMapping TypeName="Business_SuitModel.User_Login">
               <MappingFragment StoreEntitySet="User_Login">
+                <ScalarProperty Name="Is_Client" ColumnName="Is_Client" />
                 <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />

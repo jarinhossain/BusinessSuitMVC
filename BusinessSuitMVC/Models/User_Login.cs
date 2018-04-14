@@ -25,6 +25,7 @@ namespace BusinessSuitMVC.Models
         public string Password { get; set; }
         public Nullable<int> User_Profile_Id { get; set; }
         public Nullable<int> Role_Id { get; set; }
+        public Nullable<bool> Is_Client { get; set; }
     
         public virtual ICollection<Permission_User> Permission_User { get; set; }
         public virtual ICollection<Role_User> Role_User { get; set; }

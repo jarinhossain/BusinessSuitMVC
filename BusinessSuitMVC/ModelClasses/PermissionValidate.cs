@@ -16,8 +16,9 @@ namespace BusinessSuitMVC.ModelClasses
                 //string role = HttpContext.Current.ApplicationInstance.Session["role"].ToString();
                 var controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
                 var actionName = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
-                int loginId = int.Parse(HttpContext.Current.Session["Login_Id"].ToString());
-                bool permission = hasPermission(loginId, controllerName, actionName);
+                //int loginId = int.Parse(HttpContext.Current.Session["Login_Id"].ToString());
+                int roleId = int.Parse(HttpContext.Current.Session["Role_Id"].ToString());
+                bool permission = hasPermission(roleId, controllerName, actionName);
 
                 if (permission == true)
                     return true;
@@ -29,9 +30,10 @@ namespace BusinessSuitMVC.ModelClasses
             return false;
         }
         
-        public static bool hasPermission(int userID, string controller, string action)
+        public static bool hasPermission(int roleId, string controller, string action)
         {
-            var permissionList = getPermissionsByRoleId(userID);
+           
+            var permissionList = getPermissionsByRoleId(roleId);
 
             foreach (var item in permissionList)
             {

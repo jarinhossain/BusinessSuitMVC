@@ -51,6 +51,7 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Welcome()
         {

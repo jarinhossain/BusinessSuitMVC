@@ -30,7 +30,7 @@ namespace BusinessSuitMVC.Controllers
 
             DBContext DB = new DBContext();
             ViewData["roleList"] = loadRoleDropdown();
-            ViewData["City"] = new SourceController().loadDistrictDropdown();
+            ViewData["CityList"] = new SourceController().loadDistrictDropdown();
             return View();
         }
         [HttpPost]
@@ -92,8 +92,8 @@ namespace BusinessSuitMVC.Controllers
                 ViewData["msg"] = "Successfully Saved";
 
             }
-
-            ViewData["City"] = new SourceController().loadDistrictDropdown();
+            ViewData["roleList"] = loadRoleDropdown();
+            ViewData["CityList"] = new SourceController().loadDistrictDropdown();
             return View();
         }
         public String ValidationUser(User_Profile User,String UserName,String Password,String ConfirmPassword, int? Role)
@@ -171,15 +171,15 @@ namespace BusinessSuitMVC.Controllers
                                      where user.User_Profile_Id == profile.Id
                                      select user).FirstOrDefault();
 
-         
-            ViewData["Role"] = user_login.Role_Id;
-            ViewData["City"] = new SourceController().loadDistrictDropdown();
+            ViewData["roleId"] = user_login.Role_Id;
+            ViewData["roleList"] = loadRoleDropdown();
+            ViewData["CityList"] = new SourceController().loadDistrictDropdown();
 
             return View(profile);
         }
 
         [HttpPost]
-        public ActionResult Edit(User_Profile profile, int? Role)
+        public ActionResult Edit(User_Profile profile, int? roleId)
         {
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
@@ -196,7 +196,7 @@ namespace BusinessSuitMVC.Controllers
                     return View();
                 }
             }
-            string validation = ValidationUser(profile,"hi", "hi", "hi",  Role);
+            string validation = ValidationUser(profile,"hi", "hi", "hi",  roleId);
 
             if (validation != "true")
             {
@@ -214,6 +214,7 @@ namespace BusinessSuitMVC.Controllers
                 DBProfile.Phone = profile.Phone;
                 DBProfile.Address = profile.Address;
                 DBProfile.Email = profile.Email;
+                DBProfile.City = profile.City;
                 DBProfile.Image = file != null && file.ContentLength > 0 ? true : profile.Image;
 
                 DB.SaveChanges();
@@ -223,7 +224,7 @@ namespace BusinessSuitMVC.Controllers
                                           select user).FirstOrDefault();
 
               //  DBUserLogin.UserName = UserName;
-                DBUserLogin.Role_Id = Role;
+                DBUserLogin.Role_Id = roleId;
                 DB.SaveChanges();
                 if (file != null && file.ContentLength > 0)
                 {
@@ -233,8 +234,12 @@ namespace BusinessSuitMVC.Controllers
                 }
 
                 ViewData["msg"] = "Successfully Updated";
+                ViewData["roleId"] = DBUserLogin.Role_Id;
             }
-            ViewData["City"] = new SourceController().loadDistrictDropdown();
+
+            
+            ViewData["roleList"] = loadRoleDropdown();
+            ViewData["CityList"] = new SourceController().loadDistrictDropdown();
             return View(profile);
         }
 
