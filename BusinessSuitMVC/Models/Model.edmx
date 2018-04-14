@@ -22,6 +22,27 @@
           <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
+          <Property Name="Client_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Client_Inventory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Client_Id" Type="int" />
+          <Property Name="Login_Id" Type="int" />
+          <Property Name="Profile_Id" Type="int" />
+          <Property Name="Free_Sms" Type="int" />
+          <Property Name="Free_Call" Type="int" />
+          <Property Name="Sms_Sent" Type="int" Nullable="false" />
+          <Property Name="Call_Sent" Type="int" Nullable="false" />
+          <Property Name="Created_By" Type="int" />
+          <Property Name="Created_On" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_By" Type="int" />
+          <Property Name="Updated_On" Type="datetime" />
+          <Property Name="Is_Deleted" Type="bit" Nullable="false" />
+          <Property Name="Deleted_By" Type="int" />
+          <Property Name="Deleted_On" Type="datetime" />
         </EntityType>
         <EntityType Name="Client_List">
           <Key>
@@ -355,6 +376,15 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Role_Id" Type="int" />
           <Property Name="User_Profile_Id" Type="int" />
           <Property Name="Is_Client" Type="bit" />
+          <Property Name="Is_Active" Type="bit" StoreGeneratedPattern="Computed" />
+          <Property Name="Created_By" Type="int" />
+          <Property Name="Ceated_On" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_By" Type="int" />
+          <Property Name="Updated_On" Type="datetime" />
+          <Property Name="Is_Deleted" Type="int" StoreGeneratedPattern="Computed" />
+          <Property Name="Deleted_By" Type="int" />
+          <Property Name="Deleted_On" Type="datetime" />
+          <Property Name="Client_Id" Type="int" />
         </EntityType>
         <EntityType Name="User_Profile">
           <Key>
@@ -396,7 +426,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Display_Name" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <Association Name="FK__Permissio__Modul__02084FDA">
+        <Association Name="FK__Permissio__Modul__693CA210">
           <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
           <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -408,7 +438,19 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User_Logi__Role___14270015">
+        <Association Name="FK__User_Logi__Clien__6FE99F9F">
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="0..1" />
+          <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client_List">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Login">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User_Logi__Role___70DDC3D8">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
           <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
           <ReferentialConstraint>
@@ -417,6 +459,42 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Principal>
             <Dependent Role="User_Login">
               <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Inventory_Client_List">
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="0..1" />
+          <End Role="Client_Inventory" Type="Self.Client_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client_List">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_Inventory">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Inventory_User_Login">
+          <End Role="User_Login" Type="Self.User_Login" Multiplicity="0..1" />
+          <End Role="Client_Inventory" Type="Self.Client_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Login">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_Inventory">
+              <PropertyRef Name="Login_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Inventory_User_Profile">
+          <End Role="User_Profile" Type="Self.User_Profile" Multiplicity="0..1" />
+          <End Role="Client_Inventory" Type="Self.Client_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Profile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_Inventory">
+              <PropertyRef Name="Profile_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -566,6 +644,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
         </Association>
         <EntityContainer Name="Business_SuitModelStoreContainer">
           <EntitySet Name="CDR_Instant" EntityType="Self.CDR_Instant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client_Inventory" EntityType="Self.Client_Inventory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client_List" EntityType="Self.Client_List" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
@@ -606,13 +685,29 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
 [Tokens].[Deleted_On] AS [Deleted_On]
 FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__Permissio__Modul__02084FDA" Association="Self.FK__Permissio__Modul__02084FDA">
+          <AssociationSet Name="FK__Permissio__Modul__693CA210" Association="Self.FK__Permissio__Modul__693CA210">
             <End Role="Module" EntitySet="Module" />
             <End Role="Permission" EntitySet="Permission" />
           </AssociationSet>
-          <AssociationSet Name="FK__User_Logi__Role___14270015" Association="Self.FK__User_Logi__Role___14270015">
+          <AssociationSet Name="FK__User_Logi__Clien__6FE99F9F" Association="Self.FK__User_Logi__Clien__6FE99F9F">
+            <End Role="Client_List" EntitySet="Client_List" />
+            <End Role="User_Login" EntitySet="User_Login" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User_Logi__Role___70DDC3D8" Association="Self.FK__User_Logi__Role___70DDC3D8">
             <End Role="Role" EntitySet="Role" />
             <End Role="User_Login" EntitySet="User_Login" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Inventory_Client_List" Association="Self.FK_Client_Inventory_Client_List">
+            <End Role="Client_List" EntitySet="Client_List" />
+            <End Role="Client_Inventory" EntitySet="Client_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Inventory_User_Login" Association="Self.FK_Client_Inventory_User_Login">
+            <End Role="User_Login" EntitySet="User_Login" />
+            <End Role="Client_Inventory" EntitySet="Client_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Inventory_User_Profile" Association="Self.FK_Client_Inventory_User_Profile">
+            <End Role="User_Profile" EntitySet="User_Profile" />
+            <End Role="Client_Inventory" EntitySet="Client_Inventory" />
           </AssociationSet>
           <AssociationSet Name="FK_Offline_Order_Detalis_Order" Association="Self.FK_Offline_Order_Detalis_Order">
             <End Role="Order" EntitySet="Order" />
@@ -685,6 +780,8 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Client_Type" Type="Int32" />
           <Property Name="Image" Type="Boolean" />
           <Property Name="Present_Position" Type="Int32" />
+          <NavigationProperty Name="User_Login" Relationship="Business_SuitModel.FK__User_Logi__Clien__607251E5" FromRole="Client_List" ToRole="User_Login" />
+          <NavigationProperty Name="Client_Inventory" Relationship="Business_SuitModel.FK_Client_Inventory_Client_List" FromRole="Client_List" ToRole="Client_Inventory" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -1002,7 +1099,18 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <NavigationProperty Name="User_Profile" Relationship="Self.FK_User_Login_User_Profile" FromRole="User_Login" ToRole="User_Profile" />
           <Property Name="Role_Id" Type="Int32" />
           <NavigationProperty Name="Role" Relationship="Business_SuitModel.FK__User_Logi__Role___14270015" FromRole="User_Login" ToRole="Role" />
-          <Property Name="Is_Client" Type="Boolean" />
+          <Property Name="Is_Client" Type="Boolean" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Is_Active" Type="Boolean" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Ceated_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <Property Name="Is_Deleted" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Deleted_By" Type="Int32" />
+          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
+          <Property Name="Client_Id" Type="Int32" />
+          <NavigationProperty Name="Client_List" Relationship="Business_SuitModel.FK__User_Logi__Clien__607251E5" FromRole="User_Login" ToRole="Client_List" />
+          <NavigationProperty Name="Client_Inventory" Relationship="Business_SuitModel.FK_Client_Inventory_User_Login" FromRole="User_Login" ToRole="Client_Inventory" />
         </EntityType>
         <EntityType Name="User_Profile">
           <Key>
@@ -1022,6 +1130,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Image" Type="Boolean" />
           <NavigationProperty Name="User_Login" Relationship="Self.FK_User_Login_User_Profile" FromRole="User_Profile" ToRole="User_Login" />
+          <NavigationProperty Name="Client_Inventory" Relationship="Business_SuitModel.FK_Client_Inventory_User_Profile" FromRole="User_Profile" ToRole="Client_Inventory" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -1289,6 +1398,23 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             <End Role="Role" EntitySet="Roles" />
             <End Role="User_Login" EntitySet="User_Login" />
           </AssociationSet>
+          <AssociationSet Name="FK__User_Logi__Clien__607251E5" Association="Business_SuitModel.FK__User_Logi__Clien__607251E5">
+            <End Role="Client_List" EntitySet="Client_List" />
+            <End Role="User_Login" EntitySet="User_Login" />
+          </AssociationSet>
+          <EntitySet Name="Client_Inventory" EntityType="Business_SuitModel.Client_Inventory" />
+          <AssociationSet Name="FK_Client_Inventory_Client_List" Association="Business_SuitModel.FK_Client_Inventory_Client_List">
+            <End Role="Client_List" EntitySet="Client_List" />
+            <End Role="Client_Inventory" EntitySet="Client_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Inventory_User_Login" Association="Business_SuitModel.FK_Client_Inventory_User_Login">
+            <End Role="User_Login" EntitySet="User_Login" />
+            <End Role="Client_Inventory" EntitySet="Client_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Inventory_User_Profile" Association="Business_SuitModel.FK_Client_Inventory_User_Profile">
+            <End Role="User_Profile" EntitySet="User_Profile" />
+            <End Role="Client_Inventory" EntitySet="Client_Inventory" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Module">
           <Key>
@@ -1315,6 +1441,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <Property Name="Client_Id" Type="Int32" />
         </EntityType>
         <Association Name="FK__Permissio__Modul__02084FDA">
           <End Type="Business_SuitModel.Module" Role="Module" Multiplicity="0..1" />
@@ -1337,6 +1464,77 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             </Principal>
             <Dependent Role="User_Login">
               <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User_Logi__Clien__607251E5">
+          <End Type="Business_SuitModel.Client_List" Role="Client_List" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.User_Login" Role="User_Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client_List">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Login">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Client_Inventory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_Id" Type="Int32" />
+          <Property Name="Login_Id" Type="Int32" />
+          <Property Name="Profile_Id" Type="Int32" />
+          <Property Name="Free_Sms" Type="Int32" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Free_Call" Type="Int32" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Sms_Sent" Type="Int32" Nullable="false" />
+          <Property Name="Call_Sent" Type="Int32" Nullable="false" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <Property Name="Is_Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="Deleted_By" Type="Int32" />
+          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Client_List" Relationship="Business_SuitModel.FK_Client_Inventory_Client_List" FromRole="Client_Inventory" ToRole="Client_List" />
+          <NavigationProperty Name="User_Login" Relationship="Business_SuitModel.FK_Client_Inventory_User_Login" FromRole="Client_Inventory" ToRole="User_Login" />
+          <NavigationProperty Name="User_Profile" Relationship="Business_SuitModel.FK_Client_Inventory_User_Profile" FromRole="Client_Inventory" ToRole="User_Profile" />
+        </EntityType>
+        <Association Name="FK_Client_Inventory_Client_List">
+          <End Type="Business_SuitModel.Client_List" Role="Client_List" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Client_Inventory" Role="Client_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client_List">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_Inventory">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Inventory_User_Login">
+          <End Type="Business_SuitModel.User_Login" Role="User_Login" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Client_Inventory" Role="Client_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Login">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_Inventory">
+              <PropertyRef Name="Login_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Inventory_User_Profile">
+          <End Type="Business_SuitModel.User_Profile" Role="User_Profile" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Client_Inventory" Role="Client_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Profile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_Inventory">
+              <PropertyRef Name="Profile_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1672,6 +1870,15 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="User_Login">
             <EntityTypeMapping TypeName="Business_SuitModel.User_Login">
               <MappingFragment StoreEntitySet="User_Login">
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
+                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
+                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Ceated_On" ColumnName="Ceated_On" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
                 <ScalarProperty Name="Is_Client" ColumnName="Is_Client" />
                 <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1749,6 +1956,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="CDR_Instant">
             <EntityTypeMapping TypeName="Business_SuitModel.CDR_Instant">
               <MappingFragment StoreEntitySet="CDR_Instant">
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
                 <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
                 <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
                 <ScalarProperty Name="Created_On" ColumnName="Created_On" />
@@ -1761,6 +1969,27 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
                 <ScalarProperty Name="Last_App" ColumnName="Last_App" />
                 <ScalarProperty Name="Context" ColumnName="Context" />
                 <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client_Inventory">
+            <EntityTypeMapping TypeName="Business_SuitModel.Client_Inventory">
+              <MappingFragment StoreEntitySet="Client_Inventory">
+                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
+                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Call_Sent" ColumnName="Call_Sent" />
+                <ScalarProperty Name="Sms_Sent" ColumnName="Sms_Sent" />
+                <ScalarProperty Name="Free_Call" ColumnName="Free_Call" />
+                <ScalarProperty Name="Free_Sms" ColumnName="Free_Sms" />
+                <ScalarProperty Name="Profile_Id" ColumnName="Profile_Id" />
+                <ScalarProperty Name="Login_Id" ColumnName="Login_Id" />
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

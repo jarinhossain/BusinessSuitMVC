@@ -55,5 +55,6 @@ namespace BusinessSuitMVC.Models
         public DbSet<Token> Tokens { get; set; }
         public DbSet<Module> Modules { get; set; }
         public DbSet<CDR_Instant> CDR_Instant { get; set; }
+        public DbSet<Client_Inventory> Client_Inventory { get; set; }
     }
 }

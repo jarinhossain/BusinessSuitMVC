@@ -17,6 +17,7 @@ namespace BusinessSuitMVC.Models
         public User_Profile()
         {
             this.User_Login = new HashSet<User_Login>();
+            this.Client_Inventory = new HashSet<Client_Inventory>();
         }
     
         public int Id { get; set; }
@@ -34,5 +35,6 @@ namespace BusinessSuitMVC.Models
         public Nullable<bool> Image { get; set; }
     
         public virtual ICollection<User_Login> User_Login { get; set; }
+        public virtual ICollection<Client_Inventory> Client_Inventory { get; set; }
     }
 }

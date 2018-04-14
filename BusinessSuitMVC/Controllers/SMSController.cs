@@ -10,18 +10,31 @@ using System.Text;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using BusinessSuitMVC.ModelClasses;
+using BusinessSuitMVC.Models;
 
 namespace BusinessSuitMVC.Controllers
 {
     
     public class SMSController : Controller
     {
+        private DBContext DB = new DBContext();
+
         [Authorize]
         [HttpGet]
         public ActionResult SingleSMS()
         {
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
+
+            var isClient = bool.Parse(Session["Is_Client"].ToString());
+            if (isClient == true)
+            {
+                var clientId = int.Parse(Session["Profile_Id"].ToString());
+                int sms = (int)DB.Client_Inventory.Where(x => x.Client_Id == clientId).Select(x => x.Free_Sms).FirstOrDefault();
+
+                ViewData["free_sms"] = sms + " remaining sms";
+
+            }
 
             return View();
         }
@@ -42,6 +55,35 @@ namespace BusinessSuitMVC.Controllers
                 ViewBag.msg = "please enter e valid number";
                 return View();
             }
+            else if(message.Length > 134)
+            {
+                ViewBag.msg = "in test message you can send less than 134 character sms";
+                return View();
+            }
+
+            var isClient = bool.Parse(Session["Is_Client"].ToString());
+            
+            Client_Inventory clientInventory = new Client_Inventory();
+            if (isClient == true)
+            {
+                var clientId = int.Parse(Session["Profile_Id"].ToString());
+
+                clientInventory = DB.Client_Inventory.Where(x => x.Client_Id == clientId).FirstOrDefault();
+                ViewData["free_sms"] = clientInventory.Free_Sms + " remaining sms";
+                if (clientInventory.Free_Sms <= 0)
+                {
+                    ViewData["msg"] = "You have finished your free sms";
+                    return View();
+                }
+
+                clientInventory.Sms_Sent = clientInventory.Sms_Sent + 1;
+                clientInventory.Free_Sms = clientInventory.Free_Sms - 1;
+                clientInventory.Updated_By = clientId;
+                clientInventory.Updated_On = DateTime.Now;
+                DB.SaveChanges();
+                ViewData["free_sms"] = clientInventory.Free_Sms + " remaining sms";
+            }
+
             var result = SendSms(number, message, token);
             ViewBag.msg = result;
 

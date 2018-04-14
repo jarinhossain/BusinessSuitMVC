@@ -54,6 +54,17 @@ namespace BusinessSuitMVC.Controllers
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
 
+            var isClient = bool.Parse(Session["Is_Client"].ToString());
+
+            if (isClient == true)
+            {
+                var clientId = int.Parse(Session["Profile_Id"].ToString());
+                Client_Inventory clientInventory = DB.Client_Inventory.Where(x => x.Client_Id == clientId).FirstOrDefault();
+
+                ViewData["free_call"] = clientInventory.Free_Call + " remaining call";
+
+            }
+
             return View();
         }
 
@@ -70,15 +81,38 @@ namespace BusinessSuitMVC.Controllers
                 return View();
             }
 
-            bool hasDuplicateCall = DB.CDR_Instant.Where(x => x.Mobile == number && x.Status == 0).Any();
+            bool isDuplicateCall = DB.CDR_Instant.Where(x => x.Mobile == number && x.Status == 0).Any();
 
-            if(hasDuplicateCall == true)
+            if(isDuplicateCall == true)
             {
                 ViewData["msg"] = "Duplicate Call Request";
                 return View();
             }
 
+            var isClient = bool.Parse(Session["Is_Client"].ToString());
             CDR_Instant cdr = new CDR_Instant();
+            Client_Inventory clientInventory = new Client_Inventory();
+            if (isClient == true)
+            {
+                var clientId = int.Parse(Session["Profile_Id"].ToString());
+
+                clientInventory = DB.Client_Inventory.Where(x => x.Client_Id == clientId).FirstOrDefault();
+                ViewData["free_call"] = clientInventory.Free_Call + " remaining call";
+                if (clientInventory.Free_Call <= 0)
+                {
+                    ViewData["msg"] = "You have finished your free calls";
+                    return View();
+                }
+
+                clientInventory.Call_Sent = clientInventory.Call_Sent + 1;
+                clientInventory.Free_Call = clientInventory.Free_Call - 1;
+                clientInventory.Updated_By = clientId;
+                clientInventory.Updated_On = DateTime.Now;
+                cdr.Client_Id = clientId;
+                ViewData["free_call"] = clientInventory.Free_Call + " remaining call";
+            }
+
+            
 
             cdr.Mobile = number;
             cdr.Remarks = remarks;
@@ -100,7 +134,7 @@ namespace BusinessSuitMVC.Controllers
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
 
-            return View(DB.CDR_Instant.OrderBy(x => x.Created_On).ToList());
+            return View(DB.CDR_Instant.OrderByDescending(x => x.Created_On).ToList());
         }
 
         [HttpGet]

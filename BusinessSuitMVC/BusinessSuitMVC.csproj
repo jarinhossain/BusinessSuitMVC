@@ -193,6 +193,9 @@
     <Compile Include="Models\CDR_Instant.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Client_Inventory.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Client_List.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -381,6 +384,9 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
     <None Include="Properties\PublishProfiles\BusinessSuitMVC.pubxml" />
     <Content Include="Views\User\Dashboard.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
@@ -397,6 +403,7 @@
     <Content Include="Views\Client\Dashboard.cshtml" />
     <Content Include="Views\Login\Welcome.cshtml" />
     <Content Include="Views\SMS\SingleSMS.cshtml" />
+    <Content Include="Views\Client\ClientLoginDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

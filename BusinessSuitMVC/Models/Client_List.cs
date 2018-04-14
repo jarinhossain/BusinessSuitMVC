@@ -14,6 +14,12 @@ namespace BusinessSuitMVC.Models
     
     public partial class Client_List
     {
+        public Client_List()
+        {
+            this.User_Login = new HashSet<User_Login>();
+            this.Client_Inventory = new HashSet<Client_Inventory>();
+        }
+    
         public int Id { get; set; }
         public string Counsilor_Name { get; set; }
         public string Bangla_Name { get; set; }
@@ -28,5 +34,8 @@ namespace BusinessSuitMVC.Models
         public Nullable<int> Client_Type { get; set; }
         public Nullable<bool> Image { get; set; }
         public Nullable<int> Present_Position { get; set; }
+    
+        public virtual ICollection<User_Login> User_Login { get; set; }
+        public virtual ICollection<Client_Inventory> Client_Inventory { get; set; }
     }
 }

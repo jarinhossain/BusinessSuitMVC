@@ -418,6 +418,7 @@ namespace BusinessSuitMVC.Controllers
 
             return View();
         }
+
         [HttpGet]
         public ActionResult Details(int id)
         {
@@ -428,6 +429,51 @@ namespace BusinessSuitMVC.Controllers
                                   select u).FirstOrDefault();
 
             return View(client);
+        }
+
+        [HttpGet]
+        public ActionResult ClientLoginDetails(int id)
+        {
+            DBContext DB = new DBContext();
+            var DBLogin = DB.User_Login.Include("Client_list").Where(x => x.Client_Id == id).FirstOrDefault();
+
+            return View("ClientLoginDetails", DBLogin);
+        }
+
+        [HttpGet]
+        public ActionResult ClientMakeUser(int id)
+        {
+
+            DBContext DB = new DBContext();
+            Client_List client = (from u in DB.Client_List
+                                  where u.Id == id
+                                  select u).FirstOrDefault();
+
+            ///check if the client has already login access
+            if(client.User_Login.Count >= 1)
+            {
+                return Redirect("~/Client/ClientLoginDetails/" + client.Id);
+            }
+
+            User_Login login = new User_Login();
+            login.Is_Client = true;
+            login.Is_Active = true;
+            login.Client_Id = client.Id;
+            login.UserName = client.Mobile1;
+            login.Role_Id = 5;///client role
+            login.Password = PasswordEncryption.GetSHA1HashData(client.Mobile1 + client.Id.ToString());
+            login.Created_By = int.Parse(Session["Login_Id"].ToString());
+
+            Client_Inventory clientInventory = new Client_Inventory();
+            clientInventory.Client_Id = client.Id;
+            clientInventory.Free_Call = 2;
+            clientInventory.Free_Sms = 2;
+
+            DB.Client_Inventory.Add(clientInventory);
+            DB.User_Login.Add(login);
+            DB.SaveChanges();
+
+            return Redirect("~/Client/ClientLoginDetails/" + client.Id);
         }
 
         [HttpGet]

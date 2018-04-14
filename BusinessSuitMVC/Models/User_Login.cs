@@ -18,6 +18,7 @@ namespace BusinessSuitMVC.Models
         {
             this.Permission_User = new HashSet<Permission_User>();
             this.Role_User = new HashSet<Role_User>();
+            this.Client_Inventory = new HashSet<Client_Inventory>();
         }
     
         public int Id { get; set; }
@@ -26,10 +27,21 @@ namespace BusinessSuitMVC.Models
         public Nullable<int> User_Profile_Id { get; set; }
         public Nullable<int> Role_Id { get; set; }
         public Nullable<bool> Is_Client { get; set; }
+        public Nullable<bool> Is_Active { get; set; }
+        public Nullable<int> Created_By { get; set; }
+        public Nullable<System.DateTime> Ceated_On { get; set; }
+        public Nullable<int> Updated_By { get; set; }
+        public Nullable<System.DateTime> Updated_On { get; set; }
+        public Nullable<int> Is_Deleted { get; set; }
+        public Nullable<int> Deleted_By { get; set; }
+        public Nullable<System.DateTime> Deleted_On { get; set; }
+        public Nullable<int> Client_Id { get; set; }
     
         public virtual ICollection<Permission_User> Permission_User { get; set; }
         public virtual ICollection<Role_User> Role_User { get; set; }
         public virtual User_Profile User_Profile { get; set; }
         public virtual Role Role { get; set; }
+        public virtual Client_List Client_List { get; set; }
+        public virtual ICollection<Client_Inventory> Client_Inventory { get; set; }
     }
 }

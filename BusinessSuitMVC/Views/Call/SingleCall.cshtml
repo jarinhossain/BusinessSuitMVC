@@ -24,40 +24,45 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Test Call</h3>
                     </div>
-                        <div class="box-body">
-                            @using (Html.BeginForm("SingleCall", "Call", FormMethod.Post, new {  @class = "form-horizontal" }))
-                            {
-                                <div class="box-body">
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3">Mobile Number <span style="color:red;" >*</span> </label>
-                                        <div class="col-md-5">
-                                            @Html.TextBox("number", null, new { @Class = "form-control" })
-                                        </div>
+                    <div class="box-body">
+                        @using (Html.BeginForm("SingleCall", "Call", FormMethod.Post, new { @class = "form-horizontal" }))
+                        {
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Mobile Number <span style="color:red;">*</span> </label>
+                                    
+                                    <div class="col-md-5">
+                                        @Html.TextBox("number", null, new { @Class = "form-control" })
+                                        <span style="color:red">@ViewData["free_call"]</span>
                                     </div>
 
-                                    <div class="form-group">
-                                        @Html.Label("Remarks", new { @class = "control-label col-md-3" })
-                                        <div class="col-md-5">
-                                            @Html.TextBox("remarks", null, new { @Class = "form-control" })
-                                        </div>
-                                    </div>
+                                </div>
 
-                                    <div class="form-group">
-                                        <div class="col-md-3"></div>
-                                        <input type="submit" value="Test Call" style="margin-left:15px" class="btn btn-info" />
-                                        
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-3"></div>
-                                        <label id="msg" style="color:red;">@ViewData["msg"]</label>
+                                <div class="form-group">
+                                    @Html.Label("Remarks", new { @class = "control-label col-md-3" })
+                                    <div class="col-md-5">
+                                        @Html.TextBox("remarks", null, new { @Class = "form-control" })
                                     </div>
                                 </div>
-                            }
 
+                                <div class="form-group">
+                                    <div class="col-md-3"></div>
+                                    <input type="submit" value="Test Call" style="margin-left:15px" class="btn btn-info" />
+
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-3"></div>
+                                    <label id="msg" style="color:red;">@ViewData["msg"]</label>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
                 </div>
             </div>
         </div>
+
     </section>
 </section>
 

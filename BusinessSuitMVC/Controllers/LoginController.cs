@@ -358,13 +358,16 @@ namespace BusinessSuitMVC.Controllers
                 User_Login search = (from user in DB.User_Login
                                      where user.UserName == model.UserName
                                      && user.Password == shaPass
+                                     && user.Is_Active == true
+                                     //&& user.Is_Deleted == 0
                                      select user).FirstOrDefault();
 
                 if (search != null)
                 {
                     FormsAuthentication.SetAuthCookie(search.UserName, false);
                     int roleId = (int)search.Role_Id;
-                    Session["Profile_Id"] = search.User_Profile_Id;
+                    Session["Profile_Id"] = search.User_Profile_Id == null ? search.Client_Id : search.User_Profile_Id ; ///user can be client or internal compnay user
+                    Session["Is_Client"] = search.Is_Client;
                     Session["Login_Id"] = search.Id;
                     Session["User_Name"] = search.UserName;
                     Session["Role_Id"] = roleId;
@@ -374,8 +377,8 @@ namespace BusinessSuitMVC.Controllers
                         return Redirect(ReturnUrl);
                     }
 
-                    if (roleId >= 6)
-                        return RedirectToAction("Dashboard", "Client");
+                    if (search.Is_Client == true)
+                        return RedirectToAction("SingleCall", "Call");
                     else
                         return RedirectToAction("Dashboard", "User");
                 }

@@ -49,6 +49,11 @@
         <EntityTypeShape EntityType="Business_SuitModel.CDR_Instant" Width="1.5" PointX="16.375" PointY="14.75" />
         <AssociationConnector Association="Business_SuitModel.FK__Permissio__Modul__02084FDA" />
         <AssociationConnector Association="Business_SuitModel.FK__User_Logi__Role___14270015" />
+        <AssociationConnector Association="Business_SuitModel.FK__User_Logi__Clien__607251E5" />
+        <EntityTypeShape EntityType="Business_SuitModel.Client_Inventory" Width="1.5" PointX="16" PointY="0.75" />
+        <AssociationConnector Association="Business_SuitModel.FK_Client_Inventory_Client_List" />
+        <AssociationConnector Association="Business_SuitModel.FK_Client_Inventory_User_Login" />
+        <AssociationConnector Association="Business_SuitModel.FK_Client_Inventory_User_Profile" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

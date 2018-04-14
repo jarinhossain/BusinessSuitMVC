@@ -344,6 +344,8 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">MAIN NAVIGATION</li>
+                    @if (bool.Parse(Session["Is_Client"].ToString()) != true)
+                    {
                     <li class="active treeview">
                         <a href="#">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -398,6 +400,21 @@
                             <li><a href="~/Source/Search"><i class="fa fa-circle-o"></i> List</a></li>
                         </ul>
                     </li>
+                    } 
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-laptop"></i>
+                            <span>Instant SMS</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="~/SMS/SingleSMS"><i class="fa fa-circle-o"></i> Test SMS </a></li>
+                            @*<li><a href="~/SMS/SingleCallList"><i class="fa fa-circle-o"></i> Call List</a></li>*@
+                        </ul>
+                    </li>
 
                     <li class="treeview">
                         <a href="#">
@@ -412,7 +429,9 @@
                             <li><a href="~/Call/SingleCallList"><i class="fa fa-circle-o"></i> Call List</a></li>
                         </ul>
                     </li>
-
+                          
+                    @if (bool.Parse(Session["Is_Client"].ToString()) != true)
+                    {
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-laptop"></i>
@@ -426,6 +445,7 @@
                             <li><a href="~/Accounting/ExpenseSearch"><i class="fa fa-circle-o"></i> Expense List</a></li>
                         </ul>
                     </li>
+                    }
                 </ul>
             </section>
             <!-- /.sidebar -->
