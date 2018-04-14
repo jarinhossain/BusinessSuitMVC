@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace BusinessSuitMVC.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         public ActionResult LayoutTest()
@@ -26,6 +27,7 @@ namespace BusinessSuitMVC.Controllers
         {
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
+
             DBContext DB = new DBContext();
             ViewData["roleList"] = loadRoleDropdown();
             ViewData["City"] = new SourceController().loadDistrictDropdown();
