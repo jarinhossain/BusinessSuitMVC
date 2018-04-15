@@ -422,6 +422,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
             DBContext DB = new DBContext();
             Client_List client = (from u in DB.Client_List
@@ -434,6 +436,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult ClientLoginDetails(int id)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
             DBContext DB = new DBContext();
             var DBLogin = DB.User_Login.Include("Client_list").Where(x => x.Client_Id == id).FirstOrDefault();
 
@@ -443,6 +448,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult ClientMakeUser(int id)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
             DBContext DB = new DBContext();
             Client_List client = (from u in DB.Client_List
