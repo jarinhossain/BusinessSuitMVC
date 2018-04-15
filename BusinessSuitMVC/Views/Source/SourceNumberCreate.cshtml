@@ -125,10 +125,19 @@
 
         var message = $("#msg").text();
 
-        if (message == "Successfully Updated") {
-            swal("Successful", "Successfully Updated", "success").then(function () {
+        if (message == "Successfully Added") {
+            swal({
+
+
+                title: "Successful",
+                text: "Successfully Added",
+            icon: "success",
+            button: false,
+            timer: 1500
+            }).then(function () {
                 $("#MobileNumber").focus();
-            });;
+            });
+            
             resetFunction();
         }
         $("#reset").click(function () {

@@ -233,20 +233,35 @@ namespace BusinessSuitMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult SourceNumberCreate(Source source, int MobileNumber)
+        public ActionResult SourceNumberCreate(Source source, string MobileNumber)
         {
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
 
-            Numeral_DBContext DB = new Numeral_DBContext();
-            Number number = new Number();
-            number.Number1 = MobileNumber;
-            number.Source_Id = source.Id;
+            int mobileNumber = 0;
+            if (int.TryParse(MobileNumber, out mobileNumber) == false)
+            {
+                TempData["msg"] = "Invalid mobile number";
+            }
+            else
+            {
+                Numeral_DBContext DB = new Numeral_DBContext();
+                Number number = new Number();
+                number.Number1 = mobileNumber;
+                number.Source_Id = source.Id;
 
-            // Source.Mobile1 = source.Mobile1;
-            DB.Numbers.Add(number);
-            DB.SaveChanges();
-            TempData["msg"] = "Successfully Updated";
+                // Source.Mobile1 = source.Mobile1;
+                DB.Numbers.Add(number);
+                try
+                {
+                    DB.SaveChanges();
+                    TempData["msg"] = "Successfully Added";
+                }
+                catch
+                {
+                    TempData["msg"] = "Duplicate Number in same source";
+                }
+            }
             //Source/SourceNumerCreate?id=4
             return RedirectToAction("SourceNumberCreate", new { id = source.Id });
         }

@@ -64,7 +64,7 @@ namespace BusinessSuitMVC.Controllers
             var isClient = bool.Parse(Session["Is_Client"].ToString());
             
             Client_Inventory clientInventory = new Client_Inventory();
-            if (isClient == true)
+            if (isClient == true)///condition only applied for client
             {
                 var clientId = int.Parse(Session["Profile_Id"].ToString());
 
