@@ -78,6 +78,7 @@ namespace BusinessSuitMVC.Controllers
                 login.User_Profile_Id = User.Id;
                 login.Password = PasswordEncryption.GetSHA1HashData(Password);
                 login.Role_Id = roleId;
+                login.Is_Client = false;
 
                 DB.User_Login.Add(login);
                 DB.SaveChanges();
