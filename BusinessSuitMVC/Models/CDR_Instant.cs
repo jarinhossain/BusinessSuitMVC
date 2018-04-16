@@ -28,5 +28,7 @@ namespace BusinessSuitMVC.Models
         public Nullable<int> Updated_By { get; set; }
         public Nullable<System.DateTime> Updated_On { get; set; }
         public Nullable<int> Client_Id { get; set; }
+        public Nullable<System.DateTime> Start_Time { get; set; }
+        public Nullable<System.DateTime> End_Time { get; set; }
     }
 }

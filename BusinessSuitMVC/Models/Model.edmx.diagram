@@ -10,10 +10,6 @@
         <EntityTypeShape EntityType="Business_SuitModel.Division" Width="1.5" PointX="9.75" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Expense" Width="1.5" PointX="10.75" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Expense_Type" Width="1.5" PointX="11.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Notification_Obd_Bulk" Width="1.5" PointX="12.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Notification_Obd_Request" Width="1.5" PointX="12.75" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Notification_Sms_Bulk" Width="1.5" PointX="13.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Notification_Sms_Request" Width="1.5" PointX="0.75" PointY="15" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Offline_Order_Detalis" Width="1.5" PointX="8" PointY="11.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Online_Order_Detalis" Width="1.5" PointX="11" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Business_SuitModel.Order" Width="1.5" PointX="5.75" PointY="14.625" IsExpanded="true" />
@@ -54,6 +50,17 @@
         <AssociationConnector Association="Business_SuitModel.FK_Client_Inventory_Client_List" />
         <AssociationConnector Association="Business_SuitModel.FK_Client_Inventory_User_Login" />
         <AssociationConnector Association="Business_SuitModel.FK_Client_Inventory_User_Profile" />
+        <EntityTypeShape EntityType="Business_SuitModel.CDR_Obd" Width="1.5" PointX="10" PointY="30.875" />
+        <EntityTypeShape EntityType="Business_SuitModel.Obd_Bulk" Width="1.5" PointX="10" PointY="24.875" />
+        <EntityTypeShape EntityType="Business_SuitModel.Obd_Request" Width="1.5" PointX="12.25" PointY="25.5" />
+        <EntityTypeShape EntityType="Business_SuitModel.Obd_Ward_Details" Width="1.5" PointX="13.25" PointY="20.375" />
+        <EntityTypeShape EntityType="Business_SuitModel.Sms_Bulk" Width="1.5" PointX="17.375" PointY="6.75" />
+        <EntityTypeShape EntityType="Business_SuitModel.Sms_Request" Width="1.5" PointX="18.375" PointY="0.75" />
+        <AssociationConnector Association="Business_SuitModel.FK_Obd_Request_CDR_Obd" />
+        <AssociationConnector Association="Business_SuitModel.FK_Obd_Bulk_Client_List" />
+        <AssociationConnector Association="Business_SuitModel.FK_Obd_Ward_Details_Client_List" />
+        <AssociationConnector Association="Business_SuitModel.FK_Obd_Request_Obd_Bulk" />
+        <AssociationConnector Association="Business_SuitModel.FK_Obd_Ward_Details_Obd_Bulk" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

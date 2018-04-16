@@ -14,6 +14,8 @@
           <Property Name="Context" Type="varchar" MaxLength="100" />
           <Property Name="Last_App" Type="varchar" MaxLength="100" />
           <Property Name="Status" Type="int" />
+          <Property Name="Start_Time" Type="datetime" />
+          <Property Name="End_Time" Type="datetime" />
           <Property Name="Disposition" Type="int" />
           <Property Name="Bill_Sec" Type="int" />
           <Property Name="Duration" Type="int" />
@@ -23,6 +25,29 @@
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="Client_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="CDR_Obd">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Obd_Request_Id" Type="int" />
+          <Property Name="Context" Type="varchar" MaxLength="100" />
+          <Property Name="Start_Time" Type="datetime" Nullable="false" />
+          <Property Name="Answer_Time" Type="datetime" Nullable="false" />
+          <Property Name="End_Time" Type="datetime" Nullable="false" />
+          <Property Name="Clid" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Src" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Dst" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="Billsec" Type="int" Nullable="false" />
+          <Property Name="Disposition" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Amaflags" Type="int" Nullable="false" />
+          <Property Name="Uniqueid" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="Last_Data" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Last_App" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Created_By" Type="int" />
+          <Property Name="Created_On" Type="datetime" />
         </EntityType>
         <EntityType Name="Client_Inventory">
           <Key>
@@ -110,48 +135,54 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Notification_Obd_Bulk">
+        <EntityType Name="Obd_Bulk">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="Client_Id" Type="int" />
+          <Property Name="Order_Id" Type="int" />
+          <Property Name="Obd_Ward_Details_Id" Type="int" />
+          <Property Name="Scheduled_Time" Type="datetime" />
           <Property Name="Start_Time" Type="datetime" />
           <Property Name="End_Time" Type="datetime" />
           <Property Name="Calls_Per_Sec" Type="int" />
-          <Property Name="Retry_Time" Type="int" />
-          <Property Name="Msisdn_File" Type="varchar" MaxLength="500" />
-          <Property Name="Play_File" Type="varchar" MaxLength="500" />
+          <Property Name="Play_File" Type="varchar" MaxLength="1000" />
           <Property Name="Retry" Type="int" />
-          <Property Name="Created_At" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="Total_Calls" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Created_By" Type="int" />
+          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Updated_By" Type="int" />
+          <Property Name="Updated_On" Type="datetime" />
         </EntityType>
-        <EntityType Name="Notification_Obd_Request">
+        <EntityType Name="Obd_Request">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Obd_Bulk_Id" Type="int" />
+          <Property Name="CDR_Obd_Id" Type="int" />
+          <Property Name="Mobile" Type="varchar" MaxLength="15" />
+          <Property Name="Source_Id" Type="int" />
+          <Property Name="Retry_Count" Type="int" />
+          <Property Name="Call_Duration" Type="int" Nullable="false" />
+          <Property Name="Billsec" Type="int" Nullable="false" />
+          <Property Name="Uniqueid" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="Lastdata" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="Is_Obd_Generated" Type="bit" />
         </EntityType>
-        <EntityType Name="Notification_Sms_Bulk">
+        <EntityType Name="Obd_Ward_Details">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Content" Type="varchar" MaxLength="255" />
-          <Property Name="Start_Time" Type="datetime" />
-          <Property Name="End_Time" Type="datetime" />
-        </EntityType>
-        <EntityType Name="Notification_Sms_Request">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Msisdn" Type="varchar" MaxLength="20" />
-          <Property Name="Content" Type="varchar" MaxLength="255" />
-          <Property Name="Start_Time" Type="datetime" />
-          <Property Name="End_Time" Type="datetime" />
-          <Property Name="Transmission_Time" Type="datetime" />
-          <Property Name="Locked_Time" Type="datetime" />
-          <Property Name="Try_Count" Type="int" />
+          <Property Name="Client_Id" Type="int" />
+          <Property Name="Ward" Type="int" />
+          <Property Name="Obd_Bulk_Id" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Created_By" Type="int" />
+          <Property Name="Created_On" Type="datetime" />
         </EntityType>
         <EntityType Name="Offline_Order_Detalis">
           <Key>
@@ -343,6 +374,28 @@
           <Property Name="Slip_Width" Type="float" />
           <Property Name="Is_Active" Type="bit" />
         </EntityType>
+        <EntityType Name="Sms_Bulk">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content" Type="varchar" MaxLength="255" />
+          <Property Name="Start_Time" Type="datetime" />
+          <Property Name="End_Time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Sms_Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Msisdn" Type="varchar" MaxLength="20" />
+          <Property Name="Content" Type="varchar" MaxLength="255" />
+          <Property Name="Start_Time" Type="datetime" />
+          <Property Name="End_Time" Type="datetime" />
+          <Property Name="Transmission_Time" Type="datetime" />
+          <Property Name="Locked_Time" Type="datetime" />
+          <Property Name="Try_Count" Type="int" />
+        </EntityType>
         <EntityType Name="Status ">
           <Key>
             <PropertyRef Name="Id" />
@@ -498,6 +551,66 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Obd_Bulk_Client_List">
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="0..1" />
+          <End Role="Obd_Bulk" Type="Self.Obd_Bulk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client_List">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Bulk">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obd_Request_CDR_Obd">
+          <End Role="CDR_Obd" Type="Self.CDR_Obd" Multiplicity="0..1" />
+          <End Role="Obd_Request" Type="Self.Obd_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CDR_Obd">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Request">
+              <PropertyRef Name="CDR_Obd_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obd_Request_Obd_Bulk">
+          <End Role="Obd_Bulk" Type="Self.Obd_Bulk" Multiplicity="0..1" />
+          <End Role="Obd_Request" Type="Self.Obd_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Obd_Bulk">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Request">
+              <PropertyRef Name="Obd_Bulk_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obd_Ward_Details_Client_List">
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="0..1" />
+          <End Role="Obd_Ward_Details" Type="Self.Obd_Ward_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client_List">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Ward_Details">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obd_Ward_Details_Obd_Bulk">
+          <End Role="Obd_Bulk" Type="Self.Obd_Bulk" Multiplicity="0..1" />
+          <End Role="Obd_Ward_Details" Type="Self.Obd_Ward_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Obd_Bulk">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Ward_Details">
+              <PropertyRef Name="Obd_Bulk_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Offline_Order_Detalis_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
           <End Role="Offline_Order_Detalis" Type="Self.Offline_Order_Detalis" Multiplicity="*" />
@@ -644,6 +757,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
         </Association>
         <EntityContainer Name="Business_SuitModelStoreContainer">
           <EntitySet Name="CDR_Instant" EntityType="Self.CDR_Instant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CDR_Obd" EntityType="Self.CDR_Obd" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client_Inventory" EntityType="Self.Client_Inventory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client_List" EntityType="Self.Client_List" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
@@ -651,10 +765,9 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <EntitySet Name="Expense" EntityType="Self.Expense" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Expense_Type" EntityType="Self.Expense_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Notification_Obd_Bulk" EntityType="Self.Notification_Obd_Bulk" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Notification_Obd_Request" EntityType="Self.Notification_Obd_Request" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Notification_Sms_Bulk" EntityType="Self.Notification_Sms_Bulk" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Notification_Sms_Request" EntityType="Self.Notification_Sms_Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Obd_Bulk" EntityType="Self.Obd_Bulk" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Obd_Request" EntityType="Self.Obd_Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Obd_Ward_Details" EntityType="Self.Obd_Ward_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Offline_Order_Detalis" EntityType="Self.Offline_Order_Detalis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Online_Order_Detalis" EntityType="Self.Online_Order_Detalis" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
@@ -668,6 +781,8 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <EntitySet Name="Role_User" EntityType="Self.Role_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sippeers" EntityType="Self.Sippeers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Slip_Formats" EntityType="Self.Slip_Formats" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sms_Bulk" EntityType="Self.Sms_Bulk" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sms_Request" EntityType="Self.Sms_Request" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status " EntityType="Self.Status " Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Login" EntityType="Self.User_Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Profile" EntityType="Self.User_Profile" Schema="dbo" store:Type="Tables" />
@@ -708,6 +823,26 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <AssociationSet Name="FK_Client_Inventory_User_Profile" Association="Self.FK_Client_Inventory_User_Profile">
             <End Role="User_Profile" EntitySet="User_Profile" />
             <End Role="Client_Inventory" EntitySet="Client_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obd_Bulk_Client_List" Association="Self.FK_Obd_Bulk_Client_List">
+            <End Role="Client_List" EntitySet="Client_List" />
+            <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obd_Request_CDR_Obd" Association="Self.FK_Obd_Request_CDR_Obd">
+            <End Role="CDR_Obd" EntitySet="CDR_Obd" />
+            <End Role="Obd_Request" EntitySet="Obd_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obd_Request_Obd_Bulk" Association="Self.FK_Obd_Request_Obd_Bulk">
+            <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
+            <End Role="Obd_Request" EntitySet="Obd_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obd_Ward_Details_Client_List" Association="Self.FK_Obd_Ward_Details_Client_List">
+            <End Role="Client_List" EntitySet="Client_List" />
+            <End Role="Obd_Ward_Details" EntitySet="Obd_Ward_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obd_Ward_Details_Obd_Bulk" Association="Self.FK_Obd_Ward_Details_Obd_Bulk">
+            <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
+            <End Role="Obd_Ward_Details" EntitySet="Obd_Ward_Details" />
           </AssociationSet>
           <AssociationSet Name="FK_Offline_Order_Detalis_Order" Association="Self.FK_Offline_Order_Detalis_Order">
             <End Role="Order" EntitySet="Order" />
@@ -782,6 +917,8 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Present_Position" Type="Int32" />
           <NavigationProperty Name="User_Login" Relationship="Business_SuitModel.FK__User_Logi__Clien__607251E5" FromRole="Client_List" ToRole="User_Login" />
           <NavigationProperty Name="Client_Inventory" Relationship="Business_SuitModel.FK_Client_Inventory_Client_List" FromRole="Client_List" ToRole="Client_Inventory" />
+          <NavigationProperty Name="Obd_Bulk" Relationship="Business_SuitModel.FK_Obd_Bulk_Client_List" FromRole="Client_List" ToRole="Obd_Bulk" />
+          <NavigationProperty Name="Obd_Ward_Details" Relationship="Business_SuitModel.FK_Obd_Ward_Details_Client_List" FromRole="Client_List" ToRole="Obd_Ward_Details" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -822,49 +959,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Notification_Obd_Bulk">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Start_Time" Type="DateTime" Precision="3" />
-          <Property Name="End_Time" Type="DateTime" Precision="3" />
-          <Property Name="Calls_Per_Sec" Type="Int32" />
-          <Property Name="Retry_Time" Type="Int32" />
-          <Property Name="Msisdn_File" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Play_File" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Retry" Type="Int32" />
-          <Property Name="Created_At" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-        </EntityType>
-        <EntityType Name="Notification_Obd_Request">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <EntityType Name="Notification_Sms_Bulk">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Content" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Start_Time" Type="DateTime" Precision="3" />
-          <Property Name="End_Time" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="Notification_Sms_Request">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Msisdn" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Content" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Start_Time" Type="DateTime" Precision="3" />
-          <Property Name="End_Time" Type="DateTime" Precision="3" />
-          <Property Name="Transmission_Time" Type="DateTime" Precision="3" />
-          <Property Name="Locked_Time" Type="DateTime" Precision="3" />
-          <Property Name="Try_Count" Type="Int32" />
         </EntityType>
         <EntityType Name="Offline_Order_Detalis">
           <Key>
@@ -1317,10 +1411,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySet Name="Divisions" EntityType="Self.Division" />
           <EntitySet Name="Expenses" EntityType="Self.Expense" />
           <EntitySet Name="Expense_Type" EntityType="Self.Expense_Type" />
-          <EntitySet Name="Notification_Obd_Bulk" EntityType="Self.Notification_Obd_Bulk" />
-          <EntitySet Name="Notification_Obd_Request" EntityType="Self.Notification_Obd_Request" />
-          <EntitySet Name="Notification_Sms_Bulk" EntityType="Self.Notification_Sms_Bulk" />
-          <EntitySet Name="Notification_Sms_Request" EntityType="Self.Notification_Sms_Request" />
           <EntitySet Name="Offline_Order_Detalis" EntityType="Self.Offline_Order_Detalis" />
           <EntitySet Name="Online_Order_Detalis" EntityType="Self.Online_Order_Detalis" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
@@ -1415,6 +1505,32 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             <End Role="User_Profile" EntitySet="User_Profile" />
             <End Role="Client_Inventory" EntitySet="Client_Inventory" />
           </AssociationSet>
+          <EntitySet Name="CDR_Obd" EntityType="Business_SuitModel.CDR_Obd" />
+          <EntitySet Name="Obd_Bulk" EntityType="Business_SuitModel.Obd_Bulk" />
+          <EntitySet Name="Obd_Request" EntityType="Business_SuitModel.Obd_Request" />
+          <EntitySet Name="Obd_Ward_Details" EntityType="Business_SuitModel.Obd_Ward_Details" />
+          <EntitySet Name="Sms_Bulk" EntityType="Business_SuitModel.Sms_Bulk" />
+          <EntitySet Name="Sms_Request" EntityType="Business_SuitModel.Sms_Request" />
+          <AssociationSet Name="FK_Obd_Request_CDR_Obd" Association="Business_SuitModel.FK_Obd_Request_CDR_Obd">
+            <End Role="CDR_Obd" EntitySet="CDR_Obd" />
+            <End Role="Obd_Request" EntitySet="Obd_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obd_Bulk_Client_List" Association="Business_SuitModel.FK_Obd_Bulk_Client_List">
+            <End Role="Client_List" EntitySet="Client_List" />
+            <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obd_Ward_Details_Client_List" Association="Business_SuitModel.FK_Obd_Ward_Details_Client_List">
+            <End Role="Client_List" EntitySet="Client_List" />
+            <End Role="Obd_Ward_Details" EntitySet="Obd_Ward_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obd_Request_Obd_Bulk" Association="Business_SuitModel.FK_Obd_Request_Obd_Bulk">
+            <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
+            <End Role="Obd_Request" EntitySet="Obd_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obd_Ward_Details_Obd_Bulk" Association="Business_SuitModel.FK_Obd_Ward_Details_Obd_Bulk">
+            <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
+            <End Role="Obd_Ward_Details" EntitySet="Obd_Ward_Details" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Module">
           <Key>
@@ -1442,6 +1558,8 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
           <Property Name="Client_Id" Type="Int32" />
+          <Property Name="Start_Time" Type="DateTime" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK__Permissio__Modul__02084FDA">
           <End Type="Business_SuitModel.Module" Role="Module" Multiplicity="0..1" />
@@ -1538,6 +1656,168 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CDR_Obd">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Obd_Request_Id" Type="Int32" />
+          <Property Name="Context" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Start_Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Answer_Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Clid" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Src" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Dst" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <Property Name="Billsec" Type="Int32" Nullable="false" />
+          <Property Name="Disposition" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Amaflags" Type="Int32" Nullable="false" />
+          <Property Name="Uniqueid" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Last_Data" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Last_App" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Obd_Request" Relationship="Business_SuitModel.FK_Obd_Request_CDR_Obd" FromRole="CDR_Obd" ToRole="Obd_Request" />
+        </EntityType>
+        <EntityType Name="Obd_Bulk">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_Id" Type="Int32" />
+          <Property Name="Order_Id" Type="Int32" />
+          <Property Name="Obd_Ward_Details_Id" Type="Int32" />
+          <Property Name="Scheduled_Time" Type="DateTime" Precision="3" />
+          <Property Name="Start_Time" Type="DateTime" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Precision="3" />
+          <Property Name="Calls_Per_Sec" Type="Int32" />
+          <Property Name="Play_File" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Retry" Type="Int32" />
+          <Property Name="Total_Calls" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Client_List" Relationship="Business_SuitModel.FK_Obd_Bulk_Client_List" FromRole="Obd_Bulk" ToRole="Client_List" />
+          <NavigationProperty Name="Obd_Request" Relationship="Business_SuitModel.FK_Obd_Request_Obd_Bulk" FromRole="Obd_Bulk" ToRole="Obd_Request" />
+          <NavigationProperty Name="Obd_Ward_Details" Relationship="Business_SuitModel.FK_Obd_Ward_Details_Obd_Bulk" FromRole="Obd_Bulk" ToRole="Obd_Ward_Details" />
+        </EntityType>
+        <EntityType Name="Obd_Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Obd_Bulk_Id" Type="Int32" />
+          <Property Name="CDR_Obd_Id" Type="Int32" />
+          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Source_Id" Type="Int32" />
+          <Property Name="Retry_Count" Type="Int32" />
+          <Property Name="Call_Duration" Type="Int32" Nullable="false" />
+          <Property Name="Billsec" Type="Int32" Nullable="false" />
+          <Property Name="Uniqueid" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Lastdata" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Is_Obd_Generated" Type="Boolean" />
+          <NavigationProperty Name="CDR_Obd" Relationship="Business_SuitModel.FK_Obd_Request_CDR_Obd" FromRole="Obd_Request" ToRole="CDR_Obd" />
+          <NavigationProperty Name="Obd_Bulk" Relationship="Business_SuitModel.FK_Obd_Request_Obd_Bulk" FromRole="Obd_Request" ToRole="Obd_Bulk" />
+        </EntityType>
+        <EntityType Name="Obd_Ward_Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_Id" Type="Int32" />
+          <Property Name="Ward" Type="Int32" />
+          <Property Name="Obd_Bulk_Id" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Client_List" Relationship="Business_SuitModel.FK_Obd_Ward_Details_Client_List" FromRole="Obd_Ward_Details" ToRole="Client_List" />
+          <NavigationProperty Name="Obd_Bulk" Relationship="Business_SuitModel.FK_Obd_Ward_Details_Obd_Bulk" FromRole="Obd_Ward_Details" ToRole="Obd_Bulk" />
+        </EntityType>
+        <EntityType Name="Sms_Bulk">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Start_Time" Type="DateTime" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Sms_Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Msisdn" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Start_Time" Type="DateTime" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Precision="3" />
+          <Property Name="Transmission_Time" Type="DateTime" Precision="3" />
+          <Property Name="Locked_Time" Type="DateTime" Precision="3" />
+          <Property Name="Try_Count" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_Obd_Request_CDR_Obd">
+          <End Type="Business_SuitModel.CDR_Obd" Role="CDR_Obd" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Obd_Request" Role="Obd_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CDR_Obd">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Request">
+              <PropertyRef Name="CDR_Obd_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obd_Bulk_Client_List">
+          <End Type="Business_SuitModel.Client_List" Role="Client_List" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Obd_Bulk" Role="Obd_Bulk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client_List">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Bulk">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obd_Ward_Details_Client_List">
+          <End Type="Business_SuitModel.Client_List" Role="Client_List" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Obd_Ward_Details" Role="Obd_Ward_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client_List">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Ward_Details">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obd_Request_Obd_Bulk">
+          <End Type="Business_SuitModel.Obd_Bulk" Role="Obd_Bulk" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Obd_Request" Role="Obd_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Obd_Bulk">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Request">
+              <PropertyRef Name="Obd_Bulk_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obd_Ward_Details_Obd_Bulk">
+          <End Type="Business_SuitModel.Obd_Bulk" Role="Obd_Bulk" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Obd_Ward_Details" Role="Obd_Ward_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Obd_Bulk">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Ward_Details">
+              <PropertyRef Name="Obd_Bulk_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1605,53 +1885,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
               <MappingFragment StoreEntitySet="Expense_Type">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Notification_Obd_Bulk">
-            <EntityTypeMapping TypeName="Business_SuitModel.Notification_Obd_Bulk">
-              <MappingFragment StoreEntitySet="Notification_Obd_Bulk">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
-                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
-                <ScalarProperty Name="Calls_Per_Sec" ColumnName="Calls_Per_Sec" />
-                <ScalarProperty Name="Retry_Time" ColumnName="Retry_Time" />
-                <ScalarProperty Name="Msisdn_File" ColumnName="Msisdn_File" />
-                <ScalarProperty Name="Play_File" ColumnName="Play_File" />
-                <ScalarProperty Name="Retry" ColumnName="Retry" />
-                <ScalarProperty Name="Created_At" ColumnName="Created_At" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Notification_Obd_Request">
-            <EntityTypeMapping TypeName="Business_SuitModel.Notification_Obd_Request">
-              <MappingFragment StoreEntitySet="Notification_Obd_Request">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Notification_Sms_Bulk">
-            <EntityTypeMapping TypeName="Business_SuitModel.Notification_Sms_Bulk">
-              <MappingFragment StoreEntitySet="Notification_Sms_Bulk">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
-                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Notification_Sms_Request">
-            <EntityTypeMapping TypeName="Business_SuitModel.Notification_Sms_Request">
-              <MappingFragment StoreEntitySet="Notification_Sms_Request">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Msisdn" ColumnName="Msisdn" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
-                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
-                <ScalarProperty Name="Transmission_Time" ColumnName="Transmission_Time" />
-                <ScalarProperty Name="Locked_Time" ColumnName="Locked_Time" />
-                <ScalarProperty Name="Try_Count" ColumnName="Try_Count" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1956,6 +2189,8 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="CDR_Instant">
             <EntityTypeMapping TypeName="Business_SuitModel.CDR_Instant">
               <MappingFragment StoreEntitySet="CDR_Instant">
+                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
                 <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
                 <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
                 <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
@@ -1990,6 +2225,106 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
                 <ScalarProperty Name="Profile_Id" ColumnName="Profile_Id" />
                 <ScalarProperty Name="Login_Id" ColumnName="Login_Id" />
                 <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CDR_Obd">
+            <EntityTypeMapping TypeName="Business_SuitModel.CDR_Obd">
+              <MappingFragment StoreEntitySet="CDR_Obd">
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Last_App" ColumnName="Last_App" />
+                <ScalarProperty Name="Last_Data" ColumnName="Last_Data" />
+                <ScalarProperty Name="Uniqueid" ColumnName="Uniqueid" />
+                <ScalarProperty Name="Amaflags" ColumnName="Amaflags" />
+                <ScalarProperty Name="Disposition" ColumnName="Disposition" />
+                <ScalarProperty Name="Billsec" ColumnName="Billsec" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Dst" ColumnName="Dst" />
+                <ScalarProperty Name="Src" ColumnName="Src" />
+                <ScalarProperty Name="Clid" ColumnName="Clid" />
+                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+                <ScalarProperty Name="Answer_Time" ColumnName="Answer_Time" />
+                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Obd_Request_Id" ColumnName="Obd_Request_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Obd_Bulk">
+            <EntityTypeMapping TypeName="Business_SuitModel.Obd_Bulk">
+              <MappingFragment StoreEntitySet="Obd_Bulk">
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Total_Calls" ColumnName="Total_Calls" />
+                <ScalarProperty Name="Retry" ColumnName="Retry" />
+                <ScalarProperty Name="Play_File" ColumnName="Play_File" />
+                <ScalarProperty Name="Calls_Per_Sec" ColumnName="Calls_Per_Sec" />
+                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+                <ScalarProperty Name="Scheduled_Time" ColumnName="Scheduled_Time" />
+                <ScalarProperty Name="Obd_Ward_Details_Id" ColumnName="Obd_Ward_Details_Id" />
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Obd_Request">
+            <EntityTypeMapping TypeName="Business_SuitModel.Obd_Request">
+              <MappingFragment StoreEntitySet="Obd_Request">
+                <ScalarProperty Name="Is_Obd_Generated" ColumnName="Is_Obd_Generated" />
+                <ScalarProperty Name="Lastdata" ColumnName="Lastdata" />
+                <ScalarProperty Name="Uniqueid" ColumnName="Uniqueid" />
+                <ScalarProperty Name="Billsec" ColumnName="Billsec" />
+                <ScalarProperty Name="Call_Duration" ColumnName="Call_Duration" />
+                <ScalarProperty Name="Retry_Count" ColumnName="Retry_Count" />
+                <ScalarProperty Name="Source_Id" ColumnName="Source_Id" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="CDR_Obd_Id" ColumnName="CDR_Obd_Id" />
+                <ScalarProperty Name="Obd_Bulk_Id" ColumnName="Obd_Bulk_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Obd_Ward_Details">
+            <EntityTypeMapping TypeName="Business_SuitModel.Obd_Ward_Details">
+              <MappingFragment StoreEntitySet="Obd_Ward_Details">
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Obd_Bulk_Id" ColumnName="Obd_Bulk_Id" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sms_Bulk">
+            <EntityTypeMapping TypeName="Business_SuitModel.Sms_Bulk">
+              <MappingFragment StoreEntitySet="Sms_Bulk">
+                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sms_Request">
+            <EntityTypeMapping TypeName="Business_SuitModel.Sms_Request">
+              <MappingFragment StoreEntitySet="Sms_Request">
+                <ScalarProperty Name="Try_Count" ColumnName="Try_Count" />
+                <ScalarProperty Name="Locked_Time" ColumnName="Locked_Time" />
+                <ScalarProperty Name="Transmission_Time" ColumnName="Transmission_Time" />
+                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Msisdn" ColumnName="Msisdn" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

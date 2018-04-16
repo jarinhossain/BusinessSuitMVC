@@ -12,8 +12,11 @@ namespace BusinessSuitMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Notification_Obd_Request
+    public partial class Sms_Bulk
     {
         public int Id { get; set; }
+        public string Content { get; set; }
+        public Nullable<System.DateTime> Start_Time { get; set; }
+        public Nullable<System.DateTime> End_Time { get; set; }
     }
 }

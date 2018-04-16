@@ -12,7 +12,7 @@ namespace BusinessSuitMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Notification_Sms_Request
+    public partial class Sms_Request
     {
         public int Id { get; set; }
         public string Msisdn { get; set; }

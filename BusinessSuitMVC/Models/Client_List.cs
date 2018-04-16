@@ -18,6 +18,8 @@ namespace BusinessSuitMVC.Models
         {
             this.User_Login = new HashSet<User_Login>();
             this.Client_Inventory = new HashSet<Client_Inventory>();
+            this.Obd_Bulk = new HashSet<Obd_Bulk>();
+            this.Obd_Ward_Details = new HashSet<Obd_Ward_Details>();
         }
     
         public int Id { get; set; }
@@ -37,5 +39,7 @@ namespace BusinessSuitMVC.Models
     
         public virtual ICollection<User_Login> User_Login { get; set; }
         public virtual ICollection<Client_Inventory> Client_Inventory { get; set; }
+        public virtual ICollection<Obd_Bulk> Obd_Bulk { get; set; }
+        public virtual ICollection<Obd_Ward_Details> Obd_Ward_Details { get; set; }
     }
 }

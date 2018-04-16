@@ -12,17 +12,17 @@ namespace BusinessSuitMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Notification_Obd_Bulk
+    public partial class Obd_Ward_Details
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public Nullable<System.DateTime> Start_Time { get; set; }
-        public Nullable<System.DateTime> End_Time { get; set; }
-        public Nullable<int> Calls_Per_Sec { get; set; }
-        public Nullable<int> Retry_Time { get; set; }
-        public string Msisdn_File { get; set; }
-        public string Play_File { get; set; }
-        public Nullable<int> Retry { get; set; }
-        public byte[] Created_At { get; set; }
+        public Nullable<int> Client_Id { get; set; }
+        public Nullable<int> Ward { get; set; }
+        public Nullable<int> Obd_Bulk_Id { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public Nullable<int> Created_By { get; set; }
+        public Nullable<System.DateTime> Created_On { get; set; }
+    
+        public virtual Client_List Client_List { get; set; }
+        public virtual Obd_Bulk Obd_Bulk { get; set; }
     }
 }
