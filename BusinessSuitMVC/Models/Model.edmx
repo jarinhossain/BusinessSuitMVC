@@ -16,7 +16,7 @@
           <Property Name="Status" Type="int" />
           <Property Name="Start_Time" Type="datetime" />
           <Property Name="End_Time" Type="datetime" />
-          <Property Name="Disposition" Type="int" />
+          <Property Name="Disposition" Type="varchar" MaxLength="40" />
           <Property Name="Bill_Sec" Type="int" />
           <Property Name="Duration" Type="int" />
           <Property Name="Remarks" Type="varchar" MaxLength="20" />
@@ -33,19 +33,20 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Obd_Request_Id" Type="int" />
           <Property Name="Context" Type="varchar" MaxLength="100" />
-          <Property Name="Start_Time" Type="datetime" Nullable="false" />
-          <Property Name="Answer_Time" Type="datetime" Nullable="false" />
-          <Property Name="End_Time" Type="datetime" Nullable="false" />
-          <Property Name="Clid" Type="varchar" MaxLength="80" Nullable="false" />
-          <Property Name="Src" Type="varchar" MaxLength="80" Nullable="false" />
-          <Property Name="Dst" Type="varchar" MaxLength="80" Nullable="false" />
-          <Property Name="Duration" Type="int" Nullable="false" />
-          <Property Name="Billsec" Type="int" Nullable="false" />
-          <Property Name="Disposition" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Start_Time" Type="datetime" />
+          <Property Name="Answer_Time" Type="datetime" />
+          <Property Name="End_Time" Type="datetime" />
+          <Property Name="Clid" Type="varchar" MaxLength="80" />
+          <Property Name="Src" Type="varchar" MaxLength="80" />
+          <Property Name="Dst" Type="varchar" MaxLength="80" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="Billsec" Type="int" />
+          <Property Name="Disposition" Type="varchar" MaxLength="45" />
           <Property Name="Amaflags" Type="int" Nullable="false" />
-          <Property Name="Uniqueid" Type="varchar" MaxLength="32" Nullable="false" />
-          <Property Name="Last_Data" Type="varchar" MaxLength="80" Nullable="false" />
-          <Property Name="Last_App" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Uniqueid" Type="varchar" MaxLength="32" />
+          <Property Name="Last_Data" Type="varchar" MaxLength="80" />
+          <Property Name="Last_App" Type="varchar" MaxLength="80" />
+          <Property Name="Server" Type="varchar" MaxLength="80" />
           <Property Name="Created_By" Type="int" />
           <Property Name="Created_On" Type="datetime" />
         </EntityType>
@@ -1549,7 +1550,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Context" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Last_App" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="Int32" />
-          <Property Name="Disposition" Type="Int32" />
+          <Property Name="Disposition" Type="String" />
           <Property Name="Bill_Sec" Type="Int32" />
           <Property Name="Duration" Type="Int32" />
           <Property Name="Remarks" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -1663,22 +1664,23 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Obd_Request_Id" Type="Int32" />
           <Property Name="Context" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Start_Time" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Answer_Time" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="End_Time" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Clid" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="Src" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="Dst" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="Duration" Type="Int32" Nullable="false" />
-          <Property Name="Billsec" Type="Int32" Nullable="false" />
-          <Property Name="Disposition" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Start_Time" Type="DateTime" Precision="3" />
+          <Property Name="Answer_Time" Type="DateTime" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Precision="3" />
+          <Property Name="Clid" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Src" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Dst" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Billsec" Type="Int32" />
+          <Property Name="Disposition" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Amaflags" Type="Int32" Nullable="false" />
-          <Property Name="Uniqueid" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
-          <Property Name="Last_Data" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="Last_App" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Uniqueid" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Last_Data" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Last_App" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
           <Property Name="Created_By" Type="Int32" />
           <Property Name="Created_On" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Obd_Request" Relationship="Business_SuitModel.FK_Obd_Request_CDR_Obd" FromRole="CDR_Obd" ToRole="Obd_Request" />
+          <Property Name="Server" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Obd_Bulk">
           <Key>
@@ -2232,6 +2234,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="CDR_Obd">
             <EntityTypeMapping TypeName="Business_SuitModel.CDR_Obd">
               <MappingFragment StoreEntitySet="CDR_Obd">
+                <ScalarProperty Name="Server" ColumnName="Server" />
                 <ScalarProperty Name="Created_On" ColumnName="Created_On" />
                 <ScalarProperty Name="Created_By" ColumnName="Created_By" />
                 <ScalarProperty Name="Last_App" ColumnName="Last_App" />

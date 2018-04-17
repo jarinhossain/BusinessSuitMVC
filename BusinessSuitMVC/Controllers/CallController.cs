@@ -83,7 +83,7 @@ namespace BusinessSuitMVC.Controllers
 
             bool isDuplicateCall = DB.CDR_Instant.Where(x => x.Mobile == number && x.Status == 0).Any();
 
-            if(isDuplicateCall == true)
+            if (isDuplicateCall == true)
             {
                 ViewData["msg"] = "Duplicate Call Request";
                 return View();
@@ -112,7 +112,7 @@ namespace BusinessSuitMVC.Controllers
                 ViewData["free_call"] = clientInventory.Free_Call + " remaining call";
             }
 
-            
+
 
             cdr.Mobile = number;
             cdr.Remarks = remarks;
@@ -141,17 +141,17 @@ namespace BusinessSuitMVC.Controllers
         public JsonResult fetchdata()
         {
 
-            var numberList = DB.CDR_Instant.Where(x => x.Status == 0).Select(x => x.Mobile).ToList();
+            var numberList = DB.CDR_Instant.Where(x => x.Status == 0).Select(x => new {Id = x.Id, Mobile = x.Mobile }).ToList();
 
             foreach (var item in numberList)
             {
-                var cdr = DB.CDR_Instant.Where(x => x.Status == 0).FirstOrDefault();
-                
-                cdr.Status = 1;//fetched
+                var cdr = DB.CDR_Instant.Find(item.Id);
+
+                cdr.Status = 1;///fetched
 
             }
             DB.SaveChanges();
-            
+
             return Json(numberList, JsonRequestBehavior.AllowGet);
         }
 
@@ -160,7 +160,7 @@ namespace BusinessSuitMVC.Controllers
 
             var numberList = new[] {
                 new { Id = "1", Mobile = "01676797123" },
-                new { Id = "2", Mobile = "01624156585" },
+                //new { Id = "2", Mobile = "01878196799" }
             };
 
             //foreach (var item in numberList)
@@ -176,16 +176,77 @@ namespace BusinessSuitMVC.Controllers
         }
 
         [HttpPost]
-        public void cdrUpdate(FormCollection collection)
+        public string cdrUpdate()
         {
+            try
+            {
+                var keys = Request.Form.AllKeys;
+                var count = Request.Form.AllKeys.Count();
+                string content = Request.Form["dbcontext"];
+                //using (var reader = new StreamReader(Request.InputStream))
+                //    content = reader.ReadToEnd();
+                return content + "       " + count + "       " + keys;
+                //string context = Request.QueryString["dbcontext"].ToString();
+                //string disposition = Request.QueryString["disposition"].ToString();
 
-            CDR_Obd cdr = new CDR_Obd();
+                //if (context != "" || context != null)
+                //    return context;
+                //else if (disposition != "" || disposition != null)
+                //    return disposition;
+                //else
+                //    return "no data";
+            }
+            catch
+            {
+                return "error cached";
+            }
 
-            cdr.Context = collection["context"];
+            //CDR_Obd cdr = new CDR_Obd();
 
-            DB.CDR_Obd.Add(cdr);
-            DB.SaveChanges();
-            
+            //cdr.Context = context;
+            //cdr.Disposition = disposition;
+
+            //DB.CDR_Obd.Add(cdr);
+            //DB.SaveChanges();
+            //return "";
+
         }
-    }
+
+
+        [HttpPost]
+        public string cdrInstantUpdate()
+        {
+            int cdr_instant_id = int.Parse(Request.Form["cdr_instant_id"]);
+            int retry_count = int.Parse(Request.Form["retry_count"]);
+            string call_unique_id = Request.Form["call_unique_id"];
+            int call_duration = int.Parse(Request.Form["call_duration"]);
+            int billsec = int.Parse(Request.Form["billsec"]);
+            string last_transmission_time = Request.Form["last_transmission_time"];
+            string start_time = Request.Form["start_time"];
+            string answer_time = Request.Form["answer_time"];
+            string end_time = Request.Form["end_time"];
+            string clid = Request.Form["clid"];
+            string src = Request.Form["src"];
+            string dst = Request.Form["dst"];
+            string disposition = Request.Form["disposition"];
+            string amaflags = Request.Form["amaflags"];
+            string context = Request.Form["context"];
+            string lastapp = Request.Form["lastapp"];
+            string lastdata = Request.Form["lastdata"];
+
+            CDR_Instant cdrInstant = DB.CDR_Instant.Find(cdr_instant_id);
+
+
+            cdrInstant.Disposition = disposition;
+            cdrInstant.Duration = call_duration;
+            cdrInstant.Bill_Sec = billsec;
+            cdrInstant.Context = context;
+            cdrInstant.Last_App = lastapp;
+            cdrInstant.Status = 2;
+
+            DB.SaveChanges();
+
+            return "successful";
+        }
+    } 
 }

@@ -19,7 +19,7 @@ namespace BusinessSuitMVC.Models
         public string Context { get; set; }
         public string Last_App { get; set; }
         public Nullable<int> Status { get; set; }
-        public Nullable<int> Disposition { get; set; }
+        public string Disposition { get; set; }
         public Nullable<int> Bill_Sec { get; set; }
         public Nullable<int> Duration { get; set; }
         public string Remarks { get; set; }
