@@ -146,13 +146,46 @@ namespace BusinessSuitMVC.Controllers
             foreach (var item in numberList)
             {
                 var cdr = DB.CDR_Instant.Where(x => x.Status == 0).FirstOrDefault();
-
+                
                 cdr.Status = 1;//fetched
 
             }
             DB.SaveChanges();
             
             return Json(numberList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult fetchdatanew()
+        {
+
+            var numberList = new[] {
+                new { Id = "1", Mobile = "01676797123" },
+                new { Id = "2", Mobile = "01624156585" },
+            };
+
+            //foreach (var item in numberList)
+            //{
+            //    var cdr = DB.CDR_Instant.Where(x => x.Status == 0).FirstOrDefault();
+
+            //    cdr.Status = 1;//fetched
+
+            //}
+            //DB.SaveChanges();
+
+            return Json(numberList, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public void cdrUpdate(FormCollection collection)
+        {
+
+            CDR_Obd cdr = new CDR_Obd();
+
+            cdr.Context = collection["context"];
+
+            DB.CDR_Obd.Add(cdr);
+            DB.SaveChanges();
+            
         }
     }
 }
