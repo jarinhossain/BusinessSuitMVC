@@ -9,7 +9,7 @@
 
     <section class="content-header">
         <h1>
-            User
+            Call
         </h1>
         @*<ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -23,77 +23,84 @@
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Create</h3>
+                        <h3 class="box-title">List</h3>
                     </div>
                         <div class="box-body">
                             <!--contents start-->
-                            <table class="table">
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Mobile)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Context)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Last_App)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Status)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Disposition)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Bill_Sec)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Duration)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Remarks)
-                                    </th>
-
-                                    <th></th>
-                                </tr>
-
-                                @foreach (var item in Model)
-                                {
+                            @if (Model != null)
+                            {
+                                <table class="table">
                                     <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Mobile)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Context)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Last_App)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Status)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Disposition)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Bill_Sec)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Duration)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Remarks)
-                                        </td>
-                                        <td>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Mobile)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Context)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Last_App)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Status)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Disposition)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Bill_Sec)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Duration)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Remarks)
+                                        </th>
 
-                                        @*<td>
-                                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                                        </td>*@
+                                        <th></th>
                                     </tr>
-                                }
-                            </table>
+
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Mobile)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Context)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Last_App)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Status)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Disposition)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Bill_Sec)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Duration)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Remarks)
+                                            </td>
+                                            <td>
+
+                                                @*<td>
+                                                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                                    </td>*@
+                                        </tr>
+                                    }
+                                </table>
+                            }
+                            else
+                            {
+                                <label class="text-danger">No Data Found</label>
+                            }
                         </div>
                 </div>
             </div>

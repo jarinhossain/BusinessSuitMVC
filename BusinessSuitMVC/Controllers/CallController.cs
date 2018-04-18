@@ -117,7 +117,7 @@ namespace BusinessSuitMVC.Controllers
             cdr.Mobile = number;
             cdr.Remarks = remarks;
             cdr.Status = 0;
-            cdr.Created_By = int.Parse(Session["Profile_Id"].ToString());
+            cdr.Created_By = int.Parse(Session["Login_Id"].ToString());
             DB.CDR_Instant.Add(cdr);
 
             DB.SaveChanges();
@@ -134,7 +134,16 @@ namespace BusinessSuitMVC.Controllers
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
 
-            return View(DB.CDR_Instant.OrderByDescending(x => x.Created_On).ToList());
+            int loginID = int.Parse(Session["Login_Id"].ToString());
+            int roleID = int.Parse(Session["Role_Id"].ToString());
+            var instant = new List<CDR_Instant>();
+
+            if (roleID >= 5)
+                instant = DB.CDR_Instant.Where(x => x.Created_By == loginID).OrderByDescending(x => x.Created_On).ToList();
+            else
+                instant = DB.CDR_Instant.OrderByDescending(x => x.Created_On).ToList();
+
+            return View(instant);
         }
 
         [HttpGet]
