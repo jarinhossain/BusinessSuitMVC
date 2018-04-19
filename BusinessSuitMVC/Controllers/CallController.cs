@@ -54,6 +54,13 @@ namespace BusinessSuitMVC.Controllers
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
 
+            ///one click test call from client list view
+            if(Request.QueryString["number"] != null)
+            {
+                ViewData["number"] = Request.QueryString["number"].ToString();
+                ViewData["remarks"] =  "test call ward " + Request.QueryString["remarks"].ToString();
+            }
+
             var isClient = bool.Parse(Session["Is_Client"].ToString());
 
             if (isClient == true)
@@ -92,6 +99,7 @@ namespace BusinessSuitMVC.Controllers
             var isClient = bool.Parse(Session["Is_Client"].ToString());
             CDR_Instant cdr = new CDR_Instant();
             Client_Inventory clientInventory = new Client_Inventory();
+
             if (isClient == true)
             {
                 var clientId = int.Parse(Session["Profile_Id"].ToString());
@@ -221,7 +229,6 @@ namespace BusinessSuitMVC.Controllers
 
         }
 
-
         [HttpPost]
         public string cdrInstantUpdate()
         {
@@ -244,7 +251,6 @@ namespace BusinessSuitMVC.Controllers
             string lastdata = Request.Form["lastdata"];
 
             CDR_Instant cdrInstant = DB.CDR_Instant.Find(cdr_instant_id);
-
 
             cdrInstant.Disposition = disposition;
             cdrInstant.Duration = call_duration;

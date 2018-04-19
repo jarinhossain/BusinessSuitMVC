@@ -27,7 +27,7 @@
                     
 
                         <div class="box-body">
-                            <table class="table table-bordered table-striped display nowrap" id="example">
+                            <table class="table table-bordered table-responsive table-striped display nowrap" id="example" style="display:block">
                                 <thead>
                                     <tr>
                                         <th>Option</th>
@@ -45,7 +45,15 @@
                                     @foreach (BusinessSuitMVC.Models.Client_List client in (IEnumerable<BusinessSuitMVC.Models.Client_List>)Model)
             {
                                         <tr>
-                                            <td><a href="~/Client/Edit?id=@client.Id">Edit |</a>   <a href="~/Client/Details?id=@client.Id">Details</a></td>
+                                            <td>
+                                            <a href="~/Client/Edit?id=@client.Id">Edit </a>
+                                             | <a href="~/Client/Details?id=@client.Id">Details</a>
+                                             @if (int.Parse(Session["Role_Id"].ToString()) <= 2)
+                                             {
+                                                 <a href="~/Call/SingleCall?number=@client.Mobile1&remarks=@client.ward" id="singleCall"> | Call</a>
+                                             }
+
+                                            </td>
                                            
                                             <td>@client.Counsilor_Name</td>
                                             <td>@client.Mobile1</td>
@@ -83,6 +91,7 @@
 <script src="~/layouts/adminTemplate/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
+            
             //$('#example tfoot th').each(function () {
             //    var title = $(this).text();
             //    $(this).html('<input type="text" placeholder="Search ' + title + '" />');
