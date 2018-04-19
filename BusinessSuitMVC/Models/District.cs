@@ -14,9 +14,16 @@ namespace BusinessSuitMVC.Models
     
     public partial class District
     {
+        public District()
+        {
+            this.Client_List = new HashSet<Client_List>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public Nullable<int> Division_Id { get; set; }
         public Nullable<bool> Is_Hidden { get; set; }
+    
+        public virtual ICollection<Client_List> Client_List { get; set; }
     }
 }

@@ -84,7 +84,7 @@ namespace BusinessSuitMVC.Controllers
             {
                 return "Please enter your valid word";
             }
-            else if (client.District == null)
+            else if (client.District_Id == null)
             {
                 return "Please enter your valid District";
             }

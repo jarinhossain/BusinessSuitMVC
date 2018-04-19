@@ -81,7 +81,7 @@
           <Property Name="Mobile2" Type="varchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="ward" Type="int" />
-          <Property Name="District" Type="int" />
+          <Property Name="District_Id" Type="int" />
           <Property Name="Address" Type="varchar" MaxLength="500" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="Is_Elected" Type="bit" />
@@ -480,6 +480,18 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Display_Name" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <Association Name="FK__Client_Li__Distr__19AACF41">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_List">
+              <PropertyRef Name="District_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Permissio__Modul__693CA210">
           <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
           <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
@@ -801,6 +813,10 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
 [Tokens].[Deleted_On] AS [Deleted_On]
 FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__Client_Li__Distr__19AACF41" Association="Self.FK__Client_Li__Distr__19AACF41">
+            <End Role="District" EntitySet="District" />
+            <End Role="Client_List" EntitySet="Client_List" />
+          </AssociationSet>
           <AssociationSet Name="FK__Permissio__Modul__693CA210" Association="Self.FK__Permissio__Modul__693CA210">
             <End Role="Module" EntitySet="Module" />
             <End Role="Permission" EntitySet="Permission" />
@@ -909,7 +925,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Mobile2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ward" Type="Int32" />
-          <Property Name="District" Type="Int32" />
           <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Is_Elected" Type="Boolean" />
@@ -920,6 +935,8 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <NavigationProperty Name="Client_Inventory" Relationship="Business_SuitModel.FK_Client_Inventory_Client_List" FromRole="Client_List" ToRole="Client_Inventory" />
           <NavigationProperty Name="Obd_Bulk" Relationship="Business_SuitModel.FK_Obd_Bulk_Client_List" FromRole="Client_List" ToRole="Obd_Bulk" />
           <NavigationProperty Name="Obd_Ward_Details" Relationship="Business_SuitModel.FK_Obd_Ward_Details_Client_List" FromRole="Client_List" ToRole="Obd_Ward_Details" />
+          <Property Name="District_Id" Type="Int32" />
+          <NavigationProperty Name="District" Relationship="Business_SuitModel.FK__Client_Li__Distr__19AACF41" FromRole="Client_List" ToRole="District" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -929,6 +946,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Division_Id" Type="Int32" />
           <Property Name="Is_Hidden" Type="Boolean" />
+          <NavigationProperty Name="Client_List" Relationship="Business_SuitModel.FK__Client_Li__Distr__19AACF41" FromRole="District" ToRole="Client_List" />
         </EntityType>
         <EntityType Name="Division">
           <Key>
@@ -1532,6 +1550,10 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
             <End Role="Obd_Ward_Details" EntitySet="Obd_Ward_Details" />
           </AssociationSet>
+          <AssociationSet Name="FK__Client_Li__Distr__19AACF41" Association="Business_SuitModel.FK__Client_Li__Distr__19AACF41">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Client_List" EntitySet="Client_List" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Module">
           <Key>
@@ -1550,7 +1572,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Context" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Last_App" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="Int32" />
-          <Property Name="Disposition" Type="String" />
+          <Property Name="Disposition" Type="String" MaxLength="40" Unicode="false" FixedLength="false" />
           <Property Name="Bill_Sec" Type="Int32" />
           <Property Name="Duration" Type="Int32" />
           <Property Name="Remarks" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -1820,6 +1842,18 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Client_Li__Distr__19AACF41">
+          <End Type="Business_SuitModel.District" Role="District" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Client_List" Role="Client_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_List">
+              <PropertyRef Name="District_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1829,6 +1863,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="Client_List">
             <EntityTypeMapping TypeName="Business_SuitModel.Client_List">
               <MappingFragment StoreEntitySet="Client_List">
+                <ScalarProperty Name="District_Id" ColumnName="District_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Counsilor_Name" ColumnName="Counsilor_Name" />
                 <ScalarProperty Name="Bangla_Name" ColumnName="Bangla_Name" />
@@ -1836,7 +1871,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
                 <ScalarProperty Name="Mobile2" ColumnName="Mobile2" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="ward" ColumnName="ward" />
-                <ScalarProperty Name="District" ColumnName="District" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="Is_Elected" ColumnName="Is_Elected" />
