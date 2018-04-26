@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Threading.Tasks;
 using BusinessSuitMVC.ModelClasses;
 using BusinessSuitMVC.Models;
+using Flurl.Http;
 
 namespace BusinessSuitMVC.Controllers
 {
@@ -102,19 +103,31 @@ namespace BusinessSuitMVC.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult BulkSMS(System.Web.Mvc.FormCollection collection)
+        public async Task<ActionResult> BulkSMS(System.Web.Mvc.FormCollection collection)
         {
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
+            Task<string> result = null ;
 
             string token = "9b8a6934e6c7e83dc79728274677b8f2";
             string number = collection["nc"];
             string message = collection["message"];
+            try
+            {
+                await Task.Run(() => result  = sendSingleSmsMethod3(number, message, token));
+                // ViewBag.msg = result.;
+                return Json( result.Result, JsonRequestBehavior.AllowGet);
+
+            }
+            catch(Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
             //sendSingleSmsMethod2(number, message, token);
-            //sendSingleSmsMethod1(number, message, token);
-            var result  = SendSms(number, message, token);
-            ViewBag.msg = result;
-            return View();
+            //result  = SendSms(number, message, token);
+            
+
+            
         }
 
         //public ActionResult Gizmos()
@@ -211,7 +224,8 @@ namespace BusinessSuitMVC.Controllers
             catch (Exception exp)
             {
                 Console.WriteLine(exp.ToString());
-                Console.ReadKey();
+                return exp.Message.ToString();
+                ///Console.ReadKey();
             }
             finally
             {
@@ -227,13 +241,13 @@ namespace BusinessSuitMVC.Controllers
 
         [HttpPost]
         //in method we can send /,- type charaters for datetime
-        public async void sendSingleSmsMethod2(string number,string message)//,string token
+        public async void sendSingleSmsMethod2(string number,string message, string token)//,string token
         {
             //environment.newline counts '\n' as 2 character. which is same to sms gateway
             // or we can use \r\n and this is same as using environment.newline
             //string message = "প্রিয় শিক্ষার্থীবৃন্দ," + Environment.NewLine + "সাময়িক অসুবিধার কারণে শনিবার(০৩/০৩/২০১৮) স্কুলে আইডি কার্ড বিতরণ করা হবে না।" + Environment.NewLine + "-সালাহউদ্দিন আহমেদ উচ্চ বিদ্যালয়";
-            string token = "9b8a6934e6c7e83dc79728274677b8f2";
-            Dictionary<string, string> values = new Dictionary<string, string>(){
+            
+            var values = new Dictionary<string, string>(){
                                            { "token", token },
                                            { "to", number },
                                            { "message", message }
@@ -245,10 +259,18 @@ namespace BusinessSuitMVC.Controllers
 
                 responseString = await response.Content.ReadAsStringAsync();
             
-            
         }
 
-        
+        public async Task<string> sendSingleSmsMethod3(string number, string msg, string token)//,string token
+        {
+            //environment.newline counts '\n' as 2 character. which is same to sms gateway
+            // or we can use \r\n and this is same as using environment.newline
+            //string message = "প্রিয় শিক্ষার্থীবৃন্দ," + Environment.NewLine + "সাময়িক অসুবিধার কারণে শনিবার(০৩/০৩/২০১৮) স্কুলে আইডি কার্ড বিতরণ করা হবে না।" + Environment.NewLine + "-সালাহউদ্দিন আহমেদ উচ্চ বিদ্যালয়";
 
+            var responseString = await "http://sms.greenweb.com.bd/api.php?".PostUrlEncodedAsync(new { token = token, to = number, message = msg})
+     .ReceiveString();
+
+            return responseString;
+        }
     }
 }
