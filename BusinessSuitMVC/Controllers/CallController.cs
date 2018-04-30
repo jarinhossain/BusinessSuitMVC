@@ -55,10 +55,10 @@ namespace BusinessSuitMVC.Controllers
                 return View("Unauthorized");
 
             ///one click test call from client list view
-            if(Request.QueryString["number"] != null)
+            if (Request.QueryString["number"] != null)
             {
                 ViewData["number"] = Request.QueryString["number"].ToString();
-                ViewData["remarks"] =  "test call ward " + Request.QueryString["remarks"].ToString();
+                ViewData["remarks"] = "test call ward " + Request.QueryString["remarks"].ToString();
             }
 
             var isClient = bool.Parse(Session["Is_Client"].ToString());
@@ -158,7 +158,7 @@ namespace BusinessSuitMVC.Controllers
         public JsonResult fetchdata()
         {
 
-            var numberList = DB.CDR_Instant.Where(x => x.Status == 0).Select(x => new {Id = x.Id, Mobile = x.Mobile }).ToList();
+            var numberList = DB.CDR_Instant.Where(x => x.Status == 0).Select(x => new { Id = x.Id, Mobile = x.Mobile }).ToList();
 
             foreach (var item in numberList)
             {
@@ -263,5 +263,28 @@ namespace BusinessSuitMVC.Controllers
 
             return "successful";
         }
-    } 
+
+        [HttpPost]
+        public string saveIncomingCall()
+        {
+            Incoming_Calls incoming = new Incoming_Calls();
+            try
+            {
+                incoming.Mobile = Request.Form["number"];
+                incoming.Server = Request.Form["server"];
+                incoming.Call_Unique_Id = Request.Form["call_unique_id"];
+                incoming.Called_Time = DateTime.Parse(Request.Form["answer_time"]);
+
+                DB.Incoming_Calls.Add(incoming);
+                DB.SaveChanges();
+                return "successful";
+            }
+            catch
+            {
+                return "failed";
+            }
+
+
+        }
+    }
 }

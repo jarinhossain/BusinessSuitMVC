@@ -22,7 +22,6 @@ namespace BusinessSuitMVC.Models
         public int Id { get; set; }
         public string Contact_Name { get; set; }
         public string Company_Name { get; set; }
-        public Nullable<int> Source_Type { get; set; }
         public Nullable<int> Ref_Id { get; set; }
         public string Mobile1 { get; set; }
         public string Mobile2 { get; set; }
@@ -36,11 +35,14 @@ namespace BusinessSuitMVC.Models
         public Nullable<System.DateTime> Created_On { get; set; }
         public Nullable<int> Created_By { get; set; }
         public Nullable<System.DateTime> Updated_On { get; set; }
-        public Nullable<int> updated_By { get; set; }
+        public Nullable<int> Updated_By { get; set; }
         public Nullable<bool> Is_Deleted { get; set; }
         public Nullable<int> Deleted_By { get; set; }
         public Nullable<System.DateTime> Deleted_On { get; set; }
+        public Nullable<int> Source_Type_Id { get; set; }
+        public Nullable<bool> Is_Client { get; set; }
     
         public virtual ICollection<Number> Numbers { get; set; }
+        public virtual Source_Type Source_Type { get; set; }
     }
 }

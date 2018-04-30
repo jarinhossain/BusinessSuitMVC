@@ -47,10 +47,14 @@
                                     @foreach (BusinessSuitMVC.Models.Source source in (IEnumerable<BusinessSuitMVC.Models.Source>)Model)
             {
                                         <tr>
-                                            <td><a href="~/Source/Edit?id=@source.Id">Edit | </a><a href="~/Source/Details?id=@source.Id">Details</a></td>
+                                            <td>
+                                                <a href="~/Source/Edit?id=@source.Id">Edit | </a>
+                                                <a href="~/Source/Details?id=@source.Id">Details | </a>
+                                                <a href="~/Source/SourceNumberSearch?id=@source.Id">Numbers</a>
+                                            </td>
                                             <td>@source.Contact_Name</td>
                                             <td>@source.Company_Name</td>
-                                            <td>@source.Source_Type</td>
+                                            <td>@source.Source_Type.Name</td>
                                             <td>@source.Mobile1</td>
                                             <td>@source.Mobile2 </td>
                                             <td>@source.Division_Id</td>

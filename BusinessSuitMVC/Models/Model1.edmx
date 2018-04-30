@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="numeralDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="numeralDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Numbers">
           <Key>
             <PropertyRef Name="Id" />
@@ -39,8 +39,6 @@
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Prefix" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'numeralDB.dbo.Source_Type' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Source_Type">
           <Key>
             <PropertyRef Name="Id" />
@@ -55,7 +53,7 @@ warning 6002: The table/view 'numeralDB.dbo.Source_Type' does not have a primary
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Contact_Name" Type="varchar" MaxLength="50" />
           <Property Name="Company_Name" Type="varchar" MaxLength="50" />
-          <Property Name="Source_Type" Type="int" />
+          <Property Name="Source_Type_Id" Type="int" />
           <Property Name="Ref_Id" Type="int" />
           <Property Name="Mobile1" Type="varchar" MaxLength="50" />
           <Property Name="Mobile2" Type="varchar" MaxLength="50" />
@@ -66,13 +64,14 @@ warning 6002: The table/view 'numeralDB.dbo.Source_Type' does not have a primary
           <Property Name="Image" Type="bit" />
           <Property Name="Ward" Type="int" />
           <Property Name="Address" Type="varchar" MaxLength="300" />
-          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Created_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="updated_By" Type="int" />
           <Property Name="Is_Deleted" Type="bit" />
           <Property Name="Deleted_By" Type="int" />
           <Property Name="Deleted_On" Type="datetime" />
+          <Property Name="Is_Client" Type="bit" />
         </EntityType>
         <Association Name="FK_Numbers_Operators">
           <End Role="Operators" Type="Self.Operators" Multiplicity="0..1" />
@@ -98,16 +97,23 @@ warning 6002: The table/view 'numeralDB.dbo.Source_Type' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Sources_Source_Type">
+          <End Role="Source_Type" Type="Self.Source_Type" Multiplicity="0..1" />
+          <End Role="Sources" Type="Self.Sources" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Source_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sources">
+              <PropertyRef Name="Source_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="numeralDBModelStoreContainer">
           <EntitySet Name="Numbers" EntityType="Self.Numbers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Operators" EntityType="Self.Operators" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Source_Type" EntityType="Self.Source_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sources" EntityType="Self.Sources" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Source_Type" EntityType="Self.Source_Type" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[Source_Type].[Id] AS [Id], 
-[Source_Type].[Name] AS [Name]
-FROM [dbo].[Source_Type] AS [Source_Type]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Numbers_Operators" Association="Self.FK_Numbers_Operators">
             <End Role="Operators" EntitySet="Operators" />
             <End Role="Numbers" EntitySet="Numbers" />
@@ -116,9 +122,12 @@ FROM [dbo].[Source_Type] AS [Source_Type]</DefiningQuery>
             <End Role="Sources" EntitySet="Sources" />
             <End Role="Numbers" EntitySet="Numbers" />
           </AssociationSet>
+          <AssociationSet Name="FK_Sources_Source_Type" Association="Self.FK_Sources_Source_Type">
+            <End Role="Source_Type" EntitySet="Source_Type" />
+            <End Role="Sources" EntitySet="Sources" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="numeralDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -166,7 +175,6 @@ FROM [dbo].[Source_Type] AS [Source_Type]</DefiningQuery>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Contact_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Source_Type" Type="Int32" />
           <Property Name="Ref_Id" Type="Int32" />
           <Property Name="Mobile1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Mobile2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -177,21 +185,17 @@ FROM [dbo].[Source_Type] AS [Source_Type]</DefiningQuery>
           <Property Name="Image" Type="Boolean" />
           <Property Name="Ward" Type="Int32" />
           <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Created_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
-          <Property Name="updated_By" Type="Int32" />
+          <Property Name="Updated_By" Type="Int32" />
           <Property Name="Is_Deleted" Type="Boolean" />
           <Property Name="Deleted_By" Type="Int32" />
           <Property Name="Deleted_On" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Numbers" Relationship="Self.FK_Numbers_Sources" FromRole="Sources" ToRole="Numbers" />
-        </EntityType>
-        <EntityType Name="Source_Type">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Source_Type_Id" Type="Int32" />
+          <NavigationProperty Name="Source_Type" Relationship="numeralDBModel.FK_Sources_Source_Type" FromRole="Source" ToRole="Source_Type1" />
+          <Property Name="Is_Client" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Numbers_Operators">
           <End Role="Operators" Type="Self.Operator" Multiplicity="0..1" />
@@ -221,7 +225,6 @@ FROM [dbo].[Source_Type] AS [Source_Type]</DefiningQuery>
           <EntitySet Name="Numbers" EntityType="Self.Number" />
           <EntitySet Name="Operators" EntityType="Self.Operator" />
           <EntitySet Name="Sources" EntityType="Self.Source" />
-          <EntitySet Name="Source_Type" EntityType="Self.Source_Type" />
           <AssociationSet Name="FK_Numbers_Operators" Association="Self.FK_Numbers_Operators">
             <End Role="Operators" EntitySet="Operators" />
             <End Role="Numbers" EntitySet="Numbers" />
@@ -230,7 +233,32 @@ FROM [dbo].[Source_Type] AS [Source_Type]</DefiningQuery>
             <End Role="Sources" EntitySet="Sources" />
             <End Role="Numbers" EntitySet="Numbers" />
           </AssociationSet>
+          <EntitySet Name="Source_Type" EntityType="numeralDBModel.Source_Type" />
+          <AssociationSet Name="FK_Sources_Source_Type" Association="numeralDBModel.FK_Sources_Source_Type">
+            <End Role="Source_Type1" EntitySet="Source_Type" />
+            <End Role="Source" EntitySet="Sources" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Source_Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Sources" Relationship="numeralDBModel.FK_Sources_Source_Type" FromRole="Source_Type1" ToRole="Source" />
+        </EntityType>
+        <Association Name="FK_Sources_Source_Type">
+          <End Type="numeralDBModel.Source_Type" Role="Source_Type1" Multiplicity="0..1" />
+          <End Type="numeralDBModel.Source" Role="Source" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Source_Type1">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Source">
+              <PropertyRef Name="Source_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -276,10 +304,11 @@ FROM [dbo].[Source_Type] AS [Source_Type]</DefiningQuery>
           <EntitySetMapping Name="Sources">
             <EntityTypeMapping TypeName="numeralDBModel.Source">
               <MappingFragment StoreEntitySet="Sources">
+                <ScalarProperty Name="Is_Client" ColumnName="Is_Client" />
+                <ScalarProperty Name="Source_Type_Id" ColumnName="Source_Type_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Contact_Name" ColumnName="Contact_Name" />
                 <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
-                <ScalarProperty Name="Source_Type" ColumnName="Source_Type" />
                 <ScalarProperty Name="Ref_Id" ColumnName="Ref_Id" />
                 <ScalarProperty Name="Mobile1" ColumnName="Mobile1" />
                 <ScalarProperty Name="Mobile2" ColumnName="Mobile2" />
@@ -293,7 +322,7 @@ FROM [dbo].[Source_Type] AS [Source_Type]</DefiningQuery>
                 <ScalarProperty Name="Created_On" ColumnName="Created_On" />
                 <ScalarProperty Name="Created_By" ColumnName="Created_By" />
                 <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
-                <ScalarProperty Name="updated_By" ColumnName="updated_By" />
+                <ScalarProperty Name="Updated_By" ColumnName="updated_By" />
                 <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
                 <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
                 <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
@@ -303,8 +332,8 @@ FROM [dbo].[Source_Type] AS [Source_Type]</DefiningQuery>
           <EntitySetMapping Name="Source_Type">
             <EntityTypeMapping TypeName="numeralDBModel.Source_Type">
               <MappingFragment StoreEntitySet="Source_Type">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

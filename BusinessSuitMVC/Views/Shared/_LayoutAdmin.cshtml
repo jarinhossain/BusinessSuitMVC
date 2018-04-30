@@ -446,6 +446,37 @@
                         </ul>
                     </li>
                     }
+
+                    @if (int.Parse(Session["Role_Id"].ToString()) == 1)
+                    {
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-laptop"></i>
+                                <span>Permission</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="~/Login/PermissionCreate"><i class="fa fa-circle-o"></i> Add Permission </a></li>
+                                <li><a href="~/Login/PermissionSearch"><i class="fa fa-circle-o"></i> Permission List</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-laptop"></i>
+                                <span>Role</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="~/Login/RoleCreate"><i class="fa fa-circle-o"></i> Add Role </a></li>
+                                <li><a href="~/Login/RoleSearch"><i class="fa fa-circle-o"></i> Role List</a></li>
+                            </ul>
+                        </li>
+                    }
                 </ul>
             </section>
             <!-- /.sidebar -->

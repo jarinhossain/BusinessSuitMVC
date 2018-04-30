@@ -36,6 +36,10 @@ namespace BusinessSuitMVC.Models
         public Nullable<bool> Image { get; set; }
         public Nullable<int> Present_Position { get; set; }
         public Nullable<int> District_Id { get; set; }
+        public Nullable<int> Created_By { get; set; }
+        public System.DateTime Created_On { get; set; }
+        public Nullable<int> Updated_By { get; set; }
+        public Nullable<System.DateTime> Updated_On { get; set; }
     
         public virtual ICollection<User_Login> User_Login { get; set; }
         public virtual ICollection<Client_Inventory> Client_Inventory { get; set; }

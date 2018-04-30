@@ -7,10 +7,11 @@
       <Diagram DiagramId="c8f0fb3505f244e98544eb5aef2bc736" Name="Diagram1">
         <EntityTypeShape EntityType="numeralDBModel.Number" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="numeralDBModel.Operator" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="numeralDBModel.Source" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="numeralDBModel.Source_Type" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="numeralDBModel.Source" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="numeralDBModel.FK_Numbers_Operators" ManuallyRouted="false" />
         <AssociationConnector Association="numeralDBModel.FK_Numbers_Sources" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="numeralDBModel.Source_Type" Width="1.5" PointX="0.75" PointY="13.25" />
+        <AssociationConnector Association="numeralDBModel.FK_Sources_Source_Type" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

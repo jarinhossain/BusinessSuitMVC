@@ -76,8 +76,7 @@ namespace BusinessSuitMVC.Controllers
             {
                 return "Please enter your valid Contact Name";
             }
-
-            else if (source.Source_Type == null)
+            else if (source.Source_Type_Id == null)
             {
                 return "Please enter your valid Source Type";
             }
@@ -214,9 +213,9 @@ namespace BusinessSuitMVC.Controllers
                 return View("Unauthorized");
 
             Numeral_DBContext DB = new Numeral_DBContext();
-            Source source = (from user in DB.Sources
-                             where user.Id == id
-                             select user).FirstOrDefault();
+            Source source = (from sourc in DB.Sources
+                             where sourc.Id == id
+                             select sourc).FirstOrDefault();
 
             ///if the source not found in the database
             if (source == null)
@@ -229,6 +228,7 @@ namespace BusinessSuitMVC.Controllers
             {
                 ViewData["msg"] = TempData["msg"];
             }
+            ViewData["SourceList"] = loadTypeDropDown();
             return View(source);
         }
 
@@ -265,6 +265,38 @@ namespace BusinessSuitMVC.Controllers
             //Source/SourceNumerCreate?id=4
             return RedirectToAction("SourceNumberCreate", new { id = source.Id });
         }
+
+        [HttpGet]
+        public ActionResult SourceNumberSearch(int id)
+        {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
+            Numeral_DBContext Numeral_DB = new Numeral_DBContext();
+
+            List<Number> numberList = (from num in Numeral_DB.Numbers
+                                       where num.Source_Id == id
+                                            select num).ToList();
+            Source source = Numeral_DB.Sources.Find(id);
+            ViewData["ward"] = source.Ward;
+            ViewData["contactName"] = source.Contact_Name;
+            return View(numberList);
+        }
+
+        [HttpGet]
+        public ActionResult AllSourcesNumberSearch()
+        {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
+            Numeral_DBContext Numeral_DB = new Numeral_DBContext();
+
+            List<Number> numberList = (from num in Numeral_DB.Numbers
+                                       select num).ToList();
+
+            return View(numberList);
+        }
+
         public List<SelectListItem> loadDistrictDropdown()
         {
             DBContext DB = new DBContext();
@@ -295,28 +327,15 @@ namespace BusinessSuitMVC.Controllers
 
         public List<SelectListItem> loadTypeDropDown()
         {
-            // DBContext DB = new DBContext();
-            // List<Expense_Type> type = (from typ in DB.Expense_Type
-            //                            select typ).ToList();
-            // List<SelectListItem> typeDropdown = new List<SelectListItem>();
-            // foreach (var item in type)
-            // {
-            //     typeDropdown.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
-            //  }
-            // return typeDropdown;
-
-
-            List<SelectListItem> source = new List<SelectListItem>();
-
-            source.Add(new SelectListItem() { Value = "1", Text = "Councillor" });
-            source.Add(new SelectListItem() { Value = "2", Text = "General Councillor" });
-            source.Add(new SelectListItem() { Value = "6", Text = "Councillor Supporter" });
-            source.Add(new SelectListItem() { Value = "3", Text = "Mayor" });
-            source.Add(new SelectListItem() { Value = "4", Text = "Panel Mayor" });
-            source.Add(new SelectListItem() { Value = "5", Text = "School Committee" });
-            source.Add(new SelectListItem() { Value = "7", Text = "Shop" });
-
-            return source;
+            Numeral_DBContext DB = new Numeral_DBContext();
+            List<Source_Type> type = (from typ in DB.Source_Type
+                                       select typ).ToList();
+            List<SelectListItem> typeDropdown = new List<SelectListItem>();
+            foreach (var item in type)
+            {
+                typeDropdown.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
+            }
+            return typeDropdown;
         }
     }
 }

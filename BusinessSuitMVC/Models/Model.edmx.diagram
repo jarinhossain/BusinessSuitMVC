@@ -62,6 +62,7 @@
         <AssociationConnector Association="Business_SuitModel.FK_Obd_Request_Obd_Bulk" />
         <AssociationConnector Association="Business_SuitModel.FK_Obd_Ward_Details_Obd_Bulk" />
         <AssociationConnector Association="Business_SuitModel.FK__Client_Li__Distr__19AACF41" />
+        <EntityTypeShape EntityType="Business_SuitModel.Incoming_Calls" Width="1.5" PointX="0.75" PointY="18.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

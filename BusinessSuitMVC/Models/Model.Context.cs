@@ -58,5 +58,6 @@ namespace BusinessSuitMVC.Models
         public DbSet<Obd_Ward_Details> Obd_Ward_Details { get; set; }
         public DbSet<Sms_Bulk> Sms_Bulk { get; set; }
         public DbSet<Sms_Request> Sms_Request { get; set; }
+        public DbSet<Incoming_Calls> Incoming_Calls { get; set; }
     }
 }

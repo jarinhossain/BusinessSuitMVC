@@ -12,16 +12,13 @@ namespace BusinessSuitMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Source_Type
+    public partial class Incoming_Calls
     {
-        public Source_Type()
-        {
-            this.Sources = new HashSet<Source>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
-    
-        public virtual ICollection<Source> Sources { get; set; }
+        public string Mobile { get; set; }
+        public Nullable<System.DateTime> Called_Time { get; set; }
+        public string Server { get; set; }
+        public string Call_Unique_Id { get; set; }
+        public Nullable<System.DateTime> Created_On { get; set; }
     }
 }

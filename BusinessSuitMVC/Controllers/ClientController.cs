@@ -51,6 +51,7 @@ namespace BusinessSuitMVC.Controllers
             else
             {
                 DBContext DB = new DBContext();
+                client.Created_By = int.Parse(Session["Login_Id"].ToString());
                 client.Image = file != null && file.ContentLength > 0 ? true : false;
                 DB.Client_List.Add(client);
                 DB.SaveChanges();
@@ -443,6 +444,37 @@ namespace BusinessSuitMVC.Controllers
             var DBLogin = DB.User_Login.Include("Client_list").Where(x => x.Client_Id == id).FirstOrDefault();
 
             return View("ClientLoginDetails", DBLogin);
+        }
+
+        [HttpGet]
+        public ActionResult ClientMakeSource(int id)
+        {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
+            DBContext DB = new DBContext();
+            Numeral_DBContext Num_DB = new Numeral_DBContext();
+
+            Source source = new Source();
+
+            Client_List client = (from u in DB.Client_List
+                                  where u.Id == id
+                                  select u).FirstOrDefault();
+            
+            source.Ref_Id = client.Id;
+            source.Is_Client = true;
+            source.Contact_Name = client.Counsilor_Name;
+            source.Mobile1 = client.Mobile1;
+            source.Mobile2 = client.Mobile2;
+            source.Ward = client.ward;
+            source.Source_Type_Id = client.Client_Type;
+            source.Address = client.Address;
+            source.Created_By = int.Parse(Session["Login_Id"].ToString());
+            
+            Num_DB.Sources.Add(source);
+            Num_DB.SaveChanges();
+
+            return Redirect("~/Source/SourceNumberCreate/" + source.Id);
         }
 
         [HttpGet]
