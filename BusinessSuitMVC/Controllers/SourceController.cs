@@ -249,7 +249,7 @@ namespace BusinessSuitMVC.Controllers
                 Number number = new Number();
                 number.Number1 = mobileNumber;
                 number.Source_Id = source.Id;
-
+                number.Created_By = int.Parse(Session["Login_Id"].ToString());
                 // Source.Mobile1 = source.Mobile1;
                 DB.Numbers.Add(number);
                 try
