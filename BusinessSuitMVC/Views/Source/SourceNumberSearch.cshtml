@@ -9,7 +9,7 @@
 
     <section class="content-header">
         <h1>
-            Source Number
+            Source
         </h1>
         @*<ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -28,77 +28,53 @@
 
 
                     <div class="box-body">
-                        Contact Name: <label>@ViewData["contactName"]</label> <br />
-                        Ward: <label>@ViewData["ward"]</label>
                         <table class="table table-bordered table-responsive table-striped display nowrap" id="example" style="display:block">
-                            <tr>
-                                <th>Options</th>
-                                <th>
-                                    Number
-                                </th>
-                                <th>
-                                    Operator
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Prefix)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Sms_Tried)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Sms_Succeed)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Last_Succeeded_Sms_Date)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Obd_Tried)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Obd_Succeed)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Last_Succeeded_Obd_Date)
-                                </th>
-                                
-                            </tr>
-
-                            @foreach (var item in Model)
-                            {
+                            <thead>
                                 <tr>
-                                    <td>
-                                        @Html.ActionLink("Edit", "SouceNumberEdit", new { id = item.Id }) |
-                                        @Html.ActionLink("Delete", "SouceNumberDelete", new { id = item.Id })
-                                    </td>
-                                    <td>
-                                         @("0" + item.Number1.ToString()) 
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Operator.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Sms_Tried)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Sms_Succeed)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Last_Succeeded_Sms_Date)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Obd_Tried)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Obd_Succeed)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Last_Succeeded_Obd_Date)
-                                    </td>
-                                    
+                                    <th>Options</th>
+                                    <th>Number</th>
+                                    <th>Operator</th>
+                                    <th>Sms_Tried</th>
+                                    <th>Sms_Succeed</th>
+                                    <th>Last_Succeeded_Sms_Date</th>
+                                    <th>Obd_Tried</th>
+                                    <th>Obd_Succeed</th>
                                 </tr>
-                            }
-
+                            <thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.ActionLink("Edit", "SouceNumberEdit", new { id = item.Id }) |
+                                            @Html.ActionLink("Delete", "SouceNumberDelete", new { id = item.Id })
+                                        </td>
+                                        <td>
+                                            @("0" + item.Number1.ToString())
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Operator.Name)
+                                        </td>
+                                        <td>
+                                            @item.Sms_Tried
+                                        </td>
+                                        <td>
+                                            @item.Sms_Succeed
+                                        </td>
+                                        <td>
+                                            @item.Last_Succeeded_Sms_Date
+                                        </td>
+                                        <td>
+                                            @item.Obd_Tried
+                                        </td>
+                                        <td>
+                                            @item.Obd_Succeed
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
                         </table>
+
                     </div>
 
                 </div>
@@ -137,20 +113,7 @@
                 ]
             });
 
-            //// Apply the search
-            //table.columns().every(function () {
-            //    var that = this;
-
-            //    $('input', this.footer()).on('keyup change', function () {
-            //        if (that.search() !== this.value) {
-            //            that
-            //                .search(this.value)
-            //                .draw();
-            //        }
-            //    });
-            //});
         });
     </script>
 
 }
-

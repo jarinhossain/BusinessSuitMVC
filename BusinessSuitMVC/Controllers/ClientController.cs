@@ -447,13 +447,19 @@ namespace BusinessSuitMVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult ClientMakeSource(int id)
+        public ActionResult ClientMakeSource(int id)///client id
         {
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
 
             DBContext DB = new DBContext();
             Numeral_DBContext Num_DB = new Numeral_DBContext();
+            Source sourceData = Num_DB.Sources.Where(x => x.Ref_Id == id && x.Is_Client == true).FirstOrDefault();
+
+            if (sourceData != null)
+            {
+                return Redirect("~/Source/SourceNumberCreate/" + sourceData.Id);
+            }
 
             Source source = new Source();
 
@@ -467,6 +473,7 @@ namespace BusinessSuitMVC.Controllers
             source.Mobile1 = client.Mobile1;
             source.Mobile2 = client.Mobile2;
             source.Ward = client.ward;
+            source.District_Id = client.District_Id;
             source.Source_Type_Id = client.Client_Type;
             source.Address = client.Address;
             source.Created_By = int.Parse(Session["Login_Id"].ToString());
