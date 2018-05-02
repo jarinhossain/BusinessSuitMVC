@@ -412,7 +412,10 @@
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="~/SMS/SingleSMS"><i class="fa fa-circle-o"></i> Test SMS </a></li>
-                            @*<li><a href="~/SMS/SingleCallList"><i class="fa fa-circle-o"></i> Call List</a></li>*@
+                        @if (int.Parse(Session["Role_Id"].ToString()) == 1)
+                        {
+                            <li><a href="~/SMS/BulkSMS"><i class="fa fa-circle-o"></i> Bulk SMS</a></li>
+                        }
                         </ul>
                     </li>
 
