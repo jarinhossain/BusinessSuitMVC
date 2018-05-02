@@ -50,19 +50,18 @@
         <AssociationConnector Association="Business_SuitModel.FK_Client_Inventory_Client_List" />
         <AssociationConnector Association="Business_SuitModel.FK_Client_Inventory_User_Login" />
         <AssociationConnector Association="Business_SuitModel.FK_Client_Inventory_User_Profile" />
-        <EntityTypeShape EntityType="Business_SuitModel.CDR_Obd" Width="1.5" PointX="10" PointY="30.875" />
-        <EntityTypeShape EntityType="Business_SuitModel.Obd_Bulk" Width="1.5" PointX="10" PointY="24.875" />
-        <EntityTypeShape EntityType="Business_SuitModel.Obd_Request" Width="1.5" PointX="12.25" PointY="25.5" />
         <EntityTypeShape EntityType="Business_SuitModel.Obd_Ward_Details" Width="1.5" PointX="13.25" PointY="20.375" />
         <EntityTypeShape EntityType="Business_SuitModel.Sms_Bulk" Width="1.5" PointX="17.375" PointY="6.75" />
         <EntityTypeShape EntityType="Business_SuitModel.Sms_Request" Width="1.5" PointX="18.375" PointY="0.75" />
-        <AssociationConnector Association="Business_SuitModel.FK_Obd_Request_CDR_Obd" />
-        <AssociationConnector Association="Business_SuitModel.FK_Obd_Bulk_Client_List" />
         <AssociationConnector Association="Business_SuitModel.FK_Obd_Ward_Details_Client_List" />
-        <AssociationConnector Association="Business_SuitModel.FK_Obd_Request_Obd_Bulk" />
-        <AssociationConnector Association="Business_SuitModel.FK_Obd_Ward_Details_Obd_Bulk" />
         <AssociationConnector Association="Business_SuitModel.FK__Client_Li__Distr__19AACF41" />
         <EntityTypeShape EntityType="Business_SuitModel.Incoming_Calls" Width="1.5" PointX="0.75" PointY="18.75" />
+        <EntityTypeShape EntityType="Business_SuitModel.CDR_Obd" Width="1.5" PointX="14.25" PointY="24.875" />
+        <EntityTypeShape EntityType="Business_SuitModel.Obd_Bulk" Width="1.5" PointX="9.125" PointY="24" />
+        <EntityTypeShape EntityType="Business_SuitModel.Obd_Request" Width="1.5" PointX="11.375" PointY="24" />
+        <AssociationConnector Association="Business_SuitModel.FK_Obd_Bulk_Client_List" />
+        <AssociationConnector Association="Business_SuitModel.FK_Obd_Request_Obd_Bulk" />
+        <AssociationConnector Association="Business_SuitModel.FK_Obd_Ward_Details_Obd_Bulk" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

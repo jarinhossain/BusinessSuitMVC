@@ -23,7 +23,7 @@
           <Property Name="Prefix" Type="varchar" MaxLength="20" />
           <Property Name="Number_Id" Type="int" />
           <Property Name="Source_Id" Type="int" />
-          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Created_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="Updated_By" Type="int" />
@@ -149,7 +149,7 @@
           <Property Name="Prefix" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Number_Id" Type="Int32" />
           <Property Name="Source_Id" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Created_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
           <Property Name="Updated_By" Type="Int32" />

@@ -52,12 +52,12 @@ namespace BusinessSuitMVC.Models
         public DbSet<Module> Modules { get; set; }
         public DbSet<CDR_Instant> CDR_Instant { get; set; }
         public DbSet<Client_Inventory> Client_Inventory { get; set; }
-        public DbSet<CDR_Obd> CDR_Obd { get; set; }
-        public DbSet<Obd_Bulk> Obd_Bulk { get; set; }
-        public DbSet<Obd_Request> Obd_Request { get; set; }
         public DbSet<Obd_Ward_Details> Obd_Ward_Details { get; set; }
         public DbSet<Sms_Bulk> Sms_Bulk { get; set; }
         public DbSet<Sms_Request> Sms_Request { get; set; }
         public DbSet<Incoming_Calls> Incoming_Calls { get; set; }
+        public DbSet<CDR_Obd> CDR_Obd { get; set; }
+        public DbSet<Obd_Bulk> Obd_Bulk { get; set; }
+        public DbSet<Obd_Request> Obd_Request { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace BusinessSuitMVC.Controllers
     public class CallController : Controller
     {
         private DBContext DB = new DBContext();
+        private Numeral_DBContext Num_DB = new Numeral_DBContext();
 
         [Authorize]
         public ActionResult GenerateCallFile()
@@ -172,60 +173,83 @@ namespace BusinessSuitMVC.Controllers
             return Json(numberList, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult fetchdatanew()
         {
 
-            var numberList = new[] {
-                new { Id = "1", Mobile = "01676797123" },
-                //new { Id = "2", Mobile = "01878196799" }
-            };
+            var numberList = Num_DB.Numbers.Where(x => x.Source_Id == 2)//.Where(x => x.Source_Id == 3 || x.Source_Id == 6)
+                                            .Select(x => new { Id = x.Id, Mobile = "0" + x.Number1, Source_Id= x.Source_Id })
+                                            .ToList();
 
-            //foreach (var item in numberList)
-            //{
-            //    var cdr = DB.CDR_Instant.Where(x => x.Status == 0).FirstOrDefault();
+            foreach (var item in numberList)
+            {
+                if (DB.Obd_Request.Where(x => x.Mobile == item.Mobile).Any() == false)
+                {
+                    DB.Obd_Request.Add(new Obd_Request() { Mobile = item.Mobile, Source_Id = item.Source_Id, Status = 0 });
+                }
+            }
+            
+            //var numberList = new[] {
+            //    new { Id = "1", Mobile = "01676797123", PlayFile = "filename.gsm", Context = "obd-call", Retry = "0"},
+            //    //new { Id = "2", Mobile = "01878196799" }
+            //};
 
-            //    cdr.Status = 1;//fetched
+            DB.SaveChanges();
+            var finalNumberList = DB.Obd_Request.Where(x => x.Status == 0)
+                                       .Select(x => new { Id = x.Id, Mobile = x.Mobile, Source_Id = x.Source_Id })
+                                       .ToList();
 
-            //}
-            //DB.SaveChanges();
+            //var result = DB.Obd_Request.Where(x => !finalNumberList.Any(y => y.Mobile == x.Mobile));
+            foreach (var item in finalNumberList)
+            {
+                var obdRequest = DB.Obd_Request.Find(item.Id);
 
-            return Json(numberList, JsonRequestBehavior.AllowGet);
+                obdRequest.Status = 1;///fetched
+
+            }
+            DB.SaveChanges();
+
+            return Json(finalNumberList, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public string cdrUpdate()
         {
-            try
-            {
-                var keys = Request.Form.AllKeys;
-                var count = Request.Form.AllKeys.Count();
-                string content = Request.Form["dbcontext"];
-                //using (var reader = new StreamReader(Request.InputStream))
-                //    content = reader.ReadToEnd();
-                return content + "       " + count + "       " + keys;
-                //string context = Request.QueryString["dbcontext"].ToString();
-                //string disposition = Request.QueryString["disposition"].ToString();
+            int obd_request_id = int.Parse(Request.Form["obd_request_id"]);
+            string call_unique_id = Request.Form["call_unique_id"];
+            int call_duration = int.Parse(Request.Form["call_duration"]);
+            int billsec = int.Parse(Request.Form["billsec"]);
+            string start_time = Request.Form["start_time"];
+            string answer_time = Request.Form["answer_time"];
+            string end_time = Request.Form["end_time"];
+            string clid = Request.Form["clid"];
+            string disposition = Request.Form["disposition"];
+            string context = Request.Form["context"];
+            string lastapp = Request.Form["lastapp"];
+            string server = Request.Form["server"];
+            //string last_transmission_time = Request.Form["last_transmission_time"];
+            //string amaflags = Request.Form["amaflags"];
+            //string src = Request.Form["src"];
+            //string dst = Request.Form["dst"];
+            //string lastdata = Request.Form["lastdata"];
 
-                //if (context != "" || context != null)
-                //    return context;
-                //else if (disposition != "" || disposition != null)
-                //    return disposition;
-                //else
-                //    return "no data";
-            }
-            catch
-            {
-                return "error cached";
-            }
+            Obd_Request obdRequest = DB.Obd_Request.Find(obd_request_id);
 
-            //CDR_Obd cdr = new CDR_Obd();
+            obdRequest.Unique_Id = call_unique_id;
+            obdRequest.Bill_Sec = billsec;
+            obdRequest.Start_Time = DateTime.Parse(start_time);
+            obdRequest.End_Time = DateTime.Parse(end_time);
+            obdRequest.Answer_Time = DateTime.Parse(answer_time);
+            obdRequest.Disposition = disposition;
+            obdRequest.Context = context;
+            obdRequest.Duration = call_duration;
+            obdRequest.Last_App = lastapp;
+            obdRequest.Server = server;
+            obdRequest.Status = 2;
 
-            //cdr.Context = context;
-            //cdr.Disposition = disposition;
+            DB.SaveChanges();
 
-            //DB.CDR_Obd.Add(cdr);
-            //DB.SaveChanges();
-            //return "";
+            return "successful-" + obdRequest.Mobile;
 
         }
 
@@ -261,7 +285,7 @@ namespace BusinessSuitMVC.Controllers
 
             DB.SaveChanges();
 
-            return "successful";
+            return "successful-" + cdrInstant.Mobile;
         }
 
         [HttpPost]
