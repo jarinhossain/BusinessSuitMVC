@@ -426,6 +426,7 @@
     <Content Include="Views\SMS\SingleSMS.cshtml" />
     <Content Include="Views\Client\ClientLoginDetails.cshtml" />
     <Content Include="Views\Source\SourceNumberSearch.cshtml" />
+    <Content Include="Views\Call\ObdRequestList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

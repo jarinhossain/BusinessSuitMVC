@@ -21,6 +21,7 @@ namespace BusinessSuitMVC.Models
         public Nullable<int> Quantity { get; set; }
         public Nullable<int> Created_By { get; set; }
         public Nullable<System.DateTime> Created_On { get; set; }
+        public Nullable<int> Source_Id { get; set; }
     
         public virtual Client_List Client_List { get; set; }
         public virtual Obd_Bulk Obd_Bulk { get; set; }

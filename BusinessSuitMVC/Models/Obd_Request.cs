@@ -32,6 +32,7 @@ namespace BusinessSuitMVC.Models
         public string Remarks { get; set; }
         public string Server { get; set; }
         public string Unique_Id { get; set; }
+        public Nullable<System.DateTime> Created_On { get; set; }
     
         public virtual Obd_Bulk Obd_Bulk { get; set; }
     }

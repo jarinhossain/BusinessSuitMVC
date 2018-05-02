@@ -19,7 +19,7 @@
           <Property Name="Disposition" Type="varchar" MaxLength="40" />
           <Property Name="Bill_Sec" Type="int" />
           <Property Name="Duration" Type="int" />
-          <Property Name="Remarks" Type="varchar" MaxLength="20" />
+          <Property Name="Remarks" Type="varchar" MaxLength="150" />
           <Property Name="Created_By" Type="int" />
           <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
@@ -194,6 +194,7 @@
           <Property Name="Duration" Type="int" />
           <Property Name="Remarks" Type="varchar" MaxLength="20" />
           <Property Name="Server" Type="varchar" MaxLength="50" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Obd_Ward_Details">
           <Key>
@@ -201,8 +202,9 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Client_Id" Type="int" />
-          <Property Name="Ward" Type="int" />
+          <Property Name="Source_Id" Type="int" />
           <Property Name="Obd_Bulk_Id" Type="int" />
+          <Property Name="Ward" Type="int" />
           <Property Name="Quantity" Type="int" />
           <Property Name="Created_By" Type="int" />
           <Property Name="Created_On" Type="datetime" />
@@ -1701,6 +1703,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Created_On" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Client_List" Relationship="Business_SuitModel.FK_Obd_Ward_Details_Client_List" FromRole="Obd_Ward_Details" ToRole="Client_List" />
           <NavigationProperty Name="Obd_Bulk" Relationship="Business_SuitModel.FK_Obd_Ward_Details_Obd_Bulk" FromRole="Obd_Ward_Details" ToRole="Obd_Bulk" />
+          <Property Name="Source_Id" Type="Int32" />
         </EntityType>
         <EntityType Name="Sms_Bulk">
           <Key>
@@ -1829,6 +1832,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Server" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Obd_Bulk" Relationship="Business_SuitModel.FK_Obd_Request_Obd_Bulk" FromRole="Obd_Request" ToRole="Obd_Bulk" />
           <Property Name="Unique_Id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <Association Name="FK_Obd_Bulk_Client_List">
           <End Type="Business_SuitModel.Client_List" Role="Client_List" Multiplicity="0..1" />
@@ -2285,6 +2289,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="Obd_Ward_Details">
             <EntityTypeMapping TypeName="Business_SuitModel.Obd_Ward_Details">
               <MappingFragment StoreEntitySet="Obd_Ward_Details">
+                <ScalarProperty Name="Source_Id" ColumnName="Source_Id" />
                 <ScalarProperty Name="Created_On" ColumnName="Created_On" />
                 <ScalarProperty Name="Created_By" ColumnName="Created_By" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
@@ -2380,6 +2385,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="Obd_Request">
             <EntityTypeMapping TypeName="Business_SuitModel.Obd_Request">
               <MappingFragment StoreEntitySet="Obd_Request">
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
                 <ScalarProperty Name="Unique_Id" ColumnName="Unique_Id" />
                 <ScalarProperty Name="Server" ColumnName="Server" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />

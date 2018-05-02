@@ -155,6 +155,22 @@ namespace BusinessSuitMVC.Controllers
             return View(instant);
         }
 
+        [Authorize]
+        public ActionResult ObdRequestList(int? id)
+        {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
+            int loginID = int.Parse(Session["Login_Id"].ToString());
+            int roleID = int.Parse(Session["Role_Id"].ToString());
+            var obdRequest = new List<Obd_Request>();
+
+
+            obdRequest = DB.Obd_Request.OrderByDescending(x => x.Created_On).ToList();
+
+            return View(obdRequest);
+        }
+
         [HttpGet]
         public JsonResult fetchdata()
         {
@@ -177,7 +193,7 @@ namespace BusinessSuitMVC.Controllers
         public JsonResult fetchdatanew()
         {
 
-            var numberList = Num_DB.Numbers.Where(x => x.Source_Id == 2)//.Where(x => x.Source_Id == 3 || x.Source_Id == 6)
+            var numberList = Num_DB.Numbers.Where(x => x.Source_Id == 3 || x.Source_Id == 6)//.Where(x => x.Source_Id == 2)
                                             .Select(x => new { Id = x.Id, Mobile = "0" + x.Number1, Source_Id= x.Source_Id })
                                             .ToList();
 
@@ -237,9 +253,9 @@ namespace BusinessSuitMVC.Controllers
 
             obdRequest.Unique_Id = call_unique_id;
             obdRequest.Bill_Sec = billsec;
-            obdRequest.Start_Time = DateTime.Parse(start_time);
-            obdRequest.End_Time = DateTime.Parse(end_time);
-            obdRequest.Answer_Time = DateTime.Parse(answer_time);
+            //obdRequest.Start_Time = DateTime.Parse(start_time);
+            //obdRequest.End_Time = DateTime.Parse(end_time);
+            //obdRequest.Answer_Time = DateTime.Parse(answer_time);
             obdRequest.Disposition = disposition;
             obdRequest.Context = context;
             obdRequest.Duration = call_duration;
