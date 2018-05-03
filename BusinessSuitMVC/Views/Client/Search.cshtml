@@ -48,6 +48,7 @@
                                             <td>
                                             <a href="~/Client/Edit?id=@client.Id">Edit </a>
                                              | <a href="~/Client/Details?id=@client.Id">Details</a>
+                                             | <a href="~/Order/Index?id=@client.Id">Order</a>
                                              @if (int.Parse(Session["Role_Id"].ToString()) <= 2)
                                              {
                                                  <a href="~/Call/SingleCall?number=@client.Mobile1&remarks=@client.ward" id="singleCall"> | Call</a>

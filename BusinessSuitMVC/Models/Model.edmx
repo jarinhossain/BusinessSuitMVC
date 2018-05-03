@@ -296,9 +296,11 @@
           <Property Name="Is_Package" Type="bit" />
           <Property Name="Total_Paid" Type="float" />
           <Property Name="Total_Bill" Type="float" />
-          <Property Name="order_status" Type="varchar" MaxLength="50" />
+          <Property Name="Order_Status" Type="int" />
           <Property Name="Created_By" Type="int" />
           <Property Name="Updated_By" Type="int" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_On" Type="datetime" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -1085,11 +1087,13 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Is_Package" Type="Boolean" />
           <Property Name="Total_Paid" Type="Double" />
           <Property Name="Total_Bill" Type="Double" />
-          <Property Name="order_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Created_By" Type="Int32" />
           <Property Name="Updated_By" Type="Int32" />
           <NavigationProperty Name="Offline_Order_Detalis" Relationship="Self.FK_Offline_Order_Detalis_Order" FromRole="Order" ToRole="Offline_Order_Detalis" />
           <NavigationProperty Name="Online_Order_Detalis" Relationship="Self.FK_Online_Order_Detalis_Order" FromRole="Order" ToRole="Online_Order_Detalis" />
+          <Property Name="Order_Status" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -2027,13 +2031,15 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="Business_SuitModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Order_Status" ColumnName="Order_Status" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Is_Package" ColumnName="Is_Package" />
                 <ScalarProperty Name="Total_Paid" ColumnName="Total_Paid" />
                 <ScalarProperty Name="Total_Bill" ColumnName="Total_Bill" />
-                <ScalarProperty Name="order_status" ColumnName="order_status" />
                 <ScalarProperty Name="Created_By" ColumnName="Created_By" />
                 <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
               </MappingFragment>

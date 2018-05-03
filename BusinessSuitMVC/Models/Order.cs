@@ -26,9 +26,11 @@ namespace BusinessSuitMVC.Models
         public Nullable<bool> Is_Package { get; set; }
         public Nullable<double> Total_Paid { get; set; }
         public Nullable<double> Total_Bill { get; set; }
-        public string order_status { get; set; }
         public Nullable<int> Created_By { get; set; }
         public Nullable<int> Updated_By { get; set; }
+        public Nullable<int> Order_Status { get; set; }
+        public Nullable<System.DateTime> Created_On { get; set; }
+        public Nullable<System.DateTime> Updated_On { get; set; }
     
         public virtual ICollection<Offline_Order_Detalis> Offline_Order_Detalis { get; set; }
         public virtual ICollection<Online_Order_Detalis> Online_Order_Detalis { get; set; }

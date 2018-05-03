@@ -427,6 +427,7 @@
     <Content Include="Views\Client\ClientLoginDetails.cshtml" />
     <Content Include="Views\Source\SourceNumberSearch.cshtml" />
     <Content Include="Views\Call\ObdRequestList.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

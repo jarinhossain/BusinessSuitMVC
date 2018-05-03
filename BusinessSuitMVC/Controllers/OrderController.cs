@@ -1,4 +1,5 @@
-﻿using BusinessSuitMVC.Models;
+﻿using BusinessSuitMVC.ModelClasses;
+using BusinessSuitMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,14 +11,22 @@ namespace BusinessSuitMVC.Controllers
 {
     public class OrderController : Controller
     {
-        // GET: Order
-        public ActionResult Index()
+        DBContext DB = new DBContext();
+        public ActionResult Index(int id)///client id
         {
-            return View();
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
+            Client_List client = DB.Client_List.Find(id);
+
+            return View(client);
         }
         [HttpGet]
-        public ActionResult SmsMarketingCreate()
+        public ActionResult SmsMarketingCreate(int id)///client id
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+            ///start form here
             return View();
         }
         [HttpPost]
@@ -31,7 +40,7 @@ namespace BusinessSuitMVC.Controllers
             }
             else
             {
-                DBContext DB = new DBContext();
+                
                 DB.Online_Order_Detalis.Add(online);
                 DB.SaveChanges();
                 ViewData["msg"] = "Successfully Saved";
@@ -72,7 +81,6 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult TelephonyMarketingCreate()
         {
-
             return View();
         }
         [HttpPost]
@@ -98,7 +106,6 @@ namespace BusinessSuitMVC.Controllers
             }
             else
             {
-                DBContext DB = new DBContext();
                 online.Obd_Voice_File = file != null && file.ContentLength > 0 ? true : false;
 
                 DB.Online_Order_Detalis.Add(online);
@@ -171,7 +178,6 @@ namespace BusinessSuitMVC.Controllers
             }
             else
             {
-                DBContext DB = new DBContext();
                 offline.Passport_Image = file != null && file.ContentLength > 0 ? true : false;
                 DB.Offline_Order_Detalis.Add(offline);
                 DB.SaveChanges();
