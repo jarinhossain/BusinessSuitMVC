@@ -75,7 +75,14 @@
                                     {
                                         <tr>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.Mobile)
+                                                @if (bool.Parse(Session["Is_Client"].ToString()) != true)
+                                                {
+                                                    @item.Mobile
+                                                }
+                                                else
+                                                {
+                                                    @(item.Mobile.Substring(0, 5) + "XXX" + item.Mobile.Substring(8))
+                                                }
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Context)
