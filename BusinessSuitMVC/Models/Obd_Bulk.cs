@@ -36,6 +36,8 @@ namespace BusinessSuitMVC.Models
         public Nullable<int> Updated_By { get; set; }
         public Nullable<System.DateTime> Updated_On { get; set; }
         public Nullable<int> Wait { get; set; }
+        public Nullable<bool> Is_Active { get; set; }
+        public Nullable<int> Priority { get; set; }
     
         public virtual Client_List Client_List { get; set; }
         public virtual ICollection<Obd_Request> Obd_Request { get; set; }

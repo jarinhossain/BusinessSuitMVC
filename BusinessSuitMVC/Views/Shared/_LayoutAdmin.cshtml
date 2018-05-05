@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{ if (Session["Role_Id"] == null || Session["Role_Id"].ToString() == "")
+    { }
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -401,6 +404,23 @@
                         </ul>
                     </li>
                     } 
+
+                    @if (Session["Role_Id"].ToString() == "1" || Session["Role_Id"].ToString() == "2")
+                    {
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-laptop"></i>
+                                <span>Order</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="~/Order/Search"><i class="fa fa-circle-o"></i> List </a></li>
+
+                            </ul>
+                        </li>
+                    }
 
                     <li class="treeview">
                         <a href="#">

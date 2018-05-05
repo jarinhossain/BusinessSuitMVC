@@ -16,11 +16,13 @@ namespace BusinessSuitMVC.Models
     {
         public Product()
         {
-            this.Online_Order_Detalis = new HashSet<Online_Order_Detalis>();
+            this.Online_Order_Details = new HashSet<Online_Order_Details>();
         }
     
         public int Id { get; set; }
+        public string Code { get; set; }
         public string Name { get; set; }
+        public string Display_Name { get; set; }
         public Nullable<bool> Is_Online { get; set; }
         public string Description { get; set; }
         public Nullable<double> Regular_Price { get; set; }
@@ -32,6 +34,6 @@ namespace BusinessSuitMVC.Models
         public Nullable<int> Deleted_By { get; set; }
         public Nullable<System.DateTime> Deleted_On { get; set; }
     
-        public virtual ICollection<Online_Order_Detalis> Online_Order_Detalis { get; set; }
+        public virtual ICollection<Online_Order_Details> Online_Order_Details { get; set; }
     }
 }

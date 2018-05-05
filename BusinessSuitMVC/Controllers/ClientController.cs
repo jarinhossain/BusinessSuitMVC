@@ -189,7 +189,7 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Online_Create(Online_Order_Detalis online)
+        public ActionResult Online_Create(Online_Order_Details online)
         {
             
 
@@ -240,7 +240,7 @@ namespace BusinessSuitMVC.Controllers
             else
             {
                 DBContext DB = new DBContext();
-                DB.Online_Order_Detalis.Add(online);
+                DB.Online_Order_Details.Add(online);
                 DB.SaveChanges();
                 ViewData["msg"] = "Successfully Saved";
             }
@@ -251,14 +251,14 @@ namespace BusinessSuitMVC.Controllers
         public ActionResult OnlineEdit(int userid)
         {
             DBContext DB = new DBContext();
-            Online_Order_Detalis online = (from user in DB.Online_Order_Detalis
+            Online_Order_Details online = (from user in DB.Online_Order_Details
                                            where user.Id == userid
                                            select user).FirstOrDefault();
 
             return View(online);
         }
         [HttpPost]
-        public ActionResult OnlineEdit(Online_Order_Detalis online)
+        public ActionResult OnlineEdit(Online_Order_Details online)
         {
             if (online.Advertisement_Area == null)
             {
@@ -307,7 +307,7 @@ namespace BusinessSuitMVC.Controllers
             else
             {
                 DBContext DB = new DBContext();
-                Online_Order_Detalis Online = (from user in DB.Online_Order_Detalis
+                Online_Order_Details Online = (from user in DB.Online_Order_Details
                                                where user.Id == user.Id
                                                select user).FirstOrDefault();
 
@@ -336,7 +336,7 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Offline_Create(Offline_Order_Detalis offline)
+        public ActionResult Offline_Create(Offline_Order_Details offline)
         {
 
             if (offline.Price_Per_Piece == null)
@@ -412,7 +412,7 @@ namespace BusinessSuitMVC.Controllers
             else
             {
                 DBContext DB = new DBContext();
-                DB.Offline_Order_Detalis.Add(offline);
+                DB.Offline_Order_Details.Add(offline);
                 DB.SaveChanges();
                 ViewData["msg"] = "Successfully Saved";
             }

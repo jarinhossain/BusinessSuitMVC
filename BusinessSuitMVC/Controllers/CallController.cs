@@ -21,7 +21,6 @@ namespace BusinessSuitMVC.Controllers
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
 
-
             var numberList = DB.Client_List.Select(x => x.Mobile1).ToList();
 
             foreach (var item in numberList)
@@ -155,6 +154,48 @@ namespace BusinessSuitMVC.Controllers
             return View(instant);
         }
 
+
+        [Authorize,HttpGet]
+        public ActionResult ProceedOBDBulk(int id)///order id
+        {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
+            Order order = DB.Orders.Find(id);
+
+            if(order.Order_Status != 0)
+            {
+                ViewData["msg"] = "Already proceeded";
+                return RedirectToAction("Search", "Order");
+            }
+
+            Online_Order_Details onlineOrder = order.Online_Order_Details.FirstOrDefault();
+
+            Obd_Ward_Details wardDetails = new Obd_Ward_Details();
+
+            Obd_Bulk obdBulk = new Obd_Bulk();
+            obdBulk.Client_Id = order.Client_Id;
+            obdBulk.Order_Id = order.Id;
+            obdBulk.Created_By = int.Parse(Session["Login_Id"].ToString());
+            obdBulk.Status = 0;
+            obdBulk.Is_Active = true;
+            obdBulk.Play_File = "";
+            obdBulk.Total_Calls = onlineOrder.Estimated_Reach_Ordered;
+
+            wardDetails.Client_Id = order.Client_Id;
+            wardDetails.Quantity = onlineOrder.Estimated_Reach_Ordered;///need to change in future
+            wardDetails.Ward = onlineOrder.Ward;
+            wardDetails.Obd_Bulk_Id = obdBulk.Id;
+
+            order.Order_Status = 1;/// order proceed
+            onlineOrder.Status = 1;
+
+            DB.Obd_Ward_Details.Add(wardDetails);
+            DB.Obd_Bulk.Add(obdBulk);
+            DB.SaveChanges();
+            return Redirect("/Order/Search");
+        }
+
         [Authorize]
         public ActionResult ObdRequestList(int? id)
         {
@@ -167,7 +208,7 @@ namespace BusinessSuitMVC.Controllers
 
 
             obdRequest = DB.Obd_Request.OrderByDescending(x => x.Created_On).ToList();
-
+            
             return View(obdRequest);
         }
 
@@ -192,28 +233,44 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public JsonResult fetchdatanew()
         {
-
-            var numberList = Num_DB.Numbers.Where(x => x.Source_Id == 3 || x.Source_Id == 6)//.Where(x => x.Source_Id == 2)
-                                            .Select(x => new { Id = x.Id, Mobile = "0" + x.Number1, Source_Id= x.Source_Id })
-                                            .ToList();
-
-            foreach (var item in numberList)
+            var obdBulk = DB.Obd_Bulk.Where(x => x.Is_Active == true && x.Status == 0).FirstOrDefault();
+            if (obdBulk != null)
             {
-                if (DB.Obd_Request.Where(x => x.Mobile == item.Mobile).Any() == false)
-                {
-                    DB.Obd_Request.Add(new Obd_Request() { Mobile = item.Mobile, Source_Id = item.Source_Id, Status = 0 });
-                }
-            }
-            
-            //var numberList = new[] {
-            //    new { Id = "1", Mobile = "01676797123", PlayFile = "filename.gsm", Context = "obd-call", Retry = "0"},
-            //    //new { Id = "2", Mobile = "01878196799" }
-            //};
+                var obdWardDetails = obdBulk.Obd_Ward_Details.FirstOrDefault();///need to change in future
 
-            DB.SaveChanges();
-            var finalNumberList = DB.Obd_Request.Where(x => x.Status == 0)
-                                       .Select(x => new { Id = x.Id, Mobile = x.Mobile, Source_Id = x.Source_Id })
-                                       .ToList();
+                var sourceList = Num_DB.Sources.Where(x => x.Ward == obdWardDetails.Ward).Select(x => x.Id).ToList();
+                var numberList = Num_DB.Numbers.Where(x => sourceList.Any(y => y == x.Source_Id))
+                                                .Select(x => new { Id = x.Id, Mobile = "0" + x.Number1, Source_Id = x.Source_Id })
+                                                .ToList();
+
+                int count = 0;
+                foreach (var item in numberList)
+                {
+                    if (DB.Obd_Request.Where(x => x.Mobile == item.Mobile).Any() == false)
+                    {
+                        DB.Obd_Request.Add(new Obd_Request() { Mobile = item.Mobile, Obd_Bulk_Id = obdBulk.Id, Source_Id = item.Source_Id, Status = 0, Retry_Count = 0 });
+                        count++;
+                        if (count >= 3)
+                            break;
+                    }
+                }
+
+                //var numberList = new[] {
+                //    new { Id = "1", Mobile = "01676797123", PlayFile = "filename.gsm", Context = "obd-call", Retry = "0"},
+                //    //new { Id = "2", Mobile = "01878196799" }
+                //};
+
+                DB.SaveChanges();
+            }
+
+            var finalNumberList = (from request in DB.Obd_Request
+                        join bulk in DB.Obd_Bulk on request.Obd_Bulk_Id equals bulk.Id
+                        where request.Status == 0 && bulk.Is_Active == true
+                        select new { Id = request.Id, Mobile = request.Mobile, Source_Id = request.Source_Id }).ToList();
+            
+            //var finalNumberList = DB.Obd_Request.Where(x => x.Status == 0).Where(x => x.Obd_Bulk.Is_Active == true)
+            //                           .Select(x => new { Id = x.Id, Mobile = x.Mobile, Source_Id = x.Source_Id })
+            //                           .ToList();
 
             //var result = DB.Obd_Request.Where(x => !finalNumberList.Any(y => y.Mobile == x.Mobile));
             foreach (var item in finalNumberList)
@@ -249,23 +306,41 @@ namespace BusinessSuitMVC.Controllers
             //string dst = Request.Form["dst"];
             //string lastdata = Request.Form["lastdata"];
 
+            //DateTime startTime = DateTime.Now;
+            //DateTime endTime = DateTime.Now;
+            //DateTime answerTime = DateTime.Now;
+
+            //DateTime.TryParse(start_time, out startTime);
+            //DateTime.TryParse(end_time, out endTime);
+            //DateTime.TryParse(answer_time, out answerTime);
+
             Obd_Request obdRequest = DB.Obd_Request.Find(obd_request_id);
 
             obdRequest.Unique_Id = call_unique_id;
             obdRequest.Bill_Sec = billsec;
-            //obdRequest.Start_Time = DateTime.Parse(start_time);
-            //obdRequest.End_Time = DateTime.Parse(end_time);
-            //obdRequest.Answer_Time = DateTime.Parse(answer_time);
+            //obdRequest.Start_Time = startTime;
+            //obdRequest.End_Time = endTime;
+            //obdRequest.Answer_Time = answerTime;
             obdRequest.Disposition = disposition;
             obdRequest.Context = context;
             obdRequest.Duration = call_duration;
             obdRequest.Last_App = lastapp;
             obdRequest.Server = server;
-            obdRequest.Status = 2;
+
+            if (disposition == "ANSWERED" || obdRequest.Retry_Count == 1)
+            {
+                obdRequest.Status = 2;
+            }
+            else if (disposition != "ANSWERED" && obdRequest.Retry_Count != 1)
+            {
+                obdRequest.Retry_Count = 1;
+                obdRequest.Status = 0;///for re-fetch data to 
+                obdRequest.Retry_Schedule = DateTime.Now.AddMinutes(5);
+            }
 
             DB.SaveChanges();
 
-            return "successful-" + obdRequest.Mobile;
+            return "successful-" + answer_time + " " + obdRequest.Mobile;
 
         }
 
@@ -297,6 +372,7 @@ namespace BusinessSuitMVC.Controllers
             cdrInstant.Bill_Sec = billsec;
             cdrInstant.Context = context;
             cdrInstant.Last_App = lastapp;
+            cdrInstant.Start_Time = DateTime.Parse(start_time);
             cdrInstant.Status = 2;
 
             DB.SaveChanges();

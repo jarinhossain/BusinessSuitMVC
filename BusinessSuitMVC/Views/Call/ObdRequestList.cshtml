@@ -58,6 +58,12 @@
                                             @Html.DisplayNameFor(model => model.Duration)
                                         </th>
                                         <th>
+                                            Retried
+                                        </th>
+                                        <th>
+                                            Date
+                                        </th>
+                                        <th>
                                             @Html.DisplayNameFor(model => model.Remarks)
                                         </th>
 
@@ -88,6 +94,12 @@
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Duration)
+                                            </td>
+                                            <td>
+                                                @(item.Retry_Count == 1 ? "Yes" : "")
+                                            </td>
+                                            <td>
+                                                @(item.Created_On.Value.ToShortDateString())
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Remarks)

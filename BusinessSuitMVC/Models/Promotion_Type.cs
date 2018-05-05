@@ -16,13 +16,13 @@ namespace BusinessSuitMVC.Models
     {
         public Promotion_Type()
         {
-            this.Online_Order_Detalis = new HashSet<Online_Order_Detalis>();
+            this.Online_Order_Details = new HashSet<Online_Order_Details>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public string Dispaly_Name { get; set; }
     
-        public virtual ICollection<Online_Order_Detalis> Online_Order_Detalis { get; set; }
+        public virtual ICollection<Online_Order_Details> Online_Order_Details { get; set; }
     }
 }

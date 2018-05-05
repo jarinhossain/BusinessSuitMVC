@@ -12,7 +12,7 @@ namespace BusinessSuitMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Online_Order_Detalis
+    public partial class Online_Order_Details
     {
         public int Id { get; set; }
         public Nullable<int> Product_Id { get; set; }
