@@ -212,6 +212,22 @@ namespace BusinessSuitMVC.Controllers
             return View(obdRequest);
         }
 
+        [Authorize,HttpGet]
+        public ActionResult IncomingCalls()
+        {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
+            int loginID = int.Parse(Session["Login_Id"].ToString());
+            int roleID = int.Parse(Session["Role_Id"].ToString());
+            var incomingCalls = new List<Incoming_Calls>();
+
+
+            incomingCalls = DB.Incoming_Calls.OrderByDescending(x => x.Created_On).ToList();
+
+            return View(incomingCalls);
+        }
+
         [HttpGet]
         public JsonResult fetchdata()
         {
@@ -385,21 +401,25 @@ namespace BusinessSuitMVC.Controllers
         public string saveIncomingCall()
         {
             Incoming_Calls incoming = new Incoming_Calls();
-            try
-            {
+            //try
+            //{
                 incoming.Mobile = Request.Form["src"];
-                incoming.Server = Request.Form["server"];
+                incoming.Context = Request.Form["context"];
+            incoming.Duration = int.Parse(Request.Form["call_duration"]);
+                incoming.Bill_Sec = int.Parse(Request.Form["billsec"]);
+            incoming.Disposition = Request.Form["disposition"];
+            incoming.Server = Request.Form["server"];
                 incoming.Call_Unique_Id = Request.Form["call_unique_id"];
-                incoming.Answer_Time = DateTime.Parse(Request.Form["answer_time"]);
+            incoming.Answer_Time = DateTime.Parse(Request.Form["answer_time"]);
 
-                DB.Incoming_Calls.Add(incoming);
+            DB.Incoming_Calls.Add(incoming);
                 DB.SaveChanges();
                 return "successful incoming - " + incoming.Mobile;
-            }
-            catch
-            {
-                return "failed";
-            }
+            //}
+            //catch(Exception ex)
+            //{
+            //    return "failed - " + ex.Message;
+            //}
 
 
         }

@@ -137,12 +137,15 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Mobile" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mobile" Type="varchar" MaxLength="50" />
           <Property Name="Context" Type="varchar" MaxLength="100" />
           <Property Name="Start_Time" Type="datetime" />
           <Property Name="End_Time" Type="datetime" />
           <Property Name="Answer_Time" Type="datetime" />
+          <Property Name="Disposition" Type="varchar" MaxLength="40" />
+          <Property Name="Bill_Sec" Type="int" />
+          <Property Name="Duration" Type="int" />
           <Property Name="Server" Type="varchar" MaxLength="50" />
           <Property Name="Call_Unique_Id" Type="varchar" MaxLength="50" />
           <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
@@ -1610,7 +1613,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Server" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Call_Unique_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
@@ -1618,6 +1621,9 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Start_Time" Type="DateTime" Precision="3" />
           <Property Name="End_Time" Type="DateTime" Precision="3" />
           <Property Name="Answer_Time" Type="DateTime" Precision="3" />
+          <Property Name="Disposition" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Bill_Sec" Type="Int32" />
+          <Property Name="Duration" Type="Int32" />
         </EntityType>
         <EntityType Name="CDR_Obd">
           <Key>
@@ -2267,6 +2273,9 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="Incoming_Calls">
             <EntityTypeMapping TypeName="Business_SuitModel.Incoming_Calls">
               <MappingFragment StoreEntitySet="Incoming_Calls">
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Bill_Sec" ColumnName="Bill_Sec" />
+                <ScalarProperty Name="Disposition" ColumnName="Disposition" />
                 <ScalarProperty Name="Answer_Time" ColumnName="Answer_Time" />
                 <ScalarProperty Name="End_Time" ColumnName="End_Time" />
                 <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />

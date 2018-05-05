@@ -23,5 +23,8 @@ namespace BusinessSuitMVC.Models
         public Nullable<System.DateTime> Start_Time { get; set; }
         public Nullable<System.DateTime> End_Time { get; set; }
         public Nullable<System.DateTime> Answer_Time { get; set; }
+        public string Disposition { get; set; }
+        public Nullable<int> Bill_Sec { get; set; }
+        public Nullable<int> Duration { get; set; }
     }
 }

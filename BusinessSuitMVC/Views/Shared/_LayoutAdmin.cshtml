@@ -450,7 +450,11 @@
                         <ul class="treeview-menu">
                             <li><a href="~/Call/SingleCall"><i class="fa fa-circle-o"></i> Test Call </a></li>
                             <li><a href="~/Call/SingleCallList"><i class="fa fa-circle-o"></i> Call List</a></li>
-                            <li><a href="~/Call/ObdRequestList"><i class="fa fa-circle-o"></i> Obd List</a></li>
+                            @if (bool.Parse(Session["Is_Client"].ToString()) != true)
+                            {
+                                <li><a href="~/Call/IncomingCalls"><i class="fa fa-circle-o"></i> Incoming Calls</a></li>
+                            }
+                            <li><a href="~/Call/ObdRequestList"><i class="fa fa-circle-o"></i> Auto Call List</a></li>
                         </ul>
                     </li>
                           

@@ -429,6 +429,7 @@
     <Content Include="Views\Call\ObdRequestList.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\Search.cshtml" />
+    <Content Include="Views\Call\IncomingCalls.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
