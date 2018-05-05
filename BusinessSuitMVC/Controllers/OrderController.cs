@@ -175,7 +175,6 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult VoterSlipCreate()
         {
-
             return View();
         }
         [HttpPost]

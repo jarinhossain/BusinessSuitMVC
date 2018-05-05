@@ -238,8 +238,9 @@ namespace BusinessSuitMVC.Controllers
             {
                 var obdWardDetails = obdBulk.Obd_Ward_Details.FirstOrDefault();///need to change in future
 
-                var sourceList = Num_DB.Sources.Where(x => x.Ward == obdWardDetails.Ward).Select(x => x.Id).ToList();
+                var sourceList = Num_DB.Sources.Where(x => x.Ward == obdWardDetails.Ward).OrderBy(x => x.Id).Select(x => x.Id).ToList();
                 var numberList = Num_DB.Numbers.Where(x => sourceList.Any(y => y == x.Source_Id))
+                                                .OrderBy(x => x.Source_Id)
                                                 .Select(x => new { Id = x.Id, Mobile = "0" + x.Number1, Source_Id = x.Source_Id })
                                                 .ToList();
 
@@ -386,14 +387,14 @@ namespace BusinessSuitMVC.Controllers
             Incoming_Calls incoming = new Incoming_Calls();
             try
             {
-                incoming.Mobile = Request.Form["number"];
+                incoming.Mobile = Request.Form["src"];
                 incoming.Server = Request.Form["server"];
                 incoming.Call_Unique_Id = Request.Form["call_unique_id"];
-                incoming.Called_Time = DateTime.Parse(Request.Form["answer_time"]);
+                incoming.Answer_Time = DateTime.Parse(Request.Form["answer_time"]);
 
                 DB.Incoming_Calls.Add(incoming);
                 DB.SaveChanges();
-                return "successful";
+                return "successful incoming - " + incoming.Mobile;
             }
             catch
             {
