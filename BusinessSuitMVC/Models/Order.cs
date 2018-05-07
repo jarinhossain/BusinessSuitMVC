@@ -16,21 +16,25 @@ namespace BusinessSuitMVC.Models
     {
         public Order()
         {
-            this.Offline_Order_Detalis = new HashSet<Offline_Order_Detalis>();
-            this.Online_Order_Detalis = new HashSet<Online_Order_Detalis>();
+            this.Order_Status = 0;
+            this.Offline_Order_Details = new HashSet<Offline_Order_Details>();
+            this.Online_Order_Details = new HashSet<Online_Order_Details>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<bool> Is_Package { get; set; }
         public Nullable<double> Total_Paid { get; set; }
         public Nullable<double> Total_Bill { get; set; }
-        public string order_status { get; set; }
+        public Nullable<int> Order_Status { get; set; }
+        public Nullable<int> Client_Id { get; set; }
         public Nullable<int> Created_By { get; set; }
         public Nullable<int> Updated_By { get; set; }
+        public Nullable<System.DateTime> Created_On { get; set; }
+        public Nullable<System.DateTime> Updated_On { get; set; }
     
-        public virtual ICollection<Offline_Order_Detalis> Offline_Order_Detalis { get; set; }
-        public virtual ICollection<Online_Order_Detalis> Online_Order_Detalis { get; set; }
+        public virtual Client_List Client_List { get; set; }
+        public virtual ICollection<Offline_Order_Details> Offline_Order_Details { get; set; }
+        public virtual ICollection<Online_Order_Details> Online_Order_Details { get; set; }
     }
 }

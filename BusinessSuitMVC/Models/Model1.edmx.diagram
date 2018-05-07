@@ -10,7 +10,7 @@
         <EntityTypeShape EntityType="numeralDBModel.Source" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="numeralDBModel.FK_Numbers_Operators" ManuallyRouted="false" />
         <AssociationConnector Association="numeralDBModel.FK_Numbers_Sources" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="numeralDBModel.Source_Type" Width="1.5" PointX="0.75" PointY="13.25" />
+        <EntityTypeShape EntityType="numeralDBModel.Source_Type" Width="1.5" PointX="7.25" PointY="3.25" />
         <AssociationConnector Association="numeralDBModel.FK_Sources_Source_Type" />
       </Diagram>
     </edmx:Diagrams>

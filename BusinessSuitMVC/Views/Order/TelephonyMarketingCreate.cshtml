@@ -1,4 +1,4 @@
-﻿@model BusinessSuitMVC.Models.Online_Order_Detalis
+﻿@model BusinessSuitMVC.Models.Online_Order_Details
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -11,7 +11,7 @@
 
     <section class="content-header">
         <h1>
-            Telephony Marketing
+            Telephony Marketing Order
         </h1>
         @*<ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -30,7 +30,7 @@
                     @using (Html.BeginForm("TelephonyMarketingCreate", "Order", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
                     {
                         <div class="box-body">
-
+                            @Html.Hidden("clientId")
                             <div class="form-group">
                                 <label class="control-label col-md-3">Advertisement Area<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
@@ -73,7 +73,7 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">Price Per Call<span style="color:red;">*</span></label>
                                 <div class="col-md-5">
-                                    @Html.TextBoxFor(m => m.Price_Per_Piece, new { @Class = "form-control calculateCost", @type = "number" })
+                                    @Html.TextBoxFor(m => m.Price_Per_Piece, new { @Class = "form-control calculateCost", @type="number", @step="any" })
                                 </div>
                             </div>
                             <div class="form-group">

@@ -13,13 +13,13 @@ namespace BusinessSuitMVC.Controllers
     public class CallController : Controller
     {
         private DBContext DB = new DBContext();
+        private Numeral_DBContext Num_DB = new Numeral_DBContext();
 
         [Authorize]
         public ActionResult GenerateCallFile()
         {
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
-
 
             var numberList = DB.Client_List.Select(x => x.Mobile1).ToList();
 
@@ -154,6 +154,80 @@ namespace BusinessSuitMVC.Controllers
             return View(instant);
         }
 
+
+        [Authorize,HttpGet]
+        public ActionResult ProceedOBDBulk(int id)///order id
+        {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
+            Order order = DB.Orders.Find(id);
+
+            if(order.Order_Status != 0)
+            {
+                ViewData["msg"] = "Already proceeded";
+                return RedirectToAction("Search", "Order");
+            }
+
+            Online_Order_Details onlineOrder = order.Online_Order_Details.FirstOrDefault();
+
+            Obd_Ward_Details wardDetails = new Obd_Ward_Details();
+
+            Obd_Bulk obdBulk = new Obd_Bulk();
+            obdBulk.Client_Id = order.Client_Id;
+            obdBulk.Order_Id = order.Id;
+            obdBulk.Created_By = int.Parse(Session["Login_Id"].ToString());
+            obdBulk.Status = 0;
+            obdBulk.Is_Active = true;
+            obdBulk.Play_File = "";
+            obdBulk.Total_Calls = onlineOrder.Estimated_Reach_Ordered;
+
+            wardDetails.Client_Id = order.Client_Id;
+            wardDetails.Quantity = onlineOrder.Estimated_Reach_Ordered;///need to change in future
+            wardDetails.Ward = onlineOrder.Ward;
+            wardDetails.Obd_Bulk_Id = obdBulk.Id;
+
+            order.Order_Status = 1;/// order proceed
+            onlineOrder.Status = 1;
+
+            DB.Obd_Ward_Details.Add(wardDetails);
+            DB.Obd_Bulk.Add(obdBulk);
+            DB.SaveChanges();
+            return Redirect("/Order/Search");
+        }
+
+        [Authorize]
+        public ActionResult ObdRequestList(int? id)
+        {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
+            int loginID = int.Parse(Session["Login_Id"].ToString());
+            int roleID = int.Parse(Session["Role_Id"].ToString());
+            var obdRequest = new List<Obd_Request>();
+
+
+            obdRequest = DB.Obd_Request.OrderByDescending(x => x.Created_On).ToList();
+            
+            return View(obdRequest);
+        }
+
+        [Authorize,HttpGet]
+        public ActionResult IncomingCalls()
+        {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
+            int loginID = int.Parse(Session["Login_Id"].ToString());
+            int roleID = int.Parse(Session["Role_Id"].ToString());
+            var incomingCalls = new List<Incoming_Calls>();
+
+
+            incomingCalls = DB.Incoming_Calls.OrderByDescending(x => x.Created_On).ToList();
+
+            return View(incomingCalls);
+        }
+
         [HttpGet]
         public JsonResult fetchdata()
         {
@@ -172,60 +246,118 @@ namespace BusinessSuitMVC.Controllers
             return Json(numberList, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public JsonResult fetchdatanew()
         {
+            var obdBulk = DB.Obd_Bulk.Where(x => x.Is_Active == true && x.Status == 0).FirstOrDefault();
+            if (obdBulk != null)
+            {
+                var obdWardDetails = obdBulk.Obd_Ward_Details.FirstOrDefault();///need to change in future
 
-            var numberList = new[] {
-                new { Id = "1", Mobile = "01676797123" },
-                //new { Id = "2", Mobile = "01878196799" }
-            };
+                var sourceList = Num_DB.Sources.Where(x => x.Ward == obdWardDetails.Ward).OrderBy(x => x.Id).Select(x => x.Id).ToList();
+                var numberList = Num_DB.Numbers.Where(x => sourceList.Any(y => y == x.Source_Id))
+                                                .OrderBy(x => x.Source_Id)
+                                                .Select(x => new { Id = x.Id, Mobile = "0" + x.Number1, Source_Id = x.Source_Id })
+                                                .ToList();
 
-            //foreach (var item in numberList)
-            //{
-            //    var cdr = DB.CDR_Instant.Where(x => x.Status == 0).FirstOrDefault();
+                int count = 0;
+                foreach (var item in numberList)
+                {
+                    if (DB.Obd_Request.Where(x => x.Mobile == item.Mobile).Any() == false)
+                    {
+                        DB.Obd_Request.Add(new Obd_Request() { Mobile = item.Mobile, Obd_Bulk_Id = obdBulk.Id, Source_Id = item.Source_Id, Status = 0, Retry_Count = 0 });
+                        count++;
+                        if (count >= 3)
+                            break;
+                    }
+                }
 
-            //    cdr.Status = 1;//fetched
+                //var numberList = new[] {
+                //    new { Id = "1", Mobile = "01676797123", PlayFile = "filename.gsm", Context = "obd-call", Retry = "0"},
+                //    //new { Id = "2", Mobile = "01878196799" }
+                //};
 
-            //}
-            //DB.SaveChanges();
+                DB.SaveChanges();
+            }
 
-            return Json(numberList, JsonRequestBehavior.AllowGet);
+            var finalNumberList = (from request in DB.Obd_Request
+                        join bulk in DB.Obd_Bulk on request.Obd_Bulk_Id equals bulk.Id
+                        where request.Status == 0 && bulk.Is_Active == true
+                        select new { Id = request.Id, Mobile = request.Mobile, Source_Id = request.Source_Id }).ToList();
+            
+            //var finalNumberList = DB.Obd_Request.Where(x => x.Status == 0).Where(x => x.Obd_Bulk.Is_Active == true)
+            //                           .Select(x => new { Id = x.Id, Mobile = x.Mobile, Source_Id = x.Source_Id })
+            //                           .ToList();
+
+            //var result = DB.Obd_Request.Where(x => !finalNumberList.Any(y => y.Mobile == x.Mobile));
+            foreach (var item in finalNumberList)
+            {
+                var obdRequest = DB.Obd_Request.Find(item.Id);
+
+                obdRequest.Status = 1;///fetched
+
+            }
+            DB.SaveChanges();
+
+            return Json(finalNumberList, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public string cdrUpdate()
         {
-            try
+            int obd_request_id = int.Parse(Request.Form["obd_request_id"]);
+            string call_unique_id = Request.Form["call_unique_id"];
+            int call_duration = int.Parse(Request.Form["call_duration"]);
+            int billsec = int.Parse(Request.Form["billsec"]);
+            string start_time = Request.Form["start_time"];
+            string answer_time = Request.Form["answer_time"];
+            string end_time = Request.Form["end_time"];
+            string clid = Request.Form["clid"];
+            string disposition = Request.Form["disposition"];
+            string context = Request.Form["context"];
+            string lastapp = Request.Form["lastapp"];
+            string server = Request.Form["server"];
+            //string last_transmission_time = Request.Form["last_transmission_time"];
+            //string amaflags = Request.Form["amaflags"];
+            //string src = Request.Form["src"];
+            //string dst = Request.Form["dst"];
+            //string lastdata = Request.Form["lastdata"];
+
+            //DateTime startTime = DateTime.Now;
+            //DateTime endTime = DateTime.Now;
+            //DateTime answerTime = DateTime.Now;
+
+            //DateTime.TryParse(start_time, out startTime);
+            //DateTime.TryParse(end_time, out endTime);
+            //DateTime.TryParse(answer_time, out answerTime);
+
+            Obd_Request obdRequest = DB.Obd_Request.Find(obd_request_id);
+
+            obdRequest.Unique_Id = call_unique_id;
+            obdRequest.Bill_Sec = billsec;
+            //obdRequest.Start_Time = startTime;
+            //obdRequest.End_Time = endTime;
+            //obdRequest.Answer_Time = answerTime;
+            obdRequest.Disposition = disposition;
+            obdRequest.Context = context;
+            obdRequest.Duration = call_duration;
+            obdRequest.Last_App = lastapp;
+            obdRequest.Server = server;
+
+            if (disposition == "ANSWERED" || obdRequest.Retry_Count == 1)
             {
-                var keys = Request.Form.AllKeys;
-                var count = Request.Form.AllKeys.Count();
-                string content = Request.Form["dbcontext"];
-                //using (var reader = new StreamReader(Request.InputStream))
-                //    content = reader.ReadToEnd();
-                return content + "       " + count + "       " + keys;
-                //string context = Request.QueryString["dbcontext"].ToString();
-                //string disposition = Request.QueryString["disposition"].ToString();
-
-                //if (context != "" || context != null)
-                //    return context;
-                //else if (disposition != "" || disposition != null)
-                //    return disposition;
-                //else
-                //    return "no data";
+                obdRequest.Status = 2;
             }
-            catch
+            else if (disposition != "ANSWERED" && obdRequest.Retry_Count != 1)
             {
-                return "error cached";
+                obdRequest.Retry_Count = 1;
+                obdRequest.Status = 0;///for re-fetch data to 
+                obdRequest.Retry_Schedule = DateTime.Now.AddMinutes(5);
             }
 
-            //CDR_Obd cdr = new CDR_Obd();
+            DB.SaveChanges();
 
-            //cdr.Context = context;
-            //cdr.Disposition = disposition;
-
-            //DB.CDR_Obd.Add(cdr);
-            //DB.SaveChanges();
-            //return "";
+            return "successful-" + answer_time + " " + obdRequest.Mobile;
 
         }
 
@@ -257,32 +389,37 @@ namespace BusinessSuitMVC.Controllers
             cdrInstant.Bill_Sec = billsec;
             cdrInstant.Context = context;
             cdrInstant.Last_App = lastapp;
+            cdrInstant.Start_Time = DateTime.Parse(start_time);
             cdrInstant.Status = 2;
 
             DB.SaveChanges();
 
-            return "successful";
+            return "successful-" + cdrInstant.Mobile;
         }
 
         [HttpPost]
         public string saveIncomingCall()
         {
             Incoming_Calls incoming = new Incoming_Calls();
-            try
-            {
-                incoming.Mobile = Request.Form["number"];
-                incoming.Server = Request.Form["server"];
+            //try
+            //{
+                incoming.Mobile = Request.Form["src"];
+                incoming.Context = Request.Form["context"];
+            incoming.Duration = int.Parse(Request.Form["call_duration"]);
+                incoming.Bill_Sec = int.Parse(Request.Form["billsec"]);
+            incoming.Disposition = Request.Form["disposition"];
+            incoming.Server = Request.Form["server"];
                 incoming.Call_Unique_Id = Request.Form["call_unique_id"];
-                incoming.Called_Time = DateTime.Parse(Request.Form["answer_time"]);
+            incoming.Answer_Time = DateTime.Parse(Request.Form["answer_time"]);
 
-                DB.Incoming_Calls.Add(incoming);
+            DB.Incoming_Calls.Add(incoming);
                 DB.SaveChanges();
-                return "successful";
-            }
-            catch
-            {
-                return "failed";
-            }
+                return "successful incoming - " + incoming.Mobile;
+            //}
+            //catch(Exception ex)
+            //{
+            //    return "failed - " + ex.Message;
+            //}
 
 
         }

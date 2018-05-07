@@ -69,7 +69,7 @@
                             <div class="form-group">
                                     <label class="control-label col-md-3">Mobile<span style="color:red;">*</span></label>
                                     <div class="col-md-5">
-                                        @Html.TextBox("MobileNumber",null, new { @Class = "form-control" })
+                                        @Html.TextBox("MobileNumber",null, new { @Class = "form-control" , @type="number" })
                                     </div>
                                 </div>
 
@@ -77,7 +77,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-3"></div>
-                                <input type="submit" value="Save" style="margin-left:15px" class="btn btn-info" />
+                                <input type="submit" value="Save" style="margin-left:15px" class="btn btn-success" />
                                 <a class="btn btn-info" href="~/Source/SourceNumberSearch?id=@Model.Id"> Numbers List </a>
                             </div>
 
@@ -97,52 +97,77 @@
 
     $("form").submit(function (event) {
         //stop form submit
-
+        $("#msg").text('');//clear msg
+        $("input[type=submit]").attr("disabled", "disabled");
         
         if ($("#MobileNumber").val() == "") {
             event.preventDefault();
-            swal("Failed", "MobileNumber is required", "error").then(function () {
+            swal("Failed", "Mobile Number is required", "error").then(function () {
                 $("#MobileNumber").focus();
+                $("#msg").text('Mobile Number is required');
+                $("input[type=submit]").removeAttr("disabled");
             });
         }
        else if ($("#MobileNumber").val().length != 11) {
             event.preventDefault();
-            swal("Failed", "Mobile1 should be 11 digit", "error").then(function () {
+            swal("Failed", "Mobile Number should be 11 digit", "error").then(function () {
                 $("#MobileNumber").focus();
+                $("#msg").text('Mobile Number should be 11 digit');
+                $("input[type=submit]").removeAttr("disabled");
             });
-        }
+       }
+       else {
+           event.preventDefault();
+           $.ajax({
+               url: '/Source/SourceNumberCreate',
+               type: "POST",
+               data: { SourceId: $('#Id').val(), MobileNumber: $('#MobileNumber').val() },
+               success: function (result) {
+                   if (result != 'true') {
+                       swal({
+                           title: "Failed",
+                           text: result,
+                           icon: "error",
+                           button: false,
+                           timer: 500
+                       }).then(function () {
+                           $("#MobileNumber").focus();
+                           $("#msg").text(result + " - " + $("#MobileNumber").val());
+                           $("#MobileNumber").val('');
+                           $("input[type=submit]").removeAttr("disabled");
+                       });
+                   }
+                   else {
+                       swal({
+                           title: "Successful",
+                           text: "Successfully Added",
+                           icon: "success",
+                           button: false,
+                           timer: 500
+                       }).then(function () {
+                           $("#MobileNumber").focus();
+                           $("#msg").text("Successfully Added- " + $("#MobileNumber").val());
+                           $("#MobileNumber").val('');
+                           $("input[type=submit]").removeAttr("disabled");
+                       });
+                   }
+               },
+               error: function (result) {
+                   swal('failed', result, 'error');
+               }
+           });
+       }
 
 
     });
     function resetFunction() {
-        //$("#Contact_Name").val("");
-        //$("#Company_Name").val("");
-        //$("#Source_Type").val("");
         $("#MobileNumber").val("");
        
     }
     $(document).ready(function () {
+        
 
-        var message = $("#msg").text();
-
-        if (message == "Successfully Added") {
-            swal({
-
-
-                title: "Successful",
-                text: "Successfully Added",
-            icon: "success",
-            button: false,
-            timer: 1000
-            }).then(function () {
-                $("#MobileNumber").focus();
-            });
-            
-            resetFunction();
-        }
-        $("#reset").click(function () {
-            resetFunction();
-        });
+        
 
     });
 </script>

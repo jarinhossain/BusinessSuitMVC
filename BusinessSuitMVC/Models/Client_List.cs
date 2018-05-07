@@ -18,8 +18,9 @@ namespace BusinessSuitMVC.Models
         {
             this.User_Login = new HashSet<User_Login>();
             this.Client_Inventory = new HashSet<Client_Inventory>();
-            this.Obd_Bulk = new HashSet<Obd_Bulk>();
             this.Obd_Ward_Details = new HashSet<Obd_Ward_Details>();
+            this.Obd_Bulk = new HashSet<Obd_Bulk>();
+            this.Orders = new HashSet<Order>();
         }
     
         public int Id { get; set; }
@@ -40,11 +41,13 @@ namespace BusinessSuitMVC.Models
         public System.DateTime Created_On { get; set; }
         public Nullable<int> Updated_By { get; set; }
         public Nullable<System.DateTime> Updated_On { get; set; }
+        public Nullable<bool> Is_Active { get; set; }
     
         public virtual ICollection<User_Login> User_Login { get; set; }
         public virtual ICollection<Client_Inventory> Client_Inventory { get; set; }
-        public virtual ICollection<Obd_Bulk> Obd_Bulk { get; set; }
         public virtual ICollection<Obd_Ward_Details> Obd_Ward_Details { get; set; }
         public virtual District District { get; set; }
+        public virtual ICollection<Obd_Bulk> Obd_Bulk { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

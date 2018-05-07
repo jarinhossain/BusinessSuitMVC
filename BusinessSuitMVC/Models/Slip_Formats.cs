@@ -16,7 +16,7 @@ namespace BusinessSuitMVC.Models
     {
         public Slip_Formats()
         {
-            this.Offline_Order_Detalis = new HashSet<Offline_Order_Detalis>();
+            this.Offline_Order_Details = new HashSet<Offline_Order_Details>();
         }
     
         public int Id { get; set; }
@@ -26,6 +26,6 @@ namespace BusinessSuitMVC.Models
         public Nullable<double> Slip_Width { get; set; }
         public Nullable<bool> Is_Active { get; set; }
     
-        public virtual ICollection<Offline_Order_Detalis> Offline_Order_Detalis { get; set; }
+        public virtual ICollection<Offline_Order_Details> Offline_Order_Details { get; set; }
     }
 }

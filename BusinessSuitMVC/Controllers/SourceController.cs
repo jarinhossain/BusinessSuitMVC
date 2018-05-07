@@ -233,37 +233,45 @@ namespace BusinessSuitMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult SourceNumberCreate(Source source, string MobileNumber)
+        public ActionResult SourceNumberCreate(int SourceId, string MobileNumber)
         {
             if (PermissionValidate.validatePermission() == false)
-                return View("Unauthorized");
+                return Json("Unauthorized", JsonRequestBehavior.AllowGet);
 
+            Numeral_DBContext DB = new Numeral_DBContext();
+            bool isExists = DB.Numbers.Where(x => x.Source_Id == SourceId && "0" + x.Number1.ToString()  == MobileNumber).Any();
             int mobileNumber = 0;
+
             if (int.TryParse(MobileNumber, out mobileNumber) == false)
             {
-                TempData["msg"] = "Invalid mobile number";
+                //TempData["msg"] = "Invalid mobile number";
+                return Json("Invalid mobile number", JsonRequestBehavior.AllowGet);
+            }
+            else if(isExists == true)
+            {
+                return Json("Duplicate Number in same source", JsonRequestBehavior.AllowGet);
             }
             else
             {
-                Numeral_DBContext DB = new Numeral_DBContext();
+                
                 Number number = new Number();
                 number.Number1 = mobileNumber;
-                number.Source_Id = source.Id;
+                number.Source_Id = SourceId;
                 number.Created_By = int.Parse(Session["Login_Id"].ToString());
                 // Source.Mobile1 = source.Mobile1;
                 DB.Numbers.Add(number);
                 try
                 {
                     DB.SaveChanges();
-                    TempData["msg"] = "Successfully Added";
+                    //TempData["msg"] = "Successfully Added";
+                    return Json("true", JsonRequestBehavior.AllowGet);
                 }
                 catch
                 {
-                    TempData["msg"] = "Duplicate Number in same source";
+                    return Json("Unknown Error Occoured", JsonRequestBehavior.AllowGet);
                 }
             }
             //Source/SourceNumerCreate?id=4
-            return RedirectToAction("SourceNumberCreate", new { id = source.Id });
         }
 
         [HttpGet]

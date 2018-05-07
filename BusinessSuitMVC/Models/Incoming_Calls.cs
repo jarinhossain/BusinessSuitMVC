@@ -16,9 +16,15 @@ namespace BusinessSuitMVC.Models
     {
         public int Id { get; set; }
         public string Mobile { get; set; }
-        public Nullable<System.DateTime> Called_Time { get; set; }
         public string Server { get; set; }
         public string Call_Unique_Id { get; set; }
         public Nullable<System.DateTime> Created_On { get; set; }
+        public string Context { get; set; }
+        public Nullable<System.DateTime> Start_Time { get; set; }
+        public Nullable<System.DateTime> End_Time { get; set; }
+        public Nullable<System.DateTime> Answer_Time { get; set; }
+        public string Disposition { get; set; }
+        public Nullable<int> Bill_Sec { get; set; }
+        public Nullable<int> Duration { get; set; }
     }
 }

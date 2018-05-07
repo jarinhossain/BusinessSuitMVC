@@ -16,17 +16,24 @@ namespace BusinessSuitMVC.Models
     {
         public int Id { get; set; }
         public Nullable<int> Obd_Bulk_Id { get; set; }
-        public Nullable<int> CDR_Obd_Id { get; set; }
         public string Mobile { get; set; }
         public Nullable<int> Source_Id { get; set; }
         public Nullable<int> Retry_Count { get; set; }
-        public int Call_Duration { get; set; }
-        public int Billsec { get; set; }
-        public string Uniqueid { get; set; }
-        public string Lastdata { get; set; }
-        public Nullable<bool> Is_Obd_Generated { get; set; }
+        public Nullable<System.DateTime> Retry_Schedule { get; set; }
+        public string Context { get; set; }
+        public string Last_App { get; set; }
+        public Nullable<int> Status { get; set; }
+        public Nullable<System.DateTime> Start_Time { get; set; }
+        public Nullable<System.DateTime> Answer_Time { get; set; }
+        public Nullable<System.DateTime> End_Time { get; set; }
+        public string Disposition { get; set; }
+        public Nullable<int> Bill_Sec { get; set; }
+        public Nullable<int> Duration { get; set; }
+        public string Remarks { get; set; }
+        public string Server { get; set; }
+        public string Unique_Id { get; set; }
+        public Nullable<System.DateTime> Created_On { get; set; }
     
-        public virtual CDR_Obd CDR_Obd { get; set; }
         public virtual Obd_Bulk Obd_Bulk { get; set; }
     }
 }

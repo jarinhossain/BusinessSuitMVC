@@ -30,13 +30,9 @@ namespace BusinessSuitMVC.Models
         public DbSet<Division> Divisions { get; set; }
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<Expense_Type> Expense_Type { get; set; }
-        public DbSet<Offline_Order_Detalis> Offline_Order_Detalis { get; set; }
-        public DbSet<Online_Order_Detalis> Online_Order_Detalis { get; set; }
-        public DbSet<Order> Orders { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<Permission_Role> Permission_Role { get; set; }
         public DbSet<Permission_User> Permission_User { get; set; }
-        public DbSet<Product> Products { get; set; }
         public DbSet<Promotion_Type> Promotion_Type { get; set; }
         public DbSet<Remark> Remarks { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -52,12 +48,16 @@ namespace BusinessSuitMVC.Models
         public DbSet<Module> Modules { get; set; }
         public DbSet<CDR_Instant> CDR_Instant { get; set; }
         public DbSet<Client_Inventory> Client_Inventory { get; set; }
-        public DbSet<CDR_Obd> CDR_Obd { get; set; }
-        public DbSet<Obd_Bulk> Obd_Bulk { get; set; }
-        public DbSet<Obd_Request> Obd_Request { get; set; }
         public DbSet<Obd_Ward_Details> Obd_Ward_Details { get; set; }
         public DbSet<Sms_Bulk> Sms_Bulk { get; set; }
         public DbSet<Sms_Request> Sms_Request { get; set; }
         public DbSet<Incoming_Calls> Incoming_Calls { get; set; }
+        public DbSet<CDR_Obd> CDR_Obd { get; set; }
+        public DbSet<Obd_Bulk> Obd_Bulk { get; set; }
+        public DbSet<Obd_Request> Obd_Request { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Offline_Order_Details> Offline_Order_Details { get; set; }
+        public DbSet<Online_Order_Details> Online_Order_Details { get; set; }
     }
 }

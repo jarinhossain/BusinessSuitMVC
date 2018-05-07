@@ -274,10 +274,10 @@
     <Compile Include="Models\Obd_Ward_Details.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Offline_Order_Detalis.cs">
+    <Compile Include="Models\Offline_Order_Details.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Online_Order_Detalis.cs">
+    <Compile Include="Models\Online_Order_Details.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Operator.cs">
@@ -426,6 +426,10 @@
     <Content Include="Views\SMS\SingleSMS.cshtml" />
     <Content Include="Views\Client\ClientLoginDetails.cshtml" />
     <Content Include="Views\Source\SourceNumberSearch.cshtml" />
+    <Content Include="Views\Call\ObdRequestList.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\Search.cshtml" />
+    <Content Include="Views\Call\IncomingCalls.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -440,6 +444,7 @@
     <Folder Include="Images\TelephonyOrder\" />
     <Folder Include="Images\User\" />
     <Folder Include="Images\VoterSlip\" />
+    <Folder Include="Music\OBD_Client\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
