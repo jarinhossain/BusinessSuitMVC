@@ -1,0 +1,99 @@
+﻿@model BusinessSuitMVC.Models.Product
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; ;
+}
+
+<!DOCTYPE html>
+@{
+  
+}
+<section class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Source
+        </h1>
+        @*<ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Forms</a></li>
+                <li class="active">General Elements</li>
+            </ol>*@
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Create</h3>
+                    </div>
+                    @using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        <div class="box-body">
+                            @Html.HiddenFor(m => m.Id)
+                            <div class="form-group">
+                                @Html.Label("Code", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Name", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Display-Name", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(m => m.d, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Is Online</label>
+                                <div class="col-md-5">
+                                    @*@Html.DropDownList("Is_Online", @online, "Select Is Online", new { @class = "form-control editor-field" })*@
+                                    @Html.CheckBox("Is_Online") Yes
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                @Html.Label("Description", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
+                                    @Html.TextAreaFor(m => m.Description, new { @Class = "form-control", @rows = "3" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Regular Price", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(m => m.Regular_Price, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Lower Price", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(m => m.Lower_Price, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
+                                <input type="submit" value="Update" class="btn btn-info" />
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
+                                <label id="msg">@ViewData["msg"]</label>
+
+                            </div>
+                        </div>
+
+
+
+
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</section>

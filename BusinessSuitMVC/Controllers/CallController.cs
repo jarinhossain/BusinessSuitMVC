@@ -286,5 +286,36 @@ namespace BusinessSuitMVC.Controllers
 
 
         }
+        [HttpGet]
+        public ActionResult AddPlayFile()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddPlayFile(String filename)
+        {
+            HttpPostedFileBase file = null;
+           
+            try { file = Request.Files[0]; } catch { }
+
+            if (file != null && file.ContentLength > 0)
+            {
+                string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                if (extension != ".mp3" && extension != ".wav")
+                {
+                    ViewData["msg"] = "Failed to Save User Information! Allowed image format is .mp3 and .wav";
+                    return View();
+                }
+            }
+
+
+            if (file != null && file.ContentLength > 0)
+            {
+                string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                string path = Path.Combine(Server.MapPath("~/Music"), "" + filename+extension);
+                file.SaveAs(path);/// file save
+            }
+            return View();
+        }
     }
 }
