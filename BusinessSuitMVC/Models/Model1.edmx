@@ -37,7 +37,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="Prefix" Type="int" />
+          <Property Name="Prefix" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Source_Type">
           <Key>
@@ -165,7 +165,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Prefix" Type="Int32" />
+          <Property Name="Prefix" Type="String" FixedLength="false" MaxLength="10" Unicode="false" />
           <NavigationProperty Name="Numbers" Relationship="Self.FK_Numbers_Operators" FromRole="Operators" ToRole="Numbers" />
         </EntityType>
         <EntityType Name="Source">

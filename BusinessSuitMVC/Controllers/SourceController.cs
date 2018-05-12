@@ -70,6 +70,7 @@ namespace BusinessSuitMVC.Controllers
             ViewData["Division"] = loadDivisionDropDown();
             return View();
         }
+
         public String ValidationSource(Source source)
         {
             if (source.Contact_Name == null)
@@ -105,6 +106,33 @@ namespace BusinessSuitMVC.Controllers
                 return "Please enter your valid Address";
             }
             return "true";
+        }
+
+        public int? getOperator(string number)
+        {
+            string operatorPrefix = number.Substring(0, 3);
+
+            if (operatorPrefix == "015")
+                return 1;
+            else if (operatorPrefix == "016")
+                return 2;
+            else if (operatorPrefix == "017")
+                return 3;
+            else if (operatorPrefix == "018")
+                return 4;
+            else if (operatorPrefix == "019")
+                return 5;
+            else
+                return null;
+
+            //Numeral_DBContext Num_DB = new Numeral_DBContext();
+            //var operatorData = Num_DB.Operators.Where(x => x.Prefix == operatorPrefix).FirstOrDefault();
+
+            //if (operatorData != null)
+            //    return operatorData.Id;
+            //else
+            //    return null;
+
         }
         [HttpGet]
         public ActionResult Edit(int id)
@@ -256,6 +284,7 @@ namespace BusinessSuitMVC.Controllers
                 
                 Number number = new Number();
                 number.Number1 = mobileNumber;
+                number.Operator_Id = getOperator(MobileNumber); ///operator id 1 for teletalk,2 for airtel etc
                 number.Source_Id = SourceId;
                 number.Created_By = int.Parse(Session["Login_Id"].ToString());
                 // Source.Mobile1 = source.Mobile1;

@@ -43,33 +43,36 @@
                         <div class="box-body">
                             @Html.HiddenFor(m => m.Id)
                             <div class="form-group">
-                                <label class="control-label col-md-3">Source Name</label>
-                                <div class="col-md-5">
+                                <label class="control-label col-md-3 col-xs-4">Source Name</label>
+                                <div class="col-md-5 col-xs-6">
                                     @Html.DisplayFor(m => m.Contact_Name, new { @Class = "form-control", @disabled = "disabled" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3">Ward</label>
-                                <div class="col-md-5">
+                                <label class="control-label col-md-3 col-xs-4">Ward</label>
+                                <div class="col-md-5 col-xs-6">
                                     @Html.DisplayFor(m => m.Ward, new { @Class = "form-control", @disabled = "disabled" })
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Company Name</label>
-                                <div class="col-md-5">
-                                    @Html.DisplayFor(m => m.Company_Name, new { @Class = "form-control", })
+                            @if (Model.Company_Name != null)
+                            {
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-xs-5">Company Name</label>
+                                    <div class="col-md-5 col-xs-6">
+                                        @Html.DisplayFor(m => m.Company_Name, new { @Class = "form-control", })
+                                    </div>
                                 </div>
-                            </div>
+                            }
                             <div class="form-group">
-                                <label class="control-label col-md-3">Source Type</label>
-                                <div class="col-md-5">
+                                <label class="control-label col-md-3 col-xs-4">Source Type</label>
+                                <div class="col-md-5 col-xs-8">
                                     @Html.DropDownList("Source_Type_Id", (List<SelectListItem>)ViewData["SourceList"], "Select Source Type", new { @class = "form-control editor-field", @readonly = "true", @disabled="disabled" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                    <label class="control-label col-md-3">Mobile<span style="color:red;">*</span></label>
-                                    <div class="col-md-5">
-                                        @Html.TextBox("MobileNumber",null, new { @Class = "form-control" , @type="number" })
+                                    <label class="control-label col-md-3 col-xs-4">Mobile<span style="color:red;">*</span></label>
+                                    <div class="col-md-5 col-xs-8">
+                                        @Html.TextBox("MobileNumber", null, new { @class = "form-control" , @type="number" })
                                     </div>
                                 </div>
 
@@ -77,8 +80,11 @@
 
                             <div class="form-group">
                                 <div class="col-md-3"></div>
-                                <input type="submit" value="Save" style="margin-left:15px" class="btn btn-success" />
-                                <a class="btn btn-info" href="~/Source/SourceNumberSearch?id=@Model.Id"> Numbers List </a>
+                                <a style="margin-left:15px" class="btn btn-info" href="~/Source/SourceNumberSearch?id=@Model.Id"> Numbers List </a>
+
+                                <button type="button" class="btn btn-primary" onclick="resetNumber()">Clear</button>
+
+                                <button class="btn btn-success" id="saveNumber" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing">Save Number</button>
                             </div>
 
                             <div class="form-group">
@@ -92,6 +98,15 @@
         </div>
     </section>
 </section>
+
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+
 <script>
 
 
@@ -99,76 +114,86 @@
         //stop form submit
         $("#msg").text('');//clear msg
         $("input[type=submit]").attr("disabled", "disabled");
-        
-        if ($("#MobileNumber").val() == "") {
+        var mobileNumber = $("#MobileNumber").val();
+        var operator = mobileNumber.substring(0, 3);
+
+        if (mobileNumber == "") {
             event.preventDefault();
-            swal("Failed", "Mobile Number is required", "error").then(function () {
-                $("#MobileNumber").focus();
-                $("#msg").text('Mobile Number is required');
-                $("input[type=submit]").removeAttr("disabled");
+            validateMessage("Mobile Number is required");
+        }
+        else if (mobileNumber.length != 11) {
+            event.preventDefault();
+            validateMessage("Mobile Number should be 11 digit");
+        }
+        else if (operator != '015' && operator != '016' && operator != '017' && operator != '018' && operator != '019') {
+            event.preventDefault();
+            validateMessage("Invalid Operator.");
+        }
+        else {
+            event.preventDefault();
+            var btn = $('#saveNumber');
+            $(btn).button('loading');
+            $.ajax({
+                url: '/Source/SourceNumberCreate',
+                type: "POST",
+                data: { SourceId: $('#Id').val(), MobileNumber: $('#MobileNumber').val() },
+                success: function (result) {
+                    if (result != 'true') {
+                        //swal({
+                        //    title: "Failed",
+                        //    text: result,
+                        //    icon: "error",
+                        //    button: false,
+                        //    timer: 500
+                        //}).then(function () {
+                        $("#msg").text(result + " - " + $("#MobileNumber").val());
+                        $("#MobileNumber").focus();
+                        $("#MobileNumber").val('01');
+                        $("input[type=submit]").removeAttr("disabled");
+                        $(btn).button('reset');
+                        //});
+                    }
+                    else {
+                        //swal({
+                        //    title: "Successful",
+                        //    text: "Successfully Added",
+                        //    icon: "success",
+                        //    button: false,
+                        //    timer: 500
+                        //}).then(function () {
+                        $("#msg").text("Successfully Added- " + $("#MobileNumber").val());
+                        $("#MobileNumber").focus();
+                        $("#MobileNumber").val('01');
+                        $("input[type=submit]").removeAttr("disabled");
+                        $(btn).button('reset');
+                        //});
+                    }
+                },
+                error: function (result) {
+                    swal('failed', result, 'error');
+                }
             });
         }
-       else if ($("#MobileNumber").val().length != 11) {
-            event.preventDefault();
-            swal("Failed", "Mobile Number should be 11 digit", "error").then(function () {
-                $("#MobileNumber").focus();
-                $("#msg").text('Mobile Number should be 11 digit');
-                $("input[type=submit]").removeAttr("disabled");
-            });
-       }
-       else {
-           event.preventDefault();
-           $.ajax({
-               url: '/Source/SourceNumberCreate',
-               type: "POST",
-               data: { SourceId: $('#Id').val(), MobileNumber: $('#MobileNumber').val() },
-               success: function (result) {
-                   if (result != 'true') {
-                       swal({
-                           title: "Failed",
-                           text: result,
-                           icon: "error",
-                           button: false,
-                           timer: 500
-                       }).then(function () {
-                           $("#MobileNumber").focus();
-                           $("#msg").text(result + " - " + $("#MobileNumber").val());
-                           $("#MobileNumber").val('');
-                           $("input[type=submit]").removeAttr("disabled");
-                       });
-                   }
-                   else {
-                       swal({
-                           title: "Successful",
-                           text: "Successfully Added",
-                           icon: "success",
-                           button: false,
-                           timer: 500
-                       }).then(function () {
-                           $("#MobileNumber").focus();
-                           $("#msg").text("Successfully Added- " + $("#MobileNumber").val());
-                           $("#MobileNumber").val('');
-                           $("input[type=submit]").removeAttr("disabled");
-                       });
-                   }
-               },
-               error: function (result) {
-                   swal('failed', result, 'error');
-               }
-           });
-       }
 
 
     });
-    function resetFunction() {
-        $("#MobileNumber").val("");
-       
+
+    function resetNumber() {
+        $("#MobileNumber").focus();
+        $("#MobileNumber").val('01');
     }
+
+    function validateMessage(validationMsg) {
+        swal("Failed", validationMsg, "error").then(function () {
+            $("#MobileNumber").focus();
+            $("#msg").text(validationMsg);
+            $("input[type=submit]").removeAttr("disabled");
+        });
+        
+    }
+
     $(document).ready(function () {
-        
-
-        
-
+        resetNumber();
     });
 </script>
             
