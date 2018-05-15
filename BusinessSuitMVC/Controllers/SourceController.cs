@@ -235,15 +235,16 @@ namespace BusinessSuitMVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult SourceNumberCreate(int id)
+        public ActionResult SourceNumber(int sId)///source id
         {
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
 
             Numeral_DBContext DB = new Numeral_DBContext();
             Source source = (from sourc in DB.Sources
-                             where sourc.Id == id
+                             where sourc.Id == sId
                              select sourc).FirstOrDefault();
+            Number number = new Number();
 
             ///if the source not found in the database
             if (source == null)
@@ -251,49 +252,67 @@ namespace BusinessSuitMVC.Controllers
                 ViewData["msg"] = "no source found";
                 return RedirectToAction("Search", "Source");
             }
+            else
+            {
+                ViewBag.contactName = source.Contact_Name;
+                ViewBag.ward = source.Ward;
+                ViewBag.companyName = source.Company_Name;
+                ViewBag.sourceTypeId = source.Source_Type_Id;
+                ViewData["SourceId"] = sId;
+            }
 
             if (TempData["msg"] != null)
             {
                 ViewData["msg"] = TempData["msg"];
             }
             ViewData["SourceList"] = loadTypeDropDown();
-            return View(source);
+            return View(number);
         }
 
         [HttpPost]
-        public ActionResult SourceNumberCreate(int SourceId, string MobileNumber)
+        public ActionResult SourceNumber(int Id, int SourceId, string MobileNumber)
         {
             if (PermissionValidate.validatePermission() == false)
                 return Json("Unauthorized", JsonRequestBehavior.AllowGet);
 
             Numeral_DBContext DB = new Numeral_DBContext();
-            bool isExists = DB.Numbers.Where(x => x.Source_Id == SourceId && "0" + x.Number1.ToString()  == MobileNumber).Any();
+            bool isExists = DB.Numbers.Where(x => x.Source_Id == SourceId && "0" + x.Number1.ToString() == MobileNumber).Any();
             int mobileNumber = 0;
+            Number number = new Number();
 
             if (int.TryParse(MobileNumber, out mobileNumber) == false)
             {
                 //TempData["msg"] = "Invalid mobile number";
                 return Json("Invalid mobile number", JsonRequestBehavior.AllowGet);
             }
-            else if(isExists == true)
+            else if(isExists == true)///only check for create. not for edit
             {
                 return Json("Duplicate Number in same source", JsonRequestBehavior.AllowGet);
             }
             else
             {
+                if (Id == 0)///create
+                {
+                    number.Number1 = mobileNumber;
+                    number.Operator_Id = getOperator(MobileNumber); ///operator id 1 for teletalk,2 for airtel etc
+                    number.Source_Id = SourceId;
+                    number.Created_By = int.Parse(Session["Login_Id"].ToString());
+                    // Source.Mobile1 = source.Mobile1;
+                    DB.Numbers.Add(number);
+                }
+                else///edit
+                {
+                    number = DB.Numbers.Find(Id);
+                    number.Number1 = mobileNumber;
+                    number.Operator_Id = getOperator(MobileNumber);
+                    number.Updated_By = int.Parse(Session["Login_Id"].ToString());
+                    number.Updated_On = DateTime.Now;
+                }
                 
-                Number number = new Number();
-                number.Number1 = mobileNumber;
-                number.Operator_Id = getOperator(MobileNumber); ///operator id 1 for teletalk,2 for airtel etc
-                number.Source_Id = SourceId;
-                number.Created_By = int.Parse(Session["Login_Id"].ToString());
-                // Source.Mobile1 = source.Mobile1;
-                DB.Numbers.Add(number);
                 try
                 {
                     DB.SaveChanges();
-                    //TempData["msg"] = "Successfully Added";
-                    return Json("true", JsonRequestBehavior.AllowGet);
+                    return Json(number.Id, JsonRequestBehavior.AllowGet);
                 }
                 catch
                 {

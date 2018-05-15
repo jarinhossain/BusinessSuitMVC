@@ -5,13 +5,12 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="numeralDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Numbers">
+        <EntityType Name="Number_Details">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Number" Type="int" />
-          <Property Name="Operator_Id" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Sms_Tried" Type="int" />
           <Property Name="Sms_Succeed" Type="int" />
           <Property Name="Last_Succeeded_Sms_Date" Type="datetime" />
@@ -19,9 +18,17 @@
           <Property Name="Obd_Succeed" Type="int" />
           <Property Name="Last_Succeeded_Obd_Date" Type="datetime" />
           <Property Name="Address_Id" Type="int" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="Prefix" Type="varchar" MaxLength="20" />
-          <Property Name="Number_Id" Type="int" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_On" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Numbers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="int" />
+          <Property Name="Operator_Id" Type="int" />
+          <Property Name="Number_Details_Id" Type="int" />
           <Property Name="Source_Id" Type="int" />
           <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Created_By" Type="int" />
@@ -110,6 +117,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="numeralDBModelStoreContainer">
+          <EntitySet Name="Number_Details" EntityType="Self.Number_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Numbers" EntityType="Self.Numbers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Operators" EntityType="Self.Operators" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Source_Type" EntityType="Self.Source_Type" Schema="dbo" store:Type="Tables" />
@@ -138,16 +146,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Number1" Type="Int32" />
           <Property Name="Operator_Id" Type="Int32" />
-          <Property Name="Sms_Tried" Type="Int32" />
-          <Property Name="Sms_Succeed" Type="Int32" />
-          <Property Name="Last_Succeeded_Sms_Date" Type="DateTime" Precision="3" />
-          <Property Name="Obd_Tried" Type="Int32" />
-          <Property Name="Obd_Succeed" Type="Int32" />
-          <Property Name="Last_Succeeded_Obd_Date" Type="DateTime" Precision="3" />
-          <Property Name="Address_Id" Type="Int32" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Prefix" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Number_Id" Type="Int32" />
           <Property Name="Source_Id" Type="Int32" />
           <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Created_By" Type="Int32" />
@@ -158,6 +156,7 @@
           <Property Name="Deleted_On" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Operator" Relationship="Self.FK_Numbers_Operators" FromRole="Numbers" ToRole="Operators" />
           <NavigationProperty Name="Source" Relationship="Self.FK_Numbers_Sources" FromRole="Numbers" ToRole="Sources" />
+          <Property Name="Number_Details_Id" Type="Int32" />
         </EntityType>
         <EntityType Name="Operator">
           <Key>
@@ -238,6 +237,7 @@
             <End Role="Source_Type1" EntitySet="Source_Type" />
             <End Role="Source" EntitySet="Sources" />
           </AssociationSet>
+          <EntitySet Name="Number_Details" EntityType="numeralDBModel.Number_Details" />
         </EntityContainer>
         <EntityType Name="Source_Type">
           <Key>
@@ -259,6 +259,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Number_Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sms_Tried" Type="Int32" />
+          <Property Name="Sms_Succeed" Type="Int32" />
+          <Property Name="Last_Succeeded_Sms_Date" Type="DateTime" Precision="3" />
+          <Property Name="Obd_Tried" Type="Int32" />
+          <Property Name="Obd_Succeed" Type="Int32" />
+          <Property Name="Last_Succeeded_Obd_Date" Type="DateTime" Precision="3" />
+          <Property Name="Address_Id" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -268,19 +284,10 @@
           <EntitySetMapping Name="Numbers">
             <EntityTypeMapping TypeName="numeralDBModel.Number">
               <MappingFragment StoreEntitySet="Numbers">
+                <ScalarProperty Name="Number_Details_Id" ColumnName="Number_Details_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Number1" ColumnName="Number" />
                 <ScalarProperty Name="Operator_Id" ColumnName="Operator_Id" />
-                <ScalarProperty Name="Sms_Tried" ColumnName="Sms_Tried" />
-                <ScalarProperty Name="Sms_Succeed" ColumnName="Sms_Succeed" />
-                <ScalarProperty Name="Last_Succeeded_Sms_Date" ColumnName="Last_Succeeded_Sms_Date" />
-                <ScalarProperty Name="Obd_Tried" ColumnName="Obd_Tried" />
-                <ScalarProperty Name="Obd_Succeed" ColumnName="Obd_Succeed" />
-                <ScalarProperty Name="Last_Succeeded_Obd_Date" ColumnName="Last_Succeeded_Obd_Date" />
-                <ScalarProperty Name="Address_Id" ColumnName="Address_Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Prefix" ColumnName="Prefix" />
-                <ScalarProperty Name="Number_Id" ColumnName="Number_Id" />
                 <ScalarProperty Name="Source_Id" ColumnName="Source_Id" />
                 <ScalarProperty Name="Created_On" ColumnName="Created_On" />
                 <ScalarProperty Name="Created_By" ColumnName="Created_By" />
@@ -332,6 +339,23 @@
           <EntitySetMapping Name="Source_Type">
             <EntityTypeMapping TypeName="numeralDBModel.Source_Type">
               <MappingFragment StoreEntitySet="Source_Type">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Number_Details">
+            <EntityTypeMapping TypeName="numeralDBModel.Number_Details">
+              <MappingFragment StoreEntitySet="Number_Details">
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Address_Id" ColumnName="Address_Id" />
+                <ScalarProperty Name="Last_Succeeded_Obd_Date" ColumnName="Last_Succeeded_Obd_Date" />
+                <ScalarProperty Name="Obd_Succeed" ColumnName="Obd_Succeed" />
+                <ScalarProperty Name="Obd_Tried" ColumnName="Obd_Tried" />
+                <ScalarProperty Name="Last_Succeeded_Sms_Date" ColumnName="Last_Succeeded_Sms_Date" />
+                <ScalarProperty Name="Sms_Succeed" ColumnName="Sms_Succeed" />
+                <ScalarProperty Name="Sms_Tried" ColumnName="Sms_Tried" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

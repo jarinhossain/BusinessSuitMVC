@@ -1,22 +1,8 @@
-﻿@model BusinessSuitMVC.Models.Source
+﻿@model BusinessSuitMVC.Models.Number
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <!DOCTYPE html>
-@{
-//List<SelectListItem> source = new List<SelectListItem>();
-
-//source.Add(new SelectListItem() { Value = "1", Text = "Councillor" });
-//source.Add(new SelectListItem() { Value = "2", Text = "General Councillor" });
-//source.Add(new SelectListItem() { Value = "6", Text = "Councillor Supporter" });
-//source.Add(new SelectListItem() { Value = "3", Text = "Mayor" });
-//source.Add(new SelectListItem() { Value = "4", Text = "Panel Mayor" });
-//source.Add(new SelectListItem() { Value = "5", Text = "School Committee" });
-//source.Add(new SelectListItem() { Value = "7", Text = "Shop" });
-
-}
-
-
 
 <section class="content-wrapper">
 
@@ -38,41 +24,44 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Source Number Create</h3>
                     </div>
-                    @using (Html.BeginForm("SourceNumberCreate", "Source", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", @id = "userCreate", @name = "userCreate" }))
+                    @using (Html.BeginForm("SourceNumber", "Source", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", @id = "userCreate", @name = "userCreate" }))
                     {
                         <div class="box-body">
-                            @Html.HiddenFor(m => m.Id)
+                            @Html.HiddenFor(m => m.Id) 
+                            @Html.Hidden("SourceId") 
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-xs-4">Source Name</label>
                                 <div class="col-md-5 col-xs-6">
-                                    @Html.DisplayFor(m => m.Contact_Name, new { @Class = "form-control", @disabled = "disabled" })
+                                    @*@Html.DisplayFor(m => m.Contact_Name, new { @Class = "form-control", @disabled = "disabled" })*@
+                                    @ViewBag.contactName
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-xs-4">Ward</label>
                                 <div class="col-md-5 col-xs-6">
-                                    @Html.DisplayFor(m => m.Ward, new { @Class = "form-control", @disabled = "disabled" })
+                                    @*@Html.DisplayFor(m => m.Ward, new { @Class = "form-control", @disabled = "disabled" })*@
+                                    @ViewBag.ward
                                 </div>
                             </div>
-                            @if (Model.Company_Name != null)
-                            {
+                            
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-xs-5">Company Name</label>
                                     <div class="col-md-5 col-xs-6">
-                                        @Html.DisplayFor(m => m.Company_Name, new { @Class = "form-control", })
+                                        @*@Html.DisplayFor(m => m.Company_Name, new { @Class = "form-control", })*@
+                                        @ViewBag.companyName
                                     </div>
                                 </div>
-                            }
+                            
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-xs-4">Source Type</label>
                                 <div class="col-md-5 col-xs-8">
-                                    @Html.DropDownList("Source_Type_Id", (List<SelectListItem>)ViewData["SourceList"], "Select Source Type", new { @class = "form-control editor-field", @readonly = "true", @disabled="disabled" })
+                                    @Html.DropDownList("sourceTypeId", (List<SelectListItem>)ViewData["SourceList"], "Select Source Type", new { @class = "form-control editor-field", @readonly = "true", @disabled="disabled" })
                                 </div>
                             </div>
                             <div class="form-group">
                                     <label class="control-label col-md-3 col-xs-4">Mobile<span style="color:red;">*</span></label>
                                     <div class="col-md-5 col-xs-8">
-                                        @Html.TextBox("MobileNumber", null, new { @class = "form-control" , @type="number" })
+                                        @Html.TextBoxFor(m => m.Number1, null, new { @class = "form-control" , @type="number" })
                                     </div>
                                 </div>
 
@@ -114,7 +103,7 @@
         //stop form submit
         $("#msg").text('');//clear msg
         $("input[type=submit]").attr("disabled", "disabled");
-        var mobileNumber = $("#MobileNumber").val();
+        var mobileNumber = $("#Number1").val();
         var operator = mobileNumber.substring(0, 3);
 
         if (mobileNumber == "") {
@@ -134,11 +123,15 @@
             var btn = $('#saveNumber');
             $(btn).button('loading');
             $.ajax({
-                url: '/Source/SourceNumberCreate',
+                url: '/Source/SourceNumber',
                 type: "POST",
-                data: { SourceId: $('#Id').val(), MobileNumber: $('#MobileNumber').val() },
+                data: {
+                    Id: $('#Id').val(),
+                    SourceId: $('#SourceId').val(),
+                    MobileNumber: $('#Number1').val()
+                },
                 success: function (result) {
-                    if (result != 'true') {
+                    if (isNaN(result) == true) {
                         //swal({
                         //    title: "Failed",
                         //    text: result,
@@ -146,14 +139,11 @@
                         //    button: false,
                         //    timer: 500
                         //}).then(function () {
-                        $("#msg").text(result + " - " + $("#MobileNumber").val());
-                        $("#MobileNumber").focus();
-                        $("#MobileNumber").val('01');
-                        $("input[type=submit]").removeAttr("disabled");
-                        $(btn).button('reset');
+                        $("#msg").text(result + " - " + $("#Number1").val());
+                        
                         //});
                     }
-                    else {
+                    else { //successfully saved
                         //swal({
                         //    title: "Successful",
                         //    text: "Successfully Added",
@@ -161,16 +151,36 @@
                         //    button: false,
                         //    timer: 500
                         //}).then(function () {
-                        $("#msg").text("Successfully Added- " + $("#MobileNumber").val());
-                        $("#MobileNumber").focus();
-                        $("#MobileNumber").val('01');
-                        $("input[type=submit]").removeAttr("disabled");
-                        $(btn).button('reset');
+
+                        var editLink = " <a href='/Source/SourceNumber?Id="
+                            + result
+                            + "&sId="
+                            + $("#SourceId").val()
+                            + "' id='editNumber'"
+                            + "title=" + $("#Number1").val()
+                            + ">Edit</a>";
+
+                        if ($("#Id").val() == '0')
+                            $("#msg").text("Successfully Added- " + $("#Number1").val());
+                        else
+                            $("#msg").text("Successfully Updated- " + $("#Number1").val());
+
+                        $('#msg').append(editLink);
+
                         //});
                     }
+                    $("#Number1").focus();
+                    $("#Number1").val('01');
+                    $("#Id").val('0');
+                    $("#saveNumber").text('Save Number');
+                    $("input[type=submit]").removeAttr("disabled");
+                    $(btn).button('reset');
                 },
                 error: function (result) {
-                    swal('failed', result, 'error');
+                    swal('Failed', "unknown error occoured", 'error');
+                    $("input[type=submit]").removeAttr("disabled");
+                    $("#Number1").focus();
+                    $(btn).button('reset');
                 }
             });
         }
@@ -178,18 +188,34 @@
 
     });
 
+    function getURLParameter(url, name) {
+        return (RegExp(name + '=' + '(.+?)(&|$)').exec(url) || [, null])[1];
+    }
+
+    $(document).on('click', "a#editNumber", function(event){
+        event.preventDefault();
+        var number = $(this).attr('title');
+        $("#Number1").val(number);
+        var url = ($(this).attr('href'));
+        var Id = getURLParameter(url, 'Id');
+        $("#Id").val(Id);
+        $("#saveNumber").text('Update Number');
+    })
+
     function resetNumber() {
-        $("#MobileNumber").focus();
-        $("#MobileNumber").val('01');
+        $("#Number1").focus();
+        $("#Number1").val('01');
+        $("#Id").val('0');
+        $("#saveNumber").text('Save Number');
     }
 
     function validateMessage(validationMsg) {
         swal("Failed", validationMsg, "error").then(function () {
-            $("#MobileNumber").focus();
+            $("#Number1").focus();
             $("#msg").text(validationMsg);
             $("input[type=submit]").removeAttr("disabled");
         });
-        
+
     }
 
     $(document).ready(function () {

@@ -36,11 +36,7 @@
                                     <th>Options</th>
                                     <th>Number</th>
                                     <th>Operator</th>
-                                    <th>Sms_Tried</th>
-                                    <th>Sms_Succeed</th>
-                                    <th>Last_Succeeded_Sms_Date</th>
-                                    <th>Obd_Tried</th>
-                                    <th>Obd_Succeed</th>
+                                    <th>Created_Date</th>
                                 </tr>
                             <thead>
                             <tbody>
@@ -58,19 +54,7 @@
                                             @Html.DisplayFor(modelItem => item.Operator.Name)
                                         </td>
                                         <td>
-                                            @item.Sms_Tried
-                                        </td>
-                                        <td>
-                                            @item.Sms_Succeed
-                                        </td>
-                                        <td>
-                                            @item.Last_Succeeded_Sms_Date
-                                        </td>
-                                        <td>
-                                            @item.Obd_Tried
-                                        </td>
-                                        <td>
-                                            @item.Obd_Succeed
+                                            @Html.DisplayFor(modelItem => item.Created_On)
                                         </td>
                                     </tr>
                                 }

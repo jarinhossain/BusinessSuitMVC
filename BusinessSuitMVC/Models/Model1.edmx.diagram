@@ -12,6 +12,7 @@
         <AssociationConnector Association="numeralDBModel.FK_Numbers_Sources" ManuallyRouted="false" />
         <EntityTypeShape EntityType="numeralDBModel.Source_Type" Width="1.5" PointX="7.25" PointY="3.25" />
         <AssociationConnector Association="numeralDBModel.FK_Sources_Source_Type" />
+        <EntityTypeShape EntityType="numeralDBModel.Number_Details" Width="1.5" PointX="1.75" PointY="5.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
