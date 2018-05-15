@@ -257,7 +257,7 @@ namespace BusinessSuitMVC.Controllers
                 ViewBag.contactName = source.Contact_Name;
                 ViewBag.ward = source.Ward;
                 ViewBag.companyName = source.Company_Name;
-                ViewBag.sourceTypeId = source.Source_Type_Id;
+                ViewBag.sourceType = source.Source_Type.Name;
                 ViewData["SourceId"] = sId;
             }
 
@@ -265,7 +265,6 @@ namespace BusinessSuitMVC.Controllers
             {
                 ViewData["msg"] = TempData["msg"];
             }
-            ViewData["SourceList"] = loadTypeDropDown();
             return View(number);
         }
 

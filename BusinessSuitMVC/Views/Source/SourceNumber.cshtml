@@ -32,30 +32,29 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-xs-4">Source Name</label>
                                 <div class="col-md-5 col-xs-6">
-                                    @*@Html.DisplayFor(m => m.Contact_Name, new { @Class = "form-control", @disabled = "disabled" })*@
-                                    @ViewBag.contactName
+                                    <label class="control-label">@ViewBag.contactName</label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-xs-4">Ward</label>
                                 <div class="col-md-5 col-xs-6">
-                                    @*@Html.DisplayFor(m => m.Ward, new { @Class = "form-control", @disabled = "disabled" })*@
-                                    @ViewBag.ward
+                                    <label class="control-label">@ViewBag.ward</label>
                                 </div>
                             </div>
-                            
+                            @if (ViewBag.companyName != null)
+                            {
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-xs-5">Company Name</label>
                                     <div class="col-md-5 col-xs-6">
-                                        @*@Html.DisplayFor(m => m.Company_Name, new { @Class = "form-control", })*@
-                                        @ViewBag.companyName
+                                        <label class="control-label">@ViewBag.companyName</label>
                                     </div>
                                 </div>
-                            
+                            }
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-xs-4">Source Type</label>
                                 <div class="col-md-5 col-xs-8">
-                                    @Html.DropDownList("sourceTypeId", (List<SelectListItem>)ViewData["SourceList"], "Select Source Type", new { @class = "form-control editor-field", @readonly = "true", @disabled="disabled" })
+                                    @*@Html.DropDownList("sourceTypeId", (List<SelectListItem>)ViewData["SourceList"], "Select Source Type", new { @class = "form-control editor-field", @readonly = "true", @disabled="sourceTypeId" })*@
+                                    <label class="control-label">@ViewBag.sourceType</label>
                                 </div>
                             </div>
                             <div class="form-group">
