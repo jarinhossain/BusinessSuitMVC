@@ -60,19 +60,18 @@
                             <div class="form-group">
                                     <label class="control-label col-md-3 col-xs-4">Mobile<span style="color:red;">*</span></label>
                                     <div class="col-md-5 col-xs-8">
-                                        @Html.TextBoxFor(m => m.Number1, null, new { @class = "form-control" , @type="number" })
+                                        @Html.TextBoxFor(m => m.Number1, null, new { @class = "form-control" , @type="number", @style = "font-size:18px"})
                                     </div>
                                 </div>
 
-
-
                             <div class="form-group">
                                 <div class="col-md-3"></div>
-                                <a style="margin-left:15px" class="btn btn-info" href="~/Source/SourceNumberSearch?id=@ViewBag.SourceId"> Numbers List </a>
 
-                                <button type="button" class="btn btn-primary" onclick="resetNumber()">Clear</button>
+                                <button style="margin-left:15px" type="button" class="btn btn-primary" onclick="resetNumber()">Clear</button>
 
-                                <button class="btn btn-success" id="saveNumber" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing">Save Number</button>
+                                <a class="btn btn-info" href="~/Source/SourceNumberSearch?id=@ViewBag.SourceId"> Numbers List </a>
+
+                                <button type="submit" class="btn btn-success" id="saveNumber" >Save Number</button> <i id="spinner" style="font-size:22px"></i>
                             </div>
 
                             <div class="form-group">
@@ -94,6 +93,54 @@
         margin: 0;
     }
 </style>
+@section contents{
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<style>
+         .ui-autocomplete {
+             max-height: 100px;
+             overflow-y: auto;
+             /* prevent horizontal scrollbar */
+             overflow-x: hidden;
+         }
+         /* IE 6 doesn't support max-height
+    * we use height instead, but this forces the menu to always be this tall
+    */
+         * html .ui-autocomplete {
+             height: 100px;
+         }
+</style>
+}
+
+@section scripts{
+<script src="~/Script/jquery-1.10.2.min.js"></script>
+    
+<script src="~/Script/jquery-ui.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#Number1").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Source/suggestNumber",
+                    type: "POST",
+                    dataType: "json",
+                    data: { prefix: request.term, sourceId: $('#SourceId').val() },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Number1, value: item.Number1 };
+                        }))
+
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+
+    })
+</script>
 
 <script>
 
@@ -101,7 +148,7 @@
     $("form").submit(function (event) {
         //stop form submit
         $("#msg").text('');//clear msg
-        $("input[type=submit]").attr("disabled", "disabled");
+        $("button[type=submit]").attr("disabled", "disabled");
         var mobileNumber = $("#Number1").val();
         var operator = mobileNumber.substring(0, 3);
 
@@ -119,8 +166,9 @@
         }
         else {
             event.preventDefault();
-            var btn = $('#saveNumber');
-            $(btn).button('loading');
+            //var btn = $('#saveNumber');
+            //$(btn).button('loading');
+            $('#spinner').addClass('fa fa-spinner fa-spin');
             $.ajax({
                 url: '/Source/SourceNumber',
                 type: "POST",
@@ -172,14 +220,17 @@
                     $("#Number1").val('01');
                     $("#Id").val('0');
                     $("#saveNumber").text('Save Number');
-                    $("input[type=submit]").removeAttr("disabled");
-                    $(btn).button('reset');
+                    $("button[type=submit]").removeAttr("disabled");
+                    //$(btn).button('reset');
+                    $('#spinner').removeClass('fa fa-spinner fa-spin');
+
                 },
                 error: function (result) {
                     swal('Failed', "unknown error occoured", 'error');
-                    $("input[type=submit]").removeAttr("disabled");
+                    $("button[type=submit]").removeAttr("disabled");
                     $("#Number1").focus();
-                    $(btn).button('reset');
+                    //$(btn).button('reset');
+                    $('#spinner').removeClass('fa fa-spinner fa-spin');
                 }
             });
         }
@@ -194,6 +245,7 @@
     $(document).on('click', "a#editNumber", function(event){
         event.preventDefault();
         var number = $(this).attr('title');
+        $("#Number1").focus();
         $("#Number1").val(number);
         var url = ($(this).attr('href'));
         var Id = getURLParameter(url, 'Id');
@@ -214,7 +266,7 @@
         swal("Failed", validationMsg, "error").then(function () {
             $("#Number1").focus();
             $("#msg").text(validationMsg);
-            $("input[type=submit]").removeAttr("disabled");
+            $("button[type=submit]").removeAttr("disabled");
         });
 
     }
@@ -224,3 +276,5 @@
     });
 </script>
             
+
+}

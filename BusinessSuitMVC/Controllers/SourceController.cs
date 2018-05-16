@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace BusinessSuitMVC.Controllers
 {
@@ -352,6 +353,20 @@ namespace BusinessSuitMVC.Controllers
             return View(numberList);
         }
 
+        public ActionResult suggestNumber(string prefix, int sourceId)
+        {
+            
+            Numeral_DBContext DB = new Numeral_DBContext();
+
+            var suggestion = DB.Numbers
+                .Where(x => ("0" + x.Number1).StartsWith(prefix) && x.Source_Id == sourceId)
+                .OrderByDescending(x => x.Created_On)
+                .Take(10)
+                .Select(x => new { Number1 = "0" + x.Number1 }); ///to fetch data in view page we have to access by Number1
+
+            return Json(suggestion, JsonRequestBehavior.AllowGet);
+        }
+
         public List<SelectListItem> loadDistrictDropdown()
         {
             DBContext DB = new DBContext();
@@ -392,5 +407,10 @@ namespace BusinessSuitMVC.Controllers
             }
             return typeDropdown;
         }
+    }
+    public class SuggestMobile
+    {
+        public int Id { get; set; }
+        public string Mobile { get; set; }
     }
 }
