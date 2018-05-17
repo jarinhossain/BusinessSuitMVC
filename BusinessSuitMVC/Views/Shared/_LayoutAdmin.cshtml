@@ -2,6 +2,23 @@
     {  }
 }
 <!DOCTYPE html>
+
+@{
+    string Role = "";
+    bool Is_Client = true;
+    string User_Name = "";
+    string Profile_Id = "";
+
+    if (Session["Role_Id"] != null)
+    {
+        Role = Session["Role_Id"].ToString();
+        User_Name = Session["User_Name"].ToString();
+        Is_Client = bool.Parse(Session["Is_Client"].ToString());
+        Profile_Id = Session["Profile_Id"].ToString();
+    }
+
+}
+
 <html>
 <head>
     <meta charset="utf-8" />
@@ -267,15 +284,15 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="~/Images/User/U_@(Session["Profile_Id"]).jpg" class="user-image" >
-                                <span class="hidden-xs">@(Session["User_Name"] == null ? "" : Session["User_Name"])</span>
+                                <img src="~/Images/User/U_@(Profile_Id).jpg" class="user-image" >
+                                <span class="hidden-xs">@User_Name</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="~/Images/User/U_@(Session["Profile_Id"]).jpg" class="img-circle" alt="User Image">
+                                    <img src="~/Images/User/U_@(Profile_Id).jpg" class="img-circle" alt="User Image">
                                     <p>
-                                        @(Session["User_Name"] == null ? "" : Session["User_Name"])
+                                        @User_Name
                                         <small>Member since Nov. 2012</small>
                                     </p>
                                 </li>
@@ -325,10 +342,10 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="~/Images/User/U_@(Session["Profile_Id"]).jpg" class="img-circle" alt="User Image">
+                        <img src="~/Images/User/U_@(Profile_Id).jpg" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>@(Session["User_Name"] == null ? "" : Session["User_Name"])</p>
+                        <p>@User_Name</p>
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
@@ -347,7 +364,7 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">MAIN NAVIGATION</li>
-                    @if (bool.Parse(Session["Is_Client"].ToString()) != true)
+                    @if (Is_Client != true)
                     {
                     <li class="active treeview">
                         <a href="#">
@@ -405,7 +422,7 @@
                     </li>
                     } 
 
-                    @if (Session["Role_Id"].ToString() == "1" || Session["Role_Id"].ToString() == "2")
+                    @if (Role == "1" || Role == "2")
                     {
                         <li class="treeview">
                             <a href="#">
@@ -432,7 +449,7 @@
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="~/SMS/SingleSMS"><i class="fa fa-circle-o"></i> Test SMS </a></li>
-                        @if (int.Parse(Session["Role_Id"].ToString()) == 1)
+                        @if (Role == "1")
                         {
                             <li><a href="~/SMS/BulkSMS"><i class="fa fa-circle-o"></i> Bulk SMS</a></li>
                         }
@@ -450,7 +467,7 @@
                         <ul class="treeview-menu">
                             <li><a href="~/Call/SingleCall"><i class="fa fa-circle-o"></i> Test Call </a></li>
                             <li><a href="~/Call/SingleCallList"><i class="fa fa-circle-o"></i> Call List</a></li>
-                            @if (bool.Parse(Session["Is_Client"].ToString()) != true)
+                            @if (Is_Client != true)
                             {
                                 <li><a href="~/Call/IncomingCalls"><i class="fa fa-circle-o"></i> Incoming Calls</a></li>
                             }
@@ -458,7 +475,7 @@
                         </ul>
                     </li>
                           
-                    @if (bool.Parse(Session["Is_Client"].ToString()) != true)
+                    @if (Is_Client != true)
                     {
                     <li class="treeview">
                         <a href="#">
@@ -475,7 +492,7 @@
                     </li>
                     }
 
-                    @if (int.Parse(Session["Role_Id"].ToString()) == 1)
+                    @if (Role == "1")
                     {
                         <li class="treeview">
                             <a href="#">
