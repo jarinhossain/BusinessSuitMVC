@@ -49,11 +49,15 @@
                                         <td>
                                             @if (item.Order.Order_Status == 0)
                                             {
-                                                <a href="~/Call/ProceedOBDBulk">Proceed</a>
+                                                <a href="~/Call/ProceedOBDBulk/@item.Order_Id">Proceed</a>
                                             }
-                                            else
+                                            else if(item.Obd_Bulk.FirstOrDefault().Is_Active == true)
                                             {
-                                                <a>Proceed</a>
+                                                <a href="~/Call/toggleOBDStatus/@item.Id">Deactivate</a>
+                                            }
+                                            else if (item.Obd_Bulk.FirstOrDefault().Is_Active == false)
+                                            {
+                                                <a href="~/Call/toggleOBDStatus/@item.Id">Activate</a>
                                             }
                                             @*@Html.ActionLink("Delete", "SouceNumberDelete", new { id = item.Id })*@
                                         </td>

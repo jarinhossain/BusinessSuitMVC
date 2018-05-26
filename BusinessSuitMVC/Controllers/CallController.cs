@@ -423,5 +423,23 @@ namespace BusinessSuitMVC.Controllers
 
 
         }
+
+        [HttpGet]
+        public ActionResult toggleOBDStatus(int id)
+        {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+
+            var orderDetails = DB.Online_Order_Details.Find(id);
+            var obdBulk = orderDetails.Obd_Bulk.FirstOrDefault();
+            if (obdBulk != null)
+            {
+                obdBulk.Is_Active = !obdBulk.Is_Active;///toggle status
+                DB.SaveChanges();
+            }
+
+            return RedirectToAction("Search", "Order");
+        }
+
     }
 }

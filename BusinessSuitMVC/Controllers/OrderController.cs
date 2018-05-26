@@ -214,7 +214,7 @@ namespace BusinessSuitMVC.Controllers
                 ViewData["msg"] = "Successfully Saved";
             }
             return View();
-        }       
+        }
         public String validationVoterCreate(Offline_Order_Details offline)
         {
             if (offline.Slip_Format_Id == null)
