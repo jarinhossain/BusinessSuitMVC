@@ -163,7 +163,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Client_Id" Type="int" />
-          <Property Name="Order_Id" Type="int" />
+          <Property Name="Order_Details_Id" Type="int" />
           <Property Name="Scheduled_Time" Type="datetime" />
           <Property Name="Start_Time" Type="datetime" />
           <Property Name="End_Time" Type="datetime" />
@@ -416,9 +416,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Content" Type="varchar" MaxLength="255" />
+          <Property Name="Content" Type="varchar" MaxLength="1200" />
           <Property Name="Start_Time" Type="datetime" />
           <Property Name="End_Time" Type="datetime" />
+          <Property Name="Created_By" Type="int" />
+          <Property Name="Created_On" Type="datetime" />
         </EntityType>
         <EntityType Name="Sms_Request">
           <Key>
@@ -426,12 +428,12 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Msisdn" Type="varchar" MaxLength="20" />
-          <Property Name="Content" Type="varchar" MaxLength="255" />
+          <Property Name="Content" Type="varchar" MaxLength="1200" />
           <Property Name="Start_Time" Type="datetime" />
           <Property Name="End_Time" Type="datetime" />
-          <Property Name="Transmission_Time" Type="datetime" />
           <Property Name="Locked_Time" Type="datetime" />
-          <Property Name="Try_Count" Type="int" />
+          <Property Name="Created_By" Type="int" />
+          <Property Name="Created_On" Type="datetime" />
         </EntityType>
         <EntityType Name="Status ">
           <Key>
@@ -609,6 +611,18 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Principal>
             <Dependent Role="Obd_Bulk">
               <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obd_Bulk_Online_Order_Details">
+          <End Role="Online_Order_Details" Type="Self.Online_Order_Details" Multiplicity="0..1" />
+          <End Role="Obd_Bulk" Type="Self.Obd_Bulk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Online_Order_Details">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Bulk">
+              <PropertyRef Name="Order_Details_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -880,6 +894,10 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           </AssociationSet>
           <AssociationSet Name="FK_Obd_Bulk_Client_List" Association="Self.FK_Obd_Bulk_Client_List">
             <End Role="Client_List" EntitySet="Client_List" />
+            <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obd_Bulk_Online_Order_Details" Association="Self.FK_Obd_Bulk_Online_Order_Details">
+            <End Role="Online_Order_Details" EntitySet="Online_Order_Details" />
             <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
           </AssociationSet>
           <AssociationSet Name="FK_Obd_Request_Obd_Bulk" Association="Self.FK_Obd_Request_Obd_Bulk">
@@ -1422,6 +1440,10 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             <End Role="Promotion_Type" EntitySet="Promotion_Type" />
             <End Role="Online_Order_Details" EntitySet="Online_Order_Details" />
           </AssociationSet>
+          <AssociationSet Name="FK_Obd_Bulk_Online_Order_Details" Association="Business_SuitModel.FK_Obd_Bulk_Online_Order_Details">
+            <End Role="Online_Order_Details" EntitySet="Online_Order_Details" />
+            <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Module">
           <Key>
@@ -1567,9 +1589,11 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Content" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" MaxLength="1200" FixedLength="false" Unicode="false" />
           <Property Name="Start_Time" Type="DateTime" Precision="3" />
           <Property Name="End_Time" Type="DateTime" Precision="3" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Sms_Request">
           <Key>
@@ -1577,12 +1601,12 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Msisdn" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Content" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" MaxLength="1200" FixedLength="false" Unicode="false" />
           <Property Name="Start_Time" Type="DateTime" Precision="3" />
           <Property Name="End_Time" Type="DateTime" Precision="3" />
-          <Property Name="Transmission_Time" Type="DateTime" Precision="3" />
           <Property Name="Locked_Time" Type="DateTime" Precision="3" />
-          <Property Name="Try_Count" Type="Int32" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_Obd_Ward_Details_Client_List">
           <End Type="Business_SuitModel.Client_List" Role="Client_List" Multiplicity="0..1" />
@@ -1654,7 +1678,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Client_Id" Type="Int32" />
-          <Property Name="Order_Id" Type="Int32" />
           <Property Name="Scheduled_Time" Type="DateTime" Precision="3" />
           <Property Name="Start_Time" Type="DateTime" Precision="3" />
           <Property Name="End_Time" Type="DateTime" Precision="3" />
@@ -1673,6 +1696,8 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Wait" Type="Int32" />
           <Property Name="Is_Active" Type="Boolean" />
           <Property Name="Priority" Type="Int32" />
+          <Property Name="Order_Details_Id" Type="Int32" />
+          <NavigationProperty Name="Online_Order_Details" Relationship="Business_SuitModel.FK_Obd_Bulk_Online_Order_Details" FromRole="Obd_Bulk" ToRole="Online_Order_Details" />
         </EntityType>
         <EntityType Name="Obd_Request">
           <Key>
@@ -1867,6 +1892,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <NavigationProperty Name="Order" Relationship="Business_SuitModel.FK_Online_Order_Details_Order" FromRole="Online_Order_Details" ToRole="Order" />
           <NavigationProperty Name="Product" Relationship="Business_SuitModel.FK_Online_Order_Details_Product" FromRole="Online_Order_Details" ToRole="Product" />
           <NavigationProperty Name="Promotion_Type" Relationship="Business_SuitModel.FK_Online_Order_Details_Promotion_Type" FromRole="Online_Order_Details" ToRole="Promotion_Type" />
+          <NavigationProperty Name="Obd_Bulk" Relationship="Business_SuitModel.FK_Obd_Bulk_Online_Order_Details" FromRole="Online_Order_Details" ToRole="Obd_Bulk" />
         </EntityType>
         <Association Name="FK_Offline_Order_Details_Order">
           <End Type="Business_SuitModel.Order" Role="Order" Multiplicity="0..1" />
@@ -1925,6 +1951,18 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             </Principal>
             <Dependent Role="Online_Order_Details">
               <PropertyRef Name="Promotion_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obd_Bulk_Online_Order_Details">
+          <End Type="Business_SuitModel.Online_Order_Details" Role="Online_Order_Details" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Obd_Bulk" Role="Obd_Bulk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Online_Order_Details">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Bulk">
+              <PropertyRef Name="Order_Details_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2249,6 +2287,8 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="Sms_Bulk">
             <EntityTypeMapping TypeName="Business_SuitModel.Sms_Bulk">
               <MappingFragment StoreEntitySet="Sms_Bulk">
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
                 <ScalarProperty Name="End_Time" ColumnName="End_Time" />
                 <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
@@ -2259,9 +2299,9 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="Sms_Request">
             <EntityTypeMapping TypeName="Business_SuitModel.Sms_Request">
               <MappingFragment StoreEntitySet="Sms_Request">
-                <ScalarProperty Name="Try_Count" ColumnName="Try_Count" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
                 <ScalarProperty Name="Locked_Time" ColumnName="Locked_Time" />
-                <ScalarProperty Name="Transmission_Time" ColumnName="Transmission_Time" />
                 <ScalarProperty Name="End_Time" ColumnName="End_Time" />
                 <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
@@ -2315,6 +2355,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="Obd_Bulk">
             <EntityTypeMapping TypeName="Business_SuitModel.Obd_Bulk">
               <MappingFragment StoreEntitySet="Obd_Bulk">
+                <ScalarProperty Name="Order_Details_Id" ColumnName="Order_Details_Id" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
                 <ScalarProperty Name="Wait" ColumnName="Wait" />
@@ -2330,7 +2371,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
                 <ScalarProperty Name="End_Time" ColumnName="End_Time" />
                 <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
                 <ScalarProperty Name="Scheduled_Time" ColumnName="Scheduled_Time" />
-                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
                 <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

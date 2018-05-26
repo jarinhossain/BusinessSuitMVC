@@ -19,8 +19,8 @@ namespace BusinessSuitMVC.Models
         public string Content { get; set; }
         public Nullable<System.DateTime> Start_Time { get; set; }
         public Nullable<System.DateTime> End_Time { get; set; }
-        public Nullable<System.DateTime> Transmission_Time { get; set; }
         public Nullable<System.DateTime> Locked_Time { get; set; }
-        public Nullable<int> Try_Count { get; set; }
+        public Nullable<int> Created_By { get; set; }
+        public Nullable<System.DateTime> Created_On { get; set; }
     }
 }

@@ -175,7 +175,7 @@ namespace BusinessSuitMVC.Controllers
 
             Obd_Bulk obdBulk = new Obd_Bulk();
             obdBulk.Client_Id = order.Client_Id;
-            obdBulk.Order_Id = order.Id;
+            obdBulk.Order_Details_Id = onlineOrder.Id;
             obdBulk.Created_By = int.Parse(Session["Login_Id"].ToString());
             obdBulk.Status = 0;
             obdBulk.Is_Active = true;

@@ -14,6 +14,11 @@ namespace BusinessSuitMVC.Models
     
     public partial class Online_Order_Details
     {
+        public Online_Order_Details()
+        {
+            this.Obd_Bulk = new HashSet<Obd_Bulk>();
+        }
+    
         public int Id { get; set; }
         public Nullable<int> Product_Id { get; set; }
         public string Advertisement_Area { get; set; }
@@ -47,5 +52,6 @@ namespace BusinessSuitMVC.Models
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
         public virtual Promotion_Type Promotion_Type { get; set; }
+        public virtual ICollection<Obd_Bulk> Obd_Bulk { get; set; }
     }
 }

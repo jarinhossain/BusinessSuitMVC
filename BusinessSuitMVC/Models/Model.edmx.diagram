@@ -63,6 +63,7 @@
         <AssociationConnector Association="Business_SuitModel.FK_Online_Order_Details_Order" />
         <AssociationConnector Association="Business_SuitModel.FK_Online_Order_Details_Product" />
         <AssociationConnector Association="Business_SuitModel.FK_Online_Order_Details_Promotion_Type" />
+        <AssociationConnector Association="Business_SuitModel.FK_Obd_Bulk_Online_Order_Details" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -28,8 +28,6 @@
 
 
                     <div class="box-body">
-                        Contact Name: <label>@ViewData["contactName"]</label> <br />
-                        Ward: <label>@ViewData["ward"]</label>
                         <table class="table table-bordered table-responsive table-striped display nowrap" id="example" style="display:block">
                             <thead>
                                 <tr>
@@ -49,7 +47,14 @@
                                 {
                                     <tr>
                                         <td>
-                                            <a  @(item.Order.Order_Status == 0? "href=/Call/ProceedOBDBulk/" + @item.Order_Id : "")>Proceed</a> |
+                                            @if (item.Order.Order_Status == 0)
+                                            {
+                                                <a href="~/Call/ProceedOBDBulk">Proceed</a>
+                                            }
+                                            else
+                                            {
+                                                <a>Proceed</a>
+                                            }
                                             @*@Html.ActionLink("Delete", "SouceNumberDelete", new { id = item.Id })*@
                                         </td>
                                         <td>

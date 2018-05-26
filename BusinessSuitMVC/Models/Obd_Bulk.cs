@@ -22,7 +22,6 @@ namespace BusinessSuitMVC.Models
     
         public int Id { get; set; }
         public Nullable<int> Client_Id { get; set; }
-        public Nullable<int> Order_Id { get; set; }
         public Nullable<System.DateTime> Scheduled_Time { get; set; }
         public Nullable<System.DateTime> Start_Time { get; set; }
         public Nullable<System.DateTime> End_Time { get; set; }
@@ -38,9 +37,11 @@ namespace BusinessSuitMVC.Models
         public Nullable<int> Wait { get; set; }
         public Nullable<bool> Is_Active { get; set; }
         public Nullable<int> Priority { get; set; }
+        public Nullable<int> Order_Details_Id { get; set; }
     
         public virtual Client_List Client_List { get; set; }
         public virtual ICollection<Obd_Request> Obd_Request { get; set; }
         public virtual ICollection<Obd_Ward_Details> Obd_Ward_Details { get; set; }
+        public virtual Online_Order_Details Online_Order_Details { get; set; }
     }
 }
