@@ -168,14 +168,13 @@
                 data: { nc: $('#nc').val(), message: $('#message').val() },
                 async: true, //blocks window close
                 success: function (data) {
-                    //alert(data);
                     $('#msg').html(data);
                     $('#nc').val('');
                     $('#message').val('');
                     $('#sendButton').prop('disabled', false);
                 },
                 error: function () {
-                    $('#msg').text('failed.');
+                    $('#msg').text('sending failed.');
                     $('#sendButton').prop('disabled', false);
                 }
             });
