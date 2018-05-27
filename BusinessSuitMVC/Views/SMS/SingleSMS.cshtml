@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "SMS";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <script src="~/Script/jquery-1.10.2.min.js"></script>
@@ -28,7 +28,7 @@
                         <h3 class="box-title">Send <span id="balance"></span></h3>
                     </div>
                     <div class="box-body">
-                        <form action="~/SMS/SingleSMS" method="post" class="form-horizontal">
+                        <form  id="smsSend" method="post" class="form-horizontal">
 
                             <div class="form-group">
                                 <label class="control-label col-md-3">To: <span style="color:red;">*</span></label>
@@ -87,13 +87,13 @@
 
                             <div class="form-group">
                                 <div class="col-md-3"></div>
-                                <label class="control-label" style="color:red">@ViewBag.msg</label>
+                                <label class="control-label" id="msg" style="color:red">@ViewBag.msg</label>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-md-2"></div>
                                 <div class="col-md-6" style="text-align:center">
-                                    <button type="submit" name="submit" class="btn btn-info btn-lg input-control">Send Message</button>
+                                    <button type="submit" name="submit" id="sendButton" class="btn btn-info btn-lg input-control">Send Message</button>
                                 </div>
                             </div>
                         </form>
@@ -138,7 +138,9 @@
                 var cost = parseFloat($('#one').text()) * "0.20" * parseFloat($('#two').text()); var costs = cost.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
                 $('#total').text(costs);
             });
-        }); $(document).ready(function () {
+        });
+
+        $(document).ready(function () {
             $('input#nc').on('change', function () {
                 var costss = parseFloat($('#one').text()) * parseFloat($('#two').text()); var costse = costss.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
                 $('#totalsmss').text(costse);
@@ -151,19 +153,24 @@
     <script>
 
 
-        $('foarm').submit(function (event) {
+        $('form[id=smsSend]').submit(function (event) {
             event.preventDefault();
+            $('#sendButton').prop('disabled', true);
             $.ajax({
-                url: '/SMS/sendSingleSmsMethod2',
+                url: '/SMS/SingleSMS',
                 type: "POST",
                 dataType: "JSON",
-                data: { number: $('#nc').val(), message: $('#message').val() },
+                data: { nc: $('#nc').val(), message: $('#message').val() },
                 async: true, //blocks window close
                 success: function (data) {
-                    alert("success");
+                    $('#msg').html(data);
+                    $('#nc').val('');
+                    $('#message').val('');
+                    $('#sendButton').prop('disabled', false);
                 },
                 error: function () {
-                    alert("failed");
+                    $('#msg').text('failed.');
+                    $('#sendButton').prop('disabled', false);
                 }
             });
         });

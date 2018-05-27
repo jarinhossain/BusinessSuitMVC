@@ -42,24 +42,23 @@ namespace BusinessSuitMVC.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult SingleSMS(System.Web.Mvc.FormCollection collection)
+        public async Task<ActionResult> SingleSMS(System.Web.Mvc.FormCollection collection)
         {
             if (PermissionValidate.validatePermission() == false)
-                return View("Unauthorized");
+                return Json("Unauthorized Access", JsonRequestBehavior.AllowGet);
 
             string token = "9b8a6934e6c7e83dc79728274677b8f2";
             string number = collection["nc"];
             string message = collection["message"];
+            Task<string> result = null;
 
             if (number == "" || number == null || number.Length != 11)
             {
-                ViewBag.msg = "please enter e valid number";
-                return View();
+                return Json("Please enter e valid mobile number", JsonRequestBehavior.AllowGet);
             }
-            else if(message.Length > 134)
+            else if (message == "" || message == null)
             {
-                ViewBag.msg = "in test message you can send less than 134 character sms";
-                return View();
+                return Json("Empty Message can not be sent, add some text", JsonRequestBehavior.AllowGet);
             }
 
             var isClient = bool.Parse(Session["Is_Client"].ToString());
@@ -73,8 +72,11 @@ namespace BusinessSuitMVC.Controllers
                 ViewData["free_sms"] = clientInventory.Free_Sms + " remaining sms";
                 if (clientInventory.Free_Sms <= 0)
                 {
-                    ViewData["msg"] = "You have finished your free sms";
-                    return View();
+                    return Json("You have finished your free sms", JsonRequestBehavior.AllowGet);
+                }
+                else if (message.Length > 134)
+                {
+                    return Json("In test message you can send less than 134 character sms.", JsonRequestBehavior.AllowGet);
                 }
 
                 clientInventory.Sms_Sent = clientInventory.Sms_Sent + 1;
@@ -82,13 +84,13 @@ namespace BusinessSuitMVC.Controllers
                 clientInventory.Updated_By = clientId;
                 clientInventory.Updated_On = DateTime.Now;
                 DB.SaveChanges();
-                ViewData["free_sms"] = clientInventory.Free_Sms + " remaining sms";
+                //ViewData["free_sms"] = clientInventory.Free_Sms + " remaining sms";
             }
 
-            var result = SendSms(number, message, token);
-            ViewBag.msg = result;
-
-            return View();
+            await Task.Run(() => result = sendSingleSmsMethod3(number, message, token));
+            // ViewBag.msg = result.;
+            return Json(result.Result, JsonRequestBehavior.AllowGet);
+            
         }
 
         [Authorize]
@@ -106,7 +108,7 @@ namespace BusinessSuitMVC.Controllers
         public async Task<ActionResult> BulkSMS(System.Web.Mvc.FormCollection collection)
         {
             if (PermissionValidate.validatePermission() == false)
-                return View("Unauthorized");
+                return Json("Unauthorized Access", JsonRequestBehavior.AllowGet);
             Task<string> result = null ;
 
             string token = "9b8a6934e6c7e83dc79728274677b8f2";
@@ -121,7 +123,7 @@ namespace BusinessSuitMVC.Controllers
             }
             catch(Exception ex)
             {
-                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+                return Json("sms sending failed.", JsonRequestBehavior.AllowGet);
             }
             //sendSingleSmsMethod2(number, message, token);
             //result  = SendSms(number, message, token);

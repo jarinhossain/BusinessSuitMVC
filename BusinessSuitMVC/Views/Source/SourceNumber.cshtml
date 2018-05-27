@@ -148,7 +148,7 @@
     $("form").submit(function (event) {
         //stop form submit
         $("#msg").text('');//clear msg
-        $("button[type=submit]").attr("disabled", "disabled");
+        $("button[type=submit]").prop('disabled', true);
         var mobileNumber = $("#Number1").val();
         var operator = mobileNumber.substring(0, 3);
 
@@ -220,14 +220,14 @@
                     $("#Number1").val('01');
                     $("#Id").val('0');
                     $("#saveNumber").text('Save Number');
-                    $("button[type=submit]").removeAttr("disabled");
+                    $("button[type=submit]").prop('disabled', false);
                     //$(btn).button('reset');
                     $('#spinner').removeClass('fa fa-spinner fa-spin');
 
                 },
                 error: function (result) {
                     swal('Failed', "unknown error occoured", 'error');
-                    $("button[type=submit]").removeAttr("disabled");
+                    $("button[type=submit]").prop('disabled', false);
                     $("#Number1").focus();
                     //$(btn).button('reset');
                     $('#spinner').removeClass('fa fa-spinner fa-spin');
@@ -266,7 +266,7 @@
         swal("Failed", validationMsg, "error").then(function () {
             $("#Number1").focus();
             $("#msg").text(validationMsg);
-            $("button[type=submit]").removeAttr("disabled");
+            $("button[type=submit]").prop('disabled', false);
         });
 
     }
