@@ -94,7 +94,7 @@
                             <div class="form-group">
                                 <div class="col-md-2"></div>
                                 <div class="col-md-6" style="text-align:center">
-                                    <button type="submit" name="submit" class="btn btn-info btn-lg input-control">Send Message</button>
+                                    <button type="submit" name="submit" id="sendButton" class="btn btn-info btn-lg input-control">Send Message</button>
                                 </div>
                             </div>
                         </form>
@@ -160,6 +160,7 @@
 
         $('form[id=smsSend]').submit(function (event) {
             event.preventDefault();
+            $('#sendButton').prop('disabled', true);
             $.ajax({
                 url: '/SMS/BulkSMS',
                 type: "POST",
@@ -169,9 +170,13 @@
                 success: function (data) {
                     //alert(data);
                     $('#msg').html(data);
+                    $('#nc').val('');
+                    $('#message').val('');
+                    $('#sendButton').prop('disabled', false);
                 },
                 error: function () {
-                    alert("failed");
+                    $('#msg').text('failed.');
+                    $('#sendButton').prop('disabled', false);
                 }
             });
         });
