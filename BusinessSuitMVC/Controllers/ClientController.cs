@@ -458,7 +458,7 @@ namespace BusinessSuitMVC.Controllers
 
             if (sourceData != null)
             {
-                return Redirect("~/Source/SourceNumberCreate/" + sourceData.Id);
+                return Redirect("~/Source/SourceNumber?sId=" + sourceData.Id);
             }
 
             Source source = new Source();
@@ -481,7 +481,7 @@ namespace BusinessSuitMVC.Controllers
             Num_DB.Sources.Add(source);
             Num_DB.SaveChanges();
 
-            return Redirect("~/Source/SourceNumberCreate/" + source.Id);
+            return Redirect("~/Source/SourceNumber?sId=" + source.Id);
         }
 
         [HttpGet]
