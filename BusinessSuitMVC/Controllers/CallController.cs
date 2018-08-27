@@ -197,7 +197,7 @@ namespace BusinessSuitMVC.Controllers
         }
 
         [Authorize]
-        public ActionResult ObdRequestList(int? id)
+        public ActionResult ObdRequestList(int? id)///bulk id parameter
         {
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
@@ -206,9 +206,11 @@ namespace BusinessSuitMVC.Controllers
             int roleID = int.Parse(Session["Role_Id"].ToString());
             var obdRequest = new List<Obd_Request>();
 
+            if (id == null)
+                obdRequest = DB.Obd_Request.OrderByDescending(x => x.Created_On).ToList();
+            else
+                obdRequest = DB.Obd_Request.Where(x => x.Obd_Bulk_Id == id).OrderByDescending(x => x.Created_On).ToList();
 
-            obdRequest = DB.Obd_Request.OrderByDescending(x => x.Created_On).ToList();
-            
             return View(obdRequest);
         }
 
@@ -279,7 +281,7 @@ namespace BusinessSuitMVC.Controllers
 
                 DB.SaveChanges();
             }
-
+            ///modify the below for retry_schedule. just add a condition to fetch the number after a certain time
             var finalNumberList = (from request in DB.Obd_Request
                         join bulk in DB.Obd_Bulk on request.Obd_Bulk_Id equals bulk.Id
                         where request.Status == 0 && bulk.Is_Active == true
