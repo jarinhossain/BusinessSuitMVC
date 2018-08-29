@@ -476,6 +476,7 @@ namespace BusinessSuitMVC.Controllers
             source.District_Id = client.District_Id;
             source.Source_Type_Id = client.Client_Type;
             source.Address = client.Address;
+            source.Image = false;
             source.Created_By = int.Parse(Session["Login_Id"].ToString());
             
             Num_DB.Sources.Add(source);

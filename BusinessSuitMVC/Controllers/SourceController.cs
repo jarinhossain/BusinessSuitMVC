@@ -55,6 +55,7 @@ namespace BusinessSuitMVC.Controllers
             else
             {
                 Numeral_DBContext DB = new Numeral_DBContext();
+                source.Is_Client = false;
                 source.Image = file != null && file.ContentLength > 0 ? true : false;
                 DB.Sources.Add(source);
                 DB.SaveChanges();
