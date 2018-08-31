@@ -268,5 +268,42 @@ namespace BusinessSuitMVC.Controllers
 
             return responseString;
         }
+        [HttpGet]
+        public ActionResult tokenCreate()
+        {
+            return View();
+        }
+        [HttpPost]
+        public JsonResult tokenCreate(Token tok)
+        {
+            DBContext DB = new DBContext();
+            DB.Tokens.Add(tok);
+            DB.SaveChanges();
+            return Json("true",JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult tokenEdit(int id)
+        {
+            DBContext DB = new DBContext();
+            Token token = (from tok in DB.Tokens
+                           where tok.Id == id
+                           select tok).FirstOrDefault();
+
+            return View(token);
+        }
+        [HttpPost]
+        public JsonResult tokenEdit(Token toke)
+        {
+                DBContext DB = new DBContext();
+                Token token = (from tok in DB.Tokens
+                               where tok.Id == toke.Id
+                               select tok).FirstOrDefault();
+                token.Token_Data = toke.Token_Data;
+                token.Display_Name = toke.Display_Name;
+                token.Is_Active = toke.Is_Active;
+                DB.SaveChanges();
+                return Json("true", JsonRequestBehavior.AllowGet);
+            
+        }
     }
 }

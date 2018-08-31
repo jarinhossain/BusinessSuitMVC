@@ -544,5 +544,47 @@ namespace BusinessSuitMVC.Controllers
             }
             return districtDropdown;
         }
+       
+
+        [HttpGet]
+        public ActionResult inventoryEdit(int id)
+        {
+            DBContext DB = new DBContext();
+            Client_Inventory inven = (from inventory in DB.Client_Inventory
+                                      where inventory.Client_Id == id
+                                      select inventory).FirstOrDefault();
+
+            return View(inven);
+        }
+        [HttpPost]
+        public JsonResult inventoryEdit(Client_Inventory inv)
+        {
+           //// client.Mobile1 == null || client.Mobile1.Length != 11
+           // if (inv.Free_Sms == null || inv.Free_Sms.Length != (0<=15))
+           // {
+
+           // }
+           // else{
+                DBContext DB = new DBContext();
+                Client_Inventory inven = (from inventory in DB.Client_Inventory
+                                          where inventory.Client_Id == inv.Id
+                                          select inventory).FirstOrDefault();
+                inven.Free_Sms = inv.Free_Sms;
+                inven.Free_Call = inv.Free_Call;
+                DB.SaveChanges();
+                return Json("true", JsonRequestBehavior.AllowGet);
+           // }
+        }
+        [HttpGet]
+        public ActionResult inventorySearch()
+        {
+            DBContext DB = new DBContext();
+
+            List<Client_Inventory> inventoryList = (from inv in DB.Client_Inventory
+                                            select inv).ToList();
+
+            return View(inventoryList);
+          
+        }
     }
 }

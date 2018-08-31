@@ -16,5 +16,7 @@ namespace BusinessSuitMVC.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public Nullable<int> Created_By { get; set; }
+        public Nullable<System.DateTime> Created_On { get; set; }
     }
 }

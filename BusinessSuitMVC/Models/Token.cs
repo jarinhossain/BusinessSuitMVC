@@ -15,11 +15,12 @@ namespace BusinessSuitMVC.Models
     public partial class Token
     {
         public int Id { get; set; }
-        public string Token1 { get; set; }
+        public string Token_Data { get; set; }
+        public string Display_Name { get; set; }
         public Nullable<System.DateTime> Created_On { get; set; }
         public Nullable<int> Updated_By { get; set; }
         public Nullable<System.DateTime> Updated_On { get; set; }
-        public Nullable<int> Is_Deleted { get; set; }
+        public Nullable<bool> Is_Active { get; set; }
         public Nullable<int> Deleted_By { get; set; }
         public Nullable<System.DateTime> Deleted_On { get; set; }
     }

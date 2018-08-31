@@ -1,0 +1,118 @@
+﻿@model BusinessSuitMVC.Models.Token
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; ;
+}
+
+<!DOCTYPE html>
+@{
+
+}
+<section class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Source
+        </h1>
+        @*<ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Forms</a></li>
+                <li class="active">General Elements</li>
+            </ol>*@
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Create</h3>
+                    </div>
+                    @using (Html.BeginForm("tokenEdit", "SMSController", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        <div class="box-body">
+                            @Html.HiddenFor(m => m.Id)
+                            <div class="form-group">
+                                @Html.Label("Token Data", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(m => m.Token_Data, new { @Class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Display Name", new { @class = "control-label col-md-3" })
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(m => m.Display_Name, new { @Class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Is Online</label>
+                                <div class="col-md-5">
+                                    @Html.CheckBox("Is_Active") Yes
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
+                                <input type="submit" value="Update" class="btn btn-info" />
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
+                                <label id="msg">@ViewData["msg"]</label>
+
+                            </div>
+                        </div>
+                    }
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+<script>
+    $(document).ready(function ()
+    {
+        $("form").submit(function (event)
+        {
+            if ($("#Token_Data").val() == "") {
+                event.preventDefault();
+                swal("Failed", "Token Data is required", "error").then(function () {
+                    $("#Token_Data").focus();
+                })
+            }
+            else {
+                event.preventDefault();
+                var formdata = {
+                    Id: $("#Id").val(),
+                    Token_Data: $("#Token_Data").val(),
+                    Display_Name: $("#Display_Name").val(),
+                    Is_Active: $("#Is_Active").is(":checked")
+                };
+                $.ajax({
+                    url: "/SMS/tokenEdit",
+                    type: "POST",
+                    data: formdata,
+                    success: function (data)
+                    {
+                        if (data == "true") {
+                            swal("Success", "Succefully Updated", "success");
+                        }
+                        else
+                            swal("Failed", data, "error");
+                           reset();
+                    },
+                    error: function (data) {
+                        alert("Unknown" + data)
+                    },
+                })
+            }
+        })
+        function reset() {
+            $("#Token_Data").val("");
+            $("#Display_Name").val("");
+            $('#Is_Active').prop('checked', false);
+
+
+        }
+    })
+</script>
