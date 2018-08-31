@@ -22,12 +22,12 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult ExpenseCreate(Expense expense)
+        public JsonResult ExpenseCreate(Expense expense)
         {
             if (PermissionValidate.validatePermission() == false)
-                return View("Unauthorized");
+                return Json("Unauthorized", JsonRequestBehavior.AllowGet);
 
-           
+
             //if (expense.Id == 0)
             //{
             //    ModelState.AddModelError("", "Select Type");
@@ -40,21 +40,23 @@ namespace BusinessSuitMVC.Controllers
 
             //expens.Insert(0, new Expense { Id = 0, Type = Convert.ToInt32("Select")});
             //ViewBag.ListOfExpense = expens;
-           // return View();
+            // return View();
             string validation = ValidateExpense(expense);
 
             if (validation != "true")
             {
-                ViewData["msg"] = validation;
+                return Json(validation, JsonRequestBehavior.AllowGet);
+
             }
             else
             {
               
                 DB.Expenses.Add(expense);
                 DB.SaveChanges();
-                ViewData["msg"] = "Successfully Saved";
+               // ViewData["msg"] = "Successfully Saved";
+                return Json("true",JsonRequestBehavior.AllowGet);
             }
-            return View();
+          
         }
 
         [HttpGet]
@@ -71,16 +73,17 @@ namespace BusinessSuitMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult ExpenseEdit(Expense expens)
+        public JsonResult ExpenseEdit(Expense expens)
         {
             if (PermissionValidate.validatePermission() == false)
-                return View("Unauthorized");
+                return Json("Unauthorized",JsonRequestBehavior.AllowGet);
 
             string validation = ValidateExpense(expens);
 
             if(validation != "true")
             {
-                ViewData["msg"] = validation;
+                // ViewData["msg"] = validation;
+                return Json(validation, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -96,9 +99,10 @@ namespace BusinessSuitMVC.Controllers
                 expense.Description = expens.Description;
 
                 DB.SaveChanges();
-                ViewData["msg"] = "Successfully Update";
+                return Json("True", JsonRequestBehavior.AllowGet);
+
             }
-            return View();
+           
         }
 
         [HttpGet]
@@ -135,6 +139,19 @@ namespace BusinessSuitMVC.Controllers
             return "true";
         }
 
+        [HttpGet]
+        public ActionResult ExpenseTypeCreate()
+        {
+           
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ExpenseTypeCreate(Expense_Type type)
+        {
+            Numeral_DBContext DB = new Numeral_DBContext();
+            //DB.Expense_Type.A
 
+            return View();
+        }
     }
 }

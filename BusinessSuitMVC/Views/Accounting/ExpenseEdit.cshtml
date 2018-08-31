@@ -98,6 +98,7 @@
             format: 'dd/mm/yyyy',
             autoclose: true
         })
+        $(document).ready(function () {
         $("form").submit(function (event) {
             if ($("#Type").val() == "") {
                 event.preventDefault();
@@ -114,13 +115,35 @@
                     $("#Spent_Date").focus();
                 });
             }
+           
             else if ($("#Amount").val() == "") {
                 event.preventDefault();
                 swal("Failed", "Amount is required", "error").then(function () {
                     $("#Amount").focus();
                 });
             }
-
+            else {
+                event.preventDefault();
+                $.ajax({
+                    url: "/Accounting/ExpenseEdit",
+                    type: "POST",
+                    data: {
+                        Id: $("#Id").val(),
+                        Type: $("#Type").val(),
+                        Spent_Date: $("#Spent_Date").val(),
+                        Amount: $("#Amount").val(),
+                        Description: $("#Description").val()
+                    },
+                    success:function(data)
+                    {
+                        alert(data)
+                        resetFunction();
+                    },
+                    error: function (data) {
+                        alert("Unknown"+data)
+                    },
+                })
+            }
         });
 
         function resetFunction() {
@@ -130,21 +153,8 @@
             $("#Description").val("");
         }
 
-        $(document).ready(function () {
-            var message = $("#msg").text();
+       
 
-            if (message == "Successfully Update") {
-                swal("Successful", "Successfully Update", "success").then(function () {
-                    resetFunction();
-                    window.location = "/Accounting/Search";
-                });
-            }
-
-            $("#reset").click(function () {
-
-                resetFunction();
-
-            });
 
         });
     </script>

@@ -132,6 +132,8 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Created_By" Type="int" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Incoming_Calls">
           <Key>
@@ -441,18 +443,17 @@
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tokens">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Token" Type="varchar" MaxLength="100" />
-          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Token_Data" Type="varchar" MaxLength="100" />
+          <Property Name="Display_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
-          <Property Name="Is_Deleted" Type="int" />
+          <Property Name="Is_Active" Type="bit" />
           <Property Name="Deleted_By" Type="int" />
           <Property Name="Deleted_On" Type="datetime" />
         </EntityType>
@@ -516,7 +517,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Display_Name" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <Association Name="FK__Client_Li__Distr__19AACF41">
+        <Association Name="FK__Client_Li__Distr__02FC7413">
           <End Role="District" Type="Self.District" Multiplicity="0..1" />
           <End Role="Client_List" Type="Self.Client_List" Multiplicity="*" />
           <ReferentialConstraint>
@@ -528,7 +529,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Permissio__Modul__693CA210">
+        <Association Name="FK__Permissio__Modul__0D7A0286">
           <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
           <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -540,7 +541,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User_Logi__Clien__6FE99F9F">
+        <Association Name="FK__User_Logi__Clien__14270015">
           <End Role="Client_List" Type="Self.Client_List" Multiplicity="0..1" />
           <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
           <ReferentialConstraint>
@@ -552,7 +553,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User_Logi__Role___70DDC3D8">
+        <Association Name="FK__User_Logi__Role___151B244E">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
           <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
           <ReferentialConstraint>
@@ -834,35 +835,24 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <EntitySet Name="Sms_Bulk" EntityType="Self.Sms_Bulk" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sms_Request" EntityType="Self.Sms_Request" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status " EntityType="Self.Status " Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tokens" EntityType="Self.Tokens" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Login" EntityType="Self.User_Login" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_Profile" EntityType="Self.User_Profile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Voter_Slip_Image_Type" EntityType="Self.Voter_Slip_Image_Type" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tokens" EntityType="Self.Tokens" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[Tokens].[Id] AS [Id], 
-[Tokens].[Token] AS [Token], 
-[Tokens].[Created_On] AS [Created_On], 
-[Tokens].[Updated_By] AS [Updated_By], 
-[Tokens].[Updated_On] AS [Updated_On], 
-[Tokens].[Is_Deleted] AS [Is_Deleted], 
-[Tokens].[Deleted_By] AS [Deleted_By], 
-[Tokens].[Deleted_On] AS [Deleted_On]
-FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK__Client_Li__Distr__19AACF41" Association="Self.FK__Client_Li__Distr__19AACF41">
+          <AssociationSet Name="FK__Client_Li__Distr__02FC7413" Association="Self.FK__Client_Li__Distr__02FC7413">
             <End Role="District" EntitySet="District" />
             <End Role="Client_List" EntitySet="Client_List" />
           </AssociationSet>
-          <AssociationSet Name="FK__Permissio__Modul__693CA210" Association="Self.FK__Permissio__Modul__693CA210">
+          <AssociationSet Name="FK__Permissio__Modul__0D7A0286" Association="Self.FK__Permissio__Modul__0D7A0286">
             <End Role="Module" EntitySet="Module" />
             <End Role="Permission" EntitySet="Permission" />
           </AssociationSet>
-          <AssociationSet Name="FK__User_Logi__Clien__6FE99F9F" Association="Self.FK__User_Logi__Clien__6FE99F9F">
+          <AssociationSet Name="FK__User_Logi__Clien__14270015" Association="Self.FK__User_Logi__Clien__14270015">
             <End Role="Client_List" EntitySet="Client_List" />
             <End Role="User_Login" EntitySet="User_Login" />
           </AssociationSet>
-          <AssociationSet Name="FK__User_Logi__Role___70DDC3D8" Association="Self.FK__User_Logi__Role___70DDC3D8">
+          <AssociationSet Name="FK__User_Logi__Role___151B244E" Association="Self.FK__User_Logi__Role___151B244E">
             <End Role="Role" EntitySet="Role" />
             <End Role="User_Login" EntitySet="User_Login" />
           </AssociationSet>
@@ -1014,13 +1004,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Is_Deleted" Type="Boolean" />
           <Property Name="Deleted_By" Type="Int32" />
           <Property Name="Deleted_On" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="Expense_Type">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -1194,19 +1177,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Display_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Token">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Token1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" />
-          <Property Name="Updated_By" Type="Int32" />
-          <Property Name="Updated_On" Type="DateTime" Precision="3" />
-          <Property Name="Is_Deleted" Type="Int32" />
-          <Property Name="Deleted_By" Type="Int32" />
-          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
-        </EntityType>
         <Association Name="FK_Permission_Role_Permission">
           <End Role="Permission" Type="Self.Permission" Multiplicity="0..1" />
           <End Role="Permission_Role" Type="Self.Permission_Role" Multiplicity="*" />
@@ -1296,7 +1266,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySet Name="Districts" EntityType="Self.District" />
           <EntitySet Name="Divisions" EntityType="Self.Division" />
           <EntitySet Name="Expenses" EntityType="Self.Expense" />
-          <EntitySet Name="Expense_Type" EntityType="Self.Expense_Type" />
           <EntitySet Name="Permissions" EntityType="Self.Permission" />
           <EntitySet Name="Permission_Role" EntityType="Self.Permission_Role" />
           <EntitySet Name="Permission_User" EntityType="Self.Permission_User" />
@@ -1311,7 +1280,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySet Name="User_Profile" EntityType="Self.User_Profile" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="Voter_Slip_Image_Type" EntityType="Self.Voter_Slip_Image_Type" />
-          <EntitySet Name="Tokens" EntityType="Self.Token" />
           <AssociationSet Name="FK_Permission_Role_Permission" Association="Self.FK_Permission_Role_Permission">
             <End Role="Permission" EntitySet="Permissions" />
             <End Role="Permission_Role" EntitySet="Permission_Role" />
@@ -1422,6 +1390,8 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             <End Role="Promotion_Type" EntitySet="Promotion_Type" />
             <End Role="Online_Order_Details" EntitySet="Online_Order_Details" />
           </AssociationSet>
+          <EntitySet Name="Expense_Type" EntityType="Business_SuitModel.Expense_Type" />
+          <EntitySet Name="Tokens" EntityType="Business_SuitModel.Token" />
           </EntityContainer>
         <EntityType Name="Module">
           <Key>
@@ -1928,6 +1898,29 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Expense_Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Token">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Token_Data" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Display_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <Property Name="Is_Active" Type="Boolean" />
+          <Property Name="Deleted_By" Type="Int32" />
+          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1992,14 +1985,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
                 <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
                 <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
                 <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Expense_Type">
-            <EntityTypeMapping TypeName="Business_SuitModel.Expense_Type">
-              <MappingFragment StoreEntitySet="Expense_Type">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2164,20 +2149,6 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tokens">
-            <EntityTypeMapping TypeName="Business_SuitModel.Token">
-              <MappingFragment StoreEntitySet="Tokens">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Token1" ColumnName="Token" />
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
-                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
-                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
-                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
-                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2473,6 +2444,31 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
                 <ScalarProperty Name="Ward" ColumnName="Ward" />
                 <ScalarProperty Name="Advertisement_Area" ColumnName="Advertisement_Area" />
                 <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Expense_Type">
+            <EntityTypeMapping TypeName="Business_SuitModel.Expense_Type">
+              <MappingFragment StoreEntitySet="Expense_Type">
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tokens">
+            <EntityTypeMapping TypeName="Business_SuitModel.Token">
+              <MappingFragment StoreEntitySet="Tokens">
+                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
+                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
+                <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
+                <ScalarProperty Name="Token_Data" ColumnName="Token_Data" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

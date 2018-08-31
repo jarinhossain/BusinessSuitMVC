@@ -29,7 +29,6 @@ namespace BusinessSuitMVC.Models
         public DbSet<District> Districts { get; set; }
         public DbSet<Division> Divisions { get; set; }
         public DbSet<Expense> Expenses { get; set; }
-        public DbSet<Expense_Type> Expense_Type { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<Permission_Role> Permission_Role { get; set; }
         public DbSet<Permission_User> Permission_User { get; set; }
@@ -44,7 +43,6 @@ namespace BusinessSuitMVC.Models
         public DbSet<User_Profile> User_Profile { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Voter_Slip_Image_Type> Voter_Slip_Image_Type { get; set; }
-        public DbSet<Token> Tokens { get; set; }
         public DbSet<Module> Modules { get; set; }
         public DbSet<CDR_Instant> CDR_Instant { get; set; }
         public DbSet<Client_Inventory> Client_Inventory { get; set; }
@@ -59,5 +57,7 @@ namespace BusinessSuitMVC.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<Offline_Order_Details> Offline_Order_Details { get; set; }
         public DbSet<Online_Order_Details> Online_Order_Details { get; set; }
+        public DbSet<Expense_Type> Expense_Type { get; set; }
+        public DbSet<Token> Tokens { get; set; }
     }
 }

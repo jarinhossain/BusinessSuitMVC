@@ -20,13 +20,12 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Product pro)
+        public JsonResult Create(Product pro)
         {
             DBContext DB = new DBContext();
             DB.Products.Add(pro);
             DB.SaveChanges();
-            ViewData["msg"] = "Successfully Saved";
-            return View("Create");
+            return Json("true",JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public ActionResult Edit(int id)
@@ -37,21 +36,24 @@ namespace BusinessSuitMVC.Controllers
                                select pro).FirstOrDefault();
             return View(product);
         }
+
         [HttpPost]
-        public ActionResult Edit(Product produc)
+        public JsonResult Edit(Product produc)
         {
             DBContext DB = new DBContext();
             Product product = (from pro in DB.Products
                                where pro.Id == produc.Id
                                select pro).FirstOrDefault();
+            product.Code = produc.Code;
             product.Name = produc.Name;
+            product.Display_Name = produc.Display_Name;
             product.Is_Online = produc.Is_Online;
             product.Description = produc.Description;
             product.Regular_Price = produc.Regular_Price;
             product.Lower_Price = produc.Lower_Price;
             DB.SaveChanges();
-            ViewData["msg"] = "Successfully Updated";
-            return View(produc);
+           // ViewData["msg"] = "Successfully Updated";
+            return Json("true",JsonRequestBehavior.AllowGet);
         }
     }
 }

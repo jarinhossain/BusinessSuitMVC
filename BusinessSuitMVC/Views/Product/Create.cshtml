@@ -31,24 +31,35 @@
                     {
                         <div class="box-body">
                             <div class="form-group">
-                                @Html.Label("Code", new { @class = "control-label col-md-3" })
+                                <label class="control-label col-md-3">Code<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                @Html.Label("Name", new { @class = "control-label col-md-3" })
+                                <label class="control-label col-md-3">Name<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                @Html.Label("Display-Name", new { @class = "control-label col-md-3" })
+                                <label class="control-label col-md-3">Display Name<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
                                     @Html.TextBoxFor(m => m.Display_Name, new { @class = "form-control" })
                                 </div>
                             </div>
-                         
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Regular Price<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(m => m.Regular_Price, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Lower Price<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(m => m.Lower_Price, new { @class = "form-control" })
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Is Online</label>
                                 <div class="col-md-5">
@@ -64,18 +75,7 @@
                                     @Html.TextAreaFor(m => m.Description, new { @Class = "form-control", @rows = "3" })
                                 </div>
                             </div>
-                            <div class="form-group">
-                                @Html.Label("Regular Price", new { @class = "control-label col-md-3" })
-                                <div class="col-md-5">
-                                    @Html.TextBoxFor(m => m.Regular_Price, new { @class = "form-control" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                @Html.Label("Lower Price", new { @class = "control-label col-md-3" })
-                                <div class="col-md-5">
-                                    @Html.TextBoxFor(m => m.Lower_Price, new { @class = "form-control" })
-                                </div>
-                            </div>
+                          
                             <div class="form-group">
                                 <div class="col-md-3"></div>
                                 <input type="submit" value="Save" class="btn btn-info" />
@@ -96,29 +96,92 @@
         </div>
     </section>
 </section>
-@*<script>
-    $("form").submit(function(event)
-    {
-        if($("#name").val() == "")
-        {
+<script>
+    $(document).ready(function () {
+    $("form").submit(function (event) {
+        if ($("#Code").val() == "") {
             event.preventDefault();
-            swal("failed", "name is required", "error").then(function ()
-            {
-                $("#name").focus();
+            swal("Failed", "Code is required", "error").then(function () {
+                $("#Code").focus();
             })
         }
+        else if ($("#Name").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Name is required", "error").then(function () {
+                $("#Name").focus();
+            });
+        }
 
+        else if ($("#Display_Name").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Display Name is required", "error").then(function () {
+                $("#Display_Name").focus();
+            })
+        }
+        else if ($("#Regular_Price").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Regular Price is required", "error").then(function () {
+                $("#Regular_Price").focus();
+            })
+        }
+        else if ($("#Lower_Price").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Lower Price is required", "error").then(function () {
+                $("#Lower_Price").focus();
+            })
+        }
+        else {
+            event.preventDefault();
 
+            var formdata =  {
+                Code: $("#Code").val(),
+                Name: $("#Name").val(),
+                Display_Name: $("#Display_Name").val(),
+                Regular_Price: $("#Regular_Price").val(),
+                Lower_Price: $("#Lower_Price").val(),
+                Is_Online: $('#Is_Online').is(":checked"),
+                Description: $("#Description").val()
+            };
+
+            //formdata.append("Code", $('#Code').val());
+            //formdata.append("Name", $('#Name').val());
+            //formdata.append("Display_Name", $('#Display_Name').val());
+            //formdata.append("Regular_Price", $('#Regular_Price').val());
+            //formdata.append("Lower_Price", $('#Lower_Price').val());
+            //formdata.append("Is_Online", $('#Is_Online').is(":checked"));
+            //formdata.append("Description", $('#Lower_Price').val());
+
+            $.ajax({
+                url: "/Product/Create",
+                type: "POST",
+                data: formdata,
+                success: function (data)
+                {
+                    if (data == "true") {
+                        swal("Success", "Succefully Updated", "success");
+                    }
+                    else
+                        swal("Failed", data, "error");
+                        reset();
+                },
+                error: function (data) {
+                    alert("Unknown"+data)
+                },
+            })
+
+        }
     });
-    $(document).ready(function ()
-    {
-        var message = $("#msg").text();
-        if(message == "Successfully Saved")
-        {
-            swal("failed", "name is required", "error").then(function () {
-                $("#name").focus();
-            })
-        }
-    })
+    function reset() {
+        $("#Code").val("");
+        $("#Name").val("");
+        $("#Display_Name").val("");
+        $("#Regular_Price").val("");
+        $("#Lower_Price").val("");
+        $('#Is_Online').prop('checked', false);
+        $("#Description").val("");
 
-</script>*@
+    }
+   
+    });
+
+</script>
