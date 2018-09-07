@@ -179,7 +179,9 @@ namespace BusinessSuitMVC.Controllers
             obdBulk.Created_By = int.Parse(Session["Login_Id"].ToString());
             obdBulk.Status = 0;
             obdBulk.Is_Active = true;
-            obdBulk.Play_File = "";
+            obdBulk.Wait = 1;
+            obdBulk.Retry_Minutes = 3;
+            obdBulk.Play_File = "ODBC_" + onlineOrder.Id + ".gsm";
             obdBulk.Total_Calls = onlineOrder.Estimated_Reach_Ordered;
 
             wardDetails.Client_Id = order.Client_Id;

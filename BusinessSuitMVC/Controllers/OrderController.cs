@@ -121,7 +121,7 @@ namespace BusinessSuitMVC.Controllers
             }
             else
             {
-                online.Obd_Voice_File = file != null && file.ContentLength > 0 ? true : false;
+                online.Obd_Voice_File = online.Is_Obd_Provided = file != null && file.ContentLength > 0 ? true : false;
                 online.Product_Id = 1;///obd
                 Order order = new Order();
                 order.Date = DateTime.Now;
