@@ -9,7 +9,7 @@
 
     <section class="content-header">
         <h1>
-            Source
+            Order
         </h1>
         @*<ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -40,6 +40,7 @@
                                     <th>Calls</th>
                                     <th>Price</th>
                                     <th>Total Cost</th>
+                                    <th>Status</th>
                                 </tr>
                             <thead>
                             <tbody>
@@ -49,15 +50,15 @@
                                         <td>
                                             @if (item.Order.Order_Status == 0)
                                             {
-                                                <a href="~/Call/ProceedOBDBulk/@item.Order_Id">Proceed</a>
+                                            <a href="~/Call/ProceedOBDBulk/@item.Order_Id">Proceed</a>
                                             }
-                                            else if(item.Obd_Bulk.FirstOrDefault().Is_Active == true)
+                                            else if (item.Obd_Bulk.FirstOrDefault().Is_Active == true)
                                             {
-                                                <a href="~/Call/toggleOBDStatus/@item.Id">Deactivate</a>
+                                            <a href="~/Call/toggleOBDStatus/@item.Id">Deactivate</a>
                                             }
                                             else if (item.Obd_Bulk.FirstOrDefault().Is_Active == false)
                                             {
-                                                <a href="~/Call/toggleOBDStatus/@item.Id">Activate</a>
+                                            <a href="~/Call/toggleOBDStatus/@item.Id">Activate</a>
                                             }
                                             @*@Html.ActionLink("Delete", "SouceNumberDelete", new { id = item.Id })*@
                                         </td>
@@ -90,9 +91,8 @@
                                         </td>
                                     </tr>
                                 }
-                            </tbody>
+                            <tbody>
                         </table>
-
                     </div>
 
                 </div>
@@ -131,6 +131,18 @@
                 ]
             });
 
+            //// Apply the search
+            //table.columns().every(function () {
+            //    var that = this;
+
+            //    $('input', this.footer()).on('keyup change', function () {
+            //        if (that.search() !== this.value) {
+            //            that
+            //                .search(this.value)
+            //                .draw();
+            //        }
+            //    });
+            //});
         });
     </script>
 
