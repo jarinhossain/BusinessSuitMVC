@@ -5,13 +5,7 @@
 
 <!DOCTYPE html>
 @{
-    List<SelectListItem> type = new List<SelectListItem>();
-    type.Add(new SelectListItem() { Value = "1", Text = "Transport" });
-    type.Add(new SelectListItem() { Value = "2", Text = "Liflet" });
-    type.Add(new SelectListItem() { Value = "3", Text = "Visiting Card" });
-    type.Add(new SelectListItem() { Value = "4", Text = "Food" });
-    type.Add(new SelectListItem() { Value = "5", Text = "Bulk SMS" });
-    type.Add(new SelectListItem() { Value = "6", Text = "IP TSP" });
+   
 }
 <section class="content-wrapper">
 
@@ -39,10 +33,15 @@
                             @Html.HiddenFor(m => m.Id)
 
                             <div class="form-group">
-                                @*@Html.Label("District", new { @class = "control-label col-md-1" })*@
+                                <label class="control-label col-md-3">Account Head<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
+                                    @Html.DropDownList("Account_Head_Id", (List<SelectListItem>)ViewData["accounthd"], "Select Account Head", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label col-md-3">Type<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
-                                    @Html.DropDownList("Type", @type, "Select type", new { @class = "form-control editor-field" })
+                                    @Html.DropDownList("Type", (List<SelectListItem>)ViewData["typ"], "Select Type", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
 
@@ -73,7 +72,7 @@
                                 <div class="col-md-3"></div>
 
                                 <input type="submit" value="Update" style="margin-left:15px" class="btn btn-info" />
-                               <a href="~/Accounting/Search" class="btn btn-primary">Back</a>
+                               <a href="~/Accounting/ExpenseSearch" class="btn btn-primary">Back</a>
                                
                             </div>
                             <div class="form-group">
@@ -124,6 +123,7 @@
         });
 
         function resetFunction() {
+            $('#Account_Head_Id option:first').prop('selected', true);
             $('#Type option:first').prop('selected', true); //clear
             $("#Spent_Date").val("");
             $("#Amount").val("");
@@ -136,7 +136,7 @@
             if (message == "Successfully Update") {
                 swal("Successful", "Successfully Update", "success").then(function () {
                     resetFunction();
-                    window.location = "/Accounting/Search";
+                    window.location = "/Accounting/ExpenseSearch";
                 });
             }
 

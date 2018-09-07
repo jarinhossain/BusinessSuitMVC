@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Business_SuitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account_Head_TB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Main_Account_Id" Type="int" />
+        </EntityType>
         <EntityType Name="CDR_Instant">
           <Key>
             <PropertyRef Name="Id" />
@@ -114,10 +122,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Account_Head_Id" Type="int" />
           <Property Name="Type" Type="int" />
           <Property Name="Amount" Type="float" />
           <Property Name="Description" Type="varchar" MaxLength="500" />
           <Property Name="Spent_Date" Type="datetime" />
+          <Property Name="Image" Type="bit" />
           <Property Name="Created_By" Type="int" />
           <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
@@ -149,6 +159,13 @@
           <Property Name="Server" Type="varchar" MaxLength="50" />
           <Property Name="Call_Unique_Id" Type="varchar" MaxLength="50" />
           <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Main_Accounts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Module">
           <Key>
@@ -394,6 +411,17 @@
           <Property Name="User_Id" Type="int" />
           <Property Name="User_Type" Type="int" />
         </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Display_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Updated_On" Type="datetime" />
+        </EntityType>
         <EntityType Name="Sippeers">
           <Key>
             <PropertyRef Name="Id" />
@@ -518,7 +546,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Display_Name" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <Association Name="FK__Client_Li__Distr__19AACF41">
+        <Association Name="FK__Client_Li__Distr__04E4BC85">
           <End Role="District" Type="Self.District" Multiplicity="0..1" />
           <End Role="Client_List" Type="Self.Client_List" Multiplicity="*" />
           <ReferentialConstraint>
@@ -530,7 +558,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Permissio__Modul__693CA210">
+        <Association Name="FK__Permissio__Modul__10566F31">
           <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
           <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -542,7 +570,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User_Logi__Clien__6FE99F9F">
+        <Association Name="FK__User_Logi__Clien__17036CC0">
           <End Role="Client_List" Type="Self.Client_List" Multiplicity="0..1" />
           <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
           <ReferentialConstraint>
@@ -554,7 +582,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User_Logi__Role___70DDC3D8">
+        <Association Name="FK__User_Logi__Role___17F790F9">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
           <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
           <ReferentialConstraint>
@@ -563,6 +591,18 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Principal>
             <Dependent Role="User_Login">
               <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_Head_TB_Main_Accounts">
+          <End Role="Main_Accounts" Type="Self.Main_Accounts" Multiplicity="0..1" />
+          <End Role="Account_Head_TB" Type="Self.Account_Head_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Main_Accounts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Account_Head_TB">
+              <PropertyRef Name="Main_Account_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -599,6 +639,30 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Principal>
             <Dependent Role="Client_Inventory">
               <PropertyRef Name="Profile_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expense_Account_Head_TB">
+          <End Role="Account_Head_TB" Type="Self.Account_Head_TB" Multiplicity="0..1" />
+          <End Role="Expense" Type="Self.Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account_Head_TB">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expense">
+              <PropertyRef Name="Account_Head_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expense_Expense_Type">
+          <End Role="Expense_Type" Type="Self.Expense_Type" Multiplicity="0..1" />
+          <End Role="Expense" Type="Self.Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Expense_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expense">
+              <PropertyRef Name="Type" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -819,6 +883,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Business_SuitModelStoreContainer">
+          <EntitySet Name="Account_Head_TB" EntityType="Self.Account_Head_TB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CDR_Instant" EntityType="Self.CDR_Instant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CDR_Obd" EntityType="Self.CDR_Obd" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client_Inventory" EntityType="Self.Client_Inventory" Schema="dbo" store:Type="Tables" />
@@ -828,6 +893,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <EntitySet Name="Expense" EntityType="Self.Expense" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Expense_Type" EntityType="Self.Expense_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Incoming_Calls" EntityType="Self.Incoming_Calls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Main_Accounts" EntityType="Self.Main_Accounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Module" EntityType="Self.Module" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Obd_Bulk" EntityType="Self.Obd_Bulk" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Obd_Request" EntityType="Self.Obd_Request" Schema="dbo" store:Type="Tables" />
@@ -843,6 +909,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <EntitySet Name="Remarks" EntityType="Self.Remarks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role_User" EntityType="Self.Role_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sippeers" EntityType="Self.Sippeers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Slip_Formats" EntityType="Self.Slip_Formats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sms_Bulk" EntityType="Self.Sms_Bulk" Schema="dbo" store:Type="Tables" />
@@ -864,21 +931,25 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
 [Tokens].[Deleted_On] AS [Deleted_On]
 FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__Client_Li__Distr__19AACF41" Association="Self.FK__Client_Li__Distr__19AACF41">
+          <AssociationSet Name="FK__Client_Li__Distr__04E4BC85" Association="Self.FK__Client_Li__Distr__04E4BC85">
             <End Role="District" EntitySet="District" />
             <End Role="Client_List" EntitySet="Client_List" />
           </AssociationSet>
-          <AssociationSet Name="FK__Permissio__Modul__693CA210" Association="Self.FK__Permissio__Modul__693CA210">
+          <AssociationSet Name="FK__Permissio__Modul__10566F31" Association="Self.FK__Permissio__Modul__10566F31">
             <End Role="Module" EntitySet="Module" />
             <End Role="Permission" EntitySet="Permission" />
           </AssociationSet>
-          <AssociationSet Name="FK__User_Logi__Clien__6FE99F9F" Association="Self.FK__User_Logi__Clien__6FE99F9F">
+          <AssociationSet Name="FK__User_Logi__Clien__17036CC0" Association="Self.FK__User_Logi__Clien__17036CC0">
             <End Role="Client_List" EntitySet="Client_List" />
             <End Role="User_Login" EntitySet="User_Login" />
           </AssociationSet>
-          <AssociationSet Name="FK__User_Logi__Role___70DDC3D8" Association="Self.FK__User_Logi__Role___70DDC3D8">
+          <AssociationSet Name="FK__User_Logi__Role___17F790F9" Association="Self.FK__User_Logi__Role___17F790F9">
             <End Role="Role" EntitySet="Role" />
             <End Role="User_Login" EntitySet="User_Login" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_Head_TB_Main_Accounts" Association="Self.FK_Account_Head_TB_Main_Accounts">
+            <End Role="Main_Accounts" EntitySet="Main_Accounts" />
+            <End Role="Account_Head_TB" EntitySet="Account_Head_TB" />
           </AssociationSet>
           <AssociationSet Name="FK_Client_Inventory_Client_List" Association="Self.FK_Client_Inventory_Client_List">
             <End Role="Client_List" EntitySet="Client_List" />
@@ -891,6 +962,14 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <AssociationSet Name="FK_Client_Inventory_User_Profile" Association="Self.FK_Client_Inventory_User_Profile">
             <End Role="User_Profile" EntitySet="User_Profile" />
             <End Role="Client_Inventory" EntitySet="Client_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expense_Account_Head_TB" Association="Self.FK_Expense_Account_Head_TB">
+            <End Role="Account_Head_TB" EntitySet="Account_Head_TB" />
+            <End Role="Expense" EntitySet="Expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expense_Expense_Type" Association="Self.FK_Expense_Expense_Type">
+            <End Role="Expense_Type" EntitySet="Expense_Type" />
+            <End Role="Expense" EntitySet="Expense" />
           </AssociationSet>
           <AssociationSet Name="FK_Obd_Bulk_Client_List" Association="Self.FK_Obd_Bulk_Client_List">
             <End Role="Client_List" EntitySet="Client_List" />
@@ -1032,6 +1111,10 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Is_Deleted" Type="Boolean" />
           <Property Name="Deleted_By" Type="Int32" />
           <Property Name="Deleted_On" Type="DateTime" Precision="3" />
+          <Property Name="Account_Head_Id" Type="Int32" />
+          <NavigationProperty Name="Account_Head_TB" Relationship="Business_SuitModel.FK_Expense_Account_Head_TB" FromRole="Expense" ToRole="Account_Head_TB" />
+          <NavigationProperty Name="Expense_Type" Relationship="Business_SuitModel.FK_Expense_Expense_Type" FromRole="Expense" ToRole="Expense_Type" />
+          <Property Name="Image" Type="Boolean" />
         </EntityType>
         <EntityType Name="Expense_Type">
           <Key>
@@ -1039,6 +1122,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Expenses" Relationship="Business_SuitModel.FK_Expense_Expense_Type" FromRole="Expense_Type" ToRole="Expense" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -1443,6 +1527,21 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <AssociationSet Name="FK_Obd_Bulk_Online_Order_Details" Association="Business_SuitModel.FK_Obd_Bulk_Online_Order_Details">
             <End Role="Online_Order_Details" EntitySet="Online_Order_Details" />
             <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
+          </AssociationSet>
+          <EntitySet Name="Account_Head_TB" EntityType="Business_SuitModel.Account_Head_TB" />
+          <EntitySet Name="Main_Accounts" EntityType="Business_SuitModel.Main_Accounts" />
+          <EntitySet Name="Roles1" EntityType="Business_SuitModel.Role1" />
+          <AssociationSet Name="FK_Account_Head_TB_Main_Accounts" Association="Business_SuitModel.FK_Account_Head_TB_Main_Accounts">
+            <End Role="Main_Accounts" EntitySet="Main_Accounts" />
+            <End Role="Account_Head_TB" EntitySet="Account_Head_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expense_Account_Head_TB" Association="Business_SuitModel.FK_Expense_Account_Head_TB">
+            <End Role="Account_Head_TB" EntitySet="Account_Head_TB" />
+            <End Role="Expense" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expense_Expense_Type" Association="Business_SuitModel.FK_Expense_Expense_Type">
+            <End Role="Expense_Type" EntitySet="Expense_Type" />
+            <End Role="Expense" EntitySet="Expenses" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Module">
@@ -1966,6 +2065,71 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Account_Head_TB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Main_Account_Id" Type="Int32" />
+          <NavigationProperty Name="Main_Accounts" Relationship="Business_SuitModel.FK_Account_Head_TB_Main_Accounts" FromRole="Account_Head_TB" ToRole="Main_Accounts" />
+          <NavigationProperty Name="Expenses" Relationship="Business_SuitModel.FK_Expense_Account_Head_TB" FromRole="Account_Head_TB" ToRole="Expense" />
+        </EntityType>
+        <EntityType Name="Main_Accounts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Account_Head_TB" Relationship="Business_SuitModel.FK_Account_Head_TB_Main_Accounts" FromRole="Main_Accounts" ToRole="Account_Head_TB" />
+        </EntityType>
+        <EntityType Name="Role1">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Display_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Account_Head_TB_Main_Accounts">
+          <End Type="Business_SuitModel.Main_Accounts" Role="Main_Accounts" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Account_Head_TB" Role="Account_Head_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Main_Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Account_Head_TB">
+              <PropertyRef Name="Main_Account_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expense_Account_Head_TB">
+          <End Type="Business_SuitModel.Account_Head_TB" Role="Account_Head_TB" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Expense" Role="Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account_Head_TB">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expense">
+              <PropertyRef Name="Account_Head_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expense_Expense_Type">
+          <End Type="Business_SuitModel.Expense_Type" Role="Expense_Type" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Expense" Role="Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Expense_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expense">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2018,6 +2182,8 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="Expenses">
             <EntityTypeMapping TypeName="Business_SuitModel.Expense">
               <MappingFragment StoreEntitySet="Expense">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Account_Head_Id" ColumnName="Account_Head_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
@@ -2513,6 +2679,35 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
                 <ScalarProperty Name="Ward" ColumnName="Ward" />
                 <ScalarProperty Name="Advertisement_Area" ColumnName="Advertisement_Area" />
                 <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Account_Head_TB">
+            <EntityTypeMapping TypeName="Business_SuitModel.Account_Head_TB">
+              <MappingFragment StoreEntitySet="Account_Head_TB">
+                <ScalarProperty Name="Main_Account_Id" ColumnName="Main_Account_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Main_Accounts">
+            <EntityTypeMapping TypeName="Business_SuitModel.Main_Accounts">
+              <MappingFragment StoreEntitySet="Main_Accounts">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles1">
+            <EntityTypeMapping TypeName="Business_SuitModel.Role1">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

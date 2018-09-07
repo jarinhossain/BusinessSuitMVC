@@ -12,16 +12,16 @@ namespace BusinessSuitMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Expense_Type
+    public partial class Main_Accounts
     {
-        public Expense_Type()
+        public Main_Accounts()
         {
-            this.Expenses = new HashSet<Expense>();
+            this.Account_Head_TB = new HashSet<Account_Head_TB>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
     
-        public virtual ICollection<Expense> Expenses { get; set; }
+        public virtual ICollection<Account_Head_TB> Account_Head_TB { get; set; }
     }
 }

@@ -59,5 +59,8 @@ namespace BusinessSuitMVC.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<Offline_Order_Details> Offline_Order_Details { get; set; }
         public DbSet<Online_Order_Details> Online_Order_Details { get; set; }
+        public DbSet<Account_Head_TB> Account_Head_TB { get; set; }
+        public DbSet<Main_Accounts> Main_Accounts { get; set; }
+        public DbSet<Role1> Roles1 { get; set; }
     }
 }
