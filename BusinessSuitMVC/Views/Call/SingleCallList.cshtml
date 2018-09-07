@@ -29,72 +29,77 @@
                             <!--contents start-->
                             @if (Model != null)
                             {
-                                <table class="table">
-                                    <tr>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Mobile)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Context)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Last_App)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Status)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Disposition)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Bill_Sec)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Duration)
-                                        </th>
-                                        <th>
-                                            @Html.DisplayNameFor(model => model.Remarks)
-                                        </th>
+                                <table class="table table-bordered table-responsive table-striped display nowrap" id="example" style="display:block">
 
-                                        <th></th>
-                                    </tr>
-
-                                    @foreach (var item in Model)
-                                    {
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Mobile)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Context)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Last_App)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Status)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Disposition)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Bill_Sec)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Duration)
-                                            </td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Remarks)
-                                            </td>
-                                            <td>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Mobile)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Context)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Last_App)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Status)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Disposition)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Bill_Sec)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Duration)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Remarks)
+                                            </th>
 
-                                                @*<td>
-                                                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                                                    </td>*@
+                                         
                                         </tr>
-                                    }
+
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Mobile)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Context)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Last_App)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Status)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Disposition)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Bill_Sec)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Duration)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Remarks)
+                                                </td>
+
+
+                                                    @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>*@
+                                            </tr>
+                                        }
+                                    </tbody>
                                 </table>
                             }
                             else
@@ -108,4 +113,50 @@
     </section>
 </section>
 
+@section contents{
+    <link rel="stylesheet" href="~/layouts/adminTemplate/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    @*<link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />*@
+    @*<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />*@
+}
+@section scripts{
 
+
+    <script src="~/Script/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="~/layouts/adminTemplate/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            //$('#example tfoot th').each(function () {
+            //    var title = $(this).text();
+            //    $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+            //});
+
+            var table = $('#example').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+
+                    'excelHtml5',
+                    'pdfHtml5'
+                ]
+            });
+
+            //// Apply the search
+            //table.columns().every(function () {
+            //    var that = this;
+
+            //    $('input', this.footer()).on('keyup change', function () {
+            //        if (that.search() !== this.value) {
+            //            that
+            //                .search(this.value)
+            //                .draw();
+            //        }
+            //    });
+            //});
+        });
+    </script>
+
+}
