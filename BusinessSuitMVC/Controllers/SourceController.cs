@@ -333,7 +333,7 @@ namespace BusinessSuitMVC.Controllers
 
             List<Number> numberList = (from num in Numeral_DB.Numbers
                                        where num.Source_Id == id
-                                            select num).ToList();
+                                            select num).OrderByDescending(x => x.Created_On).ToList();
             Source source = Numeral_DB.Sources.Find(id);
             ViewData["ward"] = source.Ward;
             ViewData["contactName"] = source.Contact_Name;
