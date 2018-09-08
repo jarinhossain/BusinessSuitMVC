@@ -36,7 +36,7 @@
                                     <th>Spent_Date</th>
                                     <th>Amount</th>
                                     <th>Description</th>
-
+                                    <th>Image</th>
                                 </tr>
                             <thead>
                             <tbody>
@@ -49,6 +49,20 @@
                                         <td>@expense.Spent_Date</td>
                                         <td>@expense.Amount</td>
                                         <td>@expense.Description</td>
+                                        <td>
+                                        @if (expense.Extension == ".pdf")
+                                        {
+                                            <a href="~/Images/Expense/E_@(expense.Id + expense.Extension)" target="_blank">View PDF</a>
+                                        }
+                                        else if(expense.Extension != null)
+                                        {
+                                            <a href="~/Images/Expense/E_@(expense.Id + expense.Extension)" target="_blank" style="max-height:42px">
+                                                <img style="max-height:42px" alt="No Image" src="~/Images/Expense/E_@(expense.Id + expense.Extension)" />
+
+                                            </a>
+                                        }
+                                    </td>
+                                        @*<img style="max-height:42px" src="~/Images/Expense/E_@(expense.Id)@expense.Extension" />*@
                                     </tr>
 
                                 }

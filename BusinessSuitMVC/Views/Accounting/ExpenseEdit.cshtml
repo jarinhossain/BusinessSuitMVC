@@ -27,7 +27,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Create</h3>
                     </div>
-                    @using (Html.BeginForm("ExpenseEdit", "Accounting", FormMethod.Post, new { @class = "form-horizontal" }))
+                    @using (Html.BeginForm("ExpenseEdit", "Accounting", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
                     {
                         <div class="box-body">
                             @Html.HiddenFor(m => m.Id)
@@ -67,12 +67,35 @@
                                     @Html.TextAreaFor(m => m.Description, new { @Class = "form-control", @rows = "3" })
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Image</label>
+                                <div class="col-md-5">
+                                    <input type="file" id="image" name="image" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-4">
 
+                                    @if (Model.Extension == ".pdf")
+                                    {
+                                        <a href="~/Images/Expense/E_@(Model.Id + Model.Extension)" target="_blank">View PDF</a>
+                                    }
+                                    else if (Model.Extension != null)
+                                    {
+                                        <a href="~/Images/Expense/E_@(Model.Id + Model.Extension)" target="_blank" style="max-height:42px">
+                                            <img style="max-height:42px" alt="No Image" src="~/Images/Expense/E_@(Model.Id + Model.Extension)" />
+
+                                        </a>
+                                    }
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="col-md-3"></div>
 
                                 <input type="submit" value="Update" style="margin-left:15px" class="btn btn-info" />
-                               <a href="~/Accounting/ExpenseSearch" class="btn btn-primary">Back</a>
+                               @*<a href="~/Accounting/ExpenseSearch" class="btn btn-primary">Back</a>*@
+                                <input type="button" value="Reset" id="reset" class="btn btn-info" />
                                
                             </div>
                             <div class="form-group">

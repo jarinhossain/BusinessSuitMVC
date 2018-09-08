@@ -128,6 +128,7 @@
           <Property Name="Description" Type="varchar" MaxLength="500" />
           <Property Name="Spent_Date" Type="datetime" />
           <Property Name="Image" Type="bit" />
+          <Property Name="Extension" Type="varchar" MaxLength="10" />
           <Property Name="Created_By" Type="int" />
           <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
@@ -1115,6 +1116,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <NavigationProperty Name="Account_Head_TB" Relationship="Business_SuitModel.FK_Expense_Account_Head_TB" FromRole="Expense" ToRole="Account_Head_TB" />
           <NavigationProperty Name="Expense_Type" Relationship="Business_SuitModel.FK_Expense_Expense_Type" FromRole="Expense" ToRole="Expense_Type" />
           <Property Name="Image" Type="Boolean" />
+          <Property Name="Extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Expense_Type">
           <Key>
@@ -2182,6 +2184,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="Expenses">
             <EntityTypeMapping TypeName="Business_SuitModel.Expense">
               <MappingFragment StoreEntitySet="Expense">
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Account_Head_Id" ColumnName="Account_Head_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

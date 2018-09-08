@@ -71,13 +71,18 @@ namespace BusinessSuitMVC.Controllers
             else
             {
                 expense.Image = file != null && file.ContentLength > 0 ? true : false;
+                expense.Created_By = int.Parse(Session["Login_Id"].ToString());
                 DB.Expenses.Add(expense);
                 DB.SaveChanges();
+
                 if (file != null && file.ContentLength > 0)
                 {
                     string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                    expense.Extension = extension;
                     string path = Path.Combine(Server.MapPath("~/Images/Expense"), "E_" + expense.Id + extension);
                     file.SaveAs(path);/// file save
+                    DB.SaveChanges();
+
                 }
                 ViewData["msg"] = "Successfully Saved";
             }
@@ -87,6 +92,7 @@ namespace BusinessSuitMVC.Controllers
         {
             DBContext DB = new DBContext();
             List<Account_Head_TB> account = (from dis in DB.Account_Head_TB
+                                             where dis.Main_Account_Id == 5 ///only load expense account head
                                        select dis).ToList();
             List<SelectListItem> accountDropdown = new List<SelectListItem>();
             foreach (var item in account)
@@ -131,6 +137,22 @@ namespace BusinessSuitMVC.Controllers
 
             ViewData["accounthd"] = loadAccountHead();
             ViewData["typ"] = loadExpenseType();
+            HttpPostedFileBase file = null;
+            try { file = Request.Files[0]; } catch { }
+
+            if (file != null && file.ContentLength > 0)
+            {
+                string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                if (extension == ".jpg" || extension == ".pdf" || extension == ".png")
+                {
+                    ///do nothing
+                }
+                else
+                {
+                    ViewData["msg"] = "Failed to Save User Information! Allowed image format is .jpg";
+                    return View();
+                }
+            }
             string validation = ValidateExpense(expens);
 
             if(validation != "true")
@@ -149,11 +171,22 @@ namespace BusinessSuitMVC.Controllers
                 expense.Spent_Date = expens.Spent_Date;
                 expense.Amount = expens.Amount;
                 expense.Description = expens.Description;
-
+                expense.Image = file != null && file.ContentLength > 0 ? true : expens.Image;
+                expense.Updated_By = int.Parse(Session["Login_Id"].ToString());
+                expense.Updated_On = DateTime.Now;
                 DB.SaveChanges();
+                if (file != null && file.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                    expense.Extension = extension;
+                    string path = Path.Combine(Server.MapPath("~/Images/Expense"), "E_" + expens.Id + extension);
+                    file.SaveAs(path);/// file save
+                    DB.SaveChanges();
+
+                }
                 ViewData["msg"] = "Successfully Update";
             }
-            return View();
+            return View(expens);
         }
 
         [HttpGet]

@@ -28,6 +28,7 @@ namespace BusinessSuitMVC.Models
         public Nullable<System.DateTime> Deleted_On { get; set; }
         public Nullable<int> Account_Head_Id { get; set; }
         public Nullable<bool> Image { get; set; }
+        public string Extension { get; set; }
     
         public virtual Account_Head_TB Account_Head_TB { get; set; }
         public virtual Expense_Type Expense_Type { get; set; }
