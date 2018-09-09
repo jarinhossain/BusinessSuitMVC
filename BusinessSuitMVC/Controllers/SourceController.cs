@@ -22,7 +22,7 @@ namespace BusinessSuitMVC.Controllers
             ViewData["SourceList"] = loadTypeDropDown();
             ViewData["District"] = loadDistrictDropdown();
             ViewData["Division"] = loadDivisionDropDown();
-
+            ViewData["constituencylist"] = loadConstituencydropdown();
 
             return View();
             //  return View();
@@ -33,7 +33,10 @@ namespace BusinessSuitMVC.Controllers
         {
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
-
+            ViewData["SourceList"] = loadTypeDropDown();
+            ViewData["District"] = loadDistrictDropdown();
+            ViewData["Division"] = loadDivisionDropDown();
+            ViewData["constituencylist"] = loadConstituencydropdown();
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
 
@@ -70,6 +73,7 @@ namespace BusinessSuitMVC.Controllers
             ViewData["SourceList"] = loadTypeDropDown();
             ViewData["District"] = loadDistrictDropdown();
             ViewData["Division"] = loadDivisionDropDown();
+            ViewData["constituencylist"] = loadConstituencydropdown();
             return View();
         }
 
@@ -145,6 +149,7 @@ namespace BusinessSuitMVC.Controllers
             ViewData["SourceList"] = loadTypeDropDown();
             ViewData["District"] = loadDistrictDropdown();
             ViewData["Division"] = loadDivisionDropDown();
+            ViewData["constituencylist"] = loadConstituencydropdown();
             Numeral_DBContext DB = new Numeral_DBContext();
             Source source = (from user in DB.Sources
                              where user.Id == id
@@ -190,6 +195,7 @@ namespace BusinessSuitMVC.Controllers
                 Source.Mobile2 = source.Mobile2;
                 Source.Division_Id = source.Division_Id;
                 Source.District_Id = source.District_Id;
+                Source.Constituency_List_Id = source.Constituency_List_Id;
                 Source.Ward = source.Ward;
                 Source.Address = source.Address;
                 Source.Image = file != null && file.ContentLength > 0 ? true : source.Image;
@@ -205,6 +211,7 @@ namespace BusinessSuitMVC.Controllers
             ViewData["SourceList"] = loadTypeDropDown();
             ViewData["District"] = loadDistrictDropdown();
             ViewData["Division"] = loadDivisionDropDown();
+            ViewData["constituencylist"] = loadConstituencydropdown();
             return View(source);
         }
 
@@ -407,6 +414,18 @@ namespace BusinessSuitMVC.Controllers
                 typeDropdown.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
             }
             return typeDropdown;
+        }
+        public List<SelectListItem> loadConstituencydropdown()
+        {
+            Numeral_DBContext DB = new Numeral_DBContext();
+            List<Constituency_List> cons1 = (from con in DB.Constituency_List
+                                       select con).ToList();
+            List<SelectListItem> Constituenciesdrp = new List<SelectListItem>();
+            foreach (var item in cons1)
+            {
+                Constituenciesdrp.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
+            }
+            return Constituenciesdrp;
         }
     }
     public class SuggestMobile

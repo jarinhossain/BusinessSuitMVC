@@ -88,6 +88,50 @@ namespace BusinessSuitMVC.Controllers
             }
             return View();
         }
+        [HttpGet]
+        public ActionResult Expensetypecreate()
+        {
+           
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Expensetypecreate(Expense_Type expense)
+        {
+           
+            DBContext db = new DBContext();
+            db.Expense_Type.Add(expense);
+            db.SaveChanges();
+            ViewData["msg"] = "Successfully Saved";
+            return View();
+
+        }
+        [HttpGet]
+        public ActionResult ExpenseTypeEdit(int id)
+        {
+
+
+            Expense_Type expense = (from user in DB.Expense_Type
+                               where user.Id == id
+                               select user).FirstOrDefault();
+
+            return View(expense);
+        }
+
+        [HttpPost]
+        public ActionResult ExpenseTypeEdit(Expense_Type expens)
+        {
+           
+                DBContext DB = new DBContext();
+            Expense_Type expense = (from user in DB.Expense_Type
+                                   where user.Id == expens.Id
+                                   select user).FirstOrDefault();
+
+                expense.Name = expens.Name;
+                DB.SaveChanges();
+                ViewData["msg"] = "Successfully Update";
+            
+            return View(expens);
+        }
         public List<SelectListItem> loadAccountHead()
         {
             DBContext DB = new DBContext();
@@ -202,7 +246,85 @@ namespace BusinessSuitMVC.Controllers
 
             return View(expense);
         }
+        [HttpGet]
+        public ActionResult ExpenseTypeSearch()
+        {
+          
 
+            DBContext DB = new DBContext();
+
+            List<Expense_Type> expense = (from expens in DB.Expense_Type
+                                     select expens).ToList();
+
+            return View(expense);
+        }
+        [HttpGet]
+        public ActionResult AccountHeadCreate()
+        {
+            ViewData["MainAccountList"] = LoadMainAccount();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AccountHeadCreate(Account_Head_TB acount)
+        {
+            ViewData["MainAccountList"] = LoadMainAccount();
+            DBContext db = new DBContext();
+            db.Account_Head_TB.Add(acount);
+            db.SaveChanges();
+            ViewData["msg"] = "Successfully Saved";
+            return View();
+        }
+        [HttpGet]
+        public ActionResult AccountHeadEdit(int id)
+        {
+            ViewData["MainAccountList"] = LoadMainAccount();
+            DBContext db = new DBContext();
+            Account_Head_TB account = (from ac in db.Account_Head_TB
+                                       where ac.Id == id
+                                       select ac).FirstOrDefault();
+
+
+            return View(account);
+        }
+        [HttpPost]
+        public ActionResult AccountHeadEdit(Account_Head_TB account)
+        {
+            ViewData["MainAccountList"] = LoadMainAccount();
+            DBContext db = new DBContext();
+            Account_Head_TB accoun = (from ac in db.Account_Head_TB
+                                      where ac.Id == account.Id
+                                      select ac).FirstOrDefault();
+
+            accoun.Name = account.Name;
+            db.SaveChanges();
+
+            ViewData["msg"] = "Successfully Updated";
+            return View(account);
+        }
+        [HttpGet]
+        public ActionResult AccountheadSearch()
+        {
+
+
+            DBContext DB = new DBContext();
+
+            List<Account_Head_TB> expense = (from client in DB.Account_Head_TB
+                                             select client).ToList();
+
+            return View(expense);
+        }
+        public List<SelectListItem> LoadMainAccount()
+        {
+            DBContext DB = new DBContext();
+            List<Main_Accounts> mainaccount = (from main in DB.Main_Accounts
+                                               select main).ToList();
+            List<SelectListItem> gen = new List<SelectListItem>();
+            foreach (var item in mainaccount)
+            {
+                gen.Add(new SelectListItem() { Value = item.ID.ToString(), Text = item.Name });
+            }
+            return gen;
+        }
         public string ValidateExpense(Expense expense)
         {
             if (expense.Type == null)

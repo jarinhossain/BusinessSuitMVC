@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="numeralDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Constituency_List">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Number_Details">
           <Key>
             <PropertyRef Name="Id" />
@@ -68,6 +75,7 @@
           <Property Name="Remarks" Type="varchar" MaxLength="500" />
           <Property Name="Division_Id" Type="int" />
           <Property Name="District_Id" Type="int" />
+          <Property Name="Constituency_List_Id" Type="int" />
           <Property Name="Image" Type="bit" />
           <Property Name="Ward" Type="int" />
           <Property Name="Address" Type="varchar" MaxLength="300" />
@@ -104,6 +112,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Sources_Constituency_List">
+          <End Role="Constituency_List" Type="Self.Constituency_List" Multiplicity="0..1" />
+          <End Role="Sources" Type="Self.Sources" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Constituency_List">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sources">
+              <PropertyRef Name="Constituency_List_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Sources_Source_Type">
           <End Role="Source_Type" Type="Self.Source_Type" Multiplicity="0..1" />
           <End Role="Sources" Type="Self.Sources" Multiplicity="*" />
@@ -117,6 +137,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="numeralDBModelStoreContainer">
+          <EntitySet Name="Constituency_List" EntityType="Self.Constituency_List" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Number_Details" EntityType="Self.Number_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Numbers" EntityType="Self.Numbers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Operators" EntityType="Self.Operators" Schema="dbo" store:Type="Tables" />
@@ -129,6 +150,10 @@
           <AssociationSet Name="FK_Numbers_Sources" Association="Self.FK_Numbers_Sources">
             <End Role="Sources" EntitySet="Sources" />
             <End Role="Numbers" EntitySet="Numbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sources_Constituency_List" Association="Self.FK_Sources_Constituency_List">
+            <End Role="Constituency_List" EntitySet="Constituency_List" />
+            <End Role="Sources" EntitySet="Sources" />
           </AssociationSet>
           <AssociationSet Name="FK_Sources_Source_Type" Association="Self.FK_Sources_Source_Type">
             <End Role="Source_Type" EntitySet="Source_Type" />
@@ -195,6 +220,8 @@
           <Property Name="Source_Type_Id" Type="Int32" />
           <NavigationProperty Name="Source_Type" Relationship="numeralDBModel.FK_Sources_Source_Type" FromRole="Source" ToRole="Source_Type1" />
           <Property Name="Is_Client" Type="Boolean" />
+          <Property Name="Constituency_List_Id" Type="Int32" />
+          <NavigationProperty Name="Constituency_List" Relationship="numeralDBModel.FK_Sources_Constituency_List" FromRole="Source" ToRole="Constituency_List" />
         </EntityType>
         <Association Name="FK_Numbers_Operators">
           <End Role="Operators" Type="Self.Operator" Multiplicity="0..1" />
@@ -238,6 +265,11 @@
             <End Role="Source" EntitySet="Sources" />
           </AssociationSet>
           <EntitySet Name="Number_Details" EntityType="numeralDBModel.Number_Details" />
+          <EntitySet Name="Constituency_List" EntityType="numeralDBModel.Constituency_List" />
+          <AssociationSet Name="FK_Sources_Constituency_List" Association="numeralDBModel.FK_Sources_Constituency_List">
+            <End Role="Constituency_List" EntitySet="Constituency_List" />
+            <End Role="Source" EntitySet="Sources" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Source_Type">
           <Key>
@@ -275,6 +307,26 @@
           <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="Constituency_List">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Sources" Relationship="numeralDBModel.FK_Sources_Constituency_List" FromRole="Constituency_List" ToRole="Source" />
+        </EntityType>
+        <Association Name="FK_Sources_Constituency_List">
+          <End Type="numeralDBModel.Constituency_List" Role="Constituency_List" Multiplicity="0..1" />
+          <End Type="numeralDBModel.Source" Role="Source" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Constituency_List">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Source">
+              <PropertyRef Name="Constituency_List_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -311,6 +363,7 @@
           <EntitySetMapping Name="Sources">
             <EntityTypeMapping TypeName="numeralDBModel.Source">
               <MappingFragment StoreEntitySet="Sources">
+                <ScalarProperty Name="Constituency_List_Id" ColumnName="Constituency_List_Id" />
                 <ScalarProperty Name="Is_Client" ColumnName="Is_Client" />
                 <ScalarProperty Name="Source_Type_Id" ColumnName="Source_Type_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -356,6 +409,14 @@
                 <ScalarProperty Name="Last_Succeeded_Sms_Date" ColumnName="Last_Succeeded_Sms_Date" />
                 <ScalarProperty Name="Sms_Succeed" ColumnName="Sms_Succeed" />
                 <ScalarProperty Name="Sms_Tried" ColumnName="Sms_Tried" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Constituency_List">
+            <EntityTypeMapping TypeName="numeralDBModel.Constituency_List">
+              <MappingFragment StoreEntitySet="Constituency_List">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

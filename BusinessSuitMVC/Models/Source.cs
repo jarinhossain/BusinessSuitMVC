@@ -41,8 +41,10 @@ namespace BusinessSuitMVC.Models
         public Nullable<System.DateTime> Deleted_On { get; set; }
         public Nullable<int> Source_Type_Id { get; set; }
         public Nullable<bool> Is_Client { get; set; }
+        public Nullable<int> Constituency_List_Id { get; set; }
     
         public virtual ICollection<Number> Numbers { get; set; }
         public virtual Source_Type Source_Type { get; set; }
+        public virtual Constituency_List Constituency_List { get; set; }
     }
 }

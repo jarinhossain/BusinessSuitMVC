@@ -1,114 +1,75 @@
-jQuery(document).ready(function($) {
-  "use strict";
+$(document).ready(function () {
+    $("form").submit(function (event) {
 
-  //Contact
-  $('form.contactForm').submit(function() {
-    var f = $(this).find('.form-group'),
-      ferror = false,
-      emailExp = /^[^\s()<>@,;:\/]+@\w[\w\.-]+\.[a-z]{2,}$/i;
-
-    f.children('input').each(function() { // run all inputs
-
-      var i = $(this); // current input
-      var rule = i.attr('data-rule');
-
-      if (rule !== undefined) {
-        var ierror = false; // error flag for current input
-        var pos = rule.indexOf(':', 0);
-        if (pos >= 0) {
-          var exp = rule.substr(pos + 1, rule.length);
-          rule = rule.substr(0, pos);
-        } else {
-          rule = rule.substr(pos + 1, rule.length);
+        if ($("#FullName").val() == "") {
+            event.preventDefault();
+            swal("Failed", "FullName is required", "error").then(function () {
+                $("#FullName").focus();
+            });
         }
-
-        switch (rule) {
-          case 'required':
-            if (i.val() === '') {
-              ferror = ierror = true;
-            }
-            break;
-
-          case 'minlen':
-            if (i.val().length < parseInt(exp)) {
-              ferror = ierror = true;
-            }
-            break;
-
-          case 'email':
-            if (!emailExp.test(i.val())) {
-              ferror = ierror = true;
-            }
-            break;
-
-          case 'checked':
-            if (!i.attr('checked')) {
-              ferror = ierror = true;
-            }
-            break;
-
-          case 'regexp':
-            exp = new RegExp(exp);
-            if (!exp.test(i.val())) {
-              ferror = ierror = true;
-            }
-            break;
+        else if ($("#Email").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Email is required", "error").then(function () {
+                $("#Email").focus();
+            });
         }
-        i.next('.validation').html((ierror ? (i.attr('data-msg') !== undefined ? i.attr('data-msg') : 'wrong Input') : '')).show('blind');
-      }
-    });
-    f.children('textarea').each(function() { // run all inputs
-
-      var i = $(this); // current input
-      var rule = i.attr('data-rule');
-
-      if (rule !== undefined) {
-        var ierror = false; // error flag for current input
-        var pos = rule.indexOf(':', 0);
-        if (pos >= 0) {
-          var exp = rule.substr(pos + 1, rule.length);
-          rule = rule.substr(0, pos);
-        } else {
-          rule = rule.substr(pos + 1, rule.length);
+        else if ($("#Phone").val() == "" || $("#Phone").val().length != 11) {
+            event.preventDefault();
+            swal("Failed", "Phone is required", "error").then(function () {
+                $("#Phone").focus();
+            });
         }
-
-        switch (rule) {
-          case 'required':
-            if (i.val() === '') {
-              ferror = ierror = true;
-            }
-            break;
-
-          case 'minlen':
-            if (i.val().length < parseInt(exp)) {
-              ferror = ierror = true;
-            }
-            break;
+        else if ($("#Subject").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Subject is required", "error").then(function () {
+                $("#Subject").focus();
+            });
         }
-        i.next('.validation').html((ierror ? (i.attr('data-msg') != undefined ? i.attr('data-msg') : 'wrong Input') : '')).show('blind');
-      }
-    });
-    if (ferror) return false;
-    else var str = $(this).serialize();
-    $.ajax({
-      type: "POST",
-      url: "contactform/contactform.php",
-      data: str,
-      success: function(msg) {
-        // alert(msg);
-        if (msg == 'OK') {
-          $("#sendmessage").addClass("show");
-          $("#errormessage").removeClass("show");
-          $('.contactForm').find("input, textarea").val("");
-        } else {
-          $("#sendmessage").removeClass("show");
-          $("#errormessage").addClass("show");
-          $('#errormessage').html(msg);
+        else if ($("#City").val() == "") {
+            event.preventDefault();
+            swal("Failed", "City is required", "error").then(function () {
+                $("#City").focus();
+            });
         }
+        else if ($("#Message").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Message is required", "error").then(function () {
+                $("#Message").focus();
+            });
+        }
+        else {
+            event.preventDefault();
+           
+            $.ajax({
+                url: "/Home/Index",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    FullName: $("#FullName").val(),
+                    Email: $("#Email").val(),
+                    Phone: $("#Phone").val(),
+                    Subject: $("#Subject").val(),
+                    Job_Title: $("#Job_Title").val(),
+                    Company_Name: $("#Company_Name").val(),
+                    City: $("#City").val(),
+                    postal_code: $("#postal_code").val(),
+                    Address: $("#Address").val(),
+                    Message: $("#Message").val(),
+                },
 
-      }
-    });
-    return false;
+                success: function (data) {
+                    if (data == "true")
+                        swal("Success", "Successfully Saved", "success");
+                    else
+                        swal("Failed", data, "error");
+                    resetfunction();
+                },
+                error: function (data) {
+                    alert(data)
+                },
+
+            })
+        }
   });
 
 });

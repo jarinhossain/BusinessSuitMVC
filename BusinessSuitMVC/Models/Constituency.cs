@@ -12,27 +12,18 @@ namespace BusinessSuitMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Permission
+    public partial class Constituency
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Permission()
+        public Constituency()
         {
-            this.Permission_Role = new HashSet<Permission_Role>();
-            this.Permission_User = new HashSet<Permission_User>();
+            this.Client_List = new HashSet<Client_List>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Display_Name { get; set; }
-        public string Description { get; set; }
-        public Nullable<int> Module_Id { get; set; }
-        public Nullable<System.DateTime> Created_On { get; set; }
-        public Nullable<System.DateTime> Updated_On { get; set; }
     
-        public virtual Module Module { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Permission_Role> Permission_Role { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Permission_User> Permission_User { get; set; }
+        public virtual ICollection<Client_List> Client_List { get; set; }
     }
 }

@@ -10,13 +10,7 @@
     //District.Add(new SelectListItem() { Value = "2", Text = "Khulna" });
 
 
-    List<SelectListItem> Clienttype = new List<SelectListItem>();
-    Clienttype.Add(new SelectListItem() { Value = "1", Text = "Councillor" });
-    Clienttype.Add(new SelectListItem() { Value = "2", Text = "General Councillor" });
-    Clienttype.Add(new SelectListItem() { Value = "6", Text = "Councillor Supporter" });
-    Clienttype.Add(new SelectListItem() { Value = "3", Text = "Mayor" });
-    Clienttype.Add(new SelectListItem() { Value = "4", Text = "Panel Mayor" });
-    Clienttype.Add(new SelectListItem() { Value = "5", Text = "School Committee" });
+   
 
     List<SelectListItem> position = new List<SelectListItem>();
     position.Add(new SelectListItem() { Value = "1", Text = "Current" });
@@ -87,7 +81,12 @@
                                     @Html.TextBoxFor(m => m.Email, new { @Class = "form-control" })
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Constituency<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
+                                    @Html.DropDownList("Constituency_Id", (List<SelectListItem>)ViewData["constituencyList"], "Select Constituency", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>
                             <div class="form-group">
                                 @*@Html.Label("Ward", new { @class = "control-label col-md-1" })*@
                                 <label class="control-label col-md-3">Ward<span style="color:red;">*</span> </label>
@@ -113,10 +112,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                @*@Html.Label("Client_Type", new { @class = "control-label col-md-1" })*@
-                                <label class="control-label col-md-3">Client Type <span style="color:red;">*</span> </label>
+                                <label class="control-label col-md-3">Party<span style="color:red;">*</span> </label>
                                 <div class="col-md-5">
-                                    @Html.DropDownList("Client_Type", @Clienttype, "Select Client Type", new { @class = "form-control editor-field" })
+                                    @Html.DropDownList("Party_Id", (List<SelectListItem>)ViewData["partyList"], "Select Party", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Client Type<span style="color:red;">*</span> </label>
+                                <div class="col-md-5">
+                                    @Html.DropDownList("Client_Type_Id", (List<SelectListItem>)ViewData["ClienttypList"], "Select Client Type", new { @class = "form-control editor-field" })
                                 </div>
                             </div>
                             <div class="form-group">
@@ -217,7 +221,7 @@
         $("#ward").val("");
         $("#District").val("");
         $("#Address").val("");
-        $("#Client_Type").val("");
+        $("#Client_Type_Id").val("");
         $("#Present_Position").val("");
         $("#Remarks").val("");
         // $("#Is_Elected").val("");

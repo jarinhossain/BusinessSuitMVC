@@ -12,16 +12,20 @@ namespace BusinessSuitMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class ContactTB
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string FullName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
-        public string Remember_Token { get; set; }
+        public string Phone { get; set; }
+        public string Subject { get; set; }
+        public string Job_Title { get; set; }
+        public string Company_Name { get; set; }
+        public string City { get; set; }
+        public string postal_code { get; set; }
+        public string Address { get; set; }
+        public string Message { get; set; }
+        public string IP_Address { get; set; }
         public Nullable<System.DateTime> Created_On { get; set; }
-        public Nullable<System.DateTime> Updated_On { get; set; }
-        public Nullable<int> Created_By { get; set; }
-        public string User_Name { get; set; }
     }
 }

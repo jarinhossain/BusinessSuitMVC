@@ -30,5 +30,6 @@ namespace BusinessSuitMVC.Models
         public DbSet<Source> Sources { get; set; }
         public DbSet<Source_Type> Source_Type { get; set; }
         public DbSet<Number_Details> Number_Details { get; set; }
+        public DbSet<Constituency_List> Constituency_List { get; set; }
     }
 }

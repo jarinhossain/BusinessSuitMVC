@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Business_SuitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Business_SuitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account_Head_TB">
           <Key>
             <PropertyRef Name="Id" />
@@ -53,7 +53,7 @@
           <Property Name="Remarks" Type="varchar" MaxLength="20" />
           <Property Name="Server" Type="varchar" MaxLength="50" />
           <Property Name="Created_By" Type="int" />
-          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
         </EntityType>
@@ -87,19 +87,53 @@
           <Property Name="Mobile1" Type="varchar" MaxLength="50" />
           <Property Name="Mobile2" Type="varchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Constituency_Id" Type="int" />
           <Property Name="ward" Type="int" />
           <Property Name="District_Id" Type="int" />
           <Property Name="Address" Type="varchar" MaxLength="500" />
+          <Property Name="Party_Id" Type="int" />
+          <Property Name="Client_Type_Id" Type="int" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="Is_Elected" Type="bit" />
-          <Property Name="Client_Type" Type="int" />
           <Property Name="Image" Type="bit" />
           <Property Name="Present_Position" Type="int" />
-          <Property Name="Created_By" Type="int" StoreGeneratedPattern="Computed" />
+          <Property Name="Created_By" Type="int" />
           <Property Name="Created_On" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="Is_Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Client_Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Constituency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ContactTB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Subject" Type="varchar" MaxLength="50" />
+          <Property Name="Job_Title" Type="varchar" MaxLength="50" />
+          <Property Name="Company_Name" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="postal_code" Type="varchar" MaxLength="30" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="Message" Type="varchar" MaxLength="50" />
+          <Property Name="IP_Address" Type="varchar" MaxLength="50" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -269,7 +303,7 @@
           <Property Name="Marka" Type="varchar" MaxLength="50" />
           <Property Name="Marka_Image" Type="bit" />
           <Property Name="Created_By" Type="int" />
-          <Property Name="Ceated_On" Type="datetime" />
+          <Property Name="Ceated_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="Is_Deleted" Type="int" />
@@ -327,6 +361,13 @@
           <Property Name="Updated_By" Type="int" />
           <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_On" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PartyTB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -391,7 +432,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="Created_By" Type="int" />
-          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="None" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="updated_On" Type="datetime" />
         </EntityType>
@@ -449,7 +490,7 @@
           <Property Name="Start_Time" Type="datetime" />
           <Property Name="End_Time" Type="datetime" />
           <Property Name="Created_By" Type="int" />
-          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Sms_Request">
           <Key>
@@ -462,7 +503,7 @@
           <Property Name="End_Time" Type="datetime" />
           <Property Name="Locked_Time" Type="datetime" />
           <Property Name="Created_By" Type="int" />
-          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Status ">
           <Key>
@@ -497,12 +538,12 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Role_Id" Type="int" />
           <Property Name="User_Profile_Id" Type="int" />
           <Property Name="Is_Client" Type="bit" />
-          <Property Name="Is_Active" Type="bit" StoreGeneratedPattern="Computed" />
+          <Property Name="Is_Active" Type="bit" />
           <Property Name="Created_By" Type="int" />
           <Property Name="Ceated_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
-          <Property Name="Is_Deleted" Type="int" StoreGeneratedPattern="Computed" />
+          <Property Name="Is_Deleted" Type="int" />
           <Property Name="Deleted_By" Type="int" />
           <Property Name="Deleted_On" Type="datetime" />
           <Property Name="Client_Id" Type="int" />
@@ -534,7 +575,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="50" />
           <Property Name="Remember_Token" Type="varchar" MaxLength="50" />
-          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="Created_By" Type="int" />
           <Property Name="User_Name" Type="nchar" MaxLength="10" />
@@ -547,7 +588,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Display_Name" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <Association Name="FK__Client_Li__Distr__04E4BC85">
+        <Association Name="FK__Client_Li__Distr__5BAD9CC8">
           <End Role="District" Type="Self.District" Multiplicity="0..1" />
           <End Role="Client_List" Type="Self.Client_List" Multiplicity="*" />
           <ReferentialConstraint>
@@ -571,7 +612,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User_Logi__Clien__17036CC0">
+        <Association Name="FK__User_Logi__Clien__5AB9788F">
           <End Role="Client_List" Type="Self.Client_List" Multiplicity="0..1" />
           <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
           <ReferentialConstraint>
@@ -640,6 +681,42 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Principal>
             <Dependent Role="Client_Inventory">
               <PropertyRef Name="Profile_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_List_Client_Type">
+          <End Role="Client_Type" Type="Self.Client_Type" Multiplicity="0..1" />
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_List">
+              <PropertyRef Name="Client_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_List_Constituency">
+          <End Role="Constituency" Type="Self.Constituency" Multiplicity="0..1" />
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Constituency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_List">
+              <PropertyRef Name="Constituency_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_List_PartyTB">
+          <End Role="PartyTB" Type="Self.PartyTB" Multiplicity="0..1" />
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PartyTB">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_List">
+              <PropertyRef Name="Party_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -889,6 +966,9 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <EntitySet Name="CDR_Obd" EntityType="Self.CDR_Obd" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client_Inventory" EntityType="Self.Client_Inventory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client_List" EntityType="Self.Client_List" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client_Type" EntityType="Self.Client_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Constituency" EntityType="Self.Constituency" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactTB" EntityType="Self.ContactTB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Expense" EntityType="Self.Expense" Schema="dbo" store:Type="Tables" />
@@ -902,6 +982,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <EntitySet Name="Offline_Order_Details" EntityType="Self.Offline_Order_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Online_Order_Details" EntityType="Self.Online_Order_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PartyTB" EntityType="Self.PartyTB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission_Role" EntityType="Self.Permission_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission_User" EntityType="Self.Permission_User" Schema="dbo" store:Type="Tables" />
@@ -922,17 +1003,17 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <EntitySet Name="Voter_Slip_Image_Type" EntityType="Self.Voter_Slip_Image_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tokens" EntityType="Self.Tokens" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[Tokens].[Id] AS [Id], 
-[Tokens].[Token] AS [Token], 
-[Tokens].[Created_On] AS [Created_On], 
-[Tokens].[Updated_By] AS [Updated_By], 
-[Tokens].[Updated_On] AS [Updated_On], 
-[Tokens].[Is_Deleted] AS [Is_Deleted], 
-[Tokens].[Deleted_By] AS [Deleted_By], 
-[Tokens].[Deleted_On] AS [Deleted_On]
-FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
+    [Tokens].[Id] AS [Id], 
+    [Tokens].[Token] AS [Token], 
+    [Tokens].[Created_On] AS [Created_On], 
+    [Tokens].[Updated_By] AS [Updated_By], 
+    [Tokens].[Updated_On] AS [Updated_On], 
+    [Tokens].[Is_Deleted] AS [Is_Deleted], 
+    [Tokens].[Deleted_By] AS [Deleted_By], 
+    [Tokens].[Deleted_On] AS [Deleted_On]
+    FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__Client_Li__Distr__04E4BC85" Association="Self.FK__Client_Li__Distr__04E4BC85">
+          <AssociationSet Name="FK__Client_Li__Distr__5BAD9CC8" Association="Self.FK__Client_Li__Distr__5BAD9CC8">
             <End Role="District" EntitySet="District" />
             <End Role="Client_List" EntitySet="Client_List" />
           </AssociationSet>
@@ -940,7 +1021,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             <End Role="Module" EntitySet="Module" />
             <End Role="Permission" EntitySet="Permission" />
           </AssociationSet>
-          <AssociationSet Name="FK__User_Logi__Clien__17036CC0" Association="Self.FK__User_Logi__Clien__17036CC0">
+          <AssociationSet Name="FK__User_Logi__Clien__5AB9788F" Association="Self.FK__User_Logi__Clien__5AB9788F">
             <End Role="Client_List" EntitySet="Client_List" />
             <End Role="User_Login" EntitySet="User_Login" />
           </AssociationSet>
@@ -963,6 +1044,18 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <AssociationSet Name="FK_Client_Inventory_User_Profile" Association="Self.FK_Client_Inventory_User_Profile">
             <End Role="User_Profile" EntitySet="User_Profile" />
             <End Role="Client_Inventory" EntitySet="Client_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_List_Client_Type" Association="Self.FK_Client_List_Client_Type">
+            <End Role="Client_Type" EntitySet="Client_Type" />
+            <End Role="Client_List" EntitySet="Client_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_List_Constituency" Association="Self.FK_Client_List_Constituency">
+            <End Role="Constituency" EntitySet="Constituency" />
+            <End Role="Client_List" EntitySet="Client_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_List_PartyTB" Association="Self.FK_Client_List_PartyTB">
+            <End Role="PartyTB" EntitySet="PartyTB" />
+            <End Role="Client_List" EntitySet="Client_List" />
           </AssociationSet>
           <AssociationSet Name="FK_Expense_Account_Head_TB" Association="Self.FK_Expense_Account_Head_TB">
             <End Role="Account_Head_TB" EntitySet="Account_Head_TB" />
@@ -1049,6 +1142,83 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Business_SuitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account_Head_TB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Main_Account_Id" Type="Int32" />
+          <NavigationProperty Name="Main_Accounts" Relationship="Self.FK_Account_Head_TB_Main_Accounts" FromRole="Account_Head_TB" ToRole="Main_Accounts" />
+          <NavigationProperty Name="Expenses" Relationship="Self.FK_Expense_Account_Head_TB" FromRole="Account_Head_TB" ToRole="Expense" />
+        </EntityType>
+        <EntityType Name="CDR_Instant">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Context" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Last_App" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Start_Time" Type="DateTime" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Precision="3" />
+          <Property Name="Disposition" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Bill_Sec" Type="Int32" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <Property Name="Client_Id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="CDR_Obd">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Obd_Request_Id" Type="Int32" />
+          <Property Name="Client_Id" Type="Int32" />
+          <Property Name="Context" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Last_App" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Start_Time" Type="DateTime" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Precision="3" />
+          <Property Name="Disposition" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Bill_Sec" Type="Int32" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Server" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Client_Inventory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_Id" Type="Int32" />
+          <Property Name="Login_Id" Type="Int32" />
+          <Property Name="Profile_Id" Type="Int32" />
+          <Property Name="Free_Sms" Type="Int32" />
+          <Property Name="Free_Call" Type="Int32" />
+          <Property Name="Sms_Sent" Type="Int32" Nullable="false" />
+          <Property Name="Call_Sent" Type="Int32" Nullable="false" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <Property Name="Is_Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="Deleted_By" Type="Int32" />
+          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Client_List" Relationship="Self.FK_Client_Inventory_Client_List" FromRole="Client_Inventory" ToRole="Client_List" />
+          <NavigationProperty Name="User_Login" Relationship="Self.FK_Client_Inventory_User_Login" FromRole="Client_Inventory" ToRole="User_Login" />
+          <NavigationProperty Name="User_Profile" Relationship="Self.FK_Client_Inventory_User_Profile" FromRole="Client_Inventory" ToRole="User_Profile" />
+        </EntityType>
         <EntityType Name="Client_List">
           <Key>
             <PropertyRef Name="Id" />
@@ -1059,25 +1229,64 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Mobile1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Mobile2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Constituency_Id" Type="Int32" />
           <Property Name="ward" Type="Int32" />
+          <Property Name="District_Id" Type="Int32" />
           <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Client_Type_Id" Type="Int32" />
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Is_Elected" Type="Boolean" />
-          <Property Name="Client_Type" Type="Int32" />
           <Property Name="Image" Type="Boolean" />
           <Property Name="Present_Position" Type="Int32" />
-          <NavigationProperty Name="User_Login" Relationship="Business_SuitModel.FK__User_Logi__Clien__607251E5" FromRole="Client_List" ToRole="User_Login" />
-          <NavigationProperty Name="Client_Inventory" Relationship="Business_SuitModel.FK_Client_Inventory_Client_List" FromRole="Client_List" ToRole="Client_Inventory" />
-          <NavigationProperty Name="Obd_Ward_Details" Relationship="Business_SuitModel.FK_Obd_Ward_Details_Client_List" FromRole="Client_List" ToRole="Obd_Ward_Details" />
-          <Property Name="District_Id" Type="Int32" />
-          <NavigationProperty Name="District" Relationship="Business_SuitModel.FK__Client_Li__Distr__19AACF41" FromRole="Client_List" ToRole="District" />
-          <Property Name="Created_By" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Created_By" Type="Int32" />
           <Property Name="Created_On" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
           <Property Name="Is_Active" Type="Boolean" />
-          <NavigationProperty Name="Obd_Bulk" Relationship="Business_SuitModel.FK_Obd_Bulk_Client_List" FromRole="Client_List" ToRole="Obd_Bulk" />
-          <NavigationProperty Name="Orders" Relationship="Business_SuitModel.FK_Order_ClientId" FromRole="Client_List" ToRole="Order" />
+          <NavigationProperty Name="Client_Inventory" Relationship="Self.FK_Client_Inventory_Client_List" FromRole="Client_List" ToRole="Client_Inventory" />
+          <NavigationProperty Name="District" Relationship="Self.FK__Client_Li__Distr__4D5F7D71" FromRole="Client_List" ToRole="District" />
+          <NavigationProperty Name="User_Login" Relationship="Self.FK__User_Logi__Clien__4C6B5938" FromRole="Client_List" ToRole="User_Login" />
+          <NavigationProperty Name="Client_Type" Relationship="Self.FK_Client_List_Client_Type" FromRole="Client_List" ToRole="Client_Type" />
+          <NavigationProperty Name="Constituency" Relationship="Self.FK_Client_List_Constituency" FromRole="Client_List" ToRole="Constituency" />
+          <NavigationProperty Name="Obd_Bulk" Relationship="Self.FK_Obd_Bulk_Client_List" FromRole="Client_List" ToRole="Obd_Bulk" />
+          <NavigationProperty Name="Obd_Ward_Details" Relationship="Self.FK_Obd_Ward_Details_Client_List" FromRole="Client_List" ToRole="Obd_Ward_Details" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_ClientId" FromRole="Client_List" ToRole="Order" />
+          <Property Name="Party_Id" Type="Int32" />
+          <NavigationProperty Name="PartyTB" Relationship="Business_SuitModel.FK_Client_List_PartyTB" FromRole="Client_List" ToRole="PartyTB" />
+        </EntityType>
+        <EntityType Name="Client_Type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Client_List" Relationship="Self.FK_Client_List_Client_Type" FromRole="Client_Type" ToRole="Client_List" />
+        </EntityType>
+        <EntityType Name="Constituency">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Client_List" Relationship="Self.FK_Client_List_Constituency" FromRole="Constituency" ToRole="Client_List" />
+        </EntityType>
+        <EntityType Name="ContactTB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Subject" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Job_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="postal_code" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IP_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -1087,7 +1296,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Division_Id" Type="Int32" />
           <Property Name="Is_Hidden" Type="Boolean" />
-          <NavigationProperty Name="Client_List" Relationship="Business_SuitModel.FK__Client_Li__Distr__19AACF41" FromRole="District" ToRole="Client_List" />
+          <NavigationProperty Name="Client_List" Relationship="Self.FK__Client_Li__Distr__4D5F7D71" FromRole="District" ToRole="Client_List" />
         </EntityType>
         <EntityType Name="Division">
           <Key>
@@ -1101,10 +1310,13 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account_Head_Id" Type="Int32" />
           <Property Name="Type" Type="Int32" />
           <Property Name="Amount" Type="Double" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Spent_Date" Type="DateTime" Precision="3" />
+          <Property Name="Image" Type="Boolean" />
+          <Property Name="Extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Created_By" Type="Int32" />
           <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="Int32" />
@@ -1112,11 +1324,8 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Is_Deleted" Type="Boolean" />
           <Property Name="Deleted_By" Type="Int32" />
           <Property Name="Deleted_On" Type="DateTime" Precision="3" />
-          <Property Name="Account_Head_Id" Type="Int32" />
-          <NavigationProperty Name="Account_Head_TB" Relationship="Business_SuitModel.FK_Expense_Account_Head_TB" FromRole="Expense" ToRole="Account_Head_TB" />
-          <NavigationProperty Name="Expense_Type" Relationship="Business_SuitModel.FK_Expense_Expense_Type" FromRole="Expense" ToRole="Expense_Type" />
-          <Property Name="Image" Type="Boolean" />
-          <Property Name="Extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Account_Head_TB" Relationship="Self.FK_Expense_Account_Head_TB" FromRole="Expense" ToRole="Account_Head_TB" />
+          <NavigationProperty Name="Expense_Type" Relationship="Self.FK_Expense_Expense_Type" FromRole="Expense" ToRole="Expense_Type" />
         </EntityType>
         <EntityType Name="Expense_Type">
           <Key>
@@ -1124,7 +1333,209 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Expenses" Relationship="Business_SuitModel.FK_Expense_Expense_Type" FromRole="Expense_Type" ToRole="Expense" />
+          <NavigationProperty Name="Expenses" Relationship="Self.FK_Expense_Expense_Type" FromRole="Expense_Type" ToRole="Expense" />
+        </EntityType>
+        <EntityType Name="Incoming_Calls">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Context" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Start_Time" Type="DateTime" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Precision="3" />
+          <Property Name="Answer_Time" Type="DateTime" Precision="3" />
+          <Property Name="Disposition" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Bill_Sec" Type="Int32" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Server" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Call_Unique_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Main_Accounts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Account_Head_TB" Relationship="Self.FK_Account_Head_TB_Main_Accounts" FromRole="Main_Accounts" ToRole="Account_Head_TB" />
+        </EntityType>
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Permissions" Relationship="Self.FK__Permissio__Modul__10566F31" FromRole="Module" ToRole="Permission" />
+        </EntityType>
+        <EntityType Name="Obd_Bulk">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_Id" Type="Int32" />
+          <Property Name="Order_Details_Id" Type="Int32" />
+          <Property Name="Scheduled_Time" Type="DateTime" Precision="3" />
+          <Property Name="Start_Time" Type="DateTime" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Precision="3" />
+          <Property Name="Retry_Minutes" Type="Int32" />
+          <Property Name="Calls_Per_Sec" Type="Int32" />
+          <Property Name="Play_File" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Wait" Type="Int32" />
+          <Property Name="Total_Calls" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Is_Active" Type="Boolean" />
+          <Property Name="Priority" Type="Int32" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Client_List" Relationship="Self.FK_Obd_Bulk_Client_List" FromRole="Obd_Bulk" ToRole="Client_List" />
+          <NavigationProperty Name="Online_Order_Details" Relationship="Self.FK_Obd_Bulk_Online_Order_Details" FromRole="Obd_Bulk" ToRole="Online_Order_Details" />
+          <NavigationProperty Name="Obd_Request" Relationship="Self.FK_Obd_Request_Obd_Bulk" FromRole="Obd_Bulk" ToRole="Obd_Request" />
+          <NavigationProperty Name="Obd_Ward_Details" Relationship="Self.FK_Obd_Ward_Details_Obd_Bulk" FromRole="Obd_Bulk" ToRole="Obd_Ward_Details" />
+        </EntityType>
+        <EntityType Name="Obd_Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Obd_Bulk_Id" Type="Int32" />
+          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Source_Id" Type="Int32" />
+          <Property Name="Retry_Count" Type="Int32" />
+          <Property Name="Retry_Schedule" Type="DateTime" Precision="3" />
+          <Property Name="Context" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Unique_Id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Last_App" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Start_Time" Type="DateTime" Precision="3" />
+          <Property Name="Answer_Time" Type="DateTime" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Precision="3" />
+          <Property Name="Disposition" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Bill_Sec" Type="Int32" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Server" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Obd_Bulk" Relationship="Self.FK_Obd_Request_Obd_Bulk" FromRole="Obd_Request" ToRole="Obd_Bulk" />
+        </EntityType>
+        <EntityType Name="Obd_Ward_Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_Id" Type="Int32" />
+          <Property Name="Source_Id" Type="Int32" />
+          <Property Name="Obd_Bulk_Id" Type="Int32" />
+          <Property Name="Ward" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Client_List" Relationship="Self.FK_Obd_Ward_Details_Client_List" FromRole="Obd_Ward_Details" ToRole="Client_List" />
+          <NavigationProperty Name="Obd_Bulk" Relationship="Self.FK_Obd_Ward_Details_Obd_Bulk" FromRole="Obd_Ward_Details" ToRole="Obd_Bulk" />
+        </EntityType>
+        <EntityType Name="Offline_Order_Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Order_Id" Type="Int32" />
+          <Property Name="Slip_Format_Id" Type="Int32" />
+          <Property Name="Price_Per_Piece" Type="Double" />
+          <Property Name="Estimated_Voters" Type="Int32" />
+          <Property Name="Format_No" Type="Int32" />
+          <Property Name="Delivery_Date" Type="DateTime" Precision="3" />
+          <Property Name="Delivery_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Free_Blank_Slip" Type="Int32" />
+          <Property Name="Paid_Blank_Slip" Type="Int32" />
+          <Property Name="Blank_Slip_Price" Type="Double" />
+          <Property Name="Sample_Slip_Image" Type="Boolean" />
+          <Property Name="Passport_Image" Type="Boolean" />
+          <Property Name="Slip_Content" Type="String" MaxLength="700" FixedLength="false" Unicode="true" />
+          <Property Name="Voter_List_File" Type="Int32" />
+          <Property Name="Is_Cd_Provided" Type="Boolean" />
+          <Property Name="Voter_Slip_Image_Type" Type="Int32" />
+          <Property Name="Center_Name_List_Image" Type="Boolean" />
+          <Property Name="Center_Name_List" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Voter_List_Print" Type="Int32" />
+          <Property Name="Voter_List_Print_Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Voter_List_Print_Price" Type="Double" />
+          <Property Name="Liflet_Image" Type="Boolean" />
+          <Property Name="Election_Date" Type="DateTime" Precision="3" />
+          <Property Name="Discount" Type="Double" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Marka" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Marka_Image" Type="Boolean" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Ceated_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <Property Name="Is_Deleted" Type="Int32" />
+          <Property Name="Deleted_By" Type="Int32" />
+          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
+          <Property Name="Download_Link" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Can_Download" Type="Boolean" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Offline_Order_Details_Order" FromRole="Offline_Order_Details" ToRole="Order" />
+          <NavigationProperty Name="Slip_Formats" Relationship="Self.FK_Offline_Order_Details_Slip_Formats" FromRole="Offline_Order_Details" ToRole="Slip_Formats" />
+        </EntityType>
+        <EntityType Name="Online_Order_Details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Id" Type="Int32" />
+          <Property Name="Advertisement_Area" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Ward" Type="Int32" />
+          <Property Name="Estimated_Reach_Ordered" Type="Int32" />
+          <Property Name="Estimated_Budget" Type="Int32" />
+          <Property Name="Price_Per_Piece" Type="Double" />
+          <Property Name="Promotion_Type_Id" Type="Int32" />
+          <Property Name="Age_Group" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Delivery_Date" Type="DateTime" Precision="3" />
+          <Property Name="Promotion_Date_From" Type="DateTime" Precision="3" />
+          <Property Name="Promotion_Date_To" Type="DateTime" Precision="3" />
+          <Property Name="Is_Masked" Type="Boolean" />
+          <Property Name="Marking_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Obd_Voice_File" Type="Boolean" />
+          <Property Name="Is_Obd_Provided" Type="Boolean" />
+          <Property Name="Obd_Vioce_Content" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Number_Db_Provided" Type="Boolean" />
+          <Property Name="Sms_Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Order_Id" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Discount" Type="Double" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <Property Name="Is_Deleted" Type="Int32" />
+          <Property Name="Deleted_By" Type="Int32" />
+          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Obd_Bulk" Relationship="Self.FK_Obd_Bulk_Online_Order_Details" FromRole="Online_Order_Details" ToRole="Obd_Bulk" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Online_Order_Details_Order" FromRole="Online_Order_Details" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Online_Order_Details_Product" FromRole="Online_Order_Details" ToRole="Product" />
+          <NavigationProperty Name="Promotion_Type" Relationship="Self.FK_Online_Order_Details_Promotion_Type" FromRole="Online_Order_Details" ToRole="Promotion_Type" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Is_Package" Type="Boolean" />
+          <Property Name="Total_Paid" Type="Double" />
+          <Property Name="Total_Bill" Type="Double" />
+          <Property Name="Order_Status" Type="Int32" />
+          <Property Name="Client_Id" Type="Int32" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Client_List" Relationship="Self.FK_Order_ClientId" FromRole="Order" ToRole="Client_List" />
+          <NavigationProperty Name="Offline_Order_Details" Relationship="Self.FK_Offline_Order_Details_Order" FromRole="Order" ToRole="Offline_Order_Details" />
+          <NavigationProperty Name="Online_Order_Details" Relationship="Self.FK_Online_Order_Details_Order" FromRole="Order" ToRole="Online_Order_Details" />
         </EntityType>
         <EntityType Name="Permission">
           <Key>
@@ -1134,12 +1545,12 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Display_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Module_Id" Type="Int32" />
           <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Module" Relationship="Self.FK__Permissio__Modul__10566F31" FromRole="Permission" ToRole="Module" />
           <NavigationProperty Name="Permission_Role" Relationship="Self.FK_Permission_Role_Permission" FromRole="Permission" ToRole="Permission_Role" />
           <NavigationProperty Name="Permission_User" Relationship="Self.FK_Permission_User_Permission" FromRole="Permission" ToRole="Permission_User" />
-          <Property Name="Module_Id" Type="Int32" />
-          <NavigationProperty Name="Module" Relationship="Business_SuitModel.FK__Permissio__Modul__02084FDA" FromRole="Permission" ToRole="Module" />
         </EntityType>
         <EntityType Name="Permission_Role">
           <Key>
@@ -1162,6 +1573,26 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <NavigationProperty Name="Permission" Relationship="Self.FK_Permission_User_Permission" FromRole="Permission_User" ToRole="Permission" />
           <NavigationProperty Name="User_Login" Relationship="Self.FK_Permission_User_User_Login" FromRole="Permission_User" ToRole="User_Login" />
         </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Display_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Is_Online" Type="Boolean" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Regular_Price" Type="Double" />
+          <Property Name="Lower_Price" Type="Double" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <Property Name="Is_Deleted" Type="Int32" />
+          <Property Name="Deleted_By" Type="Int32" />
+          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Online_Order_Details" Relationship="Self.FK_Online_Order_Details_Product" FromRole="Product" ToRole="Online_Order_Details" />
+        </EntityType>
         <EntityType Name="Promotion_Type">
           <Key>
             <PropertyRef Name="Id" />
@@ -1169,7 +1600,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Dispaly_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Online_Order_Details" Relationship="Business_SuitModel.FK_Online_Order_Details_Promotion_Type" FromRole="Promotion_Type" ToRole="Online_Order_Details" />
+          <NavigationProperty Name="Online_Order_Details" Relationship="Self.FK_Online_Order_Details_Promotion_Type" FromRole="Promotion_Type" ToRole="Online_Order_Details" />
         </EntityType>
         <EntityType Name="Remark">
           <Key>
@@ -1178,7 +1609,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="None" />
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="updated_On" Type="DateTime" Precision="3" />
         </EntityType>
@@ -1190,8 +1621,8 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Permissions" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Permission_Role" Relationship="Self.FK_Permission_Role_Role" FromRole="Role" ToRole="Permission_Role" />
+          <NavigationProperty Name="User_Login" Relationship="Self.FK__User_Logi__Role___17F790F9" FromRole="Role" ToRole="User_Login" />
           <NavigationProperty Name="Role_User" Relationship="Self.FK_Role_User_Role" FromRole="Role" ToRole="Role_User" />
-          <NavigationProperty Name="User_Login" Relationship="Business_SuitModel.FK__User_Logi__Role___14270015" FromRole="Role" ToRole="User_Login" />
         </EntityType>
         <EntityType Name="Role_User">
           <Key>
@@ -1203,6 +1634,17 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="User_Type" Type="Int32" />
           <NavigationProperty Name="Role" Relationship="Self.FK_Role_User_Role" FromRole="Role_User" ToRole="Role" />
           <NavigationProperty Name="User_Login" Relationship="Self.FK_Role_User_User_Login" FromRole="Role_User" ToRole="User_Login" />
+        </EntityType>
+        <EntityType Name="Role1">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Display_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Sippeer">
           <Key>
@@ -1220,7 +1662,31 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Slip_Height" Type="Double" />
           <Property Name="Slip_Width" Type="Double" />
           <Property Name="Is_Active" Type="Boolean" />
-          <NavigationProperty Name="Offline_Order_Details" Relationship="Business_SuitModel.FK_Offline_Order_Details_Slip_Formats" FromRole="Slip_Formats" ToRole="Offline_Order_Details" />
+          <NavigationProperty Name="Offline_Order_Details" Relationship="Self.FK_Offline_Order_Details_Slip_Formats" FromRole="Slip_Formats" ToRole="Offline_Order_Details" />
+        </EntityType>
+        <EntityType Name="Sms_Bulk">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="String" MaxLength="1200" FixedLength="false" Unicode="false" />
+          <Property Name="Start_Time" Type="DateTime" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Precision="3" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Sms_Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Msisdn" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" MaxLength="1200" FixedLength="false" Unicode="false" />
+          <Property Name="Start_Time" Type="DateTime" Precision="3" />
+          <Property Name="End_Time" Type="DateTime" Precision="3" />
+          <Property Name="Locked_Time" Type="DateTime" Precision="3" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Status_">
           <Key>
@@ -1237,24 +1703,24 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="User_Profile_Id" Type="Int32" />
-          <NavigationProperty Name="Permission_User" Relationship="Self.FK_Permission_User_User_Login" FromRole="User_Login" ToRole="Permission_User" />
-          <NavigationProperty Name="Role_User" Relationship="Self.FK_Role_User_User_Login" FromRole="User_Login" ToRole="Role_User" />
-          <NavigationProperty Name="User_Profile" Relationship="Self.FK_User_Login_User_Profile" FromRole="User_Login" ToRole="User_Profile" />
           <Property Name="Role_Id" Type="Int32" />
-          <NavigationProperty Name="Role" Relationship="Business_SuitModel.FK__User_Logi__Role___14270015" FromRole="User_Login" ToRole="Role" />
-          <Property Name="Is_Client" Type="Boolean" annotation:StoreGeneratedPattern="None" />
-          <Property Name="Is_Active" Type="Boolean" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="User_Profile_Id" Type="Int32" />
+          <Property Name="Is_Client" Type="Boolean" />
+          <Property Name="Is_Active" Type="Boolean" />
           <Property Name="Created_By" Type="Int32" />
           <Property Name="Ceated_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
-          <Property Name="Is_Deleted" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Is_Deleted" Type="Int32" />
           <Property Name="Deleted_By" Type="Int32" />
           <Property Name="Deleted_On" Type="DateTime" Precision="3" />
           <Property Name="Client_Id" Type="Int32" />
-          <NavigationProperty Name="Client_List" Relationship="Business_SuitModel.FK__User_Logi__Clien__607251E5" FromRole="User_Login" ToRole="Client_List" />
-          <NavigationProperty Name="Client_Inventory" Relationship="Business_SuitModel.FK_Client_Inventory_User_Login" FromRole="User_Login" ToRole="Client_Inventory" />
+          <NavigationProperty Name="Client_Inventory" Relationship="Self.FK_Client_Inventory_User_Login" FromRole="User_Login" ToRole="Client_Inventory" />
+          <NavigationProperty Name="Client_List" Relationship="Self.FK__User_Logi__Clien__4C6B5938" FromRole="User_Login" ToRole="Client_List" />
+          <NavigationProperty Name="Permission_User" Relationship="Self.FK_Permission_User_User_Login" FromRole="User_Login" ToRole="Permission_User" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__User_Logi__Role___17F790F9" FromRole="User_Login" ToRole="Role" />
+          <NavigationProperty Name="Role_User" Relationship="Self.FK_Role_User_User_Login" FromRole="User_Login" ToRole="Role_User" />
+          <NavigationProperty Name="User_Profile" Relationship="Self.FK_User_Login_User_Profile" FromRole="User_Login" ToRole="User_Profile" />
         </EntityType>
         <EntityType Name="User_Profile">
           <Key>
@@ -1273,8 +1739,8 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Image" Type="Boolean" />
+          <NavigationProperty Name="Client_Inventory" Relationship="Self.FK_Client_Inventory_User_Profile" FromRole="User_Profile" ToRole="Client_Inventory" />
           <NavigationProperty Name="User_Login" Relationship="Self.FK_User_Login_User_Profile" FromRole="User_Profile" ToRole="User_Login" />
-          <NavigationProperty Name="Client_Inventory" Relationship="Business_SuitModel.FK_Client_Inventory_User_Profile" FromRole="User_Profile" ToRole="Client_Inventory" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -1285,7 +1751,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Remember_Token" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
           <Property Name="Created_By" Type="Int32" />
           <Property Name="User_Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
@@ -1311,6 +1777,270 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <Property Name="Deleted_By" Type="Int32" />
           <Property Name="Deleted_On" Type="DateTime" Precision="3" />
         </EntityType>
+        <Association Name="FK_Account_Head_TB_Main_Accounts">
+          <End Role="Main_Accounts" Type="Self.Main_Accounts" Multiplicity="0..1" />
+          <End Role="Account_Head_TB" Type="Self.Account_Head_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Main_Accounts">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Account_Head_TB">
+              <PropertyRef Name="Main_Account_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expense_Account_Head_TB">
+          <End Role="Account_Head_TB" Type="Self.Account_Head_TB" Multiplicity="0..1" />
+          <End Role="Expense" Type="Self.Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account_Head_TB">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expense">
+              <PropertyRef Name="Account_Head_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Inventory_Client_List">
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="0..1" />
+          <End Role="Client_Inventory" Type="Self.Client_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client_List">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_Inventory">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Inventory_User_Login">
+          <End Role="User_Login" Type="Self.User_Login" Multiplicity="0..1" />
+          <End Role="Client_Inventory" Type="Self.Client_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Login">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_Inventory">
+              <PropertyRef Name="Login_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Inventory_User_Profile">
+          <End Role="User_Profile" Type="Self.User_Profile" Multiplicity="0..1" />
+          <End Role="Client_Inventory" Type="Self.Client_Inventory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Profile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_Inventory">
+              <PropertyRef Name="Profile_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Client_Li__Distr__4D5F7D71">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_List">
+              <PropertyRef Name="District_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User_Logi__Clien__4C6B5938">
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="0..1" />
+          <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client_List">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Login">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_List_Client_Type">
+          <End Role="Client_Type" Type="Self.Client_Type" Multiplicity="0..1" />
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_List">
+              <PropertyRef Name="Client_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_List_Constituency">
+          <End Role="Constituency" Type="Self.Constituency" Multiplicity="0..1" />
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Constituency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_List">
+              <PropertyRef Name="Constituency_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obd_Bulk_Client_List">
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="0..1" />
+          <End Role="Obd_Bulk" Type="Self.Obd_Bulk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client_List">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Bulk">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obd_Ward_Details_Client_List">
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="0..1" />
+          <End Role="Obd_Ward_Details" Type="Self.Obd_Ward_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client_List">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Ward_Details">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_ClientId">
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client_List">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Client_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expense_Expense_Type">
+          <End Role="Expense_Type" Type="Self.Expense_Type" Multiplicity="0..1" />
+          <End Role="Expense" Type="Self.Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Expense_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expense">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Permissio__Modul__10566F31">
+          <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
+          <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Permission">
+              <PropertyRef Name="Module_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obd_Bulk_Online_Order_Details">
+          <End Role="Online_Order_Details" Type="Self.Online_Order_Details" Multiplicity="0..1" />
+          <End Role="Obd_Bulk" Type="Self.Obd_Bulk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Online_Order_Details">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Bulk">
+              <PropertyRef Name="Order_Details_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obd_Request_Obd_Bulk">
+          <End Role="Obd_Bulk" Type="Self.Obd_Bulk" Multiplicity="0..1" />
+          <End Role="Obd_Request" Type="Self.Obd_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Obd_Bulk">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Request">
+              <PropertyRef Name="Obd_Bulk_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Obd_Ward_Details_Obd_Bulk">
+          <End Role="Obd_Bulk" Type="Self.Obd_Bulk" Multiplicity="0..1" />
+          <End Role="Obd_Ward_Details" Type="Self.Obd_Ward_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Obd_Bulk">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Obd_Ward_Details">
+              <PropertyRef Name="Obd_Bulk_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offline_Order_Details_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="Offline_Order_Details" Type="Self.Offline_Order_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Offline_Order_Details">
+              <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Offline_Order_Details_Slip_Formats">
+          <End Role="Slip_Formats" Type="Self.Slip_Formats" Multiplicity="0..1" />
+          <End Role="Offline_Order_Details" Type="Self.Offline_Order_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Slip_Formats">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Offline_Order_Details">
+              <PropertyRef Name="Slip_Format_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Online_Order_Details_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="Online_Order_Details" Type="Self.Online_Order_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Online_Order_Details">
+              <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Online_Order_Details_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Online_Order_Details" Type="Self.Online_Order_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Online_Order_Details">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Online_Order_Details_Promotion_Type">
+          <End Role="Promotion_Type" Type="Self.Promotion_Type" Multiplicity="0..1" />
+          <End Role="Online_Order_Details" Type="Self.Online_Order_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promotion_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Online_Order_Details">
+              <PropertyRef Name="Promotion_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Permission_Role_Permission">
           <End Role="Permission" Type="Self.Permission" Multiplicity="0..1" />
           <End Role="Permission_Role" Type="Self.Permission_Role" Multiplicity="*" />
@@ -1359,6 +2089,18 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__User_Logi__Role___17F790F9">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Login">
+              <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Role_User_Role">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
           <End Role="Role_User" Type="Self.Role_User" Multiplicity="*" />
@@ -1396,26 +2138,134 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Account_Head_TB" EntityType="Self.Account_Head_TB" />
+          <EntitySet Name="CDR_Instant" EntityType="Self.CDR_Instant" />
+          <EntitySet Name="CDR_Obd" EntityType="Self.CDR_Obd" />
+          <EntitySet Name="Client_Inventory" EntityType="Self.Client_Inventory" />
           <EntitySet Name="Client_List" EntityType="Self.Client_List" />
+          <EntitySet Name="Client_Type" EntityType="Self.Client_Type" />
+          <EntitySet Name="Constituencies" EntityType="Self.Constituency" />
+          <EntitySet Name="ContactTBs" EntityType="Self.ContactTB" />
           <EntitySet Name="Districts" EntityType="Self.District" />
           <EntitySet Name="Divisions" EntityType="Self.Division" />
           <EntitySet Name="Expenses" EntityType="Self.Expense" />
           <EntitySet Name="Expense_Type" EntityType="Self.Expense_Type" />
+          <EntitySet Name="Incoming_Calls" EntityType="Self.Incoming_Calls" />
+          <EntitySet Name="Main_Accounts" EntityType="Self.Main_Accounts" />
+          <EntitySet Name="Modules" EntityType="Self.Module" />
+          <EntitySet Name="Obd_Bulk" EntityType="Self.Obd_Bulk" />
+          <EntitySet Name="Obd_Request" EntityType="Self.Obd_Request" />
+          <EntitySet Name="Obd_Ward_Details" EntityType="Self.Obd_Ward_Details" />
+          <EntitySet Name="Offline_Order_Details" EntityType="Self.Offline_Order_Details" />
+          <EntitySet Name="Online_Order_Details" EntityType="Self.Online_Order_Details" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Permissions" EntityType="Self.Permission" />
           <EntitySet Name="Permission_Role" EntityType="Self.Permission_Role" />
           <EntitySet Name="Permission_User" EntityType="Self.Permission_User" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Promotion_Type" EntityType="Self.Promotion_Type" />
           <EntitySet Name="Remarks" EntityType="Self.Remark" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="Role_User" EntityType="Self.Role_User" />
+          <EntitySet Name="Roles1" EntityType="Self.Role1" />
           <EntitySet Name="Sippeers" EntityType="Self.Sippeer" />
           <EntitySet Name="Slip_Formats" EntityType="Self.Slip_Formats" />
+          <EntitySet Name="Sms_Bulk" EntityType="Self.Sms_Bulk" />
+          <EntitySet Name="Sms_Request" EntityType="Self.Sms_Request" />
           <EntitySet Name="Status_" EntityType="Self.Status_" />
           <EntitySet Name="User_Login" EntityType="Self.User_Login" />
           <EntitySet Name="User_Profile" EntityType="Self.User_Profile" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="Voter_Slip_Image_Type" EntityType="Self.Voter_Slip_Image_Type" />
           <EntitySet Name="Tokens" EntityType="Self.Token" />
+          <AssociationSet Name="FK_Account_Head_TB_Main_Accounts" Association="Self.FK_Account_Head_TB_Main_Accounts">
+            <End Role="Main_Accounts" EntitySet="Main_Accounts" />
+            <End Role="Account_Head_TB" EntitySet="Account_Head_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expense_Account_Head_TB" Association="Self.FK_Expense_Account_Head_TB">
+            <End Role="Account_Head_TB" EntitySet="Account_Head_TB" />
+            <End Role="Expense" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Inventory_Client_List" Association="Self.FK_Client_Inventory_Client_List">
+            <End Role="Client_List" EntitySet="Client_List" />
+            <End Role="Client_Inventory" EntitySet="Client_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Inventory_User_Login" Association="Self.FK_Client_Inventory_User_Login">
+            <End Role="User_Login" EntitySet="User_Login" />
+            <End Role="Client_Inventory" EntitySet="Client_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Inventory_User_Profile" Association="Self.FK_Client_Inventory_User_Profile">
+            <End Role="User_Profile" EntitySet="User_Profile" />
+            <End Role="Client_Inventory" EntitySet="Client_Inventory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Client_Li__Distr__4D5F7D71" Association="Self.FK__Client_Li__Distr__4D5F7D71">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Client_List" EntitySet="Client_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User_Logi__Clien__4C6B5938" Association="Self.FK__User_Logi__Clien__4C6B5938">
+            <End Role="Client_List" EntitySet="Client_List" />
+            <End Role="User_Login" EntitySet="User_Login" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_List_Client_Type" Association="Self.FK_Client_List_Client_Type">
+            <End Role="Client_Type" EntitySet="Client_Type" />
+            <End Role="Client_List" EntitySet="Client_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_List_Constituency" Association="Self.FK_Client_List_Constituency">
+            <End Role="Constituency" EntitySet="Constituencies" />
+            <End Role="Client_List" EntitySet="Client_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obd_Bulk_Client_List" Association="Self.FK_Obd_Bulk_Client_List">
+            <End Role="Client_List" EntitySet="Client_List" />
+            <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obd_Ward_Details_Client_List" Association="Self.FK_Obd_Ward_Details_Client_List">
+            <End Role="Client_List" EntitySet="Client_List" />
+            <End Role="Obd_Ward_Details" EntitySet="Obd_Ward_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_ClientId" Association="Self.FK_Order_ClientId">
+            <End Role="Client_List" EntitySet="Client_List" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expense_Expense_Type" Association="Self.FK_Expense_Expense_Type">
+            <End Role="Expense_Type" EntitySet="Expense_Type" />
+            <End Role="Expense" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Permissio__Modul__10566F31" Association="Self.FK__Permissio__Modul__10566F31">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="Permission" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obd_Bulk_Online_Order_Details" Association="Self.FK_Obd_Bulk_Online_Order_Details">
+            <End Role="Online_Order_Details" EntitySet="Online_Order_Details" />
+            <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obd_Request_Obd_Bulk" Association="Self.FK_Obd_Request_Obd_Bulk">
+            <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
+            <End Role="Obd_Request" EntitySet="Obd_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Obd_Ward_Details_Obd_Bulk" Association="Self.FK_Obd_Ward_Details_Obd_Bulk">
+            <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
+            <End Role="Obd_Ward_Details" EntitySet="Obd_Ward_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offline_Order_Details_Order" Association="Self.FK_Offline_Order_Details_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Offline_Order_Details" EntitySet="Offline_Order_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Offline_Order_Details_Slip_Formats" Association="Self.FK_Offline_Order_Details_Slip_Formats">
+            <End Role="Slip_Formats" EntitySet="Slip_Formats" />
+            <End Role="Offline_Order_Details" EntitySet="Offline_Order_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Online_Order_Details_Order" Association="Self.FK_Online_Order_Details_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="Online_Order_Details" EntitySet="Online_Order_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Online_Order_Details_Product" Association="Self.FK_Online_Order_Details_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Online_Order_Details" EntitySet="Online_Order_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Online_Order_Details_Promotion_Type" Association="Self.FK_Online_Order_Details_Promotion_Type">
+            <End Role="Promotion_Type" EntitySet="Promotion_Type" />
+            <End Role="Online_Order_Details" EntitySet="Online_Order_Details" />
+          </AssociationSet>
           <AssociationSet Name="FK_Permission_Role_Permission" Association="Self.FK_Permission_Role_Permission">
             <End Role="Permission" EntitySet="Permissions" />
             <End Role="Permission_Role" EntitySet="Permission_Role" />
@@ -1432,6 +2282,10 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             <End Role="User_Login" EntitySet="User_Login" />
             <End Role="Permission_User" EntitySet="Permission_User" />
           </AssociationSet>
+          <AssociationSet Name="FK__User_Logi__Role___17F790F9" Association="Self.FK__User_Logi__Role___17F790F9">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User_Login" EntitySet="User_Login" />
+          </AssociationSet>
           <AssociationSet Name="FK_Role_User_Role" Association="Self.FK_Role_User_Role">
             <End Role="Role" EntitySet="Roles" />
             <End Role="Role_User" EntitySet="Role_User" />
@@ -1444,722 +2298,173 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
             <End Role="User_Profile" EntitySet="User_Profile" />
             <End Role="User_Login" EntitySet="User_Login" />
           </AssociationSet>
-          <EntitySet Name="Modules" EntityType="Business_SuitModel.Module" />
-          <EntitySet Name="CDR_Instant" EntityType="Business_SuitModel.CDR_Instant" />
-          <AssociationSet Name="FK__Permissio__Modul__02084FDA" Association="Business_SuitModel.FK__Permissio__Modul__02084FDA">
-            <End Role="Module" EntitySet="Modules" />
-            <End Role="Permission" EntitySet="Permissions" />
-          </AssociationSet>
-          <AssociationSet Name="FK__User_Logi__Role___14270015" Association="Business_SuitModel.FK__User_Logi__Role___14270015">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="User_Login" EntitySet="User_Login" />
-          </AssociationSet>
-          <AssociationSet Name="FK__User_Logi__Clien__607251E5" Association="Business_SuitModel.FK__User_Logi__Clien__607251E5">
-            <End Role="Client_List" EntitySet="Client_List" />
-            <End Role="User_Login" EntitySet="User_Login" />
-          </AssociationSet>
-          <EntitySet Name="Client_Inventory" EntityType="Business_SuitModel.Client_Inventory" />
-          <AssociationSet Name="FK_Client_Inventory_Client_List" Association="Business_SuitModel.FK_Client_Inventory_Client_List">
-            <End Role="Client_List" EntitySet="Client_List" />
-            <End Role="Client_Inventory" EntitySet="Client_Inventory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Client_Inventory_User_Login" Association="Business_SuitModel.FK_Client_Inventory_User_Login">
-            <End Role="User_Login" EntitySet="User_Login" />
-            <End Role="Client_Inventory" EntitySet="Client_Inventory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Client_Inventory_User_Profile" Association="Business_SuitModel.FK_Client_Inventory_User_Profile">
-            <End Role="User_Profile" EntitySet="User_Profile" />
-            <End Role="Client_Inventory" EntitySet="Client_Inventory" />
-          </AssociationSet>
-          <EntitySet Name="Obd_Ward_Details" EntityType="Business_SuitModel.Obd_Ward_Details" />
-          <EntitySet Name="Sms_Bulk" EntityType="Business_SuitModel.Sms_Bulk" />
-          <EntitySet Name="Sms_Request" EntityType="Business_SuitModel.Sms_Request" />
-          <AssociationSet Name="FK_Obd_Ward_Details_Client_List" Association="Business_SuitModel.FK_Obd_Ward_Details_Client_List">
-            <End Role="Client_List" EntitySet="Client_List" />
-            <End Role="Obd_Ward_Details" EntitySet="Obd_Ward_Details" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Client_Li__Distr__19AACF41" Association="Business_SuitModel.FK__Client_Li__Distr__19AACF41">
-            <End Role="District" EntitySet="Districts" />
+          <EntitySet Name="PartyTBs" EntityType="Business_SuitModel.PartyTB" />
+          <AssociationSet Name="FK_Client_List_PartyTB" Association="Business_SuitModel.FK_Client_List_PartyTB">
+            <End Role="PartyTB" EntitySet="PartyTBs" />
             <End Role="Client_List" EntitySet="Client_List" />
           </AssociationSet>
-          <EntitySet Name="Incoming_Calls" EntityType="Business_SuitModel.Incoming_Calls" />
-          <EntitySet Name="CDR_Obd" EntityType="Business_SuitModel.CDR_Obd" />
-          <EntitySet Name="Obd_Bulk" EntityType="Business_SuitModel.Obd_Bulk" />
-          <EntitySet Name="Obd_Request" EntityType="Business_SuitModel.Obd_Request" />
-          <AssociationSet Name="FK_Obd_Bulk_Client_List" Association="Business_SuitModel.FK_Obd_Bulk_Client_List">
-            <End Role="Client_List" EntitySet="Client_List" />
-            <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Obd_Request_Obd_Bulk" Association="Business_SuitModel.FK_Obd_Request_Obd_Bulk">
-            <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
-            <End Role="Obd_Request" EntitySet="Obd_Request" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Obd_Ward_Details_Obd_Bulk" Association="Business_SuitModel.FK_Obd_Ward_Details_Obd_Bulk">
-            <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
-            <End Role="Obd_Ward_Details" EntitySet="Obd_Ward_Details" />
-          </AssociationSet>
-          <EntitySet Name="Orders" EntityType="Business_SuitModel.Order" />
-          <AssociationSet Name="FK_Order_ClientId" Association="Business_SuitModel.FK_Order_ClientId">
-            <End Role="Client_List" EntitySet="Client_List" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <EntitySet Name="Products" EntityType="Business_SuitModel.Product" />
-          <EntitySet Name="Offline_Order_Details" EntityType="Business_SuitModel.Offline_Order_Details" />
-          <EntitySet Name="Online_Order_Details" EntityType="Business_SuitModel.Online_Order_Details" />
-          <AssociationSet Name="FK_Offline_Order_Details_Order" Association="Business_SuitModel.FK_Offline_Order_Details_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="Offline_Order_Details" EntitySet="Offline_Order_Details" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Offline_Order_Details_Slip_Formats" Association="Business_SuitModel.FK_Offline_Order_Details_Slip_Formats">
-            <End Role="Slip_Formats" EntitySet="Slip_Formats" />
-            <End Role="Offline_Order_Details" EntitySet="Offline_Order_Details" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Online_Order_Details_Order" Association="Business_SuitModel.FK_Online_Order_Details_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="Online_Order_Details" EntitySet="Online_Order_Details" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Online_Order_Details_Product" Association="Business_SuitModel.FK_Online_Order_Details_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Online_Order_Details" EntitySet="Online_Order_Details" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Online_Order_Details_Promotion_Type" Association="Business_SuitModel.FK_Online_Order_Details_Promotion_Type">
-            <End Role="Promotion_Type" EntitySet="Promotion_Type" />
-            <End Role="Online_Order_Details" EntitySet="Online_Order_Details" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Obd_Bulk_Online_Order_Details" Association="Business_SuitModel.FK_Obd_Bulk_Online_Order_Details">
-            <End Role="Online_Order_Details" EntitySet="Online_Order_Details" />
-            <End Role="Obd_Bulk" EntitySet="Obd_Bulk" />
-          </AssociationSet>
-          <EntitySet Name="Account_Head_TB" EntityType="Business_SuitModel.Account_Head_TB" />
-          <EntitySet Name="Main_Accounts" EntityType="Business_SuitModel.Main_Accounts" />
-          <EntitySet Name="Roles1" EntityType="Business_SuitModel.Role1" />
-          <AssociationSet Name="FK_Account_Head_TB_Main_Accounts" Association="Business_SuitModel.FK_Account_Head_TB_Main_Accounts">
-            <End Role="Main_Accounts" EntitySet="Main_Accounts" />
-            <End Role="Account_Head_TB" EntitySet="Account_Head_TB" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Expense_Account_Head_TB" Association="Business_SuitModel.FK_Expense_Account_Head_TB">
-            <End Role="Account_Head_TB" EntitySet="Account_Head_TB" />
-            <End Role="Expense" EntitySet="Expenses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Expense_Expense_Type" Association="Business_SuitModel.FK_Expense_Expense_Type">
-            <End Role="Expense_Type" EntitySet="Expense_Type" />
-            <End Role="Expense" EntitySet="Expenses" />
-          </AssociationSet>
-          </EntityContainer>
-        <EntityType Name="Module">
+        </EntityContainer>
+        <EntityType Name="PartyTB">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Permissions" Relationship="Business_SuitModel.FK__Permissio__Modul__02084FDA" FromRole="Module" ToRole="Permission" />
+          <NavigationProperty Name="Client_List" Relationship="Business_SuitModel.FK_Client_List_PartyTB" FromRole="PartyTB" ToRole="Client_List" />
         </EntityType>
-        <EntityType Name="CDR_Instant">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Context" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Last_App" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="Disposition" Type="String" MaxLength="40" Unicode="false" FixedLength="false" />
-          <Property Name="Bill_Sec" Type="Int32" />
-          <Property Name="Duration" Type="Int32" />
-          <Property Name="Remarks" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="Updated_By" Type="Int32" />
-          <Property Name="Updated_On" Type="DateTime" Precision="3" />
-          <Property Name="Client_Id" Type="Int32" />
-          <Property Name="Start_Time" Type="DateTime" Precision="3" />
-          <Property Name="End_Time" Type="DateTime" Precision="3" />
-        </EntityType>
-        <Association Name="FK__Permissio__Modul__02084FDA">
-          <End Type="Business_SuitModel.Module" Role="Module" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Permission" Role="Permission" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Module">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Permission">
-              <PropertyRef Name="Module_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__User_Logi__Role___14270015">
-          <End Type="Business_SuitModel.Role" Role="Role" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.User_Login" Role="User_Login" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User_Login">
-              <PropertyRef Name="Role_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__User_Logi__Clien__607251E5">
-          <End Type="Business_SuitModel.Client_List" Role="Client_List" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.User_Login" Role="User_Login" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client_List">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User_Login">
-              <PropertyRef Name="Client_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Client_Inventory">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Client_Id" Type="Int32" />
-          <Property Name="Login_Id" Type="Int32" />
-          <Property Name="Profile_Id" Type="Int32" />
-          <Property Name="Free_Sms" Type="Int32" annotation:StoreGeneratedPattern="None" />
-          <Property Name="Free_Call" Type="Int32" annotation:StoreGeneratedPattern="None" />
-          <Property Name="Sms_Sent" Type="Int32" Nullable="false" />
-          <Property Name="Call_Sent" Type="Int32" Nullable="false" />
-          <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="Updated_By" Type="Int32" />
-          <Property Name="Updated_On" Type="DateTime" Precision="3" />
-          <Property Name="Is_Deleted" Type="Boolean" Nullable="false" />
-          <Property Name="Deleted_By" Type="Int32" />
-          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Client_List" Relationship="Business_SuitModel.FK_Client_Inventory_Client_List" FromRole="Client_Inventory" ToRole="Client_List" />
-          <NavigationProperty Name="User_Login" Relationship="Business_SuitModel.FK_Client_Inventory_User_Login" FromRole="Client_Inventory" ToRole="User_Login" />
-          <NavigationProperty Name="User_Profile" Relationship="Business_SuitModel.FK_Client_Inventory_User_Profile" FromRole="Client_Inventory" ToRole="User_Profile" />
-        </EntityType>
-        <Association Name="FK_Client_Inventory_Client_List">
-          <End Type="Business_SuitModel.Client_List" Role="Client_List" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Client_Inventory" Role="Client_Inventory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client_List">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Client_Inventory">
-              <PropertyRef Name="Client_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Client_Inventory_User_Login">
-          <End Type="Business_SuitModel.User_Login" Role="User_Login" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Client_Inventory" Role="Client_Inventory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User_Login">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Client_Inventory">
-              <PropertyRef Name="Login_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Client_Inventory_User_Profile">
-          <End Type="Business_SuitModel.User_Profile" Role="User_Profile" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Client_Inventory" Role="Client_Inventory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User_Profile">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Client_Inventory">
-              <PropertyRef Name="Profile_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Obd_Ward_Details">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Client_Id" Type="Int32" />
-          <Property Name="Ward" Type="Int32" />
-          <Property Name="Obd_Bulk_Id" Type="Int32" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Client_List" Relationship="Business_SuitModel.FK_Obd_Ward_Details_Client_List" FromRole="Obd_Ward_Details" ToRole="Client_List" />
-          <NavigationProperty Name="Obd_Bulk" Relationship="Business_SuitModel.FK_Obd_Ward_Details_Obd_Bulk" FromRole="Obd_Ward_Details" ToRole="Obd_Bulk" />
-          <Property Name="Source_Id" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Sms_Bulk">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Content" Type="String" MaxLength="1200" FixedLength="false" Unicode="false" />
-          <Property Name="Start_Time" Type="DateTime" Precision="3" />
-          <Property Name="End_Time" Type="DateTime" Precision="3" />
-          <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="Sms_Request">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Msisdn" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Content" Type="String" MaxLength="1200" FixedLength="false" Unicode="false" />
-          <Property Name="Start_Time" Type="DateTime" Precision="3" />
-          <Property Name="End_Time" Type="DateTime" Precision="3" />
-          <Property Name="Locked_Time" Type="DateTime" Precision="3" />
-          <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" />
-        </EntityType>
-        <Association Name="FK_Obd_Ward_Details_Client_List">
-          <End Type="Business_SuitModel.Client_List" Role="Client_List" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Obd_Ward_Details" Role="Obd_Ward_Details" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client_List">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Obd_Ward_Details">
-              <PropertyRef Name="Client_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Client_Li__Distr__19AACF41">
-          <End Type="Business_SuitModel.District" Role="District" Multiplicity="0..1" />
+        <Association Name="FK_Client_List_PartyTB">
+          <End Type="Business_SuitModel.PartyTB" Role="PartyTB" Multiplicity="0..1" />
           <End Type="Business_SuitModel.Client_List" Role="Client_List" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="District">
+            <Principal Role="PartyTB">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Client_List">
-              <PropertyRef Name="District_Id" />
+              <PropertyRef Name="Party_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Incoming_Calls">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Server" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Call_Unique_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="Context" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Start_Time" Type="DateTime" Precision="3" />
-          <Property Name="End_Time" Type="DateTime" Precision="3" />
-          <Property Name="Answer_Time" Type="DateTime" Precision="3" />
-          <Property Name="Disposition" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="Bill_Sec" Type="Int32" />
-          <Property Name="Duration" Type="Int32" />
-        </EntityType>
-        <EntityType Name="CDR_Obd">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Obd_Request_Id" Type="Int32" />
-          <Property Name="Client_Id" Type="Int32" />
-          <Property Name="Context" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Last_App" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="Start_Time" Type="DateTime" Precision="3" />
-          <Property Name="End_Time" Type="DateTime" Precision="3" />
-          <Property Name="Disposition" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="Bill_Sec" Type="Int32" />
-          <Property Name="Duration" Type="Int32" />
-          <Property Name="Remarks" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Server" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" />
-          <Property Name="Updated_By" Type="Int32" />
-          <Property Name="Updated_On" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="Obd_Bulk">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Client_Id" Type="Int32" />
-          <Property Name="Scheduled_Time" Type="DateTime" Precision="3" />
-          <Property Name="Start_Time" Type="DateTime" Precision="3" />
-          <Property Name="End_Time" Type="DateTime" Precision="3" />
-          <Property Name="Retry_Minutes" Type="Int32" />
-          <Property Name="Calls_Per_Sec" Type="Int32" />
-          <Property Name="Play_File" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="Total_Calls" Type="Int32" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="Updated_By" Type="Int32" />
-          <Property Name="Updated_On" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Client_List" Relationship="Business_SuitModel.FK_Obd_Bulk_Client_List" FromRole="Obd_Bulk" ToRole="Client_List" />
-          <NavigationProperty Name="Obd_Request" Relationship="Business_SuitModel.FK_Obd_Request_Obd_Bulk" FromRole="Obd_Bulk" ToRole="Obd_Request" />
-          <NavigationProperty Name="Obd_Ward_Details" Relationship="Business_SuitModel.FK_Obd_Ward_Details_Obd_Bulk" FromRole="Obd_Bulk" ToRole="Obd_Ward_Details" />
-          <Property Name="Wait" Type="Int32" />
-          <Property Name="Is_Active" Type="Boolean" />
-          <Property Name="Priority" Type="Int32" />
-          <Property Name="Order_Details_Id" Type="Int32" />
-          <NavigationProperty Name="Online_Order_Details" Relationship="Business_SuitModel.FK_Obd_Bulk_Online_Order_Details" FromRole="Obd_Bulk" ToRole="Online_Order_Details" />
-        </EntityType>
-        <EntityType Name="Obd_Request">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Obd_Bulk_Id" Type="Int32" />
-          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Source_Id" Type="Int32" />
-          <Property Name="Retry_Count" Type="Int32" />
-          <Property Name="Retry_Schedule" Type="DateTime" Precision="3" />
-          <Property Name="Context" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Last_App" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="Start_Time" Type="DateTime" Precision="3" />
-          <Property Name="Answer_Time" Type="DateTime" Precision="3" />
-          <Property Name="End_Time" Type="DateTime" Precision="3" />
-          <Property Name="Disposition" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="Bill_Sec" Type="Int32" />
-          <Property Name="Duration" Type="Int32" />
-          <Property Name="Remarks" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Server" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Obd_Bulk" Relationship="Business_SuitModel.FK_Obd_Request_Obd_Bulk" FromRole="Obd_Request" ToRole="Obd_Bulk" />
-          <Property Name="Unique_Id" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
-        </EntityType>
-        <Association Name="FK_Obd_Bulk_Client_List">
-          <End Type="Business_SuitModel.Client_List" Role="Client_List" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Obd_Bulk" Role="Obd_Bulk" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client_List">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Obd_Bulk">
-              <PropertyRef Name="Client_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Obd_Request_Obd_Bulk">
-          <End Type="Business_SuitModel.Obd_Bulk" Role="Obd_Bulk" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Obd_Request" Role="Obd_Request" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Obd_Bulk">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Obd_Request">
-              <PropertyRef Name="Obd_Bulk_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Obd_Ward_Details_Obd_Bulk">
-          <End Type="Business_SuitModel.Obd_Bulk" Role="Obd_Bulk" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Obd_Ward_Details" Role="Obd_Ward_Details" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Obd_Bulk">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Obd_Ward_Details">
-              <PropertyRef Name="Obd_Bulk_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Precision="3" />
-          <Property Name="Is_Package" Type="Boolean" />
-          <Property Name="Total_Paid" Type="Double" />
-          <Property Name="Total_Bill" Type="Double" />
-          <Property Name="Order_Status" Type="Int32" DefaultValue="0" />
-          <Property Name="Client_Id" Type="Int32" />
-          <Property Name="Created_By" Type="Int32" />
-          <Property Name="Updated_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="Updated_On" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Client_List" Relationship="Business_SuitModel.FK_Order_ClientId" FromRole="Order" ToRole="Client_List" />
-          <NavigationProperty Name="Offline_Order_Details" Relationship="Business_SuitModel.FK_Offline_Order_Details_Order" FromRole="Order" ToRole="Offline_Order_Details" />
-          <NavigationProperty Name="Online_Order_Details" Relationship="Business_SuitModel.FK_Online_Order_Details_Order" FromRole="Order" ToRole="Online_Order_Details" />
-        </EntityType>
-        <Association Name="FK_Order_ClientId">
-          <End Type="Business_SuitModel.Client_List" Role="Client_List" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client_List">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="Client_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Display_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Is_Online" Type="Boolean" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Regular_Price" Type="Double" />
-          <Property Name="Lower_Price" Type="Double" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="Updated_By" Type="Int32" />
-          <Property Name="Updated_On" Type="DateTime" Precision="3" />
-          <Property Name="Is_Deleted" Type="Int32" />
-          <Property Name="Deleted_By" Type="Int32" />
-          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Online_Order_Details" Relationship="Business_SuitModel.FK_Online_Order_Details_Product" FromRole="Product" ToRole="Online_Order_Details" />
-        </EntityType>
-        <EntityType Name="Offline_Order_Details">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Order_Id" Type="Int32" />
-          <Property Name="Slip_Format_Id" Type="Int32" />
-          <Property Name="Price_Per_Piece" Type="Double" />
-          <Property Name="Estimated_Voters" Type="Int32" />
-          <Property Name="Format_No" Type="Int32" />
-          <Property Name="Delivery_Date" Type="DateTime" Precision="3" />
-          <Property Name="Delivery_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Free_Blank_Slip" Type="Int32" />
-          <Property Name="Paid_Blank_Slip" Type="Int32" />
-          <Property Name="Blank_Slip_Price" Type="Double" />
-          <Property Name="Sample_Slip_Image" Type="Boolean" />
-          <Property Name="Passport_Image" Type="Boolean" />
-          <Property Name="Slip_Content" Type="String" MaxLength="700" FixedLength="false" Unicode="true" />
-          <Property Name="Voter_List_File" Type="Int32" />
-          <Property Name="Is_Cd_Provided" Type="Boolean" />
-          <Property Name="Voter_Slip_Image_Type" Type="Int32" />
-          <Property Name="Center_Name_List_Image" Type="Boolean" />
-          <Property Name="Center_Name_List" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Voter_List_Print" Type="Int32" />
-          <Property Name="Voter_List_Print_Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Voter_List_Print_Price" Type="Double" />
-          <Property Name="Liflet_Image" Type="Boolean" />
-          <Property Name="Election_Date" Type="DateTime" Precision="3" />
-          <Property Name="Discount" Type="Double" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Marka" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Marka_Image" Type="Boolean" />
-          <Property Name="Created_By" Type="Int32" />
-          <Property Name="Ceated_On" Type="DateTime" Precision="3" />
-          <Property Name="Updated_By" Type="Int32" />
-          <Property Name="Updated_On" Type="DateTime" Precision="3" />
-          <Property Name="Is_Deleted" Type="Int32" />
-          <Property Name="Deleted_By" Type="Int32" />
-          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
-          <Property Name="Download_Link" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="Can_Download" Type="Boolean" />
-          <NavigationProperty Name="Order" Relationship="Business_SuitModel.FK_Offline_Order_Details_Order" FromRole="Offline_Order_Details" ToRole="Order" />
-          <NavigationProperty Name="Slip_Formats" Relationship="Business_SuitModel.FK_Offline_Order_Details_Slip_Formats" FromRole="Offline_Order_Details" ToRole="Slip_Formats" />
-        </EntityType>
-        <EntityType Name="Online_Order_Details">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Product_Id" Type="Int32" />
-          <Property Name="Advertisement_Area" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Ward" Type="Int32" />
-          <Property Name="Estimated_Reach_Ordered" Type="Int32" />
-          <Property Name="Estimated_Budget" Type="Int32" />
-          <Property Name="Price_Per_Piece" Type="Double" />
-          <Property Name="Promotion_Type_Id" Type="Int32" />
-          <Property Name="Age_Group" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Delivery_Date" Type="DateTime" Precision="3" />
-          <Property Name="Promotion_Date_From" Type="DateTime" Precision="3" />
-          <Property Name="Promotion_Date_To" Type="DateTime" Precision="3" />
-          <Property Name="Is_Masked" Type="Boolean" />
-          <Property Name="Marking_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Obd_Voice_File" Type="Boolean" />
-          <Property Name="Is_Obd_Provided" Type="Boolean" />
-          <Property Name="Obd_Vioce_Content" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="Number_Db_Provided" Type="Boolean" />
-          <Property Name="Sms_Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Order_Id" Type="Int32" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Discount" Type="Double" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="Updated_By" Type="Int32" />
-          <Property Name="Updated_On" Type="DateTime" Precision="3" />
-          <Property Name="Is_Deleted" Type="Int32" />
-          <Property Name="Deleted_By" Type="Int32" />
-          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Order" Relationship="Business_SuitModel.FK_Online_Order_Details_Order" FromRole="Online_Order_Details" ToRole="Order" />
-          <NavigationProperty Name="Product" Relationship="Business_SuitModel.FK_Online_Order_Details_Product" FromRole="Online_Order_Details" ToRole="Product" />
-          <NavigationProperty Name="Promotion_Type" Relationship="Business_SuitModel.FK_Online_Order_Details_Promotion_Type" FromRole="Online_Order_Details" ToRole="Promotion_Type" />
-          <NavigationProperty Name="Obd_Bulk" Relationship="Business_SuitModel.FK_Obd_Bulk_Online_Order_Details" FromRole="Online_Order_Details" ToRole="Obd_Bulk" />
-        </EntityType>
-        <Association Name="FK_Offline_Order_Details_Order">
-          <End Type="Business_SuitModel.Order" Role="Order" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Offline_Order_Details" Role="Offline_Order_Details" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Offline_Order_Details">
-              <PropertyRef Name="Order_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Offline_Order_Details_Slip_Formats">
-          <End Type="Business_SuitModel.Slip_Formats" Role="Slip_Formats" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Offline_Order_Details" Role="Offline_Order_Details" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Slip_Formats">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Offline_Order_Details">
-              <PropertyRef Name="Slip_Format_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Online_Order_Details_Order">
-          <End Type="Business_SuitModel.Order" Role="Order" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Online_Order_Details" Role="Online_Order_Details" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Online_Order_Details">
-              <PropertyRef Name="Order_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Online_Order_Details_Product">
-          <End Type="Business_SuitModel.Product" Role="Product" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Online_Order_Details" Role="Online_Order_Details" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Online_Order_Details">
-              <PropertyRef Name="Product_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Online_Order_Details_Promotion_Type">
-          <End Type="Business_SuitModel.Promotion_Type" Role="Promotion_Type" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Online_Order_Details" Role="Online_Order_Details" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Promotion_Type">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Online_Order_Details">
-              <PropertyRef Name="Promotion_Type_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Obd_Bulk_Online_Order_Details">
-          <End Type="Business_SuitModel.Online_Order_Details" Role="Online_Order_Details" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Obd_Bulk" Role="Obd_Bulk" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Online_Order_Details">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Obd_Bulk">
-              <PropertyRef Name="Order_Details_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Account_Head_TB">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Main_Account_Id" Type="Int32" />
-          <NavigationProperty Name="Main_Accounts" Relationship="Business_SuitModel.FK_Account_Head_TB_Main_Accounts" FromRole="Account_Head_TB" ToRole="Main_Accounts" />
-          <NavigationProperty Name="Expenses" Relationship="Business_SuitModel.FK_Expense_Account_Head_TB" FromRole="Account_Head_TB" ToRole="Expense" />
-        </EntityType>
-        <EntityType Name="Main_Accounts">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Account_Head_TB" Relationship="Business_SuitModel.FK_Account_Head_TB_Main_Accounts" FromRole="Main_Accounts" ToRole="Account_Head_TB" />
-        </EntityType>
-        <EntityType Name="Role1">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Display_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" />
-          <Property Name="Updated_On" Type="DateTime" Precision="3" />
-        </EntityType>
-        <Association Name="FK_Account_Head_TB_Main_Accounts">
-          <End Type="Business_SuitModel.Main_Accounts" Role="Main_Accounts" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Account_Head_TB" Role="Account_Head_TB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Main_Accounts">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Account_Head_TB">
-              <PropertyRef Name="Main_Account_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Expense_Account_Head_TB">
-          <End Type="Business_SuitModel.Account_Head_TB" Role="Account_Head_TB" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Expense" Role="Expense" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account_Head_TB">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Expense">
-              <PropertyRef Name="Account_Head_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Expense_Expense_Type">
-          <End Type="Business_SuitModel.Expense_Type" Role="Expense_Type" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Expense" Role="Expense" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Expense_Type">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Expense">
-              <PropertyRef Name="Type" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        </Schema>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Business_SuitModelStoreContainer" CdmEntityContainer="DBContext">
+          <EntitySetMapping Name="Account_Head_TB">
+            <EntityTypeMapping TypeName="Business_SuitModel.Account_Head_TB">
+              <MappingFragment StoreEntitySet="Account_Head_TB">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Main_Account_Id" ColumnName="Main_Account_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CDR_Instant">
+            <EntityTypeMapping TypeName="Business_SuitModel.CDR_Instant">
+              <MappingFragment StoreEntitySet="CDR_Instant">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Last_App" ColumnName="Last_App" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+                <ScalarProperty Name="Disposition" ColumnName="Disposition" />
+                <ScalarProperty Name="Bill_Sec" ColumnName="Bill_Sec" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CDR_Obd">
+            <EntityTypeMapping TypeName="Business_SuitModel.CDR_Obd">
+              <MappingFragment StoreEntitySet="CDR_Obd">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Obd_Request_Id" ColumnName="Obd_Request_Id" />
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Last_App" ColumnName="Last_App" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+                <ScalarProperty Name="Disposition" ColumnName="Disposition" />
+                <ScalarProperty Name="Bill_Sec" ColumnName="Bill_Sec" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Server" ColumnName="Server" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client_Inventory">
+            <EntityTypeMapping TypeName="Business_SuitModel.Client_Inventory">
+              <MappingFragment StoreEntitySet="Client_Inventory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
+                <ScalarProperty Name="Login_Id" ColumnName="Login_Id" />
+                <ScalarProperty Name="Profile_Id" ColumnName="Profile_Id" />
+                <ScalarProperty Name="Free_Sms" ColumnName="Free_Sms" />
+                <ScalarProperty Name="Free_Call" ColumnName="Free_Call" />
+                <ScalarProperty Name="Sms_Sent" ColumnName="Sms_Sent" />
+                <ScalarProperty Name="Call_Sent" ColumnName="Call_Sent" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
+                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Client_List">
             <EntityTypeMapping TypeName="Business_SuitModel.Client_List">
               <MappingFragment StoreEntitySet="Client_List">
-                <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
-                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
-                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="District_Id" ColumnName="District_Id" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Counsilor_Name" ColumnName="Counsilor_Name" />
                 <ScalarProperty Name="Bangla_Name" ColumnName="Bangla_Name" />
                 <ScalarProperty Name="Mobile1" ColumnName="Mobile1" />
                 <ScalarProperty Name="Mobile2" ColumnName="Mobile2" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Constituency_Id" ColumnName="Constituency_Id" />
                 <ScalarProperty Name="ward" ColumnName="ward" />
+                <ScalarProperty Name="District_Id" ColumnName="District_Id" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Client_Type_Id" ColumnName="Client_Type_Id" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="Is_Elected" ColumnName="Is_Elected" />
-                <ScalarProperty Name="Client_Type" ColumnName="Client_Type" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Present_Position" ColumnName="Present_Position" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client_Type">
+            <EntityTypeMapping TypeName="Business_SuitModel.Client_Type">
+              <MappingFragment StoreEntitySet="Client_Type">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Constituencies">
+            <EntityTypeMapping TypeName="Business_SuitModel.Constituency">
+              <MappingFragment StoreEntitySet="Constituency">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactTBs">
+            <EntityTypeMapping TypeName="Business_SuitModel.ContactTB">
+              <MappingFragment StoreEntitySet="ContactTB">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Job_Title" ColumnName="Job_Title" />
+                <ScalarProperty Name="Company_Name" ColumnName="Company_Name" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="IP_Address" ColumnName="IP_Address" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2184,14 +2489,14 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="Expenses">
             <EntityTypeMapping TypeName="Business_SuitModel.Expense">
               <MappingFragment StoreEntitySet="Expense">
-                <ScalarProperty Name="Extension" ColumnName="Extension" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Account_Head_Id" ColumnName="Account_Head_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Account_Head_Id" ColumnName="Account_Head_Id" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Spent_Date" ColumnName="Spent_Date" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
                 <ScalarProperty Name="Created_By" ColumnName="Created_By" />
                 <ScalarProperty Name="Created_On" ColumnName="Created_On" />
                 <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
@@ -2210,14 +2515,207 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Incoming_Calls">
+            <EntityTypeMapping TypeName="Business_SuitModel.Incoming_Calls">
+              <MappingFragment StoreEntitySet="Incoming_Calls">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+                <ScalarProperty Name="Answer_Time" ColumnName="Answer_Time" />
+                <ScalarProperty Name="Disposition" ColumnName="Disposition" />
+                <ScalarProperty Name="Bill_Sec" ColumnName="Bill_Sec" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Server" ColumnName="Server" />
+                <ScalarProperty Name="Call_Unique_Id" ColumnName="Call_Unique_Id" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Main_Accounts">
+            <EntityTypeMapping TypeName="Business_SuitModel.Main_Accounts">
+              <MappingFragment StoreEntitySet="Main_Accounts">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modules">
+            <EntityTypeMapping TypeName="Business_SuitModel.Module">
+              <MappingFragment StoreEntitySet="Module">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Obd_Bulk">
+            <EntityTypeMapping TypeName="Business_SuitModel.Obd_Bulk">
+              <MappingFragment StoreEntitySet="Obd_Bulk">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
+                <ScalarProperty Name="Order_Details_Id" ColumnName="Order_Details_Id" />
+                <ScalarProperty Name="Scheduled_Time" ColumnName="Scheduled_Time" />
+                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+                <ScalarProperty Name="Retry_Minutes" ColumnName="Retry_Minutes" />
+                <ScalarProperty Name="Calls_Per_Sec" ColumnName="Calls_Per_Sec" />
+                <ScalarProperty Name="Play_File" ColumnName="Play_File" />
+                <ScalarProperty Name="Wait" ColumnName="Wait" />
+                <ScalarProperty Name="Total_Calls" ColumnName="Total_Calls" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Obd_Request">
+            <EntityTypeMapping TypeName="Business_SuitModel.Obd_Request">
+              <MappingFragment StoreEntitySet="Obd_Request">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Obd_Bulk_Id" ColumnName="Obd_Bulk_Id" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Source_Id" ColumnName="Source_Id" />
+                <ScalarProperty Name="Retry_Count" ColumnName="Retry_Count" />
+                <ScalarProperty Name="Retry_Schedule" ColumnName="Retry_Schedule" />
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Unique_Id" ColumnName="Unique_Id" />
+                <ScalarProperty Name="Last_App" ColumnName="Last_App" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+                <ScalarProperty Name="Answer_Time" ColumnName="Answer_Time" />
+                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+                <ScalarProperty Name="Disposition" ColumnName="Disposition" />
+                <ScalarProperty Name="Bill_Sec" ColumnName="Bill_Sec" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Server" ColumnName="Server" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Obd_Ward_Details">
+            <EntityTypeMapping TypeName="Business_SuitModel.Obd_Ward_Details">
+              <MappingFragment StoreEntitySet="Obd_Ward_Details">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
+                <ScalarProperty Name="Source_Id" ColumnName="Source_Id" />
+                <ScalarProperty Name="Obd_Bulk_Id" ColumnName="Obd_Bulk_Id" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Offline_Order_Details">
+            <EntityTypeMapping TypeName="Business_SuitModel.Offline_Order_Details">
+              <MappingFragment StoreEntitySet="Offline_Order_Details">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+                <ScalarProperty Name="Slip_Format_Id" ColumnName="Slip_Format_Id" />
+                <ScalarProperty Name="Price_Per_Piece" ColumnName="Price_Per_Piece" />
+                <ScalarProperty Name="Estimated_Voters" ColumnName="Estimated_Voters" />
+                <ScalarProperty Name="Format_No" ColumnName="Format_No" />
+                <ScalarProperty Name="Delivery_Date" ColumnName="Delivery_Date" />
+                <ScalarProperty Name="Delivery_Type" ColumnName="Delivery_Type" />
+                <ScalarProperty Name="Free_Blank_Slip" ColumnName="Free_Blank_Slip" />
+                <ScalarProperty Name="Paid_Blank_Slip" ColumnName="Paid_Blank_Slip" />
+                <ScalarProperty Name="Blank_Slip_Price" ColumnName="Blank_Slip_Price" />
+                <ScalarProperty Name="Sample_Slip_Image" ColumnName="Sample_Slip_Image" />
+                <ScalarProperty Name="Passport_Image" ColumnName="Passport_Image" />
+                <ScalarProperty Name="Slip_Content" ColumnName="Slip_Content" />
+                <ScalarProperty Name="Voter_List_File" ColumnName="Voter_List_File" />
+                <ScalarProperty Name="Is_Cd_Provided" ColumnName="Is_Cd_Provided" />
+                <ScalarProperty Name="Voter_Slip_Image_Type" ColumnName="Voter_Slip_Image_Type" />
+                <ScalarProperty Name="Center_Name_List_Image" ColumnName="Center_Name_List_Image" />
+                <ScalarProperty Name="Center_Name_List" ColumnName="Center_Name_List" />
+                <ScalarProperty Name="Voter_List_Print" ColumnName="Voter_List_Print" />
+                <ScalarProperty Name="Voter_List_Print_Comment" ColumnName="Voter_List_Print_Comment" />
+                <ScalarProperty Name="Voter_List_Print_Price" ColumnName="Voter_List_Print_Price" />
+                <ScalarProperty Name="Liflet_Image" ColumnName="Liflet_Image" />
+                <ScalarProperty Name="Election_Date" ColumnName="Election_Date" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Marka" ColumnName="Marka" />
+                <ScalarProperty Name="Marka_Image" ColumnName="Marka_Image" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Ceated_On" ColumnName="Ceated_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
+                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
+                <ScalarProperty Name="Download_Link" ColumnName="Download_Link" />
+                <ScalarProperty Name="Can_Download" ColumnName="Can_Download" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Online_Order_Details">
+            <EntityTypeMapping TypeName="Business_SuitModel.Online_Order_Details">
+              <MappingFragment StoreEntitySet="Online_Order_Details">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+                <ScalarProperty Name="Advertisement_Area" ColumnName="Advertisement_Area" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="Estimated_Reach_Ordered" ColumnName="Estimated_Reach_Ordered" />
+                <ScalarProperty Name="Estimated_Budget" ColumnName="Estimated_Budget" />
+                <ScalarProperty Name="Price_Per_Piece" ColumnName="Price_Per_Piece" />
+                <ScalarProperty Name="Promotion_Type_Id" ColumnName="Promotion_Type_Id" />
+                <ScalarProperty Name="Age_Group" ColumnName="Age_Group" />
+                <ScalarProperty Name="Delivery_Date" ColumnName="Delivery_Date" />
+                <ScalarProperty Name="Promotion_Date_From" ColumnName="Promotion_Date_From" />
+                <ScalarProperty Name="Promotion_Date_To" ColumnName="Promotion_Date_To" />
+                <ScalarProperty Name="Is_Masked" ColumnName="Is_Masked" />
+                <ScalarProperty Name="Marking_Name" ColumnName="Marking_Name" />
+                <ScalarProperty Name="Obd_Voice_File" ColumnName="Obd_Voice_File" />
+                <ScalarProperty Name="Is_Obd_Provided" ColumnName="Is_Obd_Provided" />
+                <ScalarProperty Name="Obd_Vioce_Content" ColumnName="Obd_Vioce_Content" />
+                <ScalarProperty Name="Number_Db_Provided" ColumnName="Number_Db_Provided" />
+                <ScalarProperty Name="Sms_Content" ColumnName="Sms_Content" />
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
+                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="Business_SuitModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Is_Package" ColumnName="Is_Package" />
+                <ScalarProperty Name="Total_Paid" ColumnName="Total_Paid" />
+                <ScalarProperty Name="Total_Bill" ColumnName="Total_Bill" />
+                <ScalarProperty Name="Order_Status" ColumnName="Order_Status" />
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Permissions">
             <EntityTypeMapping TypeName="Business_SuitModel.Permission">
               <MappingFragment StoreEntitySet="Permission">
-                <ScalarProperty Name="Module_Id" ColumnName="Module_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Module_Id" ColumnName="Module_Id" />
                 <ScalarProperty Name="Created_On" ColumnName="Created_On" />
                 <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
               </MappingFragment>
@@ -2239,6 +2737,26 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
                 <ScalarProperty Name="Permission_Id" ColumnName="Permission_Id" />
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
                 <ScalarProperty Name="User_Type" ColumnName="User_Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="Business_SuitModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
+                <ScalarProperty Name="Is_Online" ColumnName="Is_Online" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Regular_Price" ColumnName="Regular_Price" />
+                <ScalarProperty Name="Lower_Price" ColumnName="Lower_Price" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
+                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2282,6 +2800,18 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Roles1">
+            <EntityTypeMapping TypeName="Business_SuitModel.Role1">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Sippeers">
             <EntityTypeMapping TypeName="Business_SuitModel.Sippeer">
               <MappingFragment StoreEntitySet="Sippeers">
@@ -2301,6 +2831,32 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Sms_Bulk">
+            <EntityTypeMapping TypeName="Business_SuitModel.Sms_Bulk">
+              <MappingFragment StoreEntitySet="Sms_Bulk">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sms_Request">
+            <EntityTypeMapping TypeName="Business_SuitModel.Sms_Request">
+              <MappingFragment StoreEntitySet="Sms_Request">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Msisdn" ColumnName="Msisdn" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+                <ScalarProperty Name="Locked_Time" ColumnName="Locked_Time" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Status_">
             <EntityTypeMapping TypeName="Business_SuitModel.Status_">
               <MappingFragment StoreEntitySet="Status ">
@@ -2313,21 +2869,21 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           <EntitySetMapping Name="User_Login">
             <EntityTypeMapping TypeName="Business_SuitModel.User_Login">
               <MappingFragment StoreEntitySet="User_Login">
-                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
-                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
-                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
-                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
-                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
-                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
-                <ScalarProperty Name="Ceated_On" ColumnName="Ceated_On" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
-                <ScalarProperty Name="Is_Client" ColumnName="Is_Client" />
-                <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role_Id" ColumnName="Role_Id" />
                 <ScalarProperty Name="User_Profile_Id" ColumnName="User_Profile_Id" />
+                <ScalarProperty Name="Is_Client" ColumnName="Is_Client" />
+                <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Ceated_On" ColumnName="Ceated_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
+                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
+                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2388,328 +2944,9 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Modules">
-            <EntityTypeMapping TypeName="Business_SuitModel.Module">
-              <MappingFragment StoreEntitySet="Module">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CDR_Instant">
-            <EntityTypeMapping TypeName="Business_SuitModel.CDR_Instant">
-              <MappingFragment StoreEntitySet="CDR_Instant">
-                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
-                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
-                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
-                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
-                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
-                <ScalarProperty Name="Bill_Sec" ColumnName="Bill_Sec" />
-                <ScalarProperty Name="Disposition" ColumnName="Disposition" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Last_App" ColumnName="Last_App" />
-                <ScalarProperty Name="Context" ColumnName="Context" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Client_Inventory">
-            <EntityTypeMapping TypeName="Business_SuitModel.Client_Inventory">
-              <MappingFragment StoreEntitySet="Client_Inventory">
-                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
-                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
-                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
-                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
-                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="Call_Sent" ColumnName="Call_Sent" />
-                <ScalarProperty Name="Sms_Sent" ColumnName="Sms_Sent" />
-                <ScalarProperty Name="Free_Call" ColumnName="Free_Call" />
-                <ScalarProperty Name="Free_Sms" ColumnName="Free_Sms" />
-                <ScalarProperty Name="Profile_Id" ColumnName="Profile_Id" />
-                <ScalarProperty Name="Login_Id" ColumnName="Login_Id" />
-                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Obd_Ward_Details">
-            <EntityTypeMapping TypeName="Business_SuitModel.Obd_Ward_Details">
-              <MappingFragment StoreEntitySet="Obd_Ward_Details">
-                <ScalarProperty Name="Source_Id" ColumnName="Source_Id" />
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Obd_Bulk_Id" ColumnName="Obd_Bulk_Id" />
-                <ScalarProperty Name="Ward" ColumnName="Ward" />
-                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sms_Bulk">
-            <EntityTypeMapping TypeName="Business_SuitModel.Sms_Bulk">
-              <MappingFragment StoreEntitySet="Sms_Bulk">
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
-                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sms_Request">
-            <EntityTypeMapping TypeName="Business_SuitModel.Sms_Request">
-              <MappingFragment StoreEntitySet="Sms_Request">
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="Locked_Time" ColumnName="Locked_Time" />
-                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
-                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="Msisdn" ColumnName="Msisdn" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Incoming_Calls">
-            <EntityTypeMapping TypeName="Business_SuitModel.Incoming_Calls">
-              <MappingFragment StoreEntitySet="Incoming_Calls">
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
-                <ScalarProperty Name="Bill_Sec" ColumnName="Bill_Sec" />
-                <ScalarProperty Name="Disposition" ColumnName="Disposition" />
-                <ScalarProperty Name="Answer_Time" ColumnName="Answer_Time" />
-                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
-                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
-                <ScalarProperty Name="Context" ColumnName="Context" />
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Call_Unique_Id" ColumnName="Call_Unique_Id" />
-                <ScalarProperty Name="Server" ColumnName="Server" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CDR_Obd">
-            <EntityTypeMapping TypeName="Business_SuitModel.CDR_Obd">
-              <MappingFragment StoreEntitySet="CDR_Obd">
-                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
-                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="Server" ColumnName="Server" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
-                <ScalarProperty Name="Bill_Sec" ColumnName="Bill_Sec" />
-                <ScalarProperty Name="Disposition" ColumnName="Disposition" />
-                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
-                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Last_App" ColumnName="Last_App" />
-                <ScalarProperty Name="Context" ColumnName="Context" />
-                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
-                <ScalarProperty Name="Obd_Request_Id" ColumnName="Obd_Request_Id" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Obd_Bulk">
-            <EntityTypeMapping TypeName="Business_SuitModel.Obd_Bulk">
-              <MappingFragment StoreEntitySet="Obd_Bulk">
-                <ScalarProperty Name="Order_Details_Id" ColumnName="Order_Details_Id" />
-                <ScalarProperty Name="Priority" ColumnName="Priority" />
-                <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
-                <ScalarProperty Name="Wait" ColumnName="Wait" />
-                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
-                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Total_Calls" ColumnName="Total_Calls" />
-                <ScalarProperty Name="Play_File" ColumnName="Play_File" />
-                <ScalarProperty Name="Calls_Per_Sec" ColumnName="Calls_Per_Sec" />
-                <ScalarProperty Name="Retry_Minutes" ColumnName="Retry_Minutes" />
-                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
-                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
-                <ScalarProperty Name="Scheduled_Time" ColumnName="Scheduled_Time" />
-                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Obd_Request">
-            <EntityTypeMapping TypeName="Business_SuitModel.Obd_Request">
-              <MappingFragment StoreEntitySet="Obd_Request">
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Unique_Id" ColumnName="Unique_Id" />
-                <ScalarProperty Name="Server" ColumnName="Server" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
-                <ScalarProperty Name="Bill_Sec" ColumnName="Bill_Sec" />
-                <ScalarProperty Name="Disposition" ColumnName="Disposition" />
-                <ScalarProperty Name="End_Time" ColumnName="End_Time" />
-                <ScalarProperty Name="Answer_Time" ColumnName="Answer_Time" />
-                <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Last_App" ColumnName="Last_App" />
-                <ScalarProperty Name="Context" ColumnName="Context" />
-                <ScalarProperty Name="Retry_Schedule" ColumnName="Retry_Schedule" />
-                <ScalarProperty Name="Retry_Count" ColumnName="Retry_Count" />
-                <ScalarProperty Name="Source_Id" ColumnName="Source_Id" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Obd_Bulk_Id" ColumnName="Obd_Bulk_Id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="Business_SuitModel.Order">
-              <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="Client_Id" ColumnName="Client_Id" />
-                <ScalarProperty Name="Order_Status" ColumnName="Order_Status" />
-                <ScalarProperty Name="Total_Bill" ColumnName="Total_Bill" />
-                <ScalarProperty Name="Total_Paid" ColumnName="Total_Paid" />
-                <ScalarProperty Name="Is_Package" ColumnName="Is_Package" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="Business_SuitModel.Product">
-              <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
-                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
-                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
-                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
-                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Lower_Price" ColumnName="Lower_Price" />
-                <ScalarProperty Name="Regular_Price" ColumnName="Regular_Price" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Is_Online" ColumnName="Is_Online" />
-                <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Offline_Order_Details">
-            <EntityTypeMapping TypeName="Business_SuitModel.Offline_Order_Details">
-              <MappingFragment StoreEntitySet="Offline_Order_Details">
-                <ScalarProperty Name="Can_Download" ColumnName="Can_Download" />
-                <ScalarProperty Name="Download_Link" ColumnName="Download_Link" />
-                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
-                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
-                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
-                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
-                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
-                <ScalarProperty Name="Ceated_On" ColumnName="Ceated_On" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="Marka_Image" ColumnName="Marka_Image" />
-                <ScalarProperty Name="Marka" ColumnName="Marka" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="Election_Date" ColumnName="Election_Date" />
-                <ScalarProperty Name="Liflet_Image" ColumnName="Liflet_Image" />
-                <ScalarProperty Name="Voter_List_Print_Price" ColumnName="Voter_List_Print_Price" />
-                <ScalarProperty Name="Voter_List_Print_Comment" ColumnName="Voter_List_Print_Comment" />
-                <ScalarProperty Name="Voter_List_Print" ColumnName="Voter_List_Print" />
-                <ScalarProperty Name="Center_Name_List" ColumnName="Center_Name_List" />
-                <ScalarProperty Name="Center_Name_List_Image" ColumnName="Center_Name_List_Image" />
-                <ScalarProperty Name="Voter_Slip_Image_Type" ColumnName="Voter_Slip_Image_Type" />
-                <ScalarProperty Name="Is_Cd_Provided" ColumnName="Is_Cd_Provided" />
-                <ScalarProperty Name="Voter_List_File" ColumnName="Voter_List_File" />
-                <ScalarProperty Name="Slip_Content" ColumnName="Slip_Content" />
-                <ScalarProperty Name="Passport_Image" ColumnName="Passport_Image" />
-                <ScalarProperty Name="Sample_Slip_Image" ColumnName="Sample_Slip_Image" />
-                <ScalarProperty Name="Blank_Slip_Price" ColumnName="Blank_Slip_Price" />
-                <ScalarProperty Name="Paid_Blank_Slip" ColumnName="Paid_Blank_Slip" />
-                <ScalarProperty Name="Free_Blank_Slip" ColumnName="Free_Blank_Slip" />
-                <ScalarProperty Name="Delivery_Type" ColumnName="Delivery_Type" />
-                <ScalarProperty Name="Delivery_Date" ColumnName="Delivery_Date" />
-                <ScalarProperty Name="Format_No" ColumnName="Format_No" />
-                <ScalarProperty Name="Estimated_Voters" ColumnName="Estimated_Voters" />
-                <ScalarProperty Name="Price_Per_Piece" ColumnName="Price_Per_Piece" />
-                <ScalarProperty Name="Slip_Format_Id" ColumnName="Slip_Format_Id" />
-                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Online_Order_Details">
-            <EntityTypeMapping TypeName="Business_SuitModel.Online_Order_Details">
-              <MappingFragment StoreEntitySet="Online_Order_Details">
-                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
-                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
-                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
-                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
-                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
-                <ScalarProperty Name="Sms_Content" ColumnName="Sms_Content" />
-                <ScalarProperty Name="Number_Db_Provided" ColumnName="Number_Db_Provided" />
-                <ScalarProperty Name="Obd_Vioce_Content" ColumnName="Obd_Vioce_Content" />
-                <ScalarProperty Name="Is_Obd_Provided" ColumnName="Is_Obd_Provided" />
-                <ScalarProperty Name="Obd_Voice_File" ColumnName="Obd_Voice_File" />
-                <ScalarProperty Name="Marking_Name" ColumnName="Marking_Name" />
-                <ScalarProperty Name="Is_Masked" ColumnName="Is_Masked" />
-                <ScalarProperty Name="Promotion_Date_To" ColumnName="Promotion_Date_To" />
-                <ScalarProperty Name="Promotion_Date_From" ColumnName="Promotion_Date_From" />
-                <ScalarProperty Name="Delivery_Date" ColumnName="Delivery_Date" />
-                <ScalarProperty Name="Age_Group" ColumnName="Age_Group" />
-                <ScalarProperty Name="Promotion_Type_Id" ColumnName="Promotion_Type_Id" />
-                <ScalarProperty Name="Price_Per_Piece" ColumnName="Price_Per_Piece" />
-                <ScalarProperty Name="Estimated_Budget" ColumnName="Estimated_Budget" />
-                <ScalarProperty Name="Estimated_Reach_Ordered" ColumnName="Estimated_Reach_Ordered" />
-                <ScalarProperty Name="Ward" ColumnName="Ward" />
-                <ScalarProperty Name="Advertisement_Area" ColumnName="Advertisement_Area" />
-                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Account_Head_TB">
-            <EntityTypeMapping TypeName="Business_SuitModel.Account_Head_TB">
-              <MappingFragment StoreEntitySet="Account_Head_TB">
-                <ScalarProperty Name="Main_Account_Id" ColumnName="Main_Account_Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Main_Accounts">
-            <EntityTypeMapping TypeName="Business_SuitModel.Main_Accounts">
-              <MappingFragment StoreEntitySet="Main_Accounts">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Roles1">
-            <EntityTypeMapping TypeName="Business_SuitModel.Role1">
-              <MappingFragment StoreEntitySet="Roles">
-                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Display_Name" ColumnName="Display_Name" />
+          <EntitySetMapping Name="PartyTBs">
+            <EntityTypeMapping TypeName="Business_SuitModel.PartyTB">
+              <MappingFragment StoreEntitySet="PartyTB">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -2731,7 +2968,7 @@ FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

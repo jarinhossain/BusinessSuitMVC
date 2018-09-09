@@ -19,6 +19,9 @@ namespace BusinessSuitMVC.Controllers
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
             ViewData["DistrictList"] = loadDistrict();
+            ViewData["ClienttypList"] = loadClientTypeDropDown();
+           ViewData["constituencyList"] = loadConstituencyDropdown();
+            ViewData["partyList"] = loadpartyDropdown();
             return View();
         }
 
@@ -29,6 +32,9 @@ namespace BusinessSuitMVC.Controllers
                 return View("Unauthorized");
 
             ViewData["DistrictList"] = loadDistrict();
+            ViewData["ClienttypList"] = loadClientTypeDropDown();
+            ViewData["constituencyList"] = loadConstituencyDropdown();
+            ViewData["partyList"] = loadpartyDropdown();
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
 
@@ -64,6 +70,8 @@ namespace BusinessSuitMVC.Controllers
                 }
                 ViewData["msg"] = "Successfully Saved";
             }
+            ViewData["DistrictList"] = loadDistrict();
+            ViewData["ClienttypList"] = loadClientTypeDropDown();
             return View();
         }
 
@@ -89,7 +97,7 @@ namespace BusinessSuitMVC.Controllers
             {
                 return "Please enter your valid District";
             }
-            else if (client.Client_Type == null)
+            else if (client.Client_Type_Id == null)
             {
                 return "Please enter your valid Client Type";
             }
@@ -118,6 +126,9 @@ namespace BusinessSuitMVC.Controllers
                 return View("Unauthorized");
 
             ViewData["DistrictList"] = loadDistrict();
+            ViewData["ClienttypList"] = loadClientTypeDropDown();
+            ViewData["constituencyList"] = loadConstituencyDropdown();
+            ViewData["partyList"] = loadpartyDropdown();
             DBContext DB = new DBContext();
             Client_List client = (from user in DB.Client_List
                                   where user.Id == id
@@ -132,6 +143,9 @@ namespace BusinessSuitMVC.Controllers
                 return View("Unauthorized");
 
             ViewData["DistrictList"] = loadDistrict();
+            ViewData["ClienttypList"] = loadClientTypeDropDown();
+            ViewData["constituencyList"] = loadConstituencyDropdown();
+            ViewData["partyList"] = loadpartyDropdown();
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
 
@@ -161,14 +175,15 @@ namespace BusinessSuitMVC.Controllers
                 Client.Bangla_Name = client.Bangla_Name;
                 Client.Mobile1 = client.Mobile1;
                 Client.Mobile2 = client.Mobile2;
+                Client.Constituency_Id = client.Constituency_Id; 
                 Client.Email = client.Email;
                 Client.ward = client.ward;
                 Client.District = client.District;
-                Client.Address = client.Address;
-                Client.Remarks = client.Remarks;
-                //  Client.Is_Elected = client.Is_Elected;
-                Client.Client_Type = client.Client_Type;
+                Client.Address = client.Address; 
+                Client.Party_Id = client.Party_Id;
+                Client.Client_Type_Id = client.Client_Type_Id;
                 Client.Present_Position = client.Present_Position;
+                Client.Remarks = client.Remarks;
                 Client.Image = file != null && file.ContentLength > 0 ? true : client.Image;
                 DB.SaveChanges();
                 if (file != null && file.ContentLength > 0)
@@ -179,6 +194,10 @@ namespace BusinessSuitMVC.Controllers
                 }
                 ViewData["msg"] = "Successfully Updated";
             }
+            ViewData["DistrictList"] = loadDistrict();
+            ViewData["ClienttypList"] = loadClientTypeDropDown();
+            ViewData["constituencyList"] = loadConstituencyDropdown();
+            ViewData["partyList"] = loadpartyDropdown();
             return View(client);
         }
 
@@ -474,7 +493,7 @@ namespace BusinessSuitMVC.Controllers
             source.Mobile2 = client.Mobile2;
             source.Ward = client.ward;
             source.District_Id = client.District_Id;
-            source.Source_Type_Id = client.Client_Type;
+            source.Source_Type_Id = client.Client_Type_Id;
             source.Address = client.Address;
             source.Image = false;
             source.Created_By = int.Parse(Session["Login_Id"].ToString());
@@ -544,5 +563,42 @@ namespace BusinessSuitMVC.Controllers
             }
             return districtDropdown;
         }
+        public List<SelectListItem> loadClientTypeDropDown()
+        {
+            DBContext DB = new DBContext();
+            List<Client_Type> type = (from typ in DB.Client_Type
+                                      select typ).ToList();
+            List<SelectListItem> typeDropdown = new List<SelectListItem>();
+            foreach (var item in type)
+            {
+                typeDropdown.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
+            }
+            return typeDropdown;
+        }
+        public List<SelectListItem> loadConstituencyDropdown()
+        {
+            DBContext DB = new DBContext();
+            List<Constituency> cons = (from con in DB.Constituencies
+                                            select con).ToList();
+            List<SelectListItem> Constituenciesdrp = new List<SelectListItem>();
+            foreach (var item in cons)
+            {
+                Constituenciesdrp.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
+            }
+            return Constituenciesdrp;
+        }
+        public List<SelectListItem> loadpartyDropdown()
+        {
+            DBContext DB = new DBContext();
+            List<PartyTB> cons = (from con in DB.PartyTBs
+                                       select con).ToList();
+            List<SelectListItem> Constituenciesdrp = new List<SelectListItem>();
+            foreach (var item in cons)
+            {
+                Constituenciesdrp.Add(new SelectListItem() { Value = item.Id.ToString(), Text = item.Name });
+            }
+            return Constituenciesdrp;
+        }
+
     }
 }
