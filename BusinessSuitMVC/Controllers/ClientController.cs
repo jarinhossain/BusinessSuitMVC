@@ -75,6 +75,116 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult ClientTypeCreate()
+        {
+            
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ClientTypeCreate(Client_Type acount)
+        {
+          
+            DBContext db = new DBContext();
+            db.Client_Type.Add(acount);
+            db.SaveChanges();
+            ViewData["msg"] = "Successfully Saved";
+            return View();
+        }
+        [HttpGet]
+        public ActionResult ClientTypeEdit(int id)
+        {
+           
+            DBContext db = new DBContext();
+            Client_Type account = (from ac in db.Client_Type
+                                   where ac.Id == id
+                                       select ac).FirstOrDefault();
+
+
+            return View(account);
+        }
+        [HttpPost]
+        public ActionResult ClientTypeEdit(Client_Type account)
+        {
+           
+            DBContext db = new DBContext();
+            Client_Type accoun = (from ac in db.Client_Type
+                                  where ac.Id == account.Id
+                                      select ac).FirstOrDefault();
+
+            accoun.Name = account.Name;
+            db.SaveChanges();
+
+            ViewData["msg"] = "Successfully Updated";
+            return View(account);
+        }
+        [HttpGet]
+        public ActionResult ClientTypeSearch()
+        {
+
+
+            DBContext DB = new DBContext();
+
+            List<Client_Type> expense = (from client in DB.Client_Type
+                                         select client).ToList();
+
+            return View(expense);
+        }
+        [HttpGet]
+        public ActionResult PartyTypeCreate()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult PartyTypeCreate(PartyTB acount)
+        {
+
+            DBContext db = new DBContext();
+            db.PartyTBs.Add(acount);
+            db.SaveChanges();
+            ViewData["msg"] = "Successfully Saved";
+            return View();
+        }
+        [HttpGet]
+        public ActionResult PartyTypeEdit(int id)
+        {
+
+            DBContext db = new DBContext();
+            PartyTB account = (from ac in db.PartyTBs
+                               where ac.Id == id
+                                   select ac).FirstOrDefault();
+
+
+            return View(account);
+        }
+        [HttpPost]
+        public ActionResult PartyTypeEdit(PartyTB account)
+        {
+
+            DBContext db = new DBContext();
+            PartyTB accoun = (from ac in db.PartyTBs
+                              where ac.Id == account.Id
+                                  select ac).FirstOrDefault();
+
+            accoun.Name = account.Name;
+            db.SaveChanges();
+
+            ViewData["msg"] = "Successfully Updated";
+            return View(account);
+        }
+        [HttpGet]
+        public ActionResult PartyTypeSearch()
+        {
+
+
+            DBContext DB = new DBContext();
+
+            List<PartyTB> expense = (from client in DB.PartyTBs
+                                         select client).ToList();
+
+            return View(expense);
+        }
         public String validationCreate(Client_List client)
         {
             if (client.Counsilor_Name == null)

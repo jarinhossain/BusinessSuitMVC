@@ -794,50 +794,55 @@
                     <form action="" method="post" role="form" class="contactForm">
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <input type="text" name="name" class="form-control" id="FullName" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                <input type="text" name="name" class="form-control" id="FullName" placeholder="Your Name" data-rule="minlen:4" />
                                
+                                 <label id="name" style="color:red; display:none" class="control-label col-md-6"></label>
+                              
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="email" class="form-control" name="email" id="Email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
-                               
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <input type="text" name="phone" class="form-control" id="Phone" placeholder="Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input type="text" class="form-control" name="subject" id="Subject" placeholder="Subject" data-rule="email" data-msg="Please enter a valid email" />
-
+                                <input type="email" class="form-control" name="email" id="Email" placeholder="Your Email" data-rule="email" />
+                                    <label id="email" style="color:red; display:none" class="control-label col-md-6"></label>
+                                
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control" name="Jobtitle" id="Job_Title" placeholder="Job Title" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                                <input type="text" name="phone" class="form-control" id="Phone" placeholder="Phone" data-rule="minlen:4"/>
+                                <label id="phone" style="color:red; display:none" class="control-label col-md-6"></label>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" name="address" id="Address" placeholder="Address" data-rule="minlen:4" />
+                                <label id="address" style="color:red; display:none" class="control-label col-md-6"></label>
+                            </div>
+                          
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" name="Jobtitle" id="Job_Title" placeholder="Job Title" data-rule="minlen:4"  />
 
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control" name="Companyname" id="Company_Name" placeholder="Company Name" data-rule="email" data-msg="Please enter a valid email" />
+                                <input type="text" class="form-control" name="Companyname" id="Company_Name" placeholder="Company Name" data-rule="minlen:4" />
 
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control" name="city" id="City" placeholder="City" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
-
+                                <input type="text" class="form-control" name="city" id="City" placeholder="City" data-rule="minlen:4"  />
+                                <label id="city" style="color:red; display:none" class="control-label col-md-6"></label>
                             </div>
                             <div class="form-group col-md-6">
-                                <input type="text" class="form-control" name="postalcode" id="postal_code" placeholder="Postal Code" data-rule="email" data-msg="Please enter a valid email" />
+                                <input type="text" class="form-control" name="postalcode" id="postal_code" placeholder="Postal Code" data-rule="minlen:4" />
 
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="address" id="Address" placeholder="Address" data-rule="email" data-msg="Please enter a valid email" />
+                            <input type="text" class="form-control" name="subject" id="Subject" placeholder="Subject" data-rule="minlen:4" />
+                            <label id="subject" style="color:red; display:none" class="control-label col-md-6"></label>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" name="message" rows="5" id="Message" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
-                            <div class="validation"></div>
+                            <textarea class="form-control" name="message" rows="5" id="Message" data-rule="minlen:4" placeholder="Message"></textarea>
+                            <label id="message" style="color:red; display:none" class="control-label col-md-6"></label>
                         </div>
                         <div class="text-center"><button type="submit">Send Message</button></div>
                     </form>

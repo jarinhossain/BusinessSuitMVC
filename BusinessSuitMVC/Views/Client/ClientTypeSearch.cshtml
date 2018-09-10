@@ -1,9 +1,8 @@
-﻿@model List<BusinessSuitMVC.Models.Expense>
+﻿
+@model List<BusinessSuitMVC.Models.Client_Type>
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-<!DOCTYPE html>
-
 <section class="content-wrapper">
 
     <section class="content-header">
@@ -26,7 +25,7 @@
                             <h3 class="box-title">Search</h3>
                         </div>
                         <div class="col-md-1">
-                            <a href="~/Accounting/ExpenseCreate" class="btn btn-primary btn-sm">Add</a>
+                            <a href="~/Client/ClientTypeCreate" class="btn btn-primary btn-sm">Add</a>
                         </div>
                     </div>
 
@@ -34,42 +33,21 @@
                     <div class="box-body">
                         <table class="table table-bordered table-responsive table-striped display nowrap" id="example" style="display:block">
                             <thead>
-                                <tr>
+                                <tr role="row">
                                     <th>Option</th>
-                                    <th>Account_Head_Id</th>
-                                    <th>Type</th>
-                                    <th>Spent_Date</th>
-                                    <th>Amount</th>
-                                    <th>Description</th>
-                                    <th>Image</th>
+                                    <th>Client Type Name</th>
                                 </tr>
-                            <thead>
+                            </thead>
+
                             <tbody>
-                                @foreach (BusinessSuitMVC.Models.Expense expense in (IEnumerable<BusinessSuitMVC.Models.Expense>)Model)
-            {
+                                @foreach (BusinessSuitMVC.Models.Client_Type client in (IEnumerable<BusinessSuitMVC.Models.Client_Type>)Model)
+                                {
                                     <tr>
-                                        <td><a href="~/Accounting/ExpenseEdit?id=@expense.Id">Edit</a></td>
-                                        <td>@expense.Account_Head_TB.Name</td>
-                                        <td>@expense.Expense_Type.Name</td>
-                                        <td>@expense.Spent_Date</td>
-                                        <td>@expense.Amount</td>
-                                        <td>@expense.Description</td>
                                         <td>
-                                        @if (expense.Extension == ".pdf")
-                                        {
-                                            <a href="~/Images/Expense/E_@(expense.Id + expense.Extension)" target="_blank">View PDF</a>
-                                        }
-                                        else if(expense.Extension != null)
-                                        {
-                                            <a href="~/Images/Expense/E_@(expense.Id + expense.Extension)" target="_blank" style="max-height:42px">
-                                                <img style="max-height:42px" alt="No Image" src="~/Images/Expense/E_@(expense.Id + expense.Extension)" />
-
-                                            </a>
-                                        }
-                                    </td>
-                                        @*<img style="max-height:42px" src="~/Images/Expense/E_@(expense.Id)@expense.Extension" />*@
+                                            <a href="~/Client/ClientTypeEdit?id=@client.Id">Edit </a>
+                                        </td>
+                                        <td>@client.Name</td>
                                     </tr>
-
                                 }
                             <tbody>
                         </table>
@@ -97,11 +75,6 @@
     <script>
         $(document).ready(function () {
 
-            //$('#example tfoot th').each(function () {
-            //    var title = $(this).text();
-            //    $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-            //});
-
             var table = $('#example').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
@@ -111,7 +84,7 @@
                 ]
             });
 
-          
+
         });
     </script>
 

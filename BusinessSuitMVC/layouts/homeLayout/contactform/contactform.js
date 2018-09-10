@@ -3,39 +3,52 @@ $(document).ready(function () {
 
         if ($("#FullName").val() == "") {
             event.preventDefault();
-            swal("Failed", "FullName is required", "error").then(function () {
-                $("#FullName").focus();
-            });
+            $("#name").text("FullName is required");
+            $("#name").show(500);
+            $("#FullName").focus();
+           
         }
         else if ($("#Email").val() == "") {
             event.preventDefault();
-            swal("Failed", "Email is required", "error").then(function () {
+            $("#email").text("Email is required");
+            $("#email").show(500);
                 $("#Email").focus();
-            });
+           
         }
         else if ($("#Phone").val() == "" || $("#Phone").val().length != 11) {
             event.preventDefault();
-            swal("Failed", "Phone is required", "error").then(function () {
+            $("#phone").text("Phone is required");
+            $("#phone").show(500);
                 $("#Phone").focus();
-            });
+            
         }
-        else if ($("#Subject").val() == "") {
+        else if ($("#Address").val() == "") {
             event.preventDefault();
-            swal("Failed", "Subject is required", "error").then(function () {
-                $("#Subject").focus();
-            });
+            $("#address").text("Address is required");
+            $("#address").show(500);
+                $("#Address").focus();
+            
         }
         else if ($("#City").val() == "") {
             event.preventDefault();
-            swal("Failed", "City is required", "error").then(function () {
+            $("#city").text("City is required");
+            $("#city").show(500);
                 $("#City").focus();
-            });
+            
+        }
+        else if ($("#Subject").val() == "") {
+            event.preventDefault();
+            $("#subject").text("Subject is required");
+            $("#subject").show(500);
+                $("#Subject").focus();
+           
         }
         else if ($("#Message").val() == "") {
             event.preventDefault();
-            swal("Failed", "Message is required", "error").then(function () {
+            $("#message").text("Message is required");
+            $("#message").show(500);
                 $("#Message").focus();
-            });
+           
         }
         else {
             event.preventDefault();
@@ -48,12 +61,12 @@ $(document).ready(function () {
                     FullName: $("#FullName").val(),
                     Email: $("#Email").val(),
                     Phone: $("#Phone").val(),
-                    Subject: $("#Subject").val(),
+                    Address: $("#Address").val(),
                     Job_Title: $("#Job_Title").val(),
                     Company_Name: $("#Company_Name").val(),
                     City: $("#City").val(),
                     postal_code: $("#postal_code").val(),
-                    Address: $("#Address").val(),
+                    Subject: $("#Subject").val(),
                     Message: $("#Message").val(),
                 },
 
@@ -70,6 +83,29 @@ $(document).ready(function () {
 
             })
         }
-  });
+    });
+    function resetfunction() {
+        $("#FullName").val(""),
+       $("#Email").val(""),
+           $("#Phone").val(""),
+          $("#Address").val(""),
+          $("#Job_Title").val(""),
+          $("#Company_Name").val(""),
+          $("#City").val(""),
+         $("#postal_code").val(""),
+          $("#Subject").val(""),
+           $("#Message").val(""),
+         $("#UserStatus_Id").val(""),
+        $("#UserType_Id").val(""),
+         $("#name").hide();
+        $("#email").hide();
+        $("#phone").hide();
+        $("#address").hide();
+        $("#city").hide();
+        $("#subject").hide();
+        $("#message").hide();
+
+
+    }
 
 });

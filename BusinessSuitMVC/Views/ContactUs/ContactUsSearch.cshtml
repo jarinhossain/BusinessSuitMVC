@@ -1,4 +1,4 @@
-﻿@model List<BusinessSuitMVC.Models.Expense>
+﻿@model List<BusinessSuitMVC.Models.ContactTB>
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -8,7 +8,7 @@
 
     <section class="content-header">
         <h1>
-            Client
+            Contact Us
         </h1>
         @*<ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -25,9 +25,7 @@
                         <div class="col-md-11">
                             <h3 class="box-title">Search</h3>
                         </div>
-                        <div class="col-md-1">
-                            <a href="~/Accounting/ExpenseCreate" class="btn btn-primary btn-sm">Add</a>
-                        </div>
+                      
                     </div>
 
 
@@ -35,39 +33,36 @@
                         <table class="table table-bordered table-responsive table-striped display nowrap" id="example" style="display:block">
                             <thead>
                                 <tr>
+                                    @*<th>Option</th>*@
                                     <th>Option</th>
-                                    <th>Account_Head_Id</th>
-                                    <th>Type</th>
-                                    <th>Spent_Date</th>
-                                    <th>Amount</th>
-                                    <th>Description</th>
-                                    <th>Image</th>
+                                    <th>FullName</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Job_Title</th>
+                                    <th>Company_Name</th>
+                                    <th>City</th>
+                                    <th>postal_code</th>
+                                    <th>Subject</th>
+                                    <th>Message</th>
                                 </tr>
                             <thead>
                             <tbody>
-                                @foreach (BusinessSuitMVC.Models.Expense expense in (IEnumerable<BusinessSuitMVC.Models.Expense>)Model)
+                                @foreach (BusinessSuitMVC.Models.ContactTB expense in (IEnumerable<BusinessSuitMVC.Models.ContactTB>)Model)
             {
                                     <tr>
-                                        <td><a href="~/Accounting/ExpenseEdit?id=@expense.Id">Edit</a></td>
-                                        <td>@expense.Account_Head_TB.Name</td>
-                                        <td>@expense.Expense_Type.Name</td>
-                                        <td>@expense.Spent_Date</td>
-                                        <td>@expense.Amount</td>
-                                        <td>@expense.Description</td>
-                                        <td>
-                                        @if (expense.Extension == ".pdf")
-                                        {
-                                            <a href="~/Images/Expense/E_@(expense.Id + expense.Extension)" target="_blank">View PDF</a>
-                                        }
-                                        else if(expense.Extension != null)
-                                        {
-                                            <a href="~/Images/Expense/E_@(expense.Id + expense.Extension)" target="_blank" style="max-height:42px">
-                                                <img style="max-height:42px" alt="No Image" src="~/Images/Expense/E_@(expense.Id + expense.Extension)" />
-
-                                            </a>
-                                        }
-                                    </td>
-                                        @*<img style="max-height:42px" src="~/Images/Expense/E_@(expense.Id)@expense.Extension" />*@
+                                        <td><a href="~/ContactUs/ContactDetails?id=@expense.Id">Details</a></td>
+                                        <td>@expense.FullName</td>
+                                        <td>@expense.Email</td>
+                                        <td>@expense.Phone </td>
+                                        <td>@expense.Address</td>
+                                        <td>@expense.Job_Title</td>
+                                        <td>@expense.Company_Name </td>
+                                        <td>@expense.City</td>
+                                        <td>@expense.postal_code</td>
+                                        <td>@expense.Subject</td>
+                                        <td>@expense.Message</td>
+                                      
                                     </tr>
 
                                 }
@@ -111,7 +106,7 @@
                 ]
             });
 
-          
+
         });
     </script>
 

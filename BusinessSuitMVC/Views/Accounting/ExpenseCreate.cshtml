@@ -103,13 +103,31 @@
 @section scripts{
     <script src="~/Script/bootstrap-datepicker.min.js"></script>
     <script>
-        $('.myDatePicker').datepicker({
-            format: 'dd/mm/yyyy',
-            autoclose: true
-        })
+       
+        //$('.myDatePicker').datepicker(
 
+        //    'setDate','dd-mm-yy', new Date()
+
+        //    )
+        //$(".myDatePicker").datepicker({
+        //    dateFormat: "dd-mm-yy"
+        //}).datepicker("setDate", "0");
+
+        $('.myDatePicker').datepicker('update', new Date(year, month, day));
+
+      
         $("form").submit(function (event) {
-            if ($("#Type").val() == "") {
+            
+            if ($("#Account_Head_Id").val() == "") {
+                event.preventDefault();
+                //alert("Counsilor_Name is required");
+                swal("Failed", "Account Head is required", "error").then(function () {
+                    $("#Account_Head_Id").focus();
+                });
+
+
+            }
+           else if ($("#Type").val() == "") {
                 event.preventDefault();
                 //alert("Counsilor_Name is required");
                 swal("Failed", "Type is required", "error").then(function () {

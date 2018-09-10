@@ -121,7 +121,16 @@
             autoclose: true
         })
         $("form").submit(function (event) {
-            if ($("#Type").val() == "") {
+            if ($("#Account_Head_Id").val() == "") {
+                event.preventDefault();
+                //alert("Counsilor_Name is required");
+                swal("Failed", "Account Head is required", "error").then(function () {
+                    $("#Account_Head_Id").focus();
+                });
+
+
+            }
+            else if ($("#Type").val() == "") {
                 event.preventDefault();
                 //alert("Counsilor_Name is required");
                 swal("Failed", "Type is required", "error").then(function () {

@@ -1,0 +1,96 @@
+﻿@model BusinessSuitMVC.Models.ContactTB
+
+@{
+    ViewBag.Title = "Show";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Contact Us
+        </h1>
+        @*<ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Forms</a></li>
+                <li class="active">General Elements</li>
+            </ol>*@
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h1 class="box-title">Contact Details</h1>
+                    </div>
+
+                    <div class="table-responsive panel col-md-8">
+                        <table class="table">
+                            <tbody>
+
+                                <tr>
+                                    <td class="text-primary text-right" width="30%"> FullName: </td>
+                                    <td style="font-weight:bold">@Model.FullName</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right"> Email: </td>
+                                    <td style="font-weight:bold">@Model.Email</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right"> Phone: </td>
+                                    <td style="font-weight:bold">@Model.Phone</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-primary text-right" width="30%"> Address: </td>
+                                    <td style="font-weight:bold">@Model.Address</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right"> Job Title: </td>
+                                    <td style="font-weight:bold">@Model.Job_Title</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right"> Company Name: </td>
+                                    <td style="font-weight:bold">@Model.Company_Name</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-primary text-right"> City: </td>
+                                    <td style="font-weight:bold">@Model.City</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right"> Postal Code: </td>
+                                    <td style="font-weight:bold">@Model.postal_code</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-primary text-right" width="30%"> Subject: </td>
+                                    <td style="font-weight:bold">@Model.Subject</td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-primary text-right">Message: </td>
+                                    <td style="font-weight:bold">@Model.Message</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="form-group" style="text-align:center">
+
+                          
+                            <a href="~/ContactUs/ContactUsSearch" class="btn btn-info">Back</a>
+
+                        </div>
+                    </div>
+                
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </section>
+
+</section>

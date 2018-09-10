@@ -187,6 +187,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CallController.cs" />
+    <Compile Include="Controllers\ContactUsController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="ModelClasses\asyncService.cs" />
     <Compile Include="Controllers\AccountingController.cs" />
@@ -463,6 +464,14 @@
     <Content Include="Views\Accounting\AccountHeadCreate.cshtml" />
     <Content Include="Views\Accounting\AccountHeadEdit.cshtml" />
     <Content Include="Views\Accounting\AccountheadSearch.cshtml" />
+    <Content Include="Views\Client\ClientTypeCreate.cshtml" />
+    <Content Include="Views\Client\ClientTypeEdit.cshtml" />
+    <Content Include="Views\Client\ClientTypeSearch.cshtml" />
+    <Content Include="Views\Client\PartyTypeCreate.cshtml" />
+    <Content Include="Views\Client\PartyTypeEdit.cshtml" />
+    <Content Include="Views\Client\PartyTypeSearch.cshtml" />
+    <Content Include="Views\ContactUs\ContactUsSearch.cshtml" />
+    <Content Include="Views\ContactUs\ContactDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
