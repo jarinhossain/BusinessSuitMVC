@@ -3,12 +3,14 @@ $(document).ready(function () {
 
         if ($("#FullName").val() == "") {
             event.preventDefault();
-            $("#name").text("FullName is required");
+            $("#name").text("Full Name is required");
             $("#name").show(500);
             $("#FullName").focus();
-           
         }
-        else if ($("#Email").val() == "") {
+        else
+            $("#name").hide(500);
+
+        if ($("#Email").val() == "") {
             event.preventDefault();
             $("#email").text("Email is required");
             $("#email").show(500);
@@ -72,7 +74,7 @@ $(document).ready(function () {
 
                 success: function (data) {
                     if (data == "true")
-                        swal("Success", "Successfully Saved", "success");
+                        swal("Success", "Successfully Submitted", "success");
                     else
                         swal("Failed", data, "error");
                     resetfunction();

@@ -190,6 +190,12 @@
                 $("#Mobile1").focus();
             });
         }
+        else if ($("#Constituency_Id").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Constituency is required", "error").then(function () {
+                $("#Constituency_Id").focus();
+            });
+        }
         else if ($("#ward").val() == "") {
             event.preventDefault();
             swal("Failed", "Ward is required", "error").then(function () {
@@ -202,10 +208,16 @@
                 $("#District").focus();
             });
         }
-        else if ($("#Client_Type").val() == "") {
+        else if ($("#Party_Id").val() == "") {
+            event.preventDefault();
+            swal("Failed", "Party Type is required", "error").then(function () {
+                $("#Party_Id").focus();
+            });
+        }
+        else if ($("#Client_Type_Id").val() == "") {
             event.preventDefault();
             swal("Failed", "Client Type is required", "error").then(function () {
-                $("#Client_Type").focus();
+                $("#Client_Type_Id").focus();
             });
         }
 
@@ -213,14 +225,16 @@
     function resetFunction()
     {
         $("#Counsilor_Name").val("");
-        $('#District option:first').prop('selected', true); //clear
+       //clear
         $("#Bangla_Name").val("");
         $("#Mobile1").val("");
         $("#Mobile2").val("");
         $("#Email").val("");
+        $("#Constituency_Id").val("");
         $("#ward").val("");
         $("#District").val("");
         $("#Address").val("");
+        $("#Party_Id").val("");
         $("#Client_Type_Id").val("");
         $("#Present_Position").val("");
         $("#Remarks").val("");

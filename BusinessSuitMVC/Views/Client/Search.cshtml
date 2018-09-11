@@ -36,13 +36,18 @@
                                 <thead>
                                     <tr>
                                         <th>Option</th>
-                                        <th>Name</th>
+                                        <th>Counsillor Name</th>
+                                        <th>Bangla Name</th>
                                         <th>Mobile1</th>
                                         <th>Mobile2</th>
                                         <th>Email</th>
-                                        <th>Word</th>
+                                        <th>Constituency</th>
+                                        <th>Ward</th>
                                         <th>District</th>
                                         <th>Address</th>
+                                        <th>Party</th>
+                                        <th>Client Type</th>
+                                        <th>Present Position</th>
                                         <th>Remarks</th>
                                     </tr>
                                 <thead>
@@ -62,12 +67,32 @@
                                             </td>
                                            
                                             <td>@client.Counsilor_Name</td>
+                                            <td>@client.Bangla_Name</td>
                                             <td>@client.Mobile1</td>
                                             <td>@client.Mobile2</td>
                                             <td>@client.Email</td>
+                                            <td>
+                                             @if (@client.Constituency_Id != null)
+                                             {
+                                                @client.Constituency.Name
+                                             }
+                                            </td>
                                             <td>@client.ward</td>
                                             <td>@client.District.Name</td>
                                             <td>@client.Address</td>
+                                            <td>
+                                                @if (@client.Party_Id != null)
+                                                {
+                                                    @client.PartyTB.Name
+                                                }
+                                            </td>
+                                            <td>
+                                                 @if (@client.Client_Type_Id != null)
+                                                 {
+                                                    @client.Client_Type.Name
+                                                 }
+                                            </td>
+                                            <td>@client.Present_Position</td>
                                             <td>@client.Remarks</td>
                                         </tr>
 

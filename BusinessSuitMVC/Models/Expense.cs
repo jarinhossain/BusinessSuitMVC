@@ -15,7 +15,6 @@ namespace BusinessSuitMVC.Models
     public partial class Expense
     {
         public int Id { get; set; }
-        public Nullable<int> Account_Head_Id { get; set; }
         public Nullable<int> Type { get; set; }
         public Nullable<double> Amount { get; set; }
         public string Description { get; set; }
@@ -29,6 +28,7 @@ namespace BusinessSuitMVC.Models
         public Nullable<bool> Is_Deleted { get; set; }
         public Nullable<int> Deleted_By { get; set; }
         public Nullable<System.DateTime> Deleted_On { get; set; }
+        public Nullable<int> Account_Head_Id { get; set; }
     
         public virtual Account_Head_TB Account_Head_TB { get; set; }
         public virtual Expense_Type Expense_Type { get; set; }

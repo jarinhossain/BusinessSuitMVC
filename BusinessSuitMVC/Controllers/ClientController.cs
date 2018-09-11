@@ -72,6 +72,8 @@ namespace BusinessSuitMVC.Controllers
             }
             ViewData["DistrictList"] = loadDistrict();
             ViewData["ClienttypList"] = loadClientTypeDropDown();
+            ViewData["constituencyList"] = loadConstituencyDropdown();
+            ViewData["partyList"] = loadpartyDropdown();
             return View();
         }
 

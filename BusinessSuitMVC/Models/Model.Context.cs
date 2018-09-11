@@ -25,7 +25,6 @@ namespace BusinessSuitMVC.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Account_Head_TB> Account_Head_TB { get; set; }
         public virtual DbSet<CDR_Instant> CDR_Instant { get; set; }
         public virtual DbSet<CDR_Obd> CDR_Obd { get; set; }
         public virtual DbSet<Client_Inventory> Client_Inventory { get; set; }
@@ -35,7 +34,6 @@ namespace BusinessSuitMVC.Models
         public virtual DbSet<ContactTB> ContactTBs { get; set; }
         public virtual DbSet<District> Districts { get; set; }
         public virtual DbSet<Division> Divisions { get; set; }
-        public virtual DbSet<Expense> Expenses { get; set; }
         public virtual DbSet<Expense_Type> Expense_Type { get; set; }
         public virtual DbSet<Incoming_Calls> Incoming_Calls { get; set; }
         public virtual DbSet<Main_Accounts> Main_Accounts { get; set; }
@@ -46,6 +44,7 @@ namespace BusinessSuitMVC.Models
         public virtual DbSet<Offline_Order_Details> Offline_Order_Details { get; set; }
         public virtual DbSet<Online_Order_Details> Online_Order_Details { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<PartyTB> PartyTBs { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Permission_Role> Permission_Role { get; set; }
         public virtual DbSet<Permission_User> Permission_User { get; set; }
@@ -64,7 +63,8 @@ namespace BusinessSuitMVC.Models
         public virtual DbSet<User_Profile> User_Profile { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Voter_Slip_Image_Type> Voter_Slip_Image_Type { get; set; }
+        public virtual DbSet<Account_Head_TB> Account_Head_TB { get; set; }
         public virtual DbSet<Token> Tokens { get; set; }
-        public virtual DbSet<PartyTB> PartyTBs { get; set; }
+        public virtual DbSet<Expense> Expenses { get; set; }
     }
 }

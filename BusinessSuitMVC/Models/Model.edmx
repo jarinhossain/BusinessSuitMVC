@@ -87,12 +87,9 @@
           <Property Name="Mobile1" Type="varchar" MaxLength="50" />
           <Property Name="Mobile2" Type="varchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
-          <Property Name="Constituency_Id" Type="int" />
           <Property Name="ward" Type="int" />
           <Property Name="District_Id" Type="int" />
           <Property Name="Address" Type="varchar" MaxLength="500" />
-          <Property Name="Party_Id" Type="int" />
-          <Property Name="Client_Type_Id" Type="int" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="Is_Elected" Type="bit" />
           <Property Name="Image" Type="bit" />
@@ -102,6 +99,9 @@
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="Is_Active" Type="bit" />
+          <Property Name="Client_Type_Id" Type="int" />
+          <Property Name="Constituency_Id" Type="int" />
+          <Property Name="Party_Id" Type="int" />
         </EntityType>
         <EntityType Name="Client_Type">
           <Key>
@@ -122,16 +122,16 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FullName" Type="varchar" MaxLength="50" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" />
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Phone" Type="varchar" MaxLength="50" />
-          <Property Name="Subject" Type="varchar" MaxLength="50" />
+          <Property Name="Subject" Type="varchar" MaxLength="200" />
           <Property Name="Job_Title" Type="varchar" MaxLength="50" />
           <Property Name="Company_Name" Type="varchar" MaxLength="50" />
           <Property Name="City" Type="varchar" MaxLength="50" />
           <Property Name="postal_code" Type="varchar" MaxLength="30" />
-          <Property Name="Address" Type="varchar" MaxLength="50" />
-          <Property Name="Message" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="200" />
+          <Property Name="Message" Type="varchar" MaxLength="1000" />
           <Property Name="IP_Address" Type="varchar" MaxLength="50" />
           <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
         </EntityType>
@@ -156,7 +156,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Account_Head_Id" Type="int" />
           <Property Name="Type" Type="int" />
           <Property Name="Amount" Type="float" />
           <Property Name="Description" Type="varchar" MaxLength="500" />
@@ -164,12 +163,13 @@
           <Property Name="Image" Type="bit" />
           <Property Name="Extension" Type="varchar" MaxLength="10" />
           <Property Name="Created_By" Type="int" />
-          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="Created_On" Type="datetime" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="Is_Deleted" Type="bit" />
           <Property Name="Deleted_By" Type="int" />
           <Property Name="Deleted_On" Type="datetime" />
+          <Property Name="Account_Head_Id" Type="int" />
         </EntityType>
         <EntityType Name="Expense_Type">
           <Key>
@@ -267,7 +267,7 @@
           <Property Name="Ward" Type="int" />
           <Property Name="Quantity" Type="int" />
           <Property Name="Created_By" Type="int" />
-          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="Created_On" Type="datetime" />
         </EntityType>
         <EntityType Name="Offline_Order_Details">
           <Key>
@@ -432,7 +432,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="Created_By" Type="int" />
-          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="None" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="updated_On" Type="datetime" />
         </EntityType>
@@ -461,7 +461,7 @@
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Display_Name" Type="varchar" MaxLength="50" />
           <Property Name="Description" Type="varchar" MaxLength="500" />
-          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_On" Type="datetime" />
         </EntityType>
         <EntityType Name="Sippeers">
@@ -503,7 +503,7 @@
           <Property Name="End_Time" Type="datetime" />
           <Property Name="Locked_Time" Type="datetime" />
           <Property Name="Created_By" Type="int" />
-          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="Created_On" Type="datetime" />
         </EntityType>
         <EntityType Name="Status ">
           <Key>
@@ -575,7 +575,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Email" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="50" />
           <Property Name="Remember_Token" Type="varchar" MaxLength="50" />
-          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="Created_On" Type="datetime" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="Created_By" Type="int" />
           <Property Name="User_Name" Type="nchar" MaxLength="10" />
@@ -588,7 +588,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Display_Name" Type="nvarchar" MaxLength="100" />
         </EntityType>
-        <Association Name="FK__Client_Li__Distr__5BAD9CC8">
+        <Association Name="FK__Client_Li__Distr__114A936A">
           <End Role="District" Type="Self.District" Multiplicity="0..1" />
           <End Role="Client_List" Type="Self.Client_List" Multiplicity="*" />
           <ReferentialConstraint>
@@ -600,7 +600,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Permissio__Modul__10566F31">
+        <Association Name="FK__Permissio__Modul__1F98B2C1">
           <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
           <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -612,7 +612,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User_Logi__Clien__5AB9788F">
+        <Association Name="FK__User_Logi__Clien__2645B050">
           <End Role="Client_List" Type="Self.Client_List" Multiplicity="0..1" />
           <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
           <ReferentialConstraint>
@@ -624,7 +624,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User_Logi__Role___17F790F9">
+        <Association Name="FK__User_Logi__Role___2739D489">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
           <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
           <ReferentialConstraint>
@@ -636,7 +636,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Account_Head_TB_Main_Accounts">
+        <Association Name="FK_Account_Head_TB_Main_Account">
           <End Role="Main_Accounts" Type="Self.Main_Accounts" Multiplicity="0..1" />
           <End Role="Account_Head_TB" Type="Self.Account_Head_TB" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1013,23 +1013,23 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
     [Tokens].[Deleted_On] AS [Deleted_On]
     FROM [dbo].[Tokens] AS [Tokens]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__Client_Li__Distr__5BAD9CC8" Association="Self.FK__Client_Li__Distr__5BAD9CC8">
+          <AssociationSet Name="FK__Client_Li__Distr__114A936A" Association="Self.FK__Client_Li__Distr__114A936A">
             <End Role="District" EntitySet="District" />
             <End Role="Client_List" EntitySet="Client_List" />
           </AssociationSet>
-          <AssociationSet Name="FK__Permissio__Modul__10566F31" Association="Self.FK__Permissio__Modul__10566F31">
+          <AssociationSet Name="FK__Permissio__Modul__1F98B2C1" Association="Self.FK__Permissio__Modul__1F98B2C1">
             <End Role="Module" EntitySet="Module" />
             <End Role="Permission" EntitySet="Permission" />
           </AssociationSet>
-          <AssociationSet Name="FK__User_Logi__Clien__5AB9788F" Association="Self.FK__User_Logi__Clien__5AB9788F">
+          <AssociationSet Name="FK__User_Logi__Clien__2645B050" Association="Self.FK__User_Logi__Clien__2645B050">
             <End Role="Client_List" EntitySet="Client_List" />
             <End Role="User_Login" EntitySet="User_Login" />
           </AssociationSet>
-          <AssociationSet Name="FK__User_Logi__Role___17F790F9" Association="Self.FK__User_Logi__Role___17F790F9">
+          <AssociationSet Name="FK__User_Logi__Role___2739D489" Association="Self.FK__User_Logi__Role___2739D489">
             <End Role="Role" EntitySet="Role" />
             <End Role="User_Login" EntitySet="User_Login" />
           </AssociationSet>
-          <AssociationSet Name="FK_Account_Head_TB_Main_Accounts" Association="Self.FK_Account_Head_TB_Main_Accounts">
+          <AssociationSet Name="FK_Account_Head_TB_Main_Account" Association="Self.FK_Account_Head_TB_Main_Account">
             <End Role="Main_Accounts" EntitySet="Main_Accounts" />
             <End Role="Account_Head_TB" EntitySet="Account_Head_TB" />
           </AssociationSet>
@@ -1142,16 +1142,6 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Business_SuitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Account_Head_TB">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Main_Account_Id" Type="Int32" />
-          <NavigationProperty Name="Main_Accounts" Relationship="Self.FK_Account_Head_TB_Main_Accounts" FromRole="Account_Head_TB" ToRole="Main_Accounts" />
-          <NavigationProperty Name="Expenses" Relationship="Self.FK_Expense_Account_Head_TB" FromRole="Account_Head_TB" ToRole="Expense" />
-        </EntityType>
         <EntityType Name="CDR_Instant">
           <Key>
             <PropertyRef Name="Id" />
@@ -1229,11 +1219,9 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Mobile1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Mobile2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Constituency_Id" Type="Int32" />
           <Property Name="ward" Type="Int32" />
           <Property Name="District_Id" Type="Int32" />
           <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Client_Type_Id" Type="Int32" />
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Is_Elected" Type="Boolean" />
           <Property Name="Image" Type="Boolean" />
@@ -1243,16 +1231,18 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
           <Property Name="Is_Active" Type="Boolean" />
+          <Property Name="Client_Type_Id" Type="Int32" />
+          <Property Name="Constituency_Id" Type="Int32" />
+          <Property Name="Party_Id" Type="Int32" />
           <NavigationProperty Name="Client_Inventory" Relationship="Self.FK_Client_Inventory_Client_List" FromRole="Client_List" ToRole="Client_Inventory" />
-          <NavigationProperty Name="District" Relationship="Self.FK__Client_Li__Distr__4D5F7D71" FromRole="Client_List" ToRole="District" />
-          <NavigationProperty Name="User_Login" Relationship="Self.FK__User_Logi__Clien__4C6B5938" FromRole="Client_List" ToRole="User_Login" />
+          <NavigationProperty Name="District" Relationship="Self.FK__Client_Li__Distr__114A936A" FromRole="Client_List" ToRole="District" />
+          <NavigationProperty Name="User_Login" Relationship="Self.FK__User_Logi__Clien__2645B050" FromRole="Client_List" ToRole="User_Login" />
           <NavigationProperty Name="Client_Type" Relationship="Self.FK_Client_List_Client_Type" FromRole="Client_List" ToRole="Client_Type" />
           <NavigationProperty Name="Constituency" Relationship="Self.FK_Client_List_Constituency" FromRole="Client_List" ToRole="Constituency" />
+          <NavigationProperty Name="PartyTB" Relationship="Self.FK_Client_List_PartyTB" FromRole="Client_List" ToRole="PartyTB" />
           <NavigationProperty Name="Obd_Bulk" Relationship="Self.FK_Obd_Bulk_Client_List" FromRole="Client_List" ToRole="Obd_Bulk" />
           <NavigationProperty Name="Obd_Ward_Details" Relationship="Self.FK_Obd_Ward_Details_Client_List" FromRole="Client_List" ToRole="Obd_Ward_Details" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_ClientId" FromRole="Client_List" ToRole="Order" />
-          <Property Name="Party_Id" Type="Int32" />
-          <NavigationProperty Name="PartyTB" Relationship="Business_SuitModel.FK_Client_List_PartyTB" FromRole="Client_List" ToRole="PartyTB" />
         </EntityType>
         <EntityType Name="Client_Type">
           <Key>
@@ -1275,16 +1265,16 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Subject" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Subject" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Job_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Company_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="postal_code" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Message" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="IP_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
@@ -1296,7 +1286,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Division_Id" Type="Int32" />
           <Property Name="Is_Hidden" Type="Boolean" />
-          <NavigationProperty Name="Client_List" Relationship="Self.FK__Client_Li__Distr__4D5F7D71" FromRole="District" ToRole="Client_List" />
+          <NavigationProperty Name="Client_List" Relationship="Self.FK__Client_Li__Distr__114A936A" FromRole="District" ToRole="Client_List" />
         </EntityType>
         <EntityType Name="Division">
           <Key>
@@ -1305,35 +1295,13 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Expense">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Account_Head_Id" Type="Int32" />
-          <Property Name="Type" Type="Int32" />
-          <Property Name="Amount" Type="Double" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Spent_Date" Type="DateTime" Precision="3" />
-          <Property Name="Image" Type="Boolean" />
-          <Property Name="Extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="Updated_By" Type="Int32" />
-          <Property Name="Updated_On" Type="DateTime" Precision="3" />
-          <Property Name="Is_Deleted" Type="Boolean" />
-          <Property Name="Deleted_By" Type="Int32" />
-          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Account_Head_TB" Relationship="Self.FK_Expense_Account_Head_TB" FromRole="Expense" ToRole="Account_Head_TB" />
-          <NavigationProperty Name="Expense_Type" Relationship="Self.FK_Expense_Expense_Type" FromRole="Expense" ToRole="Expense_Type" />
-        </EntityType>
         <EntityType Name="Expense_Type">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Expenses" Relationship="Self.FK_Expense_Expense_Type" FromRole="Expense_Type" ToRole="Expense" />
+          <NavigationProperty Name="Expenses" Relationship="Business_SuitModel.FK_Expense_Expense_Type" FromRole="Expense_Type" ToRole="Expense" />
         </EntityType>
         <EntityType Name="Incoming_Calls">
           <Key>
@@ -1358,7 +1326,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Account_Head_TB" Relationship="Self.FK_Account_Head_TB_Main_Accounts" FromRole="Main_Accounts" ToRole="Account_Head_TB" />
+          <NavigationProperty Name="Account_Head_TB" Relationship="Self.FK_Account_Head_TB_Main_Account" FromRole="Main_Accounts" ToRole="Account_Head_TB" />
         </EntityType>
         <EntityType Name="Module">
           <Key>
@@ -1366,7 +1334,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Permissions" Relationship="Self.FK__Permissio__Modul__10566F31" FromRole="Module" ToRole="Permission" />
+          <NavigationProperty Name="Permissions" Relationship="Self.FK__Permissio__Modul__1F98B2C1" FromRole="Module" ToRole="Permission" />
         </EntityType>
         <EntityType Name="Obd_Bulk">
           <Key>
@@ -1431,7 +1399,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Ward" Type="Int32" />
           <Property Name="Quantity" Type="Int32" />
           <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Client_List" Relationship="Self.FK_Obd_Ward_Details_Client_List" FromRole="Obd_Ward_Details" ToRole="Client_List" />
           <NavigationProperty Name="Obd_Bulk" Relationship="Self.FK_Obd_Ward_Details_Obd_Bulk" FromRole="Obd_Ward_Details" ToRole="Obd_Bulk" />
         </EntityType>
@@ -1537,6 +1505,14 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <NavigationProperty Name="Offline_Order_Details" Relationship="Self.FK_Offline_Order_Details_Order" FromRole="Order" ToRole="Offline_Order_Details" />
           <NavigationProperty Name="Online_Order_Details" Relationship="Self.FK_Online_Order_Details_Order" FromRole="Order" ToRole="Online_Order_Details" />
         </EntityType>
+        <EntityType Name="PartyTB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Client_List" Relationship="Self.FK_Client_List_PartyTB" FromRole="PartyTB" ToRole="Client_List" />
+        </EntityType>
         <EntityType Name="Permission">
           <Key>
             <PropertyRef Name="Id" />
@@ -1548,7 +1524,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Module_Id" Type="Int32" />
           <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Module" Relationship="Self.FK__Permissio__Modul__10566F31" FromRole="Permission" ToRole="Module" />
+          <NavigationProperty Name="Module" Relationship="Self.FK__Permissio__Modul__1F98B2C1" FromRole="Permission" ToRole="Module" />
           <NavigationProperty Name="Permission_Role" Relationship="Self.FK_Permission_Role_Permission" FromRole="Permission" ToRole="Permission_Role" />
           <NavigationProperty Name="Permission_User" Relationship="Self.FK_Permission_User_Permission" FromRole="Permission" ToRole="Permission_User" />
         </EntityType>
@@ -1609,7 +1585,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="updated_On" Type="DateTime" Precision="3" />
         </EntityType>
@@ -1621,7 +1597,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Permissions" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Permission_Role" Relationship="Self.FK_Permission_Role_Role" FromRole="Role" ToRole="Permission_Role" />
-          <NavigationProperty Name="User_Login" Relationship="Self.FK__User_Logi__Role___17F790F9" FromRole="Role" ToRole="User_Login" />
+          <NavigationProperty Name="User_Login" Relationship="Self.FK__User_Logi__Role___2739D489" FromRole="Role" ToRole="User_Login" />
           <NavigationProperty Name="Role_User" Relationship="Self.FK_Role_User_Role" FromRole="Role" ToRole="Role_User" />
         </EntityType>
         <EntityType Name="Role_User">
@@ -1643,7 +1619,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Display_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Sippeer">
@@ -1686,7 +1662,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="End_Time" Type="DateTime" Precision="3" />
           <Property Name="Locked_Time" Type="DateTime" Precision="3" />
           <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Status_">
           <Key>
@@ -1716,9 +1692,9 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Deleted_On" Type="DateTime" Precision="3" />
           <Property Name="Client_Id" Type="Int32" />
           <NavigationProperty Name="Client_Inventory" Relationship="Self.FK_Client_Inventory_User_Login" FromRole="User_Login" ToRole="Client_Inventory" />
-          <NavigationProperty Name="Client_List" Relationship="Self.FK__User_Logi__Clien__4C6B5938" FromRole="User_Login" ToRole="Client_List" />
+          <NavigationProperty Name="Client_List" Relationship="Self.FK__User_Logi__Clien__2645B050" FromRole="User_Login" ToRole="Client_List" />
           <NavigationProperty Name="Permission_User" Relationship="Self.FK_Permission_User_User_Login" FromRole="User_Login" ToRole="Permission_User" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__User_Logi__Role___17F790F9" FromRole="User_Login" ToRole="Role" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__User_Logi__Role___2739D489" FromRole="User_Login" ToRole="Role" />
           <NavigationProperty Name="Role_User" Relationship="Self.FK_Role_User_User_Login" FromRole="User_Login" ToRole="Role_User" />
           <NavigationProperty Name="User_Profile" Relationship="Self.FK_User_Login_User_Profile" FromRole="User_Login" ToRole="User_Profile" />
         </EntityType>
@@ -1751,7 +1727,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Remember_Token" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
           <Property Name="Created_By" Type="Int32" />
           <Property Name="User_Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
@@ -1763,6 +1739,16 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Display_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Account_Head_TB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Main_Account_Id" Type="Int32" />
+          <NavigationProperty Name="Main_Accounts" Relationship="Self.FK_Account_Head_TB_Main_Account" FromRole="Account_Head_TB" ToRole="Main_Accounts" />
+          <NavigationProperty Name="Expenses" Relationship="Business_SuitModel.FK_Expense_Account_Head_TB" FromRole="Account_Head_TB" ToRole="Expense" />
         </EntityType>
         <EntityType Name="Token">
           <Key>
@@ -1777,30 +1763,6 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Deleted_By" Type="Int32" />
           <Property Name="Deleted_On" Type="DateTime" Precision="3" />
         </EntityType>
-        <Association Name="FK_Account_Head_TB_Main_Accounts">
-          <End Role="Main_Accounts" Type="Self.Main_Accounts" Multiplicity="0..1" />
-          <End Role="Account_Head_TB" Type="Self.Account_Head_TB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Main_Accounts">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Account_Head_TB">
-              <PropertyRef Name="Main_Account_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Expense_Account_Head_TB">
-          <End Role="Account_Head_TB" Type="Self.Account_Head_TB" Multiplicity="0..1" />
-          <End Role="Expense" Type="Self.Expense" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account_Head_TB">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Expense">
-              <PropertyRef Name="Account_Head_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Client_Inventory_Client_List">
           <End Role="Client_List" Type="Self.Client_List" Multiplicity="0..1" />
           <End Role="Client_Inventory" Type="Self.Client_Inventory" Multiplicity="*" />
@@ -1837,7 +1799,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Client_Li__Distr__4D5F7D71">
+        <Association Name="FK__Client_Li__Distr__114A936A">
           <End Role="District" Type="Self.District" Multiplicity="0..1" />
           <End Role="Client_List" Type="Self.Client_List" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1849,7 +1811,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User_Logi__Clien__4C6B5938">
+        <Association Name="FK__User_Logi__Clien__2645B050">
           <End Role="Client_List" Type="Self.Client_List" Multiplicity="0..1" />
           <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1882,6 +1844,18 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Principal>
             <Dependent Role="Client_List">
               <PropertyRef Name="Constituency_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_List_PartyTB">
+          <End Role="PartyTB" Type="Self.PartyTB" Multiplicity="0..1" />
+          <End Role="Client_List" Type="Self.Client_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PartyTB">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client_List">
+              <PropertyRef Name="Party_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1921,19 +1895,19 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Expense_Expense_Type">
-          <End Role="Expense_Type" Type="Self.Expense_Type" Multiplicity="0..1" />
-          <End Role="Expense" Type="Self.Expense" Multiplicity="*" />
+        <Association Name="FK_Account_Head_TB_Main_Account">
+          <End Role="Main_Accounts" Type="Self.Main_Accounts" Multiplicity="0..1" />
+          <End Role="Account_Head_TB" Type="Self.Account_Head_TB" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Expense_Type">
-              <PropertyRef Name="Id" />
+            <Principal Role="Main_Accounts">
+              <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Expense">
-              <PropertyRef Name="Type" />
+            <Dependent Role="Account_Head_TB">
+              <PropertyRef Name="Main_Account_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Permissio__Modul__10566F31">
+        <Association Name="FK__Permissio__Modul__1F98B2C1">
           <End Role="Module" Type="Self.Module" Multiplicity="0..1" />
           <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2089,7 +2063,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User_Logi__Role___17F790F9">
+        <Association Name="FK__User_Logi__Role___2739D489">
           <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
           <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2138,7 +2112,6 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DBContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Account_Head_TB" EntityType="Self.Account_Head_TB" />
           <EntitySet Name="CDR_Instant" EntityType="Self.CDR_Instant" />
           <EntitySet Name="CDR_Obd" EntityType="Self.CDR_Obd" />
           <EntitySet Name="Client_Inventory" EntityType="Self.Client_Inventory" />
@@ -2148,7 +2121,6 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <EntitySet Name="ContactTBs" EntityType="Self.ContactTB" />
           <EntitySet Name="Districts" EntityType="Self.District" />
           <EntitySet Name="Divisions" EntityType="Self.Division" />
-          <EntitySet Name="Expenses" EntityType="Self.Expense" />
           <EntitySet Name="Expense_Type" EntityType="Self.Expense_Type" />
           <EntitySet Name="Incoming_Calls" EntityType="Self.Incoming_Calls" />
           <EntitySet Name="Main_Accounts" EntityType="Self.Main_Accounts" />
@@ -2159,6 +2131,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <EntitySet Name="Offline_Order_Details" EntityType="Self.Offline_Order_Details" />
           <EntitySet Name="Online_Order_Details" EntityType="Self.Online_Order_Details" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="PartyTBs" EntityType="Self.PartyTB" />
           <EntitySet Name="Permissions" EntityType="Self.Permission" />
           <EntitySet Name="Permission_Role" EntityType="Self.Permission_Role" />
           <EntitySet Name="Permission_User" EntityType="Self.Permission_User" />
@@ -2177,15 +2150,8 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <EntitySet Name="User_Profile" EntityType="Self.User_Profile" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="Voter_Slip_Image_Type" EntityType="Self.Voter_Slip_Image_Type" />
+          <EntitySet Name="Account_Head_TB" EntityType="Self.Account_Head_TB" />
           <EntitySet Name="Tokens" EntityType="Self.Token" />
-          <AssociationSet Name="FK_Account_Head_TB_Main_Accounts" Association="Self.FK_Account_Head_TB_Main_Accounts">
-            <End Role="Main_Accounts" EntitySet="Main_Accounts" />
-            <End Role="Account_Head_TB" EntitySet="Account_Head_TB" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Expense_Account_Head_TB" Association="Self.FK_Expense_Account_Head_TB">
-            <End Role="Account_Head_TB" EntitySet="Account_Head_TB" />
-            <End Role="Expense" EntitySet="Expenses" />
-          </AssociationSet>
           <AssociationSet Name="FK_Client_Inventory_Client_List" Association="Self.FK_Client_Inventory_Client_List">
             <End Role="Client_List" EntitySet="Client_List" />
             <End Role="Client_Inventory" EntitySet="Client_Inventory" />
@@ -2198,11 +2164,11 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             <End Role="User_Profile" EntitySet="User_Profile" />
             <End Role="Client_Inventory" EntitySet="Client_Inventory" />
           </AssociationSet>
-          <AssociationSet Name="FK__Client_Li__Distr__4D5F7D71" Association="Self.FK__Client_Li__Distr__4D5F7D71">
+          <AssociationSet Name="FK__Client_Li__Distr__114A936A" Association="Self.FK__Client_Li__Distr__114A936A">
             <End Role="District" EntitySet="Districts" />
             <End Role="Client_List" EntitySet="Client_List" />
           </AssociationSet>
-          <AssociationSet Name="FK__User_Logi__Clien__4C6B5938" Association="Self.FK__User_Logi__Clien__4C6B5938">
+          <AssociationSet Name="FK__User_Logi__Clien__2645B050" Association="Self.FK__User_Logi__Clien__2645B050">
             <End Role="Client_List" EntitySet="Client_List" />
             <End Role="User_Login" EntitySet="User_Login" />
           </AssociationSet>
@@ -2212,6 +2178,10 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           </AssociationSet>
           <AssociationSet Name="FK_Client_List_Constituency" Association="Self.FK_Client_List_Constituency">
             <End Role="Constituency" EntitySet="Constituencies" />
+            <End Role="Client_List" EntitySet="Client_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_List_PartyTB" Association="Self.FK_Client_List_PartyTB">
+            <End Role="PartyTB" EntitySet="PartyTBs" />
             <End Role="Client_List" EntitySet="Client_List" />
           </AssociationSet>
           <AssociationSet Name="FK_Obd_Bulk_Client_List" Association="Self.FK_Obd_Bulk_Client_List">
@@ -2226,11 +2196,11 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             <End Role="Client_List" EntitySet="Client_List" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_Expense_Expense_Type" Association="Self.FK_Expense_Expense_Type">
-            <End Role="Expense_Type" EntitySet="Expense_Type" />
-            <End Role="Expense" EntitySet="Expenses" />
+          <AssociationSet Name="FK_Account_Head_TB_Main_Account" Association="Self.FK_Account_Head_TB_Main_Account">
+            <End Role="Main_Accounts" EntitySet="Main_Accounts" />
+            <End Role="Account_Head_TB" EntitySet="Account_Head_TB" />
           </AssociationSet>
-          <AssociationSet Name="FK__Permissio__Modul__10566F31" Association="Self.FK__Permissio__Modul__10566F31">
+          <AssociationSet Name="FK__Permissio__Modul__1F98B2C1" Association="Self.FK__Permissio__Modul__1F98B2C1">
             <End Role="Module" EntitySet="Modules" />
             <End Role="Permission" EntitySet="Permissions" />
           </AssociationSet>
@@ -2282,7 +2252,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             <End Role="User_Login" EntitySet="User_Login" />
             <End Role="Permission_User" EntitySet="Permission_User" />
           </AssociationSet>
-          <AssociationSet Name="FK__User_Logi__Role___17F790F9" Association="Self.FK__User_Logi__Role___17F790F9">
+          <AssociationSet Name="FK__User_Logi__Role___2739D489" Association="Self.FK__User_Logi__Role___2739D489">
             <End Role="Role" EntitySet="Roles" />
             <End Role="User_Login" EntitySet="User_Login" />
           </AssociationSet>
@@ -2298,29 +2268,59 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             <End Role="User_Profile" EntitySet="User_Profile" />
             <End Role="User_Login" EntitySet="User_Login" />
           </AssociationSet>
-          <EntitySet Name="PartyTBs" EntityType="Business_SuitModel.PartyTB" />
-          <AssociationSet Name="FK_Client_List_PartyTB" Association="Business_SuitModel.FK_Client_List_PartyTB">
-            <End Role="PartyTB" EntitySet="PartyTBs" />
-            <End Role="Client_List" EntitySet="Client_List" />
+          <EntitySet Name="Expenses" EntityType="Business_SuitModel.Expense" />
+          <AssociationSet Name="FK_Expense_Account_Head_TB" Association="Business_SuitModel.FK_Expense_Account_Head_TB">
+            <End Role="Account_Head_TB" EntitySet="Account_Head_TB" />
+            <End Role="Expense" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expense_Expense_Type" Association="Business_SuitModel.FK_Expense_Expense_Type">
+            <End Role="Expense_Type" EntitySet="Expense_Type" />
+            <End Role="Expense" EntitySet="Expenses" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="PartyTB">
+        <EntityType Name="Expense">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Client_List" Relationship="Business_SuitModel.FK_Client_List_PartyTB" FromRole="PartyTB" ToRole="Client_List" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Spent_Date" Type="DateTime" Precision="3" />
+          <Property Name="Image" Type="Boolean" />
+          <Property Name="Extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <Property Name="Is_Deleted" Type="Boolean" />
+          <Property Name="Deleted_By" Type="Int32" />
+          <Property Name="Deleted_On" Type="DateTime" Precision="3" />
+          <Property Name="Account_Head_Id" Type="Int32" />
+          <NavigationProperty Name="Account_Head_TB" Relationship="Business_SuitModel.FK_Expense_Account_Head_TB" FromRole="Expense" ToRole="Account_Head_TB" />
+          <NavigationProperty Name="Expense_Type" Relationship="Business_SuitModel.FK_Expense_Expense_Type" FromRole="Expense" ToRole="Expense_Type" />
         </EntityType>
-        <Association Name="FK_Client_List_PartyTB">
-          <End Type="Business_SuitModel.PartyTB" Role="PartyTB" Multiplicity="0..1" />
-          <End Type="Business_SuitModel.Client_List" Role="Client_List" Multiplicity="*" />
+        <Association Name="FK_Expense_Account_Head_TB">
+          <End Type="Business_SuitModel.Account_Head_TB" Role="Account_Head_TB" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Expense" Role="Expense" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PartyTB">
+            <Principal Role="Account_Head_TB">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Client_List">
-              <PropertyRef Name="Party_Id" />
+            <Dependent Role="Expense">
+              <PropertyRef Name="Account_Head_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expense_Expense_Type">
+          <End Type="Business_SuitModel.Expense_Type" Role="Expense_Type" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Expense" Role="Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Expense_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expense">
+              <PropertyRef Name="Type" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2330,15 +2330,6 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Business_SuitModelStoreContainer" CdmEntityContainer="DBContext">
-          <EntitySetMapping Name="Account_Head_TB">
-            <EntityTypeMapping TypeName="Business_SuitModel.Account_Head_TB">
-              <MappingFragment StoreEntitySet="Account_Head_TB">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Main_Account_Id" ColumnName="Main_Account_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CDR_Instant">
             <EntityTypeMapping TypeName="Business_SuitModel.CDR_Instant">
               <MappingFragment StoreEntitySet="CDR_Instant">
@@ -2409,18 +2400,15 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <EntitySetMapping Name="Client_List">
             <EntityTypeMapping TypeName="Business_SuitModel.Client_List">
               <MappingFragment StoreEntitySet="Client_List">
-                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Counsilor_Name" ColumnName="Counsilor_Name" />
                 <ScalarProperty Name="Bangla_Name" ColumnName="Bangla_Name" />
                 <ScalarProperty Name="Mobile1" ColumnName="Mobile1" />
                 <ScalarProperty Name="Mobile2" ColumnName="Mobile2" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Constituency_Id" ColumnName="Constituency_Id" />
                 <ScalarProperty Name="ward" ColumnName="ward" />
                 <ScalarProperty Name="District_Id" ColumnName="District_Id" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Client_Type_Id" ColumnName="Client_Type_Id" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="Is_Elected" ColumnName="Is_Elected" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
@@ -2430,6 +2418,9 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
                 <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
                 <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
                 <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
+                <ScalarProperty Name="Client_Type_Id" ColumnName="Client_Type_Id" />
+                <ScalarProperty Name="Constituency_Id" ColumnName="Constituency_Id" />
+                <ScalarProperty Name="Party_Id" ColumnName="Party_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2483,27 +2474,6 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
               <MappingFragment StoreEntitySet="Division">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Expenses">
-            <EntityTypeMapping TypeName="Business_SuitModel.Expense">
-              <MappingFragment StoreEntitySet="Expense">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Account_Head_Id" ColumnName="Account_Head_Id" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Spent_Date" ColumnName="Spent_Date" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Extension" ColumnName="Extension" />
-                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
-                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
-                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
-                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
-                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
-                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
-                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2705,6 +2675,14 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
                 <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
                 <ScalarProperty Name="Created_On" ColumnName="Created_On" />
                 <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PartyTBs">
+            <EntityTypeMapping TypeName="Business_SuitModel.PartyTB">
+              <MappingFragment StoreEntitySet="PartyTB">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2930,6 +2908,15 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Account_Head_TB">
+            <EntityTypeMapping TypeName="Business_SuitModel.Account_Head_TB">
+              <MappingFragment StoreEntitySet="Account_Head_TB">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Main_Account_Id" ColumnName="Main_Account_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Tokens">
             <EntityTypeMapping TypeName="Business_SuitModel.Token">
               <MappingFragment StoreEntitySet="Tokens">
@@ -2944,10 +2931,23 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PartyTBs">
-            <EntityTypeMapping TypeName="Business_SuitModel.PartyTB">
-              <MappingFragment StoreEntitySet="PartyTB">
-                <ScalarProperty Name="Name" ColumnName="Name" />
+          <EntitySetMapping Name="Expenses">
+            <EntityTypeMapping TypeName="Business_SuitModel.Expense">
+              <MappingFragment StoreEntitySet="Expense">
+                <ScalarProperty Name="Account_Head_Id" ColumnName="Account_Head_Id" />
+                <ScalarProperty Name="Deleted_On" ColumnName="Deleted_On" />
+                <ScalarProperty Name="Deleted_By" ColumnName="Deleted_By" />
+                <ScalarProperty Name="Is_Deleted" ColumnName="Is_Deleted" />
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Spent_Date" ColumnName="Spent_Date" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

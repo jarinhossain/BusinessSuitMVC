@@ -4,61 +4,60 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="330cfe3b9f184d95b683e6a036932795" Name="Diagram1">
-        <EntityTypeShape EntityType="Business_SuitModel.Account_Head_TB" Width="1.5" PointX="10" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.CDR_Instant" Width="1.5" PointX="9.75" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.CDR_Obd" Width="1.5" PointX="11.75" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Client_Inventory" Width="1.5" PointX="5.25" PointY="20.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Client_List" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Client_Type" Width="1.5" PointX="0.75" PointY="21.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Constituency" Width="1.5" PointX="0.75" PointY="19.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.ContactTB" Width="1.5" PointX="9.75" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.District" Width="1.5" PointX="0.75" PointY="24.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Division" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Expense" Width="1.5" PointX="12.25" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Expense_Type" Width="1.5" PointX="10" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Incoming_Calls" Width="1.5" PointX="11.75" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Main_Accounts" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Module" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Obd_Bulk" Width="1.5" PointX="8.25" PointY="20" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Obd_Request" Width="1.5" PointX="10.5" PointY="20.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Obd_Ward_Details" Width="1.5" PointX="13.5" PointY="21.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Offline_Order_Details" Width="1.5" PointX="7.5" PointY="29.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Online_Order_Details" Width="1.5" PointX="10.5" PointY="30.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Order" Width="1.5" PointX="5.25" PointY="32" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Permission" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Permission_Role" Width="1.5" PointX="7.5" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Permission_User" Width="1.5" PointX="7.5" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Product" Width="1.5" PointX="8.25" PointY="39.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Promotion_Type" Width="1.5" PointX="8.25" PointY="26.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Remark" Width="1.5" PointX="13.75" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Role" Width="1.5" PointX="3" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Role_User" Width="1.5" PointX="7.5" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Role1" Width="1.5" PointX="13.75" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Sippeer" Width="1.5" PointX="2.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Slip_Formats" Width="1.5" PointX="5.25" PointY="28.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Sms_Bulk" Width="1.5" PointX="13.75" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Sms_Request" Width="1.5" PointX="14.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Status_" Width="1.5" PointX="15.75" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.User_Login" Width="1.5" PointX="5.25" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.User_Profile" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.User" Width="1.5" PointX="15.75" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Voter_Slip_Image_Type" Width="1.5" PointX="15.75" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Business_SuitModel.Token" Width="1.5" PointX="13.75" PointY="17.125" IsExpanded="true" />
-        <AssociationConnector Association="Business_SuitModel.FK_Account_Head_TB_Main_Accounts" ManuallyRouted="false" />
-        <AssociationConnector Association="Business_SuitModel.FK_Expense_Account_Head_TB" ManuallyRouted="false" />
+      <Diagram DiagramId="c26cba7549e44ce5a8c2bb2510b8928d" Name="Diagram1">
+        <EntityTypeShape EntityType="Business_SuitModel.CDR_Instant" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.CDR_Obd" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Client_Inventory" Width="1.5" PointX="5.25" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Client_List" Width="1.5" PointX="3" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Client_Type" Width="1.5" PointX="0.75" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Constituency" Width="1.5" PointX="0.75" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.ContactTB" Width="1.5" PointX="11.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.District" Width="1.5" PointX="0.75" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Division" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Expense_Type" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Incoming_Calls" Width="1.5" PointX="13.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Main_Accounts" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Module" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Obd_Bulk" Width="1.5" PointX="8.25" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Obd_Request" Width="1.5" PointX="10.5" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Obd_Ward_Details" Width="1.5" PointX="13.5" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Offline_Order_Details" Width="1.5" PointX="7.5" PointY="28.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Online_Order_Details" Width="1.5" PointX="10.5" PointY="28.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Order" Width="1.5" PointX="5.25" PointY="30.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.PartyTB" Width="1.5" PointX="0.75" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Permission" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Permission_Role" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Permission_User" Width="1.5" PointX="7.5" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Product" Width="1.5" PointX="8.25" PointY="38.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Promotion_Type" Width="1.5" PointX="8.25" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Remark" Width="1.5" PointX="13.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Role" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Role_User" Width="1.5" PointX="7.5" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Role1" Width="1.5" PointX="13.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Sippeer" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Slip_Formats" Width="1.5" PointX="5.25" PointY="27.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Sms_Bulk" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Sms_Request" Width="1.5" PointX="9.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Status_" Width="1.5" PointX="11.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.User_Login" Width="1.5" PointX="5.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.User_Profile" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.User" Width="1.5" PointX="13.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Voter_Slip_Image_Type" Width="1.5" PointX="15.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Account_Head_TB" Width="1.5" PointX="10" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Business_SuitModel.Token" Width="1.5" PointX="15.75" PointY="6.75" IsExpanded="true" />
         <AssociationConnector Association="Business_SuitModel.FK_Client_Inventory_Client_List" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_Client_Inventory_User_Login" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_Client_Inventory_User_Profile" ManuallyRouted="false" />
-        <AssociationConnector Association="Business_SuitModel.FK__Client_Li__Distr__4D5F7D71" ManuallyRouted="false" />
-        <AssociationConnector Association="Business_SuitModel.FK__User_Logi__Clien__4C6B5938" ManuallyRouted="false" />
+        <AssociationConnector Association="Business_SuitModel.FK__Client_Li__Distr__114A936A" ManuallyRouted="false" />
+        <AssociationConnector Association="Business_SuitModel.FK__User_Logi__Clien__2645B050" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_Client_List_Client_Type" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_Client_List_Constituency" ManuallyRouted="false" />
+        <AssociationConnector Association="Business_SuitModel.FK_Client_List_PartyTB" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_Obd_Bulk_Client_List" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_Obd_Ward_Details_Client_List" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_Order_ClientId" ManuallyRouted="false" />
-        <AssociationConnector Association="Business_SuitModel.FK_Expense_Expense_Type" ManuallyRouted="false" />
-        <AssociationConnector Association="Business_SuitModel.FK__Permissio__Modul__10566F31" ManuallyRouted="false" />
+        <AssociationConnector Association="Business_SuitModel.FK_Account_Head_TB_Main_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="Business_SuitModel.FK__Permissio__Modul__1F98B2C1" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_Obd_Bulk_Online_Order_Details" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_Obd_Request_Obd_Bulk" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_Obd_Ward_Details_Obd_Bulk" ManuallyRouted="false" />
@@ -71,12 +70,13 @@
         <AssociationConnector Association="Business_SuitModel.FK_Permission_User_Permission" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_Permission_Role_Role" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_Permission_User_User_Login" ManuallyRouted="false" />
-        <AssociationConnector Association="Business_SuitModel.FK__User_Logi__Role___17F790F9" ManuallyRouted="false" />
+        <AssociationConnector Association="Business_SuitModel.FK__User_Logi__Role___2739D489" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_Role_User_Role" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_Role_User_User_Login" ManuallyRouted="false" />
         <AssociationConnector Association="Business_SuitModel.FK_User_Login_User_Profile" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Business_SuitModel.PartyTB" Width="1.5" PointX="0.75" PointY="17.125" />
-        <AssociationConnector Association="Business_SuitModel.FK_Client_List_PartyTB" />
+        <EntityTypeShape EntityType="Business_SuitModel.Expense" Width="1.5" PointX="17" PointY="0.75" />
+        <AssociationConnector Association="Business_SuitModel.FK_Expense_Account_Head_TB" />
+        <AssociationConnector Association="Business_SuitModel.FK_Expense_Expense_Type" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

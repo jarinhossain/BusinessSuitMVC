@@ -30,11 +30,9 @@ namespace BusinessSuitMVC.Models
         public string Mobile1 { get; set; }
         public string Mobile2 { get; set; }
         public string Email { get; set; }
-        public Nullable<int> Constituency_Id { get; set; }
         public Nullable<int> ward { get; set; }
         public Nullable<int> District_Id { get; set; }
         public string Address { get; set; }
-        public Nullable<int> Client_Type_Id { get; set; }
         public string Remarks { get; set; }
         public Nullable<bool> Is_Elected { get; set; }
         public Nullable<bool> Image { get; set; }
@@ -44,6 +42,8 @@ namespace BusinessSuitMVC.Models
         public Nullable<int> Updated_By { get; set; }
         public Nullable<System.DateTime> Updated_On { get; set; }
         public Nullable<bool> Is_Active { get; set; }
+        public Nullable<int> Client_Type_Id { get; set; }
+        public Nullable<int> Constituency_Id { get; set; }
         public Nullable<int> Party_Id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -53,12 +53,12 @@ namespace BusinessSuitMVC.Models
         public virtual ICollection<User_Login> User_Login { get; set; }
         public virtual Client_Type Client_Type { get; set; }
         public virtual Constituency Constituency { get; set; }
+        public virtual PartyTB PartyTB { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Obd_Bulk> Obd_Bulk { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Obd_Ward_Details> Obd_Ward_Details { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
-        public virtual PartyTB PartyTB { get; set; }
     }
 }
