@@ -95,7 +95,7 @@
           <Property Name="Image" Type="bit" />
           <Property Name="Present_Position" Type="int" />
           <Property Name="Created_By" Type="int" />
-          <Property Name="Created_On" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="Is_Active" Type="bit" />
@@ -463,6 +463,29 @@
           <Property Name="Description" Type="varchar" MaxLength="500" />
           <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_On" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Server_log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Remarks " Type="varchar" MaxLength="100" />
+          <Property Name="Is_Forwarded" Type="bit" />
+          <Property Name="Memory" Type="varchar" MaxLength="30" />
+          <Property Name="Processor" Type="varchar" MaxLength="30" />
+          <Property Name="Server_Id" Type="int" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="ServerTB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Local_IP" Type="varchar" MaxLength="15" />
+          <Property Name="Real_IP" Type="varchar" MaxLength="15" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Sippeers">
           <Key>
@@ -948,6 +971,18 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Server_log_ServerTB">
+          <End Role="ServerTB" Type="Self.ServerTB" Multiplicity="0..1" />
+          <End Role="Server_log" Type="Self.Server_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServerTB">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Server_log">
+              <PropertyRef Name="Server_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Login_User_Profile">
           <End Role="User_Profile" Type="Self.User_Profile" Multiplicity="0..1" />
           <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
@@ -992,6 +1027,8 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role_User" EntityType="Self.Role_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Server_log" EntityType="Self.Server_log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServerTB" EntityType="Self.ServerTB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sippeers" EntityType="Self.Sippeers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Slip_Formats" EntityType="Self.Slip_Formats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sms_Bulk" EntityType="Self.Sms_Bulk" Schema="dbo" store:Type="Tables" />
@@ -1133,6 +1170,10 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             <End Role="User_Login" EntitySet="User_Login" />
             <End Role="Role_User" EntitySet="Role_User" />
           </AssociationSet>
+          <AssociationSet Name="FK_Server_log_ServerTB" Association="Self.FK_Server_log_ServerTB">
+            <End Role="ServerTB" EntitySet="ServerTB" />
+            <End Role="Server_log" EntitySet="Server_log" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_Login_User_Profile" Association="Self.FK_User_Login_User_Profile">
             <End Role="User_Profile" EntitySet="User_Profile" />
             <End Role="User_Login" EntitySet="User_Login" />
@@ -1227,7 +1268,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Image" Type="Boolean" />
           <Property Name="Present_Position" Type="Int32" />
           <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
           <Property Name="Is_Active" Type="Boolean" />
@@ -2277,6 +2318,12 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             <End Role="Expense_Type" EntitySet="Expense_Type" />
             <End Role="Expense" EntitySet="Expenses" />
           </AssociationSet>
+          <EntitySet Name="Server_log" EntityType="Business_SuitModel.Server_log" />
+          <EntitySet Name="ServerTBs" EntityType="Business_SuitModel.ServerTB" />
+          <AssociationSet Name="FK_Server_log_ServerTB" Association="Business_SuitModel.FK_Server_log_ServerTB">
+            <End Role="ServerTB" EntitySet="ServerTBs" />
+            <End Role="Server_log" EntitySet="Server_log" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Expense">
           <Key>
@@ -2321,6 +2368,43 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Principal>
             <Dependent Role="Expense">
               <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Server_log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Remarks_" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Is_Forwarded" Type="Boolean" />
+          <Property Name="Memory" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Processor" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Server_Id" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="ServerTB" Relationship="Business_SuitModel.FK_Server_log_ServerTB" FromRole="Server_log" ToRole="ServerTB" />
+        </EntityType>
+        <EntityType Name="ServerTB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Local_IP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Real_IP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Server_log" Relationship="Business_SuitModel.FK_Server_log_ServerTB" FromRole="ServerTB" ToRole="Server_log" />
+        </EntityType>
+        <Association Name="FK_Server_log_ServerTB">
+          <End Type="Business_SuitModel.ServerTB" Role="ServerTB" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Server_log" Role="Server_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServerTB">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Server_log">
+              <PropertyRef Name="Server_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2948,6 +3032,31 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Server_log">
+            <EntityTypeMapping TypeName="Business_SuitModel.Server_log">
+              <MappingFragment StoreEntitySet="Server_log">
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Server_Id" ColumnName="Server_Id" />
+                <ScalarProperty Name="Processor" ColumnName="Processor" />
+                <ScalarProperty Name="Memory" ColumnName="Memory" />
+                <ScalarProperty Name="Is_Forwarded" ColumnName="Is_Forwarded" />
+                <ScalarProperty Name="Remarks_" ColumnName="Remarks " />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServerTBs">
+            <EntityTypeMapping TypeName="Business_SuitModel.ServerTB">
+              <MappingFragment StoreEntitySet="ServerTB">
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Real_IP" ColumnName="Real_IP" />
+                <ScalarProperty Name="Local_IP" ColumnName="Local_IP" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

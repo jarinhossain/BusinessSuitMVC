@@ -46,6 +46,7 @@
                                     <th>Ward</th>
                                     <th>Division</th>
                                     <th>District</th>
+                                    <th>Constituency</th>
                                     <th>Address</th>
                                 </tr>
                             </thead>
@@ -67,6 +68,12 @@
                                         <td>@source.Ward</td>
                                         <td>@source.Division_Id</td>
                                         <td>@source.District_Id</td>
+                                        <td>
+                                            @if (@source.Constituency_List_Id != null)
+                                            {
+                                            @source.Constituency_List.Name
+                                            }
+                                    </td>
                                         <td>@source.Address</td>
                                     </tr>
                                 }

@@ -77,6 +77,9 @@
         <EntityTypeShape EntityType="Business_SuitModel.Expense" Width="1.5" PointX="17" PointY="0.75" />
         <AssociationConnector Association="Business_SuitModel.FK_Expense_Account_Head_TB" />
         <AssociationConnector Association="Business_SuitModel.FK_Expense_Expense_Type" />
+        <EntityTypeShape EntityType="Business_SuitModel.Server_log" Width="1.5" PointX="18.625" PointY="11" />
+        <EntityTypeShape EntityType="Business_SuitModel.ServerTB" Width="1.5" PointX="16.375" PointY="11" />
+        <AssociationConnector Association="Business_SuitModel.FK_Server_log_ServerTB" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

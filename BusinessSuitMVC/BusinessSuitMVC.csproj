@@ -188,7 +188,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CallController.cs" />
     <Compile Include="Controllers\ContactUsController.cs" />
+    <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\ServerController.cs" />
     <Compile Include="ModelClasses\asyncService.cs" />
     <Compile Include="Controllers\AccountingController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
@@ -338,6 +340,12 @@
     <Compile Include="Models\Role_User.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ServerTB.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Server_log.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Sippeer.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -472,6 +480,15 @@
     <Content Include="Views\Client\PartyTypeSearch.cshtml" />
     <Content Include="Views\ContactUs\ContactUsSearch.cshtml" />
     <Content Include="Views\ContactUs\ContactDetails.cshtml" />
+    <Content Include="Views\Source\SourceTypeCreate.cshtml" />
+    <Content Include="Views\Source\SourceTypeEdit.cshtml" />
+    <Content Include="Views\Source\SourceTypeSearch.cshtml" />
+    <Content Include="Views\Server\ServerCreate.cshtml" />
+    <Content Include="Views\Server\ServerEdit.cshtml" />
+    <Content Include="Views\Server\ServerSearch.cshtml" />
+    <Content Include="Views\Module\ModuleCreate.cshtml" />
+    <Content Include="Views\Module\ModuleEdit.cshtml" />
+    <Content Include="Views\Module\ModuleSearch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,5 +1,5 @@
 ﻿
-@model List<BusinessSuitMVC.Models.Account_Head_TB>
+@model List<BusinessSuitMVC.Models.ServerTB>
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -7,9 +7,9 @@
 
     <section class="content-header">
         <h1>
-            Client
+            Server
         </h1>
-      
+
     </section>
     <!-- Main content -->
     <section class="content">
@@ -21,7 +21,7 @@
                             <h3 class="box-title">Search</h3>
                         </div>
                         <div class="col-md-1">
-                            <a href="~/Accounting/AccountHeadCreate" class="btn btn-primary btn-sm">Add</a>
+                            <a href="~/Server/ServerCreate" class="btn btn-primary btn-sm">Add</a>
                         </div>
                     </div>
 
@@ -31,25 +31,25 @@
                             <thead>
                                 <tr role="row">
                                     <th>Option</th>
-                                    <th>AccountHead Name</th>
-                                    <th>Main Account</th>
+                                    <th>Server Name</th>
+                                    <th>Local Id</th>
+                                    <th>Real Id</th>
+                                    <th>Description</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach (BusinessSuitMVC.Models.Account_Head_TB client in (IEnumerable<BusinessSuitMVC.Models.Account_Head_TB>)Model)
+                                @foreach (BusinessSuitMVC.Models.ServerTB client in (IEnumerable<BusinessSuitMVC.Models.ServerTB>)Model)
                                 {
                                     <tr>
                                         <td>
-                                            <a href="~/Accounting/AccountHeadEdit?id=@client.Id">Edit </a>
+                                            <a href="~/Server/ServerEdit?id=@client.Id">Edit </a>
                                         </td>
                                         <td>@client.Name</td>
-                                        <td>
-                                          @if (@client.Main_Account_Id != null)
-                                          {
-                                             @client.Main_Accounts.Name
-                                          }
-                                    </td>
+                                        <td>@client.Local_IP</td>
+                                        <td>@client.Real_IP</td>
+                                        <td>@client.Description</td>
+                                       
                                     </tr>
                                 }
                             <tbody>

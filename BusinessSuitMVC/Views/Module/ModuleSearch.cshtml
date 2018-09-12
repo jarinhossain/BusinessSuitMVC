@@ -1,5 +1,5 @@
 ﻿
-@model List<BusinessSuitMVC.Models.Account_Head_TB>
+@model List<BusinessSuitMVC.Models.Module>
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -7,9 +7,9 @@
 
     <section class="content-header">
         <h1>
-            Client
+            Module
         </h1>
-      
+
     </section>
     <!-- Main content -->
     <section class="content">
@@ -21,7 +21,7 @@
                             <h3 class="box-title">Search</h3>
                         </div>
                         <div class="col-md-1">
-                            <a href="~/Accounting/AccountHeadCreate" class="btn btn-primary btn-sm">Add</a>
+                            <a href="~/Module/ModuleCreate" class="btn btn-primary btn-sm">Add</a>
                         </div>
                     </div>
 
@@ -31,31 +31,24 @@
                             <thead>
                                 <tr role="row">
                                     <th>Option</th>
-                                    <th>AccountHead Name</th>
-                                    <th>Main Account</th>
+                                    <th>Module Name</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @foreach (BusinessSuitMVC.Models.Account_Head_TB client in (IEnumerable<BusinessSuitMVC.Models.Account_Head_TB>)Model)
+                                @foreach (BusinessSuitMVC.Models.Module client in (IEnumerable<BusinessSuitMVC.Models.Module>)Model)
                                 {
                                     <tr>
                                         <td>
-                                            <a href="~/Accounting/AccountHeadEdit?id=@client.Id">Edit </a>
+                                            <a href="~/Module/ModuleEdit?id=@client.Id">Edit </a>
                                         </td>
                                         <td>@client.Name</td>
-                                        <td>
-                                          @if (@client.Main_Account_Id != null)
-                                          {
-                                             @client.Main_Accounts.Name
-                                          }
-                                    </td>
+                                       
                                     </tr>
                                 }
                             <tbody>
                         </table>
                     </div>
-
                 </div>
             </div>
         </div>

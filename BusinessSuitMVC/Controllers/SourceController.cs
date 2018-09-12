@@ -76,7 +76,56 @@ namespace BusinessSuitMVC.Controllers
             ViewData["constituencylist"] = loadConstituencydropdown();
             return View();
         }
+        [HttpGet]
+        public ActionResult SourceTypeCreate()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SourceTypeCreate(Source_Type acount)
+        {
+            Numeral_DBContext db = new Numeral_DBContext();
+            db.Source_Type.Add(acount);
+            db.SaveChanges();
+            ViewData["msg"] = "Successfully Saved";
+            return View();
+        }
+        [HttpGet]
+        public ActionResult SourceTypeEdit(int id)
+        {
+            Numeral_DBContext db = new Numeral_DBContext();
+            Source_Type account = (from ac in db.Source_Type
+                                   where ac.Id == id
+                                       select ac).FirstOrDefault();
 
+
+            return View(account);
+        }
+        [HttpPost]
+        public ActionResult SourceTypeEdit(Source_Type account)
+        {
+            Numeral_DBContext db = new Numeral_DBContext();
+            Source_Type accoun = (from ac in db.Source_Type
+                                  where ac.Id == account.Id
+                                      select ac).FirstOrDefault();
+
+            accoun.Name = account.Name;
+            db.SaveChanges();
+
+            ViewData["msg"] = "Successfully Updated";
+            return View(account);
+        }
+        public ActionResult SourceTypeSearch()
+        {
+
+
+            Numeral_DBContext DB = new Numeral_DBContext();
+
+            List<Source_Type> expense = (from client in DB.Source_Type
+                                             select client).ToList();
+
+            return View(expense);
+        }
         public String ValidationSource(Source source)
         {
             if (source.Contact_Name == null)
@@ -415,6 +464,7 @@ namespace BusinessSuitMVC.Controllers
             }
             return typeDropdown;
         }
+     
         public List<SelectListItem> loadConstituencydropdown()
         {
             Numeral_DBContext DB = new Numeral_DBContext();
