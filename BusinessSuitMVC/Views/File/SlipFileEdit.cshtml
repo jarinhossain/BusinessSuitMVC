@@ -1,0 +1,144 @@
+﻿@model BusinessSuitMVC.Models.Slip_File
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+
+<section class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Slip File
+        </h1>
+        @*<ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Forms</a></li>
+                <li class="active">General Elements</li>
+            </ol>*@
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Edit</h3>
+                    </div>
+                    @using (Html.BeginForm("SlipFileEdit", "File", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+                    {
+                        <div class="box-body">
+                            @Html.HiddenFor(m => m.Id)
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Constituency<span style="color:red;">*</span></label>
+                                <div class="col-md-5">
+                                    @Html.DropDownList("Constituency_Id", (List<SelectListItem>)ViewData["Constituencylist"], "Select Constituency", new { @class = "form-control editor-field" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="control-label col-md-3">Ward<span style="color:red;">*</span> </label>
+
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(m => m.Ward, new { @Class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="control-label col-md-3">Files</label>
+
+                                <div class="col-md-5">
+                                    @Html.TextBoxFor(m => m.Files, new { @Class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="control-label col-md-3">Remarks</label>
+
+                                <div class="col-md-5">
+                                    @Html.TextAreaFor(m => m.Remarks, new { @Class = "form-control", @row = "3" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
+
+                                <input type="submit" value="Update" style="margin-left:15px" class="btn btn-info" />
+                                <input type="button" value="Reset" id="reset" class="btn btn-info" />
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-3"></div>
+                                <label id="msg" style="color:red;">@ViewData["msg"]</label>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+@section contents{
+    <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
+}
+
+@section scripts{
+    <script src="~/Script/bootstrap-datepicker.min.js"></script>
+    <script>
+        $('.myDatePicker').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        })
+
+        $("form").submit(function (event) {
+            if ($("#Constituency_Id").val() == "") {
+                event.preventDefault();
+                //alert("Counsilor_Name is required");
+                swal("Failed", "Constituency_Id is required", "error").then(function () {
+                    $("#Constituency_Id").focus();
+                });
+
+
+            }
+            else if ($("#Ward").val() == "") {
+                event.preventDefault();
+                //alert("Counsilor_Name is required");
+                swal("Failed", "Ward is required", "error").then(function () {
+                    $("#Ward").focus();
+                });
+
+
+            }
+
+        });
+
+        function resetFunction() {
+
+            $("#Constituency_Id").val("");
+            $("#Ward").val("");
+            $("#Files").val("");
+            $("#Remarks").val("");
+        }
+
+        $(document).ready(function () {
+
+            var message = $("#msg").text();
+
+            if (message == "Successfully Updated") {
+                swal("Successful", "Successfully Updated", "success").then(function () {
+                    resetFunction();
+                    window.location = "/File/SlipFileSearch";
+                });
+            }
+
+            $("#reset").click(function () {
+
+                resetFunction();
+
+            });
+
+        });
+    </script>
+}

@@ -1,11 +1,12 @@
 $(document).ready(function () {
     $("form").submit(function (event) {
-
+        
         if ($("#FullName").val() == "") {
             event.preventDefault();
             $("#name").text("Full Name is required");
             $("#name").show(500);
             $("#FullName").focus();
+            return;
         }
         else
             $("#name").hide(500);
@@ -14,77 +15,101 @@ $(document).ready(function () {
             event.preventDefault();
             $("#email").text("Email is required");
             $("#email").show(500);
-                $("#Email").focus();
+            $("#Email").focus();
+            return;
            
         }
-        else if ($("#Phone").val() == "" || $("#Phone").val().length != 11) {
+        else
+            $("#email").hide(500);
+
+        if ($("#Phone").val() == "" || $("#Phone").val().length != 11) {
             event.preventDefault();
             $("#phone").text("Phone is required");
             $("#phone").show(500);
-                $("#Phone").focus();
+            $("#Phone").focus();
+            return;
             
         }
-        else if ($("#Address").val() == "") {
+        else
+            $("#phone").hide(500);
+        if ($("#Address").val() == "") {
             event.preventDefault();
             $("#address").text("Address is required");
             $("#address").show(500);
-                $("#Address").focus();
+            $("#Address").focus();
+            return;
             
         }
-        else if ($("#City").val() == "") {
+        else
+            $("#address").hide(500);
+        if ($("#City").val() == "") {
             event.preventDefault();
             $("#city").text("City is required");
             $("#city").show(500);
-                $("#City").focus();
+            $("#City").focus();
+            return;
             
         }
-        else if ($("#Subject").val() == "") {
+        else
+            $("#city").hide(500);
+        if ($("#Subject").val() == "") {
             event.preventDefault();
             $("#subject").text("Subject is required");
             $("#subject").show(500);
-                $("#Subject").focus();
+            $("#Subject").focus();
+            return;
            
         }
-        else if ($("#Message").val() == "") {
+        else
+            $("#subject").hide(500);
+
+        if ($("#Message").val() == "") {
             event.preventDefault();
             $("#message").text("Message is required");
             $("#message").show(500);
-                $("#Message").focus();
+            $("#Message").focus();
+            return;
            
+
         }
-        else {
+       
+        else
+            $("#message").hide(500);
+        
+    
             event.preventDefault();
            
-            $.ajax({
-                url: "/Home/Index",
-                type: "POST",
-                dataType: "json",
-                data: {
-                    FullName: $("#FullName").val(),
-                    Email: $("#Email").val(),
-                    Phone: $("#Phone").val(),
-                    Address: $("#Address").val(),
-                    Job_Title: $("#Job_Title").val(),
-                    Company_Name: $("#Company_Name").val(),
-                    City: $("#City").val(),
-                    postal_code: $("#postal_code").val(),
-                    Subject: $("#Subject").val(),
-                    Message: $("#Message").val(),
-                },
+        $.ajax({
+            url: "/Home/Index",
+            type: "POST",
+            dataType: "json",
+            data: {
+                FullName: $("#FullName").val(),
+                Email: $("#Email").val(),
+                Phone: $("#Phone").val(),
+                Address: $("#Address").val(),
+                Job_Title: $("#Job_Title").val(),
+                Company_Name: $("#Company_Name").val(),
+                City: $("#City").val(),
+                postal_code: $("#postal_code").val(),
+                Subject: $("#Subject").val(),
+                Message: $("#Message").val(),
+            },
 
-                success: function (data) {
-                    if (data == "true")
-                        swal("Success", "Successfully Submitted", "success");
-                    else
-                        swal("Failed", data, "error");
-                    resetfunction();
-                },
-                error: function (data) {
-                    alert(data)
-                },
+            success: function (data) {
+                if (data == "true")
+                    swal("Success", "Successfully Submitted", "success");
+                else
+                    swal("Failed", data, "error");
+                resetfunction();
+            },
+            error: function (data) {
+                alert(data)
+            },
 
-            })
-        }
+        })
+    
+    
     });
     function resetfunction() {
         $("#FullName").val(""),

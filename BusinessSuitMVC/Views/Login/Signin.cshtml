@@ -44,11 +44,13 @@
             {
             
             <div class="form-group has-feedback">
-                @Html.TextBoxFor(m => m.UserName, new { @Class = "form-control" })
+               
+                @Html.TextBoxFor(m => m.UserName, new { @Class = "form-control", @placeholder = "User Name", @autofocus = "autofocus" })
+               
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                @Html.TextBoxFor(m => m.Password, new { @Class = "form-control",@type="password"})
+                @Html.TextBoxFor(m => m.Password, new { @Class = "form-control",@type="password", @placeholder = "Password" })
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
@@ -93,6 +95,7 @@
                 increaseArea: '20%' /* optional */
             });
         });
+
     </script>
 </body>
 </html>

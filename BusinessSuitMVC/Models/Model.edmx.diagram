@@ -80,6 +80,9 @@
         <EntityTypeShape EntityType="Business_SuitModel.Server_log" Width="1.5" PointX="18.625" PointY="11" />
         <EntityTypeShape EntityType="Business_SuitModel.ServerTB" Width="1.5" PointX="16.375" PointY="11" />
         <AssociationConnector Association="Business_SuitModel.FK_Server_log_ServerTB" />
+        <EntityTypeShape EntityType="Business_SuitModel.Play_File_TB" Width="1.5" PointX="16.375" PointY="14.75" />
+        <EntityTypeShape EntityType="Business_SuitModel.Slip_File" Width="1.5" PointX="3" PointY="26" />
+        <AssociationConnector Association="Business_SuitModel.FK_Slip_File_Constituency" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

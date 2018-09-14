@@ -64,16 +64,17 @@ namespace BusinessSuitMVC.Controllers
             return View(expens);
         }
         [HttpGet]
-        public ActionResult ServerSearch()
+        public ActionResult ServerLogSearch()
         {
 
 
             DBContext DB = new DBContext();
 
-            List<ServerTB> expense = (from client in DB.ServerTBs
+            List<Server_log> expense = (from client in DB.Server_log
                                              select client).ToList();
 
             return View(expense);
         }
+
     }
 }

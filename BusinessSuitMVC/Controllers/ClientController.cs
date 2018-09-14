@@ -133,6 +133,44 @@ namespace BusinessSuitMVC.Controllers
             return View(expense);
         }
         [HttpGet]
+        public ActionResult InventoryAdd(int id)
+        {
+
+            DBContext db = new DBContext();
+            Client_Inventory account = (from ac in db.Client_Inventory
+                                        where ac.Id == id
+                                   select ac).FirstOrDefault();
+
+
+            return View(account);
+        }
+        [HttpPost]
+        public JsonResult InventoryAdd(Client_Inventory account)
+        {
+
+            DBContext db = new DBContext();
+            Client_Inventory accoun = (from ac in db.Client_Inventory
+                                       where ac.Id == account.Id
+                                  select ac).FirstOrDefault();
+
+            accoun.Free_Sms = account.Free_Sms+ accoun.Free_Sms;
+            accoun.Free_Call = account.Free_Call+ accoun.Free_Call;
+            db.SaveChanges();
+            return Json("true", JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult InventoryAddSearch()
+        {
+
+
+            DBContext DB = new DBContext();
+
+            List<Client_Inventory> expense = (from client in DB.Client_Inventory
+                                     select client).ToList();
+
+            return View(expense);
+        }
+        [HttpGet]
         public ActionResult PartyTypeCreate()
         {
 

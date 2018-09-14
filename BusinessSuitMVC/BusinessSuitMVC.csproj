@@ -188,6 +188,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CallController.cs" />
     <Compile Include="Controllers\ContactUsController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ServerController.cs" />
@@ -322,6 +323,9 @@
     <Compile Include="Models\Permission_User.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Play_File_TB.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -347,6 +351,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sippeer.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Slip_File.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Slip_Formats.cs">
@@ -489,6 +496,15 @@
     <Content Include="Views\Module\ModuleCreate.cshtml" />
     <Content Include="Views\Module\ModuleEdit.cshtml" />
     <Content Include="Views\Module\ModuleSearch.cshtml" />
+    <Content Include="Views\Client\InventoryAdd.cshtml" />
+    <Content Include="Views\Server\ServerLogSearch.cshtml" />
+    <Content Include="Views\Client\InventoryAddSearch.cshtml" />
+    <Content Include="Views\File\PlayFileCreate.cshtml" />
+    <Content Include="Views\File\PlayFileEdit.cshtml" />
+    <Content Include="Views\File\PlayFileSearch.cshtml" />
+    <Content Include="Views\File\SlipFileCreate.cshtml" />
+    <Content Include="Views\File\SlipFileEdit.cshtml" />
+    <Content Include="Views\File\SlipFileSearch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -505,6 +521,7 @@
     <Folder Include="Images\User\" />
     <Folder Include="Images\VoterSlip\" />
     <Folder Include="Music\OBD_Client\" />
+    <Folder Include="Music\Play\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
