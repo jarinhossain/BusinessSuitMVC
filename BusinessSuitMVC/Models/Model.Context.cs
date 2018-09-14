@@ -68,5 +68,7 @@ namespace BusinessSuitMVC.Models
         public virtual DbSet<Expense> Expenses { get; set; }
         public virtual DbSet<Server_log> Server_log { get; set; }
         public virtual DbSet<ServerTB> ServerTBs { get; set; }
+        public virtual DbSet<Play_File_TB> Play_File_TB { get; set; }
+        public virtual DbSet<Slip_File> Slip_File { get; set; }
     }
 }

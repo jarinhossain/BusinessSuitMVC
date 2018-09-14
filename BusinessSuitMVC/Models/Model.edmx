@@ -95,7 +95,7 @@
           <Property Name="Image" Type="bit" />
           <Property Name="Present_Position" Type="int" />
           <Property Name="Created_By" Type="int" />
-          <Property Name="Created_On" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="Created_On" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="Updated_By" Type="int" />
           <Property Name="Updated_On" Type="datetime" />
           <Property Name="Is_Active" Type="bit" />
@@ -398,6 +398,20 @@
           <Property Name="User_Id" Type="int" />
           <Property Name="User_Type" Type="int" />
         </EntityType>
+        <EntityType Name="Play_File_TB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="File_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Is_Testing" Type="bit" />
+          <Property Name="Is_Default" Type="bit" />
+          <Property Name="Remarks" Type="varchar" MaxLength="300" />
+          <Property Name="Created_By" Type="int" />
+          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Updated_By" Type="int" />
+          <Property Name="Updated_On" Type="datetime" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="Id" />
@@ -492,6 +506,24 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Slip_File">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Constituency_Id" Type="int" />
+          <Property Name="Ward" Type="int" />
+          <Property Name="File_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Voters" Type="int" />
+          <Property Name="Voters_With_Migrate" Type="int" />
+          <Property Name="Files" Type="int" />
+          <Property Name="Is_Single_File" Type="bit" />
+          <Property Name="Remarks" Type="varchar" MaxLength="300" />
+          <Property Name="Created_By" Type="int" />
+          <Property Name="Created_On" Type="datetime" />
+          <Property Name="Updated_By" Type="int" />
+          <Property Name="Updated_On" Type="datetime" />
         </EntityType>
         <EntityType Name="Slip_Formats">
           <Key>
@@ -983,6 +1015,18 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Slip_File_Constituency">
+          <End Role="Constituency" Type="Self.Constituency" Multiplicity="0..1" />
+          <End Role="Slip_File" Type="Self.Slip_File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Constituency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Slip_File">
+              <PropertyRef Name="Constituency_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Login_User_Profile">
           <End Role="User_Profile" Type="Self.User_Profile" Multiplicity="0..1" />
           <End Role="User_Login" Type="Self.User_Login" Multiplicity="*" />
@@ -1021,6 +1065,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission_Role" EntityType="Self.Permission_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permission_User" EntityType="Self.Permission_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Play_File_TB" EntityType="Self.Play_File_TB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Promotion_Type" EntityType="Self.Promotion_Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Remarks" EntityType="Self.Remarks" Schema="dbo" store:Type="Tables" />
@@ -1030,6 +1075,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <EntitySet Name="Server_log" EntityType="Self.Server_log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServerTB" EntityType="Self.ServerTB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sippeers" EntityType="Self.Sippeers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Slip_File" EntityType="Self.Slip_File" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Slip_Formats" EntityType="Self.Slip_Formats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sms_Bulk" EntityType="Self.Sms_Bulk" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sms_Request" EntityType="Self.Sms_Request" Schema="dbo" store:Type="Tables" />
@@ -1174,6 +1220,10 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             <End Role="ServerTB" EntitySet="ServerTB" />
             <End Role="Server_log" EntitySet="Server_log" />
           </AssociationSet>
+          <AssociationSet Name="FK_Slip_File_Constituency" Association="Self.FK_Slip_File_Constituency">
+            <End Role="Constituency" EntitySet="Constituency" />
+            <End Role="Slip_File" EntitySet="Slip_File" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_Login_User_Profile" Association="Self.FK_User_Login_User_Profile">
             <End Role="User_Profile" EntitySet="User_Profile" />
             <End Role="User_Login" EntitySet="User_Login" />
@@ -1268,7 +1318,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Image" Type="Boolean" />
           <Property Name="Present_Position" Type="Int32" />
           <Property Name="Created_By" Type="Int32" />
-          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" annotation:StoreGeneratedPattern="Computed" Nullable="false" />
           <Property Name="Updated_By" Type="Int32" />
           <Property Name="Updated_On" Type="DateTime" Precision="3" />
           <Property Name="Is_Active" Type="Boolean" />
@@ -1300,6 +1350,7 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Client_List" Relationship="Self.FK_Client_List_Constituency" FromRole="Constituency" ToRole="Client_List" />
+          <NavigationProperty Name="Slip_File" Relationship="Business_SuitModel.FK_Slip_File_Constituency" FromRole="Constituency" ToRole="Slip_File" />
         </EntityType>
         <EntityType Name="ContactTB">
           <Key>
@@ -2324,6 +2375,12 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             <End Role="ServerTB" EntitySet="ServerTBs" />
             <End Role="Server_log" EntitySet="Server_log" />
           </AssociationSet>
+          <EntitySet Name="Play_File_TB" EntityType="Business_SuitModel.Play_File_TB" />
+          <EntitySet Name="Slip_File" EntityType="Business_SuitModel.Slip_File" />
+          <AssociationSet Name="FK_Slip_File_Constituency" Association="Business_SuitModel.FK_Slip_File_Constituency">
+            <End Role="Constituency" EntitySet="Constituencies" />
+            <End Role="Slip_File" EntitySet="Slip_File" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Expense">
           <Key>
@@ -2405,6 +2462,51 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
             </Principal>
             <Dependent Role="Server_log">
               <PropertyRef Name="Server_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Play_File_TB">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="File_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Is_Testing" Type="Boolean" />
+          <Property Name="Is_Default" Type="Boolean" />
+          <Property Name="Remarks" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Slip_File">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Constituency_Id" Type="Int32" />
+          <Property Name="Ward" Type="Int32" />
+          <Property Name="File_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Voters" Type="Int32" />
+          <Property Name="Voters_With_Migrate" Type="Int32" />
+          <Property Name="Files" Type="Int32" />
+          <Property Name="Is_Single_File" Type="Boolean" />
+          <Property Name="Remarks" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Created_By" Type="Int32" />
+          <Property Name="Created_On" Type="DateTime" Precision="3" />
+          <Property Name="Updated_By" Type="Int32" />
+          <Property Name="Updated_On" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Constituency" Relationship="Business_SuitModel.FK_Slip_File_Constituency" FromRole="Slip_File" ToRole="Constituency" />
+        </EntityType>
+        <Association Name="FK_Slip_File_Constituency">
+          <End Type="Business_SuitModel.Constituency" Role="Constituency" Multiplicity="0..1" />
+          <End Type="Business_SuitModel.Slip_File" Role="Slip_File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Constituency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Slip_File">
+              <PropertyRef Name="Constituency_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3057,6 +3159,40 @@ warning 6002: The table/view 'Business_Suit.dbo.Tokens' does not have a primary 
                 <ScalarProperty Name="Real_IP" ColumnName="Real_IP" />
                 <ScalarProperty Name="Local_IP" ColumnName="Local_IP" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Play_File_TB">
+            <EntityTypeMapping TypeName="Business_SuitModel.Play_File_TB">
+              <MappingFragment StoreEntitySet="Play_File_TB">
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Is_Default" ColumnName="Is_Default" />
+                <ScalarProperty Name="Is_Testing" ColumnName="Is_Testing" />
+                <ScalarProperty Name="File_Name" ColumnName="File_Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Slip_File">
+            <EntityTypeMapping TypeName="Business_SuitModel.Slip_File">
+              <MappingFragment StoreEntitySet="Slip_File">
+                <ScalarProperty Name="Updated_On" ColumnName="Updated_On" />
+                <ScalarProperty Name="Updated_By" ColumnName="Updated_By" />
+                <ScalarProperty Name="Created_On" ColumnName="Created_On" />
+                <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Is_Single_File" ColumnName="Is_Single_File" />
+                <ScalarProperty Name="Files" ColumnName="Files" />
+                <ScalarProperty Name="Voters_With_Migrate" ColumnName="Voters_With_Migrate" />
+                <ScalarProperty Name="Voters" ColumnName="Voters" />
+                <ScalarProperty Name="File_Name" ColumnName="File_Name" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="Constituency_Id" ColumnName="Constituency_Id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -18,6 +18,7 @@ namespace BusinessSuitMVC.Models
         public Constituency()
         {
             this.Client_List = new HashSet<Client_List>();
+            this.Slip_File = new HashSet<Slip_File>();
         }
     
         public int Id { get; set; }
@@ -25,5 +26,7 @@ namespace BusinessSuitMVC.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Client_List> Client_List { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Slip_File> Slip_File { get; set; }
     }
 }

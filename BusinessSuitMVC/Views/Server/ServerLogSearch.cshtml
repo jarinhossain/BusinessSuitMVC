@@ -1,0 +1,93 @@
+﻿
+@model List<BusinessSuitMVC.Models.Server_log>
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<section class="content-wrapper">
+
+    <section class="content-header">
+        <h1>
+            Server Log
+        </h1>
+
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <div class="col-md-11">
+                            <h3 class="box-title">Search</h3>
+                        </div>
+                        <div class="col-md-1">
+                            <a href="~/Server/ServerCreate" class="btn btn-primary btn-sm">Add</a>
+                        </div>
+                    </div>
+
+
+                    <div class="box-body">
+                        <table class="table table-bordered table-responsive table-striped display nowrap" id="example" style="display:block">
+                            <thead>
+                                <tr role="row">
+                                   
+                                    <th>Remarks</th>
+                                    <th>Is_Forwarded</th>
+                                    <th>Memory</th>
+                                    <th>Processor</th>
+                                    <th>Server Id</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (BusinessSuitMVC.Models.Server_log client in (IEnumerable<BusinessSuitMVC.Models.Server_log>)Model)
+                                {
+                                    <tr>
+                                      
+                                        <td>@client.Remarks_</td>
+                                        <td>@client.Is_Forwarded</td>
+                                        <td>@client.Memory</td>
+                                        <td>@client.Processor</td>
+                                        <td>@client.Server_Id</td>
+                                    </tr>
+                                }
+                            <tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+@section contents{
+    <link rel="stylesheet" href="~/layouts/adminTemplate/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    @*<link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />*@
+    @*<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />*@
+}
+@section scripts{
+
+
+    <script src="~/Script/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="~/layouts/adminTemplate/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var table = $('#example').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+
+                    'excelHtml5',
+                    'pdfHtml5'
+                ]
+            });
+
+
+        });
+    </script>
+
+}

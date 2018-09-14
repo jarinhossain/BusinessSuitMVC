@@ -366,63 +366,62 @@
                     <li class="header">MAIN NAVIGATION</li>
                     @if (Is_Client != true)
                     {
-                    <li class="active treeview">
-                        <a href="#">
-                            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                            <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-                        </ul>
-                    </li>
+                        <li class="active treeview">
+                            <a href="#">
+                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                                <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                            </ul>
+                        </li>
 
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-laptop"></i>
-                            <span>User</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="~/User/Create"><i class="fa fa-circle-o"></i> Create </a></li>
-                            <li><a href="~/User/Search"><i class="fa fa-circle-o"></i> List</a></li>
-                        </ul>
-                    </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-laptop"></i>
+                                <span>User</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="~/User/Create"><i class="fa fa-circle-o"></i> Create </a></li>
+                                <li><a href="~/User/Search"><i class="fa fa-circle-o"></i> List</a></li>
+                            </ul>
+                        </li>
 
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-laptop"></i>
-                            <span>Client</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="~/Client/Create"><i class="fa fa-circle-o"></i> Create </a></li>
-                            <li><a href="~/Client/Search"><i class="fa fa-circle-o"></i> List</a></li>
-                            <li><a href="#"><i class="fa fa-circle-o"></i>Add Inventory</a></li>
-                            <li><a href="#"><i class="fa fa-circle-o"></i>Inventory List</a></li>
-                        </ul>
-                    </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-laptop"></i>
+                                <span>Client</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="~/Client/Create"><i class="fa fa-circle-o"></i> Create </a></li>
+                                <li><a href="~/Client/Search"><i class="fa fa-circle-o"></i> List</a></li>
+                                <li><a href="~/Client/InventoryAddSearch"><i class="fa fa-circle-o"></i>Inventory List</a></li>
+                            </ul>
+                        </li>
 
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-laptop"></i>
-                            <span>Source</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="~/Source/Create"><i class="fa fa-circle-o"></i> Source </a></li>
-                            <li><a href="~/Source/Search"><i class="fa fa-circle-o"></i> List</a></li>
-                        </ul>
-                    </li>
-                    } 
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-laptop"></i>
+                                <span>Source</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="~/Source/Create"><i class="fa fa-circle-o"></i> Source </a></li>
+                                <li><a href="~/Source/Search"><i class="fa fa-circle-o"></i> List</a></li>
+                            </ul>
+                        </li>
+                    }
 
                     @if (Role == "1" || Role == "2")
                     {
@@ -451,10 +450,10 @@
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="~/SMS/SingleSMS"><i class="fa fa-circle-o"></i> Test SMS </a></li>
-                        @if (Role == "1")
-                        {
-                            <li><a href="~/SMS/BulkSMS"><i class="fa fa-circle-o"></i> Bulk SMS</a></li>
-                        }
+                            @if (Role == "1")
+                            {
+                                <li><a href="~/SMS/BulkSMS"><i class="fa fa-circle-o"></i> Bulk SMS</a></li>
+                            }
                         </ul>
                     </li>
 
@@ -476,22 +475,22 @@
                             <li><a href="~/Call/ObdRequestList"><i class="fa fa-circle-o"></i> Auto Call List</a></li>
                         </ul>
                     </li>
-                          
+
                     @if (Is_Client != true)
                     {
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-laptop"></i>
-                            <span>Accounting</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="~/Accounting/ExpenseCreate"><i class="fa fa-circle-o"></i> Add Expense </a></li>
-                            <li><a href="~/Accounting/ExpenseSearch"><i class="fa fa-circle-o"></i> Expense List</a></li>
-                        </ul>
-                    </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-laptop"></i>
+                                <span>Accounting</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="~/Accounting/ExpenseCreate"><i class="fa fa-circle-o"></i> Add Expense </a></li>
+                                <li><a href="~/Accounting/ExpenseSearch"><i class="fa fa-circle-o"></i> Expense List</a></li>
+                            </ul>
+                        </li>
                     }
 
                     @if (Role == "1")
@@ -524,33 +523,38 @@
                             </ul>
                         </li>
                     }
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-laptop"></i>
-                            <span>Subscription</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="~/ContactUs/ContactUsSearch"><i class="fa fa-circle-o"></i> Subscription List </a></li>
-                          
-                        </ul>
-                    </li>
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-laptop"></i>
-                            <span>Server</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="~/Server/ServerCreate"><i class="fa fa-circle-o"></i>Server Create </a></li>
-                            <li><a href="~/Server/ServerSearch"><i class="fa fa-circle-o"></i>List</a></li>
-                            <li><a href="#"><i class="fa fa-circle-o"></i>Server log </a></li>
-                        </ul>
-                    </li>
+                    @if (Role == "1" || Role == "2")
+                    {
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-laptop"></i>
+                                <span>Subscription</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="~/ContactUs/ContactUsSearch"><i class="fa fa-circle-o"></i> Subscription List </a></li>
+
+                            </ul>
+                        </li>
+                    }
+                    @if (Role == "1")
+                    {
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-laptop"></i>
+                                <span>Server</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="~/Server/ServerSearch"><i class="fa fa-circle-o"></i>List</a></li>
+                                <li><a href="~/Server/ServerLogSearch"><i class="fa fa-circle-o"></i>Server log </a></li>
+                            </ul>
+                        </li>
+                    }
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-laptop"></i>
@@ -560,12 +564,30 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
+                            @if (Role == "1")
+                            {
                             <li><a href="~/Client/ClientTypeSearch"><i class="fa fa-circle-o"></i>Client Type</a></li>
+                             }
+                            @if (Role == "1")
+                            {
                             <li><a href="~/Source/SourceTypeSearch"><i class="fa fa-circle-o"></i>Source Type</a></li>
+                            }
+                            @if (Role == "1")
+                            {
                             <li><a href="~/Client/PartyTypeSearch"><i class="fa fa-circle-o"></i>Party Type</a></li>
+                              }
+                            @if (Role == "1")
+                            {
                             <li><a href="~/Accounting/AccountheadSearch"><i class="fa fa-circle-o"></i>Account Head</a></li>
+                             }
+                            @if (Role == "1" || Role == "2")
+                            {
                             <li><a href="~/Accounting/ExpenseTypeSearch"><i class="fa fa-circle-o"></i>Expense Type</a></li>
+                            }
+                                @if (Role == "1")
+                                {
                             <li><a href="~/Module/ModuleSearch"><i class="fa fa-circle-o"></i>Module</a></li>
+                                }
 
                         </ul>
                     </li>

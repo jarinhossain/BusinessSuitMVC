@@ -104,16 +104,11 @@
     <script src="~/Script/bootstrap-datepicker.min.js"></script>
     <script>
        
-        //$('.myDatePicker').datepicker(
-
-        //    'setDate','dd-mm-yy', new Date()
-
-        //    )
-        //$(".myDatePicker").datepicker({
-        //    dateFormat: "dd-mm-yy"
-        //}).datepicker("setDate", "0");
-
-        $('.myDatePicker').datepicker('update', new Date(year, month, day));
+       
+        $('.myDatePicker').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        })
 
       
         $("form").submit(function (event) {
