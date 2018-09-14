@@ -36,7 +36,7 @@ namespace BusinessSuitMVC.Controllers
         {
             if (PermissionValidate.validatePermission() == false)
                 return View("Unauthorized");
-            
+
             return View();
         }
 
@@ -51,7 +51,7 @@ namespace BusinessSuitMVC.Controllers
             }
             else
             {
-                
+
                 DB.Online_Order_Details.Add(online);
                 DB.SaveChanges();
                 ViewData["msg"] = "Successfully Saved";
@@ -162,7 +162,7 @@ namespace BusinessSuitMVC.Controllers
             {
                 return "Please enter your valid Promotion Date From";
             }
-          
+
             else if (online.Price_Per_Piece == null)
             {
                 return "Please enter your valid Price Per SMS";
@@ -192,7 +192,7 @@ namespace BusinessSuitMVC.Controllers
                     return View();
                 }
             }
-           
+
             string validation = validationVoterCreate(offline);
 
             if (validation != "true")
@@ -210,7 +210,7 @@ namespace BusinessSuitMVC.Controllers
                     string path = Path.Combine(Server.MapPath("~/Images/VoterSlip"), "V_" + offline.Id + extension);
                     file.SaveAs(path);/// file save
                 }
-               
+
                 ViewData["msg"] = "Successfully Saved";
             }
             return View();
@@ -265,7 +265,7 @@ namespace BusinessSuitMVC.Controllers
             //{
             //    return "Please enter your valid Marka Image";
             //}
-          
+
             else if (offline.Delivery_Type == null)
             {
                 return "Please enter your valid Delivery Type";
@@ -278,5 +278,16 @@ namespace BusinessSuitMVC.Controllers
             return "true";
 
         }
-     }
+        //[HttpGet]
+        //public JsonResult getTotalVoters(string path)
+        //{
+        //    Info.setPath(path);
+        //    Info.setPerFormVoter(4);
+        //    Info.setCostPerPage(5);
+        //    int files = Info.getTotalFiles();
+        //    int aa = Info.getTotalVotersWithMigrate();
+        //    return Json(files + " " + aa , JsonRequestBehavior.AllowGet);
+
+        //}
+    }
 }
