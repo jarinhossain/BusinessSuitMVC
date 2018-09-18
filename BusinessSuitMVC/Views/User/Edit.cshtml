@@ -234,17 +234,6 @@ Gender = new List<SelectListItem>();
 
 
 
-            //else if ($("#Email").val() == "") {
-            //    event.preventDefault();
-            //    $("#Email").focus();
-            //    alert("Email is required");
-            //}
-        else if ($("#Address").val() == "") {
-            event.preventDefault();
-            swal("Failed", "Address is required", "error").then(function () {
-                $("#Address").focus();
-            });
-        }
     });
     function resetFunction() {
         $("#Name").val("");

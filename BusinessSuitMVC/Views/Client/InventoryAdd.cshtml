@@ -35,8 +35,9 @@
 
                                 <div class="col-md-5">
                                     <input id="freesms" Class="form-control" type="text" />
-                                    <label id="sms" style="color:red;" text="hfhfhgfh" class="control-label col-md-6"></label>
-                                
+                                    <label id="sms" style="color:red; margin-right:50%" text="hfhfhgfh" class="control-label col-md-6">Available SMS @Html.DisplayFor(m => m.Free_Sms)
+                                    </label>
+                                  
                                 </div>
                             </div>
                             <div class="form-group">
@@ -45,7 +46,9 @@
 
                                 <div class="col-md-5">
                                     <input id="freecall" Class="form-control" type="text" />
-                                    <label ></label>
+                                    <label id="sms" style="color:red; margin-right:50%" text="hfhfhgfh" class="control-label col-md-6">
+                                        Available Call @Html.DisplayFor(m => m.Free_Call)
+                                    </label>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -82,20 +85,30 @@
 
         $(document).ready(function () {
             $("form").submit(function (event) {
-                if ($("#Free_Sms").val() == "") {
+                if ($("#freesms").val() == "") {
                     event.preventDefault();
                     //alert("Counsilor_Name is required");
                     swal("Failed", "Sms is required", "error").then(function () {
-                        $("#Free_Sms").focus();
+                        $("#freesms").focus();
                     });
 
 
                 }
-                else if ($("#Free_Call").val() == "") {
+                //if ($("#freesms").val() > '10') {
+                //    event.preventDefault();
+                //    //alert("Counsilor_Name is required");
+                //    swal("Failed", "Sms is more than 10", "error").then(function () {
+                //        $("#Free_Sms").focus();
+                //        return;
+                //    });
+
+
+                //}
+                else if ($("#freecall").val() == "") {
                     event.preventDefault();
                     //alert("Counsilor_Name is required");
                     swal("Failed", "Call is required", "error").then(function () {
-                        $("#Free_Call").focus();
+                        $("#freecall").focus();
                     });
 
 
@@ -112,8 +125,10 @@
                         },
                         success: function (data) {
                             if (data == "true") {
-                                swal("Success", "Successfully Updated", "success");
-                               
+                                swal("Success", "Successfully Updated", "success").then(function () {
+                                    window.location = "/Client/InventoryAddSearch";
+                                });
+                              
                             }
                           
                             else {

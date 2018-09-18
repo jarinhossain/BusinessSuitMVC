@@ -37,7 +37,7 @@ namespace BusinessSuitMVC.Controllers
                 }
                 else
                 {
-                    ViewData["msg"] = "Failed to Save play file! Allowed file format is .wav/.gsm";
+                    ViewData["msg"] = "Select .wav or .gsm or  less than 20Μ";
                     return View();
                 }
             }
@@ -105,12 +105,43 @@ namespace BusinessSuitMVC.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult SlipFileCreate(Slip_File acount)
+        public ActionResult SlipFileCreate(Slip_File slipfile)
         {
             ViewData["Constituencylist"] = LoadConstituency();
+            HttpPostedFileBase file = null;
+            try { file = Request.Files[0]; } catch { }
+
+            if (file != null && file.ContentLength > 0 && file.ContentLength <= (2 * 1024))
+            {
+                string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+                if (extension == ".pdf" || extension == ".zip")
+                {
+                    ///do nothing
+                }
+                else
+                {
+                    ViewData["msg"] = "Select .wav or .gsm or  less than 2Μ";
+                    return View();
+                }
+            }
+           
             DBContext db = new DBContext();
-            db.Slip_File.Add(acount);
+            db.Slip_File.Add(slipfile);
             db.SaveChanges();
+            if (file != null && file.ContentLength > 0)
+            {
+                string extension = Path.GetExtension(Request.Files[0].FileName).ToLower();
+
+                Constituency accoun = (from con in db.Constituencies
+                                       where con.Id == slipfile.Constituency_Id
+                                       select con).FirstOrDefault();
+
+                slipfile.File_Name = "Slip_" + slipfile.Id + "_" + accoun.Name + "_W"+slipfile.Ward + "_" + slipfile.Remarks + extension;
+                string path = Path.Combine(Server.MapPath("~/Music/Slip"), slipfile.File_Name);
+                file.SaveAs(path);/// file save
+                db.SaveChanges();
+
+            }
             ViewData["msg"] = "Successfully Saved";
             return View();
         }

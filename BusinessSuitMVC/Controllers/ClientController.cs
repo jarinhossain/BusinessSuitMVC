@@ -151,10 +151,18 @@ namespace BusinessSuitMVC.Controllers
             DBContext db = new DBContext();
             Client_Inventory accoun = (from ac in db.Client_Inventory
                                        where ac.Id == account.Id
-                                  select ac).FirstOrDefault();
+                                       select ac).FirstOrDefault();
 
-            accoun.Free_Sms = account.Free_Sms+ accoun.Free_Sms;
+            accoun.Free_Sms = account.Free_Sms + accoun.Free_Sms;
+            if (accoun.Free_Sms > 10)
+            {
+                return Json("more than 10 sms is not allowed", JsonRequestBehavior.AllowGet);
+            }
             accoun.Free_Call = account.Free_Call+ accoun.Free_Call;
+            if (accoun.Free_Call > 10)
+            {
+                return Json("more than 10 call is not allowed", JsonRequestBehavior.AllowGet);
+            }
             db.SaveChanges();
             return Json("true", JsonRequestBehavior.AllowGet);
         }
@@ -173,12 +181,15 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult PartyTypeCreate()
         {
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             return View();
         }
         [HttpPost]
         public ActionResult PartyTypeCreate(PartyTB acount)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
             DBContext db = new DBContext();
             db.PartyTBs.Add(acount);
