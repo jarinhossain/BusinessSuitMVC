@@ -18,13 +18,15 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult ModuleCreate()
         {
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             return View();
         }
         [HttpPost]
         public ActionResult ModuleCreate(Module server)
         {
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             DBContext db = new DBContext();
             db.Modules.Add(server);
             db.SaveChanges();
@@ -35,7 +37,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult ModuleEdit(int id)
         {
-           
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             DBContext db = new DBContext();
             Module account = (from ac in db.Modules
                                        where ac.Id == id
@@ -47,7 +50,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult ModuleEdit(Module account)
         {
-          
+
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             DBContext db = new DBContext();
             Module accoun = (from ac in db.Modules
                                       where ac.Id == account.Id
@@ -64,7 +69,8 @@ namespace BusinessSuitMVC.Controllers
         public ActionResult ModuleSearch()
         {
 
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             DBContext DB = new DBContext();
 
             List<Module> expense = (from client in DB.Modules

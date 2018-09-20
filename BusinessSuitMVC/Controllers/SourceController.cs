@@ -79,11 +79,15 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult SourceTypeCreate()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             return View();
         }
         [HttpPost]
         public ActionResult SourceTypeCreate(Source_Type acount)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             Numeral_DBContext db = new Numeral_DBContext();
             db.Source_Type.Add(acount);
             db.SaveChanges();
@@ -93,6 +97,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult SourceTypeEdit(int id)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             Numeral_DBContext db = new Numeral_DBContext();
             Source_Type account = (from ac in db.Source_Type
                                    where ac.Id == id
@@ -104,6 +110,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult SourceTypeEdit(Source_Type account)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             Numeral_DBContext db = new Numeral_DBContext();
             Source_Type accoun = (from ac in db.Source_Type
                                   where ac.Id == account.Id
@@ -117,7 +125,8 @@ namespace BusinessSuitMVC.Controllers
         }
         public ActionResult SourceTypeSearch()
         {
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
             Numeral_DBContext DB = new Numeral_DBContext();
 

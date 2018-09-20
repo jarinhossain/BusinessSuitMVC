@@ -19,12 +19,15 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult PlayFileCreate()
         {
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             return View();
         }
         [HttpPost]
         public ActionResult PlayFileCreate(Play_File_TB playFile)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
 
@@ -61,7 +64,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult PlayFileEdit(int id)
         {
-          
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             DBContext db = new DBContext();
             Play_File_TB account = (from ac in db.Play_File_TB
                                        where ac.Id == id
@@ -73,7 +77,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult PlayFileEdit(Play_File_TB account)
         {
-           
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             DBContext db = new DBContext();
             Play_File_TB accoun = (from ac in db.Play_File_TB
                                       where ac.Id == account.Id
@@ -90,7 +95,8 @@ namespace BusinessSuitMVC.Controllers
         public ActionResult PlayFileSearch()
         {
 
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             DBContext DB = new DBContext();
 
             List<Play_File_TB> expense = (from client in DB.Play_File_TB
@@ -101,12 +107,16 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult SlipFileCreate()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             ViewData["Constituencylist"] = LoadConstituency();
             return View();
         }
         [HttpPost]
         public ActionResult SlipFileCreate(Slip_File slipfile)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             ViewData["Constituencylist"] = LoadConstituency();
             HttpPostedFileBase file = null;
             try { file = Request.Files[0]; } catch { }
@@ -148,6 +158,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult SlipFileEdit(int id)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             ViewData["Constituencylist"] = LoadConstituency();
             DBContext db = new DBContext();
             Slip_File account = (from ac in db.Slip_File
@@ -160,6 +172,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult SlipFileEdit(Slip_File account)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             ViewData["Constituencylist"] = LoadConstituency();
             DBContext db = new DBContext();
             Slip_File accoun = (from ac in db.Slip_File
@@ -191,7 +205,8 @@ namespace BusinessSuitMVC.Controllers
         public ActionResult SlipFileSearch()
         {
 
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             DBContext DB = new DBContext();
 
             List<Slip_File> expense = (from client in DB.Slip_File

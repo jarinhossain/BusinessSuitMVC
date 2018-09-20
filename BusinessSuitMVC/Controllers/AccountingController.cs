@@ -91,13 +91,15 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult Expensetypecreate()
         {
-           
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             return View();
         }
         [HttpPost]
         public ActionResult Expensetypecreate(Expense_Type expense)
         {
-           
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             DBContext db = new DBContext();
             db.Expense_Type.Add(expense);
             db.SaveChanges();
@@ -108,7 +110,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult ExpenseTypeEdit(int id)
         {
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
             Expense_Type expense = (from user in DB.Expense_Type
                                where user.Id == id
@@ -120,8 +123,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult ExpenseTypeEdit(Expense_Type expens)
         {
-           
-                DBContext DB = new DBContext();
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
+            DBContext DB = new DBContext();
             Expense_Type expense = (from user in DB.Expense_Type
                                    where user.Id == expens.Id
                                    select user).FirstOrDefault();
@@ -249,8 +253,9 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult ExpenseTypeSearch()
         {
-          
 
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             DBContext DB = new DBContext();
 
             List<Expense_Type> expense = (from expens in DB.Expense_Type
@@ -261,12 +266,16 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult AccountHeadCreate()
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             ViewData["MainAccountList"] = LoadMainAccount();
             return View();
         }
         [HttpPost]
         public ActionResult AccountHeadCreate(Account_Head_TB acount)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             ViewData["MainAccountList"] = LoadMainAccount();
             DBContext db = new DBContext();
             db.Account_Head_TB.Add(acount);
@@ -277,6 +286,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult AccountHeadEdit(int id)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             ViewData["MainAccountList"] = LoadMainAccount();
             DBContext db = new DBContext();
             Account_Head_TB account = (from ac in db.Account_Head_TB
@@ -289,6 +300,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult AccountHeadEdit(Account_Head_TB account)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             ViewData["MainAccountList"] = LoadMainAccount();
             DBContext db = new DBContext();
             Account_Head_TB accoun = (from ac in db.Account_Head_TB
@@ -304,7 +317,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult AccountheadSearch()
         {
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
             DBContext DB = new DBContext();
 

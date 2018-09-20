@@ -135,6 +135,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult InventoryAdd(int id)
         {
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
             DBContext db = new DBContext();
             Client_Inventory account = (from ac in db.Client_Inventory
@@ -147,7 +149,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public JsonResult InventoryAdd(Client_Inventory account)
         {
-
+            if (PermissionValidate.validatePermission() == false)
+                return Json("Unauthorized",JsonRequestBehavior.AllowGet);
             DBContext db = new DBContext();
             Client_Inventory accoun = (from ac in db.Client_Inventory
                                        where ac.Id == account.Id
@@ -169,7 +172,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult InventoryAddSearch()
         {
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
             DBContext DB = new DBContext();
 
@@ -200,7 +204,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult PartyTypeEdit(int id)
         {
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             DBContext db = new DBContext();
             PartyTB account = (from ac in db.PartyTBs
                                where ac.Id == id
@@ -212,7 +217,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult PartyTypeEdit(PartyTB account)
         {
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             DBContext db = new DBContext();
             PartyTB accoun = (from ac in db.PartyTBs
                               where ac.Id == account.Id
@@ -228,7 +234,8 @@ namespace BusinessSuitMVC.Controllers
         public ActionResult PartyTypeSearch()
         {
 
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             DBContext DB = new DBContext();
 
             List<PartyTB> expense = (from client in DB.PartyTBs

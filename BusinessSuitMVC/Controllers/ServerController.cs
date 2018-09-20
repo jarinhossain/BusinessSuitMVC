@@ -19,13 +19,15 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult ServerCreate()
         {
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             return View();
         }
         [HttpPost]
         public ActionResult ServerCreate(ServerTB server)
         {
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             DBContext db = new DBContext();
             db.ServerTBs.Add(server);
             db.SaveChanges();
@@ -36,7 +38,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult ServerEdit(int id)
         {
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             DBContext DB = new DBContext();
             ServerTB expens = (from user in DB.ServerTBs
                                 where user.Id == id
@@ -48,7 +51,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpPost]
         public ActionResult ServerEdit(ServerTB expens)
         {
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
             DBContext DB = new DBContext();
             ServerTB expense = (from user in DB.ServerTBs
                                     where user.Id == expens.Id
@@ -66,7 +70,8 @@ namespace BusinessSuitMVC.Controllers
         [HttpGet]
         public ActionResult ServerLogSearch()
         {
-
+            if (PermissionValidate.validatePermission() == false)
+                return View("Unauthorized");
 
             DBContext DB = new DBContext();
 
