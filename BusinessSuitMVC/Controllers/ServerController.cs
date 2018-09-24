@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace BusinessSuitMVC.Controllers
 {
+    [Authorize]
     public class ServerController : Controller
     {
         // GET: ServerCreate

@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace BusinessSuitMVC.Controllers
 {
+    [Authorize]
     public class SourceController : Controller
     {
         // GET: Source

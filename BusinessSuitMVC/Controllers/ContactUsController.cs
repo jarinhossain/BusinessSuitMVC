@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace BusinessSuitMVC.Controllers
 {
+    [Authorize]
     public class ContactUsController : Controller
     {
         // GET: ContactUs
