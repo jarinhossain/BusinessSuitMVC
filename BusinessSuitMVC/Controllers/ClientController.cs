@@ -151,12 +151,18 @@ namespace BusinessSuitMVC.Controllers
         {
             if (PermissionValidate.validatePermission() == false)
                 return Json("Unauthorized",JsonRequestBehavior.AllowGet);
+
             DBContext db = new DBContext();
+            var loginId = int.Parse(Session["Login_Id"].ToString());
+
             Client_Inventory accoun = (from ac in db.Client_Inventory
                                        where ac.Id == account.Id
                                        select ac).FirstOrDefault();
 
             accoun.Free_Sms = account.Free_Sms + accoun.Free_Sms;
+            accoun.Updated_By = loginId;
+            accoun.Updated_On = DateTime.Now;
+
             if (accoun.Free_Sms > 10)
             {
                 return Json("more than 10 sms is not allowed", JsonRequestBehavior.AllowGet);
@@ -689,6 +695,8 @@ namespace BusinessSuitMVC.Controllers
                 return Redirect("~/Client/ClientLoginDetails/" + client.Id);
             }
 
+            var loginId = int.Parse(Session["Login_Id"].ToString()); 
+
             User_Login login = new User_Login();
             login.Is_Client = true;
             login.Is_Active = true;
@@ -696,13 +704,13 @@ namespace BusinessSuitMVC.Controllers
             login.UserName = client.Mobile1;
             login.Role_Id = 5;///client role
             login.Password = PasswordEncryption.GetSHA1HashData(client.Mobile1 + client.Id.ToString());
-            login.Created_By = int.Parse(Session["Login_Id"].ToString());
+            login.Created_By = loginId;
 
             Client_Inventory clientInventory = new Client_Inventory();
             clientInventory.Client_Id = client.Id;
             clientInventory.Free_Call = 2;
             clientInventory.Free_Sms = 2;
-
+            clientInventory.Created_By = loginId;
             DB.Client_Inventory.Add(clientInventory);
             DB.User_Login.Add(login);
             DB.SaveChanges();
