@@ -165,6 +165,7 @@ namespace BusinessSuitMVC.Controllers
                 permisn.Description = per.Description;
                 permisn.Module_Id = per.Module_Id;
                 DB.SaveChanges();
+                PermissionValidate.updatePermissionCache(); ///update permission cache
                 ViewData["msg"] = "Successfully Updated";
             }
             return View(per);
@@ -266,6 +267,7 @@ namespace BusinessSuitMVC.Controllers
                 }
 
                 DB.SaveChanges();
+                PermissionValidate.updatePermissionCache(); ///update permission cache
                 ViewData["msg"] = "Successfully Updated";
             }
 
