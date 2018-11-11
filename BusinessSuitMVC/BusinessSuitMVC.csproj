@@ -161,6 +161,12 @@
     </Content>
     <Content Include="Script\adminlte.js" />
     <Content Include="Script\adminlte.min.js" />
+    <Content Include="Script\bijoy\bijoy2uni.js" />
+    <Content Include="Script\bijoy\common.js" />
+    <Content Include="Script\bijoy\count.js" />
+    <Content Include="Script\bijoy\js1.js" />
+    <Content Include="Script\bijoy\layout.js" />
+    <Content Include="Script\bijoy\uni2bijoy.js" />
     <Content Include="Script\bootstrap-datepicker.min.js" />
     <Content Include="Script\bootstrap.min.js" />
     <Content Include="Script\bootstrap3-wysihtml5.all.min.js" />
@@ -196,6 +202,7 @@
     <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ServerController.cs" />
+    <Compile Include="Controllers\UnicodeController.cs" />
     <Compile Include="ModelClasses\asyncService.cs" />
     <Compile Include="Controllers\AccountingController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
@@ -509,6 +516,7 @@
     <Content Include="Views\File\SlipFileCreate.cshtml" />
     <Content Include="Views\File\SlipFileEdit.cshtml" />
     <Content Include="Views\File\SlipFileSearch.cshtml" />
+    <Content Include="Views\Unicode\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
