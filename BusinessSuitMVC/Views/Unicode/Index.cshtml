@@ -1,0 +1,20 @@
+﻿@{
+    Layout= null;
+}
+<script src="~/Script/jquery-1.10.2.min.js"></script>
+<script src="~/Script/bijoy/bijoy2uni.js"></script>
+<script src="~/Script/bijoy/common.js"></script>
+<script src="~/Script/bijoy/count.js"></script>
+<script src="~/Script/bijoy/js1.js"></script>
+<script src="~/Script/bijoy/layout.js"></script>
+<script src="~/Script/bijoy/uni2bijoy.js"></script>
+<script>
+    var unicodeData = @Html.Raw(Json.Encode(ViewData["unicodeValue"]));
+    //document.write('{"unicodeModel": [');
+     document.write('{"unicodeModel": [');
+    $.each( unicodeData, function( key, value ) {
+        document.write( "{\"Id\":" + "\""+ value.Id + "\",");
+        document.writeln( "\"Value\":"+ "\""+ ConvertToTextArea(value.Value) + "\"}," );
+    });
+    document.write(']}');
+</script>
