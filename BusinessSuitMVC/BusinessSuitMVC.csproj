@@ -517,6 +517,7 @@
     <Content Include="Views\File\SlipFileEdit.cshtml" />
     <Content Include="Views\File\SlipFileSearch.cshtml" />
     <Content Include="Views\Unicode\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\Smarter.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
