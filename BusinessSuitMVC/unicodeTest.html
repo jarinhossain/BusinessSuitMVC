@@ -6,12 +6,16 @@
 <script src="Script/bijoy/layout.js"></script>
 <script src="Script/bijoy/uni2bijoy.js"></script>
 <script>
-    var unicodeData = [{"Id":"1","Value":"ইনপুট সরঞ্জামগুলি"},{"Id":"2","Value":"ইনপুট ইনপুট  সরঞ্জামগুলি"}];
+    var unicodeData = [{"Id":"1","Value":"োবগম"}];
     //document.write('{"unicodeModel": [');
      document.write('{"unicodeModel": [');
     $.each( unicodeData, function( key, value ) {
         document.write( "{\"Id\":" + "\""+ value.Id + "\",");
-        document.writeln( "\"Value\":"+ "\""+ ConvertToTextArea(value.Value) + "\"}," );
+        document.write( "\"Value\":"+ "\""+ ConvertToTextArea(value.Value) + "\"}" );
+        if(unicodeData.length -1 != key){
+            document.writeln(',');
+        }
     });
+
     document.write(']}');
 </script>

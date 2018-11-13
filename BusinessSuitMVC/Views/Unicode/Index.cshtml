@@ -14,7 +14,11 @@
      document.write('{"unicodeModel": [');
     $.each( unicodeData, function( key, value ) {
         document.write( "{\"Id\":" + "\""+ value.Id + "\",");
-        document.writeln( "\"Value\":"+ "\""+ ConvertToTextArea(value.Value) + "\"}," );
+        document.write( "\"Value\":"+ "\""+ ConvertToTextArea(value.Value) + "\"}" );
+        if(unicodeData.length -1 != key){
+            document.writeln(',');
+        }
     });
+
     document.write(']}');
 </script>
