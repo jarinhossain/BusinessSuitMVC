@@ -18,7 +18,8 @@ namespace BusinessSuitMVC.Controllers
     public class SMSController : Controller
     {
         private DBContext DB = new DBContext();
-
+        public string SMSGatewayGreenweb = "http://sms.greenweb.com.bd/api.php?";
+        //public string SMSGatewayBLink = "https://vas.banglalinkgsm.com/sendSMS/sendSMS?msisdn={0}&message={1}&userID=ayesis&passwd=ayesis123&sender=Aesys IT";
         [Authorize]
         [HttpGet]
         public ActionResult SingleSMS()
@@ -85,8 +86,13 @@ namespace BusinessSuitMVC.Controllers
                 DB.SaveChanges();
                 //ViewData["free_sms"] = clientInventory.Free_Sms + " remaining sms";
             }
+            if (getOperator(number) == 5)
+            {
+                await Task.Run(() => result = SendSmsBanglalink(number, message));
+            }
+            else
+                await Task.Run(() => result = sendSingleSmsMethod2(number, message, token));
 
-            await Task.Run(() => result = sendSingleSmsMethod2(number, message, token));
             // ViewBag.msg = result.;
             return Json(result.Result, JsonRequestBehavior.AllowGet);
             
@@ -183,6 +189,27 @@ namespace BusinessSuitMVC.Controllers
             return response;
         }
 
+        public async Task<string> SendSmsBanglalink(string mobile, string msg)
+        {
+            string SMSGatewayBLink = "https://vas.banglalinkgsm.com/sendSMS/sendSMS?";
+
+            var values = new Dictionary<string, string>(){
+                                           { "msisdn", mobile },
+                                           { "message", msg },
+                                           { "userID", "ayesis" },
+                                           { "passwd", "ayesis123" },
+                                           { "sender", "Aesys IT" }
+                                        };
+
+            var content = new FormUrlEncodedContent(values);
+
+            var response = await client.PostAsync(SMSGatewayBLink, content);
+
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            return responseString;
+        }
+
         ///in this method we can not send /,- type charaters for datetime
         public string sendSingleSmsMethod1(string number, string message, string token)
         {
@@ -267,6 +294,33 @@ namespace BusinessSuitMVC.Controllers
                 .ReceiveString();
 
             return responseString;
+        }
+
+        public int? getOperator(string number)
+        {
+            string operatorPrefix = number.Substring(0, 3);
+
+            if (operatorPrefix == "015")
+                return 1;
+            else if (operatorPrefix == "016")
+                return 2;
+            else if (operatorPrefix == "017")
+                return 3;
+            else if (operatorPrefix == "018")
+                return 4;
+            else if (operatorPrefix == "019")
+                return 5;
+            else
+                return null;
+
+            //Numeral_DBContext Num_DB = new Numeral_DBContext();
+            //var operatorData = Num_DB.Operators.Where(x => x.Prefix == operatorPrefix).FirstOrDefault();
+
+            //if (operatorData != null)
+            //    return operatorData.Id;
+            //else
+            //    return null;
+
         }
     }
 }
